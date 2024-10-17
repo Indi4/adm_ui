@@ -1,0 +1,9 @@
+:root {
+    --chart-tick-color: rgba(180, 183, 197, 0.4);
+    --chart-grid-color: rgba(180, 183, 197, 0.4);
+  }
+  
+  .dark-mode {
+    --chart-tick-color: rgba(255, 255, 255, 0.8) !important; /* Change to white or light color for dark mode */
+    --chart-grid-color: rgba(255, 255, 255, 0.2) !important; /* Lighten grid color for dark mode */
+  }
