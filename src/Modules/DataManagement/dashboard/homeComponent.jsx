@@ -13,7 +13,13 @@ function HomeComponent(props) {
     const [data, setData] = useState([])
 
     useEffect(() => {
-        debugger
+        AOS.init({
+            duration: 1000, // Animation duration in milliseconds
+            once: true, // Whether animation should happen only once or every time you scroll
+        });
+    }, []);
+
+    useEffect(() => {
         props.getCards(GET_CARDS_DATA)
         return () => { reset() }
     }, [])
@@ -28,13 +34,6 @@ function HomeComponent(props) {
     const reset = () => {
         setData([])
     }
-
-    useEffect(() => {
-        AOS.init({
-            duration: 1000, // Animation duration in milliseconds
-            once: true, // Whether animation should happen only once or every time you scroll
-        });
-    }, []);
 
     const breadcrumbs = ["Home", "Dashboard"];
     return (
