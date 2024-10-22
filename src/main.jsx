@@ -9,6 +9,8 @@ import { Routingdata } from './common/routingdata';
 // const App = lazy(() => import('./layouts/App'));
 const Authenticationlayout = lazy(() => import('./layouts/Authenticationlayout'));
 const Loaderimage = lazy(() => import('./layouts/loader/loader'));
+const Main = lazy(() => import('./layouts/mainLayout/main'));
+
 const Underconstruction = lazy(() => import('./components/Pages/Extension/UnderConstruction/Underconstruction'));
 const Auth = lazy(() => import('./layouts/firebase/firebaseauth/auth'));
 const Authlogin = lazy(() => import('./layouts/firebase/firebaseauth/authlogin'));
@@ -42,6 +44,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route index element={<Authlogin />} />
               <Route path="authlogin" element={<Authlogin />} />
               <Route path="signup" element={<Signup />} />
+              <Route path="main" element={<Main />} />
+
             </Route>
 
             {/* Main App Layout */}
