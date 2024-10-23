@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux'
 import { Button, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
-import { callCommonDeletAPI } from '../store/action/action'
+import { callCommonDeleteAPI } from '../store/action/action'
 import { ToastContainer, toast } from "react-toastify";
 
 function DeleteModalComponent(props) {
@@ -31,7 +31,7 @@ function DeleteModalComponent(props) {
     }, [deleteData])
 
     useEffect(() => {
-        if (Object.keys(errorData.length > 0).length > 0) {
+        if (Object.keys(errorData?.length > 0).length > 0) {
             toast.error(errorData.error)
         }
     }, [errorData])
@@ -86,13 +86,13 @@ function DeleteModalComponent(props) {
 }
 const mapStatetoProps = (state) => {
     return {
-        deleteData: state.product.deleteData,
-        errorData: state.product.errorData
+        deleteData: state.product?.deleteData,
+        errorData: state.product?.errorData
     }
 }
 const mapDispatchtoProps = (dispatch) => {
     return {
-        deleteRecord: (endPoint, payLoad) => dispatch(callCommonDeletAPI(endPoint, payLoad))
+        deleteRecord: (endPoint, payLoad) => dispatch(callCommonDeleteAPI(endPoint, payLoad))
     }
 }
 export default connect(mapStatetoProps, mapDispatchtoProps)(DeleteModalComponent)

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom/client'
 const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/homeComponent'))
+const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
 const Chat = React.lazy(() => import('../components/Apps/Chat/Chat'))
 const Contentscrollbar = React.lazy(() => import('../components/Apps/ContentScrollbar/ContentScrollbar'))
