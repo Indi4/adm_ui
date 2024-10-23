@@ -1,0 +1,62 @@
+.footer-row {
+    font-weight: bold;
+  }
+  
+  .chart-container {
+    overflow: auto; /* Allow overflow if necessary */
+    white-space: normal; /* Enable wrapping */
+  }
+  
+  .headerWrap {
+    white-space: normal;
+    word-wrap: break-word;
+    line-height: 1.2em; /* Adjust line height for wrapping */
+    height: auto; /* Adjust height to fit wrapped text */
+  }
+  .green {
+   /* background-color: green;*/
+    color: green; /* Optional: for better readability */
+  }
+  
+  .red {
+   /*  background-color: red;*/
+    color: red; /* Optional: for better readability */
+  }
+  
+  .light-grey-row {
+    background-color: #f5f5f5; /* Light grey color */
+  }
+  .bold-header {
+    font-weight: bold;
+  }
+  .fg-code-cell{
+    background-color: '#e3f2fd !important';
+    border-radius: '12px !important';
+    padding: '8px !important';
+    color: '#1a237e !important';
+    text-align: 'center !important'
+  }
+  /* Add this to your CSS file */
+  .green-cell {
+    background-color: green !important;
+    color: white !important; /* Optional: Set the text color to white for better contrast */
+  }
+  
+  .red-cell {
+    background-color: red !important;
+    color: white !important;
+  }
+  
+  .tablet-shape {
+    background-color: #d3d3d3 !important; /* Grey background for tablet shape */
+    padding: 4px 8px !important; /* Padding to create a tablet-like shape */
+    border-radius: 12px !important; /* Rounded corners for the shape */
+    display: inline-block !important; /* Inline-block to wrap content */
+  }
+  .wrap-header {
+    white-space: normal !important; /* Allow text to wrap */
+    word-wrap: break-word;         /* Break words if necessary */
+    overflow: visible !important;  /* Make sure the text is fully visible */
+    line-height: 1.5;              /* Adjust line height for better readability */
+  }
+  

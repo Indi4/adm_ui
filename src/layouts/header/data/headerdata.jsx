@@ -6,6 +6,7 @@ export const Sidebarcomponents = [
   { path: `${import.meta.env.BASE_URL}dashboard/analytics`, title: 'Analytics' },
   { path: `${import.meta.env.BASE_URL}dashboard/medical`, title: 'Medical' },
   { path: `${import.meta.env.BASE_URL}dashboard/crypto`, title: 'Crypto' },
+  { path: `${import.meta.env.BASE_URL}dashboard/customerDetails`, title: 'Customer Details' },
   { path: `${import.meta.env.BASE_URL}apps/cardsdesign`, title: 'Cards design' },
   { path: `${import.meta.env.BASE_URL}apps/defaultcalender`, title: 'Default calender' },
   { path: `${import.meta.env.BASE_URL}apps/fulcalender`, title: 'Full calender' },

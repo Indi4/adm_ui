@@ -19,7 +19,9 @@ const MenuItems = [
           { path: `${import.meta.env.BASE_URL}dashboard/ecommerce`, type: 'link', active: false, selected: false, title: 'E-Commerce' },
           { path: `${import.meta.env.BASE_URL}dashboard/analytics`, type: 'link', active: false, selected: false, title: 'Analytics' },
           { path: `${import.meta.env.BASE_URL}dashboard/medical`, type: 'link', active: false, selected: false, title: 'Medical' },
-          { path: `${import.meta.env.BASE_URL}dashboard/crypto`, type: 'link', active: false, selected: false, title: 'Crypto' }
+          { path: `${import.meta.env.BASE_URL}dashboard/crypto`, type: 'link', active: false, selected: false, title: 'Crypto' },
+          { path: `${import.meta.env.BASE_URL}dashboard/customerDetails`, type: 'link', active: false, selected: false, title: 'Customer Details' },
+          { path: `${import.meta.env.BASE_URL}dashboard/bomDetails`, type: 'link', active: false, selected: false, title: 'BOM Details' }
         ]
       }
     ]
