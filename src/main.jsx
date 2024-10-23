@@ -11,6 +11,8 @@ import store from './store/index';
 // const App = lazy(() => import('./layouts/App'));
 const Authenticationlayout = lazy(() => import('./layouts/Authenticationlayout'));
 const Loaderimage = lazy(() => import('./layouts/loader/loader'));
+const Main = lazy(() => import('./layouts/mainLayout/main'));
+
 const Underconstruction = lazy(() => import('./components/Pages/Extension/UnderConstruction/Underconstruction'));
 const Auth = lazy(() => import('./layouts/firebase/firebaseauth/auth'));
 const Authlogin = lazy(() => import('./layouts/firebase/firebaseauth/authlogin'));
@@ -18,6 +20,8 @@ const Signup = lazy(() => import('./layouts/firebase/firebaseauth/signup'));
 const Switcherpage = lazy(() => import('./layouts/Switcherpage'));
 const Customswitcher = lazy(() => import('./components/pages/switcherpage/switcherpage'));
 const ScrollToTop = lazy(() => import('./layouts/scrollTop/scrollTop'));
+const CustomerDetails = lazy(() => import('./components/dashboard/customerDetails/customerDetails'));
+const BOMDetails = lazy(() => import('./components/dashboard/bomDetails/bomDetails'));
 
 // Authentication 
 const Login = lazy(() => import('./components/authentication/login/login'));
@@ -45,6 +49,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route index element={<Authlogin />} />
               <Route path="authlogin" element={<Authlogin />} />
               <Route path="signup" element={<Signup />} />
+              <Route path="main" element={<Main />} />
+
             </Route>
 
             {/* Main App Layout */}

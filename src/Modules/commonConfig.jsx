@@ -1,13 +1,16 @@
 import { GridFooterContainer } from "@mui/x-data-grid";
 import Tooltip from '@mui/material/Tooltip';
 // Custom footer component
-const CustomFooter = ({ total }) => (
-  <GridFooterContainer>
-    <div style={{ marginLeft: 'auto', padding: '10px', fontWeight: 'bold', color: 'rgba(0, 0, 0, 0.65)' }}>
-      Total Records: {total}
-    </div>
-  </GridFooterContainer>
-);
+const CustomFooter = ({ total }) => {
+  console.log("Custom Footer Rendered with total:", total); // Debugging output
+  return (
+      <GridFooterContainer>
+          <div style={{ marginLeft: 'auto', padding: '10px', fontWeight: 'bold', color: 'rgba(0, 0, 0, 0.65)' }}>
+              Total Records: {total}
+          </div>
+      </GridFooterContainer>
+  );
+};
 
 //to get current year
 const currentYear = { demand_year: new Date().getFullYear() }

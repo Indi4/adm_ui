@@ -1,50 +1,68 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, IconButton, Modal, Typography, CircularProgress, } from "@mui/material";
+import React, { useEffect, useMemo, useState } from "react";
+//import Modal from "@material-ui/core/Modal";
+import { Box, Button, Grid, IconButton, Modal, Typography, } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { callCommonSaveAPI, callCommonRefreshProps } from "../store/action/action";
-import { connect } from "react-redux";
+import { connect } from 'react-redux'
+import { callCommonSaveAPI, callCommonUpdateAPI } from "../../../store/action/action";
+import { MDM_GET_CUSTOMER } from "../../../Modules/endPointConfig";
+import config from "../../../config";
 
 const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 700,
+    width: 800,
+    // maxHeight: "90vh", // Set maximum height and enable vertical scroll
+    // overflowY: "auto", // Enable vertical scroll
     bgcolor: "background.paper",
     borderRadius: "6",
-    boxShadow: "none",
+    boxShadow: "none", // Remove the default box shadow
     p: 4,
 };
 
-function ModalPopUpComponent(props) {
+const LogoPopupComponent = (props) => {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [openModal, setOpenModal] = useState(0);
-    const [endPoint, setEndPoint] = useState();
-    const [loading, setLoading] = useState(false);
-    const { handleOpenModal, open, saveUpload, saveUploadData, callEndPoint, errorData, } = props;
-    const [isSuccess, setIsuccess] = useState(0);
-    const [isModalError, setIsError] = useState(0);
-
+    const [openModal, setOpenModal] = useState(0)
+    const [endPoint, setEndPoint] = useState()
+    const { handleOpenModal, open, rowId, customerList, updateCustomerDetails, updateCustomerDetailsData, callEndPoint } = props
+    const [isSuccess, setIsuccess] = useState(0)
+    const [state, setState] = useState({
+        customer_name: null,   
+        plant_location: null,
+        category: null,
+        customer_type: null,
+        business_type: null,
+        company_logo:null
+    });
     useEffect(() => {
         return () => {
-            handleClose();
-        };
-    }, []);
+            handleClose()
+        }
+    }, [])
 
     useEffect(() => {
         if (!!open) {
-            setOpenModal(open);
-            setEndPoint(callEndPoint);
-        } else {
-            setOpenModal(0);
+            setOpenModal(open)
+            setEndPoint(callEndPoint)
+            if (!!customerList && customerList.length > 0) {
+                let result = customerList.filter((data) => data.customer_code === rowId)
+                if (result && result.length > 0) {
+                    let rowData = result[0]
+                    setState(rowData)
+                }
+            }
         }
-    }, [props.open]);
+        else
+            setOpenModal(0)
+    }, [props.open])
 
     const handleFileSelect = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+       
     };
 
     const handleDrop = (event) => {
@@ -58,39 +76,34 @@ function ModalPopUpComponent(props) {
     };
 
     useEffect(() => {
-        if (isSuccess && Object.keys(saveUploadData).length > 0) {
-            handleClose();
-            setOpenModal(0);
-            setIsuccess(0);
-            handleOpenModal(0, saveUploadData.is_success, saveUploadData.message);
+        if (isSuccess && Object.keys(updateCustomerDetailsData).length > 0) {
+            handleClose()
+            setOpenModal(0)
+            setIsuccess(0)
+            handleOpenModal(0, updateCustomerDetailsData.is_success, updateCustomerDetailsData.message)
         }
-        setLoading(false); // Stop loader once upload is complete
-    }, [saveUploadData]);
-
-    useEffect(() => {
-        if (Object.keys(errorData)?.length > 0 && isModalError) {
-            setIsError(0);
-            toast.error(errorData.error);
-        }
-        setLoading(false); // Stop loader in case of error
-    }, [errorData]);
+    }, [updateCustomerDetailsData])
 
     const handleSave = () => {
         const formData = new FormData();
-        formData.append("filename", selectedFile);
-        setIsuccess(1);
-        setIsError(1);
-        setLoading(true); // Start loader
-        saveUpload(endPoint, formData);
+        formData.append('customer_name', state.customer_name);
+        formData.append('plant_location', state.plant_location);
+        formData.append('category', state.category);
+        formData.append('company_logo', state.customer_type);
+        formData.append('company_logo', state.business_type);
+        formData.append('company_logo', selectedFile);
+        // formData.append('company_logo', selectedFile);
+        // const payLoad = { customer_name: state.customer_name, plant_location: state.plant_location, category: state.category, customer_type: state.customer_type, business_type: state.business_type,company_logo:selectedFile }
+        updateCustomerDetails(`${MDM_GET_CUSTOMER}${rowId}`, formData)
+        setIsuccess(1)
+        // saveUpload(endPoint, formData)
     };
 
     const handleClose = (e, reason) => {
         setSelectedFile(null);
         setOpenModal(0);
-        props.refreshProps("saveUploadData");
-        props.refreshProps("errorData");
-        if (reason === "cancel") handleOpenModal(0, 0);
-        setLoading(false); // Ensure loader is stopped on close
+        if (reason === 'cancel')
+            handleOpenModal(0, 0)
     };
 
     return (
@@ -102,8 +115,8 @@ function ModalPopUpComponent(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ borderBottom: '1px solid #e0e0e0', padding: 2}}>
-                        Upload File
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Upload File {rowId}
                     </Typography>
                     <IconButton
                         edge="end"
@@ -115,13 +128,12 @@ function ModalPopUpComponent(props) {
                         <CloseIcon />
                     </IconButton>
                     <Grid container spacing={2} style={gridContainerStyle}>
-                        <Grid item xs={12} style={gridItemStyle}>
+                        <Grid item xs={8} style={gridItemStyle}>
                             <div
                                 style={{
-                                    display: "flex",
-                                    margin: "auto",
+                                    margin: "20px",
                                     outline: "dotted",
-                                    width: "70%",
+                                    // width: "70%",
                                     height: "100px",
                                 }}
                                 onDrop={handleDrop}
@@ -130,24 +142,29 @@ function ModalPopUpComponent(props) {
                                 <input
                                     type="file"
                                     id="fileInput"
-                                    style={{ display: "none", margin:"auto"}}
+                                    style={{ display: "none" }}
                                     onChange={handleFileSelect}
                                 />
-                                <label htmlFor="fileInput" style={{display:"contents"}} >
+                                <label htmlFor="fileInput">
                                     <center
                                         style={{
-                                            marginTop: "20px",
                                             margin: "auto",
+                                            alignContent: "center",
+                                            alignItems: "center",
+                                            marginTop: "20px",
                                         }}
                                     >
                                         <center>
                                             <div
                                                 style={{
                                                     margin: "10px",
+                                                    alignContent: "center",
+                                                    alignItems: "center",
                                                 }}
                                             >
                                                 <span>Drag and Drop File</span>
                                                 <span> or Click</span>
+                                                {/* <Link component='button'>Browse</Link> */}
                                             </div>
                                         </center>
                                     </center>
@@ -156,11 +173,21 @@ function ModalPopUpComponent(props) {
                                     <p>
                                         Selected File: {selectedFile.name} ({selectedFile.size}{" "}
                                         bytes)
-                                        {loading ? <CircularProgress size={24} /> : null}
                                     </p>
                                 )}
                             </div>
                         </Grid>
+                        <Grid item xs={4} style={gridItemStyle}>
+                            <div style={{border:'1px solid grey', margin: "18px", display:'flex',justifyContent:'center',alignItems:'center',height:'75%',width:'75%',boxShadow: '5px 5px 5px 0px rgba(0, 0, 0, 0.75)'}}>
+                                
+                               
+                                <img
+                                 src={`${config.apiUrl}/${state.company_logo}`}  
+                                alt="Your Logo" height={'100%'} width={"100%"}  />
+
+                            </div>
+                        </Grid>
+                        {/* </Grid> */}
                         <Grid item xs={6} style={gridItemStyle}>
                             <div
                                 style={{
@@ -169,15 +196,15 @@ function ModalPopUpComponent(props) {
                                     justifyContent: "right",
                                 }}
                             >
-                                <Button
-                                    variant="outlined"
-                                    color="error"
-                                    sx={{ borderRadius: "7px", width: "150px" }}
-                                    onClick={(event, reason) => handleClose(event, "cancel")}
-                                    disabled={loading} // Disable button when loading
-                                >
-                                    Cancel
-                                </Button>
+                                <>
+                                    <Button
+                                        variant="outlined"
+                                        sx={{ borderRadius: "7px", width: "150px" }}
+                                        onClick={(event, reason) => handleClose(event, "cancel")}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </>
                             </div>
                         </Grid>
                         <Grid item xs={6} style={gridItemStyle}>
@@ -190,25 +217,26 @@ function ModalPopUpComponent(props) {
                             >
                                 <Button
                                     variant="contained"
+                                    //  color="success"
                                     sx={{
                                         borderRadius: "7px",
                                         width: "150px",
                                         fontWeight: "bold",
                                     }}
                                     onClick={handleSave}
-                                    disabled={loading} // Disable button when loading
                                 >
                                     Save
                                 </Button>
                             </div>
+
                         </Grid>
+
                     </Grid>
                 </Box>
             </Modal>
         </>
     );
-}
-
+};
 const gridContainerStyle = {
     marginTop: 10,
 };
@@ -219,16 +247,13 @@ const gridItemStyle = {
 
 const mapStatetoProps = (state) => {
     return {
-        saveUploadData: state?.saveUploadData,
-        errorData: state?.errorData,
-    };
-};
-
+        updateCustomerDetailsData: state.product?.updateCustomerDetailsData
+    }
+}
 const mapDispatchtoProps = (dispatch) => {
     return {
-        saveUpload: (endPoint, payLoad) => dispatch(callCommonSaveAPI(endPoint, payLoad, "Upload")),
-        refreshProps: (title) => dispatch(callCommonRefreshProps(title)),
-    };
-};
+        updateCustomerDetails: (endPoint, payLoad) => dispatch(callCommonUpdateAPI(endPoint, payLoad, 'customerDetails'))
+    }
+}
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(ModalPopUpComponent);
+export default connect(mapStatetoProps, mapDispatchtoProps)(LogoPopupComponent);
