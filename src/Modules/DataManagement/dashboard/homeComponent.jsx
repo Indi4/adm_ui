@@ -5,6 +5,7 @@ import { GradientBarChart, GradientBarChart2, LineChart } from './ecommerce/ecom
 import { connect } from 'react-redux'
 import { GET_CARDS_DATA } from "../../../Modules/endPointConfig"
 import { callCommonGetAPI } from '../../../store/action/action'
+import PlanByMonthComponent from './planByMonthComponent'
 import AOS from 'aos';
 import 'aos/dist/aos.css';  // Import AOS CSS
 
@@ -20,6 +21,7 @@ function HomeComponent(props) {
     }, []);
 
     useEffect(() => {
+        debugger
         props.getCards(GET_CARDS_DATA)
         return () => { reset() }
     }, [])
@@ -39,7 +41,7 @@ function HomeComponent(props) {
     return (
         <Fragment>
             <Pageheader items={breadcrumbs} />
-            <Row className=" row-sm">
+            <Row className="row-sm">
                 <Col sm={12} md={12} lg={12} xl={6} xxl={6} data-aos="fade-up">
                     <Row>
                         <Col lg={6} md={6} sm={6} xl={6} data-aos="fade-up">
@@ -80,7 +82,7 @@ function HomeComponent(props) {
                                     <Card.Title className=" mb-0">Plans By Months</Card.Title>
                                 </Card.Header>
                                 <Card.Body className="p-0">
-                                    <LineChart />
+                                    <PlanByMonthComponent />
                                 </Card.Body>
                             </Card>
                         </Col>

@@ -100,6 +100,7 @@ const TypiconsIcons = React.lazy(() => import('../components/icons/typiconsicons
 const WeatherIcons = React.lazy(() => import('../components/icons/weathericons/weathericons'))
 const BootstrapIcons = React.lazy(() => import('../components/icons/bootstrapIcons/bootstrapIcons'))
 const Navigation = React.lazy(() => import('../components/bootstrap/navigation/navigation'))
+
 const CustomerDetails = React.lazy(() => import('../components/dashboard/customerDetails/customerDetails'))
 const BOMDetails = React.lazy(() => import('../components/dashboard/bomDetails/bomDetails'))
 
