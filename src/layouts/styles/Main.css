@@ -1,0 +1,150 @@
+.page-home {
+	background: #F0F0F0 url(../../assets/images/bg/home-bg.png) right center no-repeat;
+	background-size: 90% 101%;
+	width: 100%;
+	height: 100vh;
+  }
+  .page-home .logo{
+	position: absolute;
+	left: 4vw;
+	top: 2vw;
+	width: 20.8vw;
+  }
+  .page-home .logo img{
+	max-width: 100%;
+  }
+  .items-tips {
+	width: 1540px;
+	max-width: 100%;
+	margin: 0 auto;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: end;
+	height: 100%;
+  }
+  .items-tips .item-image {
+	width: 90%;
+	margin: 0 auto;
+	text-align: center;
+  }
+  .items-tips .item-image img {
+	max-width: 100%;
+  }
+  
+  .items-tips .item-tip {
+	position: absolute;
+	transform: translateX(-50%);
+	border: 4px solid #e4bd64;
+	box-shadow: 9px 8px 10px rgba(33, 32, 32, 0.2);;
+	border-radius: 20px;
+	background-color: #ffffff;
+  }
+  .items-tips .item-tip.tip-1 {
+	left: 23.7vw;
+	bottom: 20.5vw;
+	width: 173px;
+	height: 143px;
+	padding: 5px;
+  }
+  .items-tips .item-tip.tip-2 {
+	left: 53.4vw;
+	bottom: 44.7vw;
+  }
+  .items-tips .item-tip.tip-3 {
+	left: 70.9vw;
+	bottom: 23.7vw;
+	width: 173px;
+	height: 143px;
+	padding: 5px;
+  }
+  .items-tips .item-tip.tip-4 {
+	left: 49vw;
+	bottom: 10vw;
+  }
+  .items-tips .item-tip a:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: -10px;
+	transform: translateX(-50%);
+	border-width: 10px 10px 0 10px;
+	border-style: solid;
+	border-color: #ffffff transparent transparent transparent;
+  }
+  .items-tips .item-tip.top a:after {
+	bottom: auto;
+	top: -10px;
+	border-width: 0 10px 10px 10px;
+	border-color: transparent transparent #ffffff transparent;
+  }
+
+
+  .tip{
+	margin:0%;
+    width: "12.5vw";
+    display: "inline-block";
+    color: "#757575";
+    text-align: "center";
+    padding: "1rem 1.5rem .5rem 1.5rem";
+    position: "relative";
+    background-color: "#ffffff";
+    border-radius: "10px";
+    box-shadow: "0 10px 10px rgba(0, 0, 0, 0.1)";
+    box-sizing: "border-box";
+    cursor: "pointer";
+  }
+
+
+  .typography {
+    padding: 2px;
+    font-size: "1.33vw";
+    font-weight: "bold";
+    text-align: "center";
+	margin-top: 4px;
+  }
+
+  .icon {
+    font-size: "2.45vw";
+  }
+  
+  @media (min-width:1541px){
+	.page-home {
+	  background-size: 85% 101%;
+	}
+	.items-tips .item-tip.tip-1 {
+	  left: 21.7%;
+	  bottom: 52.5%;
+	}
+	.items-tips .item-tip.tip-2 {
+	  left: 46.4%;
+	  bottom: 76.7%;
+	}
+	.items-tips .item-tip.tip-3 {
+		left: 68.9%;
+        bottom: 48.7%;
+	}
+	.items-tips .item-tip.tip-4 {
+		left: 58%;
+        bottom: 12.3%
+	}
+	.items-tips .item-tip.tip-5 {
+		left: 35%;
+        bottom: 18.3%
+	  }
+	  .page-home {
+		position: relative; /* Ensure the page-home container is positioned relative for absolute children */
+	  }
+	  
+	  .logout-button {
+		position: absolute;
+		top: 16px; /* Adjust top spacing as needed */
+		right: 16px; /* Adjust right spacing as needed */
+		z-index: 1000; /* Ensure it stays on top */
+	  }
+	  
+	  .logout-button .MuiButton-root {
+		font-size: 0.875rem; /* Adjust font size if needed */
+	  }
+  }
+ 
