@@ -25,7 +25,7 @@ function App() {
   document.body.classList.remove('bg-account')
   return (
     <Fragment>
-      <Provider store={store}>
+      {/* <Provider store={store}> */}
       <div className="horizontalMenucontainer" >
         <Switcher />
         <div className="page">
@@ -48,7 +48,7 @@ function App() {
       </div>
      
       <BacktoTop/>
-      </Provider>
+      {/* </Provider> */}
     </Fragment>
 
   )

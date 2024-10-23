@@ -85,7 +85,7 @@ function Header () {
   const Darkmode = () => {
   
     if(document.querySelector(".app").classList.contains('dark-mode')){
-        debugger
+        
         sessionStorage.setItem("darkMode",false)
        // sessionStorage.removeItem("darkMode")
         document.querySelector(".app").classList.remove('dark-mode');
@@ -97,7 +97,6 @@ function Header () {
         DarkMenu3.checked = true;
       }
       else{
-        debugger
         sessionStorage.setItem("darkMode",true)
        // sessionStorage.remove("lightMode")
         document.querySelector(".app").classList.add('dark-mode');

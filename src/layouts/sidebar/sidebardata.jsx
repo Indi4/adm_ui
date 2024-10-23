@@ -245,6 +245,7 @@ const MenuItems = [
           { path: `${import.meta.env.BASE_URL}authentication/login`, type: 'link', active: false, selected: false, title: 'Login' },
           { path: `${import.meta.env.BASE_URL}authentication/register`, type: 'link', active: false, selected: false, title: 'Register' },
           { path: `${import.meta.env.BASE_URL}authentication/forgotpassword`, type: 'link', active: false, selected: false, title: 'Forgot Password' },
+          { path: `${import.meta.env.BASE_URL}authentication/resetpassword`, type: 'link', active: false, selected: false, title: 'Reset Password' },
           { path: `${import.meta.env.BASE_URL}authentication/lockscreen`, type: 'link', active: false, selected: false, title: 'Lock screen' },
           {
             path: `${import.meta.env.BASE_URL}authentication/errorpages`,

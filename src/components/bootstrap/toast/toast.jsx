@@ -120,7 +120,7 @@ export default function Toasts() {
         </Col>
         <Col xl={6} md={12}>
           <Card>
-            <Card.Header  className='flex-wrap gap-2'>
+            <Card.Header className='flex-wrap gap-2'>
 
               <Card.Title>Translucent Toasts</Card.Title>
               <Form.Check label="show code" type='switch' id="custom-switch" className="ms-auto" onClick={() => { setShow4(!show4) }} />
@@ -489,22 +489,22 @@ export default function Toasts() {
 
 
       <ToastContainer
-          className="position-fixed bottom-0 end-0 p-3 ms-auto"
-          position="bottom-start"
-          style={{ zIndex: 1 }}
-        >
- <Toast onClose={() => setShow(false)} show={show} delay={3000} className="toast show " role="alert">
-                      <Toast.Header>
-                        <img
-                          src={icon1} alt=""
-                          className="me-2" height="18"
-                        />
-                        <strong className="me-auto">Bootstrap</strong>
-                        <small>11 mins ago</small>
-                      </Toast.Header>
-                      <Toast.Body> Hello, world! This is a toast message.</Toast.Body>
-                    </Toast>
-                    </ToastContainer>
+        className="position-fixed bottom-0 end-0 p-3 ms-auto"
+        position="bottom-start"
+        style={{ zIndex: 1 }}
+      >
+        <Toast onClose={() => setShow(false)} show={show} delay={3000} className="toast show " role="alert">
+          <Toast.Header>
+            <img
+              src={icon1} alt=""
+              className="me-2" height="18"
+            />
+            <strong className="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+          <Toast.Body> Hello, world! This is a toast message.</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Fragment>
   )
 }
