@@ -107,8 +107,11 @@ export const Routingdata = [
 
     /* Firebase Authetication */
 
-    { path: `${import.meta.env.BASE_URL}customerDetails`, element: <CustomerDetails /> },
-    { path: `${import.meta.env.BASE_URL}BOM`, element: <BOMDetails /> },
+    { path: `${import.meta.env.BASE_URL}/mdm/customer-details`, element: <Dashboard /> },
+    {path:`${import.meta.env.BASE_URL}/mdm/bom-details` ,element : <Sales/>},
+    {path:`${import.meta.env.BASE_URL}/mdm/plant-code` ,element:<Ecommerce />},
+    {path:`${import.meta.env.BASE_URL}/mdm/department` ,element:<Analytics />},
+    {path:`${import.meta.env.BASE_URL}/mdm/user-details` ,element:<Crypto />},
     /* Dashboard page */
 
 
