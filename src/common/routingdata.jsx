@@ -102,44 +102,30 @@ const WeatherIcons = React.lazy(() => import('../components/icons/weathericons/w
 const BootstrapIcons = React.lazy(() => import('../components/icons/bootstrapIcons/bootstrapIcons'))
 const Navigation = React.lazy(() => import('../components/bootstrap/navigation/navigation'))
 
-const CustomerDetails = React.lazy(() => import('../components/dashboard/customerDetails/customerDetails'))
-const BOMDetails = React.lazy(() => import('../components/dashboard/bomDetails/bomDetails'))
-
-
 export const Routingdata = [
 
     /* Firebase Authetication */
 
     /* Dashboard page */
-    { path: `${import.meta.env.BASE_URL}dashboard`, element: <Dashboard /> },
-    { path: `${import.meta.env.BASE_URL}actualSales`, element: <ActualSales/> },
-    {path:`${import.meta.env.BASE_URL}dashboard/sales` ,element : <Sales/>},
-    {path:`${import.meta.env.BASE_URL}dashboard/ecommerce` ,element:<Ecommerce />},
-    {path:`${import.meta.env.BASE_URL}dashboard/analytics` ,element:<Analytics />},
-    {path:`${import.meta.env.BASE_URL}dashboard/medical` ,element:<Medical />},
-    {path:`${import.meta.env.BASE_URL}dashboard/crypto` ,element:<Crypto />},
-    {path:`${import.meta.env.BASE_URL}dashboard/customerDetails` ,element:<CustomerDetails />},
-    {path:`${import.meta.env.BASE_URL}dashboard/bomDetails` ,element:<BOMDetails />},
+    { path: `${import.meta.env.BASE_URL}/mdm/customer-details`, element: <Dashboard /> },
+    {path:`${import.meta.env.BASE_URL}/mdm/bom-details` ,element : <Sales/>},
+    {path:`${import.meta.env.BASE_URL}/mdm/plant-code` ,element:<Ecommerce />},
+    {path:`${import.meta.env.BASE_URL}/mdm/department` ,element:<Analytics />},
+    {path:`${import.meta.env.BASE_URL}/mdm/user-details` ,element:<Crypto />},
 
     /* App page */
 
-    { path: `${import.meta.env.BASE_URL}apps/cardsdesign`, element: <Cardsdesign /> },
-    { path: `${import.meta.env.BASE_URL}apps/defaultcalender`, element: <Defaultcalender /> },
-    { path: `${import.meta.env.BASE_URL}apps/fulcalender`, element: <Fulcalender /> },
-    { path: `${import.meta.env.BASE_URL}apps/chat`, element: <Chat /> },
-    { path: `${import.meta.env.BASE_URL}apps/notifications`, element: <Notifications /> },
-    { path: `${import.meta.env.BASE_URL}apps/sweetalerts`, element: <SweetAlerts /> },
-    { path: `${import.meta.env.BASE_URL}apps/rangeslider`, element: <Rangeslider /> },
-    { path: `${import.meta.env.BASE_URL}apps/contentscrollbar`, element: <Contentscrollbar /> },
-    { path: `${import.meta.env.BASE_URL}apps/loaders`, element: <Loaders /> },
-    { path: `${import.meta.env.BASE_URL}apps/counters`, element: <Counters /> },
-    { path: `${import.meta.env.BASE_URL}apps/rating`, element: <Ratings /> },
-    { path: `${import.meta.env.BASE_URL}apps/treeview`, element: <Treeviews /> },
-    { path: `${import.meta.env.BASE_URL}apps/footers`, element: <Footers /> },
-    { path: `${import.meta.env.BASE_URL}apps/userlist`, element: <Userlist /> },
-    { path: `${import.meta.env.BASE_URL}apps/search`, element: <Search /> },
-    { path: `${import.meta.env.BASE_URL}apps/cryptocurrencies`, element: <Cryptocurrencies /> },
-    { path: `${import.meta.env.BASE_URL}apps/widgets`, element: <Widgets /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Cardsdesign /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/quick-action`, element: <Defaultcalender /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <Fulcalender /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <Chat /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/finished-unpainted-stock`, element: <SweetAlerts /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/delivery-requirement`, element: <Rangeslider /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/procurement-plan`, element: <Contentscrollbar /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/sales`, element: <Loaders /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/inventory`, element: <Counters /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/financial`, element: <Ratings /> },
 
     /* Bootstrap page  */
 

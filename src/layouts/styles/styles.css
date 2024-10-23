@@ -1,0 +1,49 @@
+* {
+    font: var(--unnamed-font-style-normal) normal var(--unnamed-font-weight-900)
+      var(--unnamed-font-size-28) / var(--unnamed-line-spacing-24)
+      var(--unnamed-font-family-futura-pt);
+    letter-spacing: var(--unnamed-character-spacing-0);
+    color: var(--unnamed-color-757575);
+  }
+
+
+
+.cardTitle{
+    text-align: center;
+    font-family: 'Raleway';
+}
+
+.radial-text-gradient {
+    /* background: radial-gradient(rgb(172, 227, 248), rgb(76, 66, 99),rgb(252, 251, 253)); */
+    background-color: aliceblue;
+    /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.cardConstentforbutton {
+    display: flex;
+}
+
+/* styles.css */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Optional: styles for other browsers using ::-moz-scrollbar, ::-ms-scrollbar, etc. */
+  
