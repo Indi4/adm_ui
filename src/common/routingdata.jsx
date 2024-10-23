@@ -102,16 +102,15 @@ const WeatherIcons = React.lazy(() => import('../components/icons/weathericons/w
 const BootstrapIcons = React.lazy(() => import('../components/icons/bootstrapIcons/bootstrapIcons'))
 const Navigation = React.lazy(() => import('../components/bootstrap/navigation/navigation'))
 
+
 export const Routingdata = [
 
     /* Firebase Authetication */
 
+    { path: `${import.meta.env.BASE_URL}customerDetails`, element: <CustomerDetails /> },
+    { path: `${import.meta.env.BASE_URL}BOM`, element: <BOMDetails /> },
     /* Dashboard page */
-    { path: `${import.meta.env.BASE_URL}/mdm/customer-details`, element: <Dashboard /> },
-    {path:`${import.meta.env.BASE_URL}/mdm/bom-details` ,element : <Sales/>},
-    {path:`${import.meta.env.BASE_URL}/mdm/plant-code` ,element:<Ecommerce />},
-    {path:`${import.meta.env.BASE_URL}/mdm/department` ,element:<Analytics />},
-    {path:`${import.meta.env.BASE_URL}/mdm/user-details` ,element:<Crypto />},
+
 
     /* App page */
 

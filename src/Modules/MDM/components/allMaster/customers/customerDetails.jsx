@@ -22,25 +22,26 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
-import ModalPopUpComponent from "../../../commonComponent/modalPopUpComponent";
+import ModalPopUpComponent from "../../../../../commonComponent/modalPopUpComponent";
 import {
   customerColumns,
   initialState,
-} from "../../../Modules/DataManagement/config";
+} from "../../../../DataManagement/config";
 import {
   MDM_GET_CUSTOMER,
   MDM_SAVE_CUSTOMER,
   GETALL_LIST,
-} from "../../../Modules/endPointConfig";
-import { CustomFooter } from "../../../Modules/commonConfig";
-import { callCommonGetAPI } from "../../../store/action/action";
+} from "../../../../endPointConfig";
+import { CustomFooter } from "../../../../commonConfig";
+import { callCommonGetAPI } from "../../../../../store/action/action";
 import EditCustomerComponent from "./editCustomerComponent";
 import { ToastContainer, toast } from "react-toastify";
-import DeleteModalComponent from "../../../commonComponent/deleteModalComponent";
+import DeleteModalComponent from "../../../../../commonComponent/deleteModalComponent";
 import LogoPopupComponent from "./logoPopupComponent";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { IconButton } from "@mui/material";
-import { Iconloader } from "../../bootstrap/buttons/data/buttondata";
+import { Iconloader } from "../../../../../components/bootstrap/buttons/data/buttondata";
+// import { Iconloader } from "../../bootstrap/buttons/data/buttondata";
 import { Badge } from "react-bootstrap";
 
 function CustomerDetails(props) {

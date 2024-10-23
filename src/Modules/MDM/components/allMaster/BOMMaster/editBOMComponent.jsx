@@ -21,9 +21,9 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { callCommonUpdateAPI } from './../../../store/action/action'
+import { callCommonUpdateAPI } from '../../../../../store/action/action'
 import { connect } from 'react-redux'
-import { MDM_GET_BOMDETAILS } from "../../../Modules/endPointConfig"
+import { MDM_GET_BOMDETAILS } from "../../../../endPointConfig"
 
 const style = {
     position: "absolute",
