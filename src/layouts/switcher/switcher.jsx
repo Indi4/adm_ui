@@ -74,7 +74,7 @@ export default function Switcher() {
 										</div>
 									</div>
 									<div className="swichermainleft switcher-nav">
-										<h4>Navigation Style --------</h4>
+										<h4>Navigation Style</h4>
 										<div className="skin-body">
 											<div className="switch_section">
 												<div className="switch-toggle d-flex" >

@@ -9,7 +9,7 @@ import logolight from "../../assets/images/brand/KizunaWhiteLogo.svg";
 import icon1 from "../../assets/images/brand/icon.png";
 import icon2 from "../../assets/images/brand/icon2.png";
 
-export default function Sidebar() {
+export default function Sidebar({ menuType }) {
   const location = useLocation();
   const locationPaths = location?.pathname.split("/");
   const [menuItems, setMenuItems] = useState(
@@ -25,11 +25,9 @@ export default function Sidebar() {
     setMenuItems((prevItems) => {
       return prevItems.map((mainLevel) => {
         const updatedItems = mainLevel.Items.map((item) => {
-          // Check if this item is the one with the selected path
           item.active = item.path === pathname;
           item.selected = item.path === pathname;
 
-          // Check if item has children and update their active/selected state
           if (item.children) {
             item.children = item.children.map((child) => {
               child.active = child.path === pathname;
@@ -37,7 +35,6 @@ export default function Sidebar() {
               return child;
             });
 
-            // If any child is active, mark the parent as active, otherwise, false
             const anyChildActive = item.children.some(
               (child) => child.active || child.selected
             );
@@ -53,10 +50,15 @@ export default function Sidebar() {
   }
 
   function toggleItem(index) {
-    setOpenItems((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
+    
+    const newOpenItems = Object.keys(openItems).reduce((acc, curr) => {
+      acc[curr] = false; 
+      return acc;
+    }, {});
+
+    newOpenItems[index] = !openItems[index];
+
+    setOpenItems(newOpenItems);
   }
 
   return (
@@ -121,7 +123,7 @@ export default function Sidebar() {
                           <span className="side-menu__label">{item.title}</span>
                           {item.children && (
                             <span style={{ marginLeft: "auto" }}>
-                              <small style={{padding:"10px"}}>{openItems[idx] ? "v" : ">"}</small>
+                              <small>{openItems[idx] ? "v" : ">"}</small>
                             </span>
                           )}
                           {item.badgetxt && (
@@ -143,7 +145,6 @@ export default function Sidebar() {
                                   onClick={() => setActiveMenuItem(child.path)}
                                 >
                                   <span style={{ marginRight: "12px" }}>•</span>{" "}
-                                  {/* Bullet point */}
                                   <span className="side-menu__label">
                                     {child.title}
                                   </span>
