@@ -3,7 +3,6 @@ import { Chart, ArcElement, Tooltip, Legend, registerables } from 'chart.js'
 import { Line, Bar, Doughnut, Pie } from 'react-chartjs-2'
 Chart.register(...registerables, ArcElement, Tooltip, Legend)
 
-
 //  GradientBarChart1
 function getGradient(ctx) {
   const gradient = ctx.createLinearGradient(0, 0, 1, 250)
