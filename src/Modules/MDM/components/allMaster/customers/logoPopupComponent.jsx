@@ -5,9 +5,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { connect } from 'react-redux'
-import { callCommonSaveAPI, callCommonUpdateAPI } from "../../../store/action/action";
-import { MDM_GET_CUSTOMER } from "../../../Modules/endPointConfig";
-import config from "../../../config";
+import { callCommonSaveAPI, callCommonUpdateAPI } from "../../../../../store/action/action";
+import { MDM_GET_CUSTOMER } from "../../../../endPointConfig";
+import config from "../../../../../config";
 
 const style = {
     position: "absolute",

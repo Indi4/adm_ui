@@ -100,14 +100,16 @@ const TypiconsIcons = React.lazy(() => import('../components/icons/typiconsicons
 const WeatherIcons = React.lazy(() => import('../components/icons/weathericons/weathericons'))
 const BootstrapIcons = React.lazy(() => import('../components/icons/bootstrapIcons/bootstrapIcons'))
 const Navigation = React.lazy(() => import('../components/bootstrap/navigation/navigation'))
-const CustomerDetails = React.lazy(() => import('../components/dashboard/customerDetails/customerDetails'))
-const BOMDetails = React.lazy(() => import('../components/dashboard/bomDetails/bomDetails'))
+const CustomerDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/customers/customerDetails'))
+const BOMDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/BOMMaster/bomDetails'))
 
 
 export const Routingdata = [
 
     /* Firebase Authetication */
 
+    { path: `${import.meta.env.BASE_URL}customerDetails`, element: <CustomerDetails /> },
+    { path: `${import.meta.env.BASE_URL}BOM`, element: <BOMDetails /> },
     /* Dashboard page */
     { path: `${import.meta.env.BASE_URL}dashboard`, element: <Dashboard /> },
     {path:`${import.meta.env.BASE_URL}dashboard/sales` ,element : <Sales/>},
@@ -115,8 +117,6 @@ export const Routingdata = [
     {path:`${import.meta.env.BASE_URL}dashboard/analytics` ,element:<Analytics />},
     {path:`${import.meta.env.BASE_URL}dashboard/medical` ,element:<Medical />},
     {path:`${import.meta.env.BASE_URL}dashboard/crypto` ,element:<Crypto />},
-    {path:`${import.meta.env.BASE_URL}dashboard/customerDetails` ,element:<CustomerDetails />},
-    {path:`${import.meta.env.BASE_URL}dashboard/bomDetails` ,element:<BOMDetails />},
 
     /* App page */
 

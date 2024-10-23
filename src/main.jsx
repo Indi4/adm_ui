@@ -16,8 +16,8 @@ const Signup = lazy(() => import('./layouts/firebase/firebaseauth/signup'));
 const Switcherpage = lazy(() => import('./layouts/Switcherpage'));
 const Customswitcher = lazy(() => import('./components/pages/switcherpage/switcherpage'));
 const ScrollToTop = lazy(() => import('./layouts/scrollTop/scrollTop'));
-const CustomerDetails = lazy(() => import('./components/dashboard/customerDetails/customerDetails'));
-const BOMDetails = lazy(() => import('./components/dashboard/bomDetails/bomDetails'));
+const CustomerDetails = lazy(() => import('./Modules/MDM/components/allMaster/customers/customerDetails'));
+const BOMDetails = lazy(() => import('./Modules/MDM/components/allMaster/BOMMaster/bomDetails'));
 
 // Authentication 
 const Login = lazy(() => import('./components/authentication/login/login'));
