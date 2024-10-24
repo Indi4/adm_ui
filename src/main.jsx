@@ -1,11 +1,12 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './layouts/App';
 import './index.scss';
 import { Routingdata } from './common/routingdata';
 import { Provider } from 'react-redux';
 import store from './store/index';
+import PrivateRoute from './commonComponent/PrivateRoute';
 
 
 // const App = lazy(() => import('./layouts/App'));
@@ -43,11 +44,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Provider store={store}>
           {/* <App/> */}
           <ScrollToTop />
+          {/* <PrivateRoute> */}
           <Routes>
             {/* Auth Layout */}
-            <Route path="/" element={<Auth />}>
-              <Route index element={<Authlogin />} />
-              <Route path="authlogin" element={<Authlogin />} />
+            <Route path="/">
+              {/* <Route index element={<Authlogin />} /> */}
+              <Route path="" element={<Navigate to='/main' />} />
               <Route path="signup" element={<Signup />} />
               <Route path="main" element={<Main />} />
 
@@ -84,6 +86,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="*" element={<Error400 />} />
             </Route>
           </Routes>
+          {/* </PrivateRoute> */}
         </Provider>
       </Suspense>
     </BrowserRouter>

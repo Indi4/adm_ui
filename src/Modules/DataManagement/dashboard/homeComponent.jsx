@@ -21,14 +21,13 @@ function HomeComponent(props) {
     }, []);
 
     useEffect(() => {
-        debugger
+        // debugger
         props.getCards(GET_CARDS_DATA)
         return () => { reset() }
     }, [])
 
     useEffect(() => {
         if (props.cardsData && Object.keys(props.cardsData).length > 0) {
-            console.log("data", data)
             setData(props.cardsData.data)
         }
     }, [props.cardsData])
@@ -323,7 +322,8 @@ function HomeComponent(props) {
             </Row>
         </Fragment>
     )
-} const mapStatetoprops = (state) => { console.log("state",state)
+} const mapStatetoprops = (state) => {
+    console.log("state", state)
     return {
         cardsData: state.cardsData,
     }

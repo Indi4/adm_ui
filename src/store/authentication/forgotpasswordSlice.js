@@ -20,6 +20,8 @@ const forgotPasswordSlice = createSlice({
     initialState: {
         forgotPasswordfunc: [],
         downloading: false,
+        success:"",
+        error:"",
     },
 
     reducers: {

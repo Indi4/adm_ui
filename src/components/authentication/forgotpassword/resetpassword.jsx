@@ -5,7 +5,8 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Button, Card, Col, InputGroup, Row } from 'react-bootstrap'
 import { postForgotPassword } from '../../../store/authentication/forgotpasswordSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { PostNewForgotPassword } from '../../../store/authentication/authSlice'
+import { PostNewForgotPassword,clearMessage } from '../../../store/authentication/authSlice'
+import { toast, ToastContainer } from 'react-toastify'
 
 export default function ResetPassword() {
     const dispatch = useDispatch();
@@ -23,71 +24,44 @@ export default function ResetPassword() {
         if (success) {
             alert(success)
             dispatch(clearMessage());
-            navigate('/login');
+            navigate(`${import.meta.env.BASE_URL}main`);
         }
     }, [success])
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const { password, confirm_password } = formData;
-    //     if (password === confirm_password) {
-    //         const payload = {
-    //             uexpt,
-    //             password,
-    //             confirm_password,
-    //         };
-    //         dispatch(PostNewForgotPassword(payload))
-
-    //     } else {
-    //         alert('Passwords do not match');
-    //     }
-    // };
-
+   
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { password, confirm_password } = formData;
-
-        // Check if passwords match
+    
         if (password === confirm_password) {
             const payload = {
-                uexpt,
-                password,
-                confirm_password,
+              uexpt,
+              password,
+              confirm_password,
             };
-
+    
             dispatch(PostNewForgotPassword(payload))
-                .then((response) => {
-                    navigate(`${import.meta.env.BASE_URL}`);
-                })
-                .catch((error) => {
-                    console.log("Error during submission:", error);
-                });
+          
         } else {
-            alert('Passwords do not match');
+          alert('Passwords do not match');
         }
-    };
+      };
+
 
 
 
 
     return (
         <Fragment>
+            <ToastContainer />
             <div className="page-content" >
                 <div className="container text-center text-dark" >
                     <Row>
                         <Col lg={4} className="d-block mx-auto" >
                             <Row>
                                 <Col xl={12} md={12} className="col-md-12">
-                                    <Card  style={{ width: '700px', right:"190px" }} >
-                                        <Card.Body  style={{ width: '700px' }} >
+                                    <Card style={{ width: '700px', right: "190px" }} >
+                                        <Card.Body style={{ width: '700px' }} >
                                             <div className="text-center mb-6">
                                                 <Link className="header-brand1" to={`${import.meta.env.BASE_URL}`}>
                                                     <img src={logo}

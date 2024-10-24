@@ -24,7 +24,6 @@ function Authlogin({ setIsAuthenticate }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { success, error } = useSelector((state) => state.auth);
-console.log(success,"KKKK");
 
   const { email, password } = formData;
 
@@ -33,62 +32,21 @@ console.log(success,"KKKK");
     setError("");
   }
 
-  // useEffect(()=> {
-  //   if(success){
-  //     toast.success(success)
-  //     dispatch(clearMessage())
-  //   }
-  // },[success])
-
-  // useEffect(() => {
-  //   if (success) {
-  //     console.log(success,"success");
-      
-  //     toast.success(success);
-  //     dispatch(clearMessage());
-  //     setFormData({ username: '', password: '' });
-  //     setTimeout(() => {
-  //       setShowToast(false); 
-  //       setIsAuthenticate(true);
-  //     }, 1750);
-  //   }
-  // }, [success,dispatch, setIsAuthenticate]);
-
-  useEffect(() => {
-    if (error) {
-      console.log(error,"error");
-      
-      toast.error(error);
-      dispatch(clearMessage());
-      setTimeout(() => {
-        // setIsAuthenticate(true);
-      }, 1750);
-    }
-  }, [error,dispatch]);
-
-  
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   dispatch(login({ email: formData.email, password: formData.password }));
-  //   navigate(`${import.meta.env.BASE_URL}dashboard/sales`);
-  // };
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(login({ email: formData.email, password: formData.password })); // Dispatch login action
   };
 
-  // Listen for success and show toast, then navigate
   useEffect(() => {
     if (success) {
       toast.success(success);
       setTimeout(() => {
-        dispatch(clearMessage()); // Clear message after toast
-        navigate(`${import.meta.env.BASE_URL}dashboard/sales`); 
+        dispatch(clearMessage());
+        setIsAuthenticate(true);
       }, 1000); 
     }
-
     if (error) {
-      toast.error(error); // Show error toast if login fails
+      toast.error(error); 
     }
   }, [success, error, dispatch, navigate]);
 
@@ -101,9 +59,9 @@ console.log(success,"KKKK");
           <Row>
             <Col lg={4} className="d-block mx-auto">
               <Row >
-                <div className="d-block">
-                  <Tab.Container id="left-tabs-example" defaultActiveKey="react">
-                    <Nav className="justify-content-center authentication-tabs">
+                <div className="d-block" >
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="react" >
+                    <Nav className="justify-content-center authentication-tabs " >
                       {/* <Nav.Item>
                         <Nav.Link eventKey="firebase"> <img src={imagesData('firebase')} alt='logo1' /></Nav.Link>
                       </Nav.Item> */}
@@ -115,7 +73,7 @@ console.log(success,"KKKK");
                       <Tab.Pane eventKey="react">
                         <Row>
                           <Col xl={12} md={12}>
-                            <Card>
+                            <Card  style={{ width: '700px', right:"190px", height:"400px", top:"60px" }}>
                               <Card.Body>
                                 <div className="text-center mb-2">
                                   <Link className="header-brand1" to={`${import.meta.env.BASE_URL}`}>

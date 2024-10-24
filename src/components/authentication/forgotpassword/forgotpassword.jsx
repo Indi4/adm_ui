@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState,useEffect } from 'react'
 import logo from '../../../assets/images/brand/Kizuna.svg'
 import logolight from '../../../assets/images/brand/KizunaWhiteLogo.svg'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { Button, Card, Col, InputGroup, Row } from 'react-bootstrap'
 import { postForgotPassword ,clearSuccessMessage} from '../../../store/authentication/forgotpasswordSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast, ToastContainer } from 'react-toastify'
+
 
 export default function ForgotPassword() {
   const dispatch = useDispatch();
@@ -18,16 +20,16 @@ export default function ForgotPassword() {
 
   const navigate= useNavigate()
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (success) {
       toast.success(success);
       setTimeout(() => {
-        // navigate(`${import.meta.env.BASE_URL}resetpassword`);
+        dispatch(clearSuccessMessage());
       }, 1750);
     }
   }, [success]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (error) {
       toast.error(error);
     }
@@ -43,13 +45,14 @@ export default function ForgotPassword() {
 
   return (
     <Fragment>
+      <ToastContainer />
       <div className="page-content">
         <div className="container text-center text-dark">
           <Row>
             <Col lg={4} className="d-block mx-auto">
               <Row>
                 <Col xl={12} md={12} className="col-md-12">
-                  <Card>
+                  <Card style={{ width: '700px', right:"190px", height:"300px" }}>
                     <Card.Body>
                       <div className="text-center mb-6">
                         <Link className="header-brand1" to={`${import.meta.env.BASE_URL}`}>
