@@ -195,11 +195,11 @@ body *::-webkit-scrollbar {
 }
 
 body *::-webkit-scrollbar-thumb {
-    background: #f4f5f7;
+    background: #b7b7b7;
 }
 
 body *:hover::-webkit-scrollbar-thumb {
-    background: #d4dbe1;
+    background: #949494;
 }
 
 @-ms-viewport {

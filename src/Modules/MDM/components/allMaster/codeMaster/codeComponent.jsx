@@ -125,14 +125,14 @@ function CodeComponent(props) {
             <Row>
                 <Col md="12">
                     <Card>
-                        <CardTitle tag="h6" className="border-bottom p-3 mb-0">
+                        <CardHeader tag="h6" className="border-bottom p-3 mb-0">
                             Plant Codes
-                        </CardTitle>
+                        </CardHeader>
                         <CardBody>
                             <CardBody >
-                                <CardHeader>
+                                <CardTitle>
                                     <div className="d-flex align-items-center justify-content-between">
-                                        <label>All Plant Code Records</label>
+                                        <label>Total Records :{codeList.length}</label>
                                         <div className="d-flex align-items-center">
                                             <Button
                                                 onClick={() => handleAddEditOpenModal(1, 0, 0, "Add", "")}
@@ -144,7 +144,7 @@ function CodeComponent(props) {
                                             </Button>
                                         </div>
                                     </div>
-                                </CardHeader>
+                                </CardTitle>
                                 <div style={{ marginTop: "15px", display: 'grid', height: 400, overflowY: 'auto' }}>
                                     {codeList && codeList.length > 0 ?
                                         <DataGrid
