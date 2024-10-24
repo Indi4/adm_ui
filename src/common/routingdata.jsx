@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom/client'
 /* MDM Routes */
 const CustomerDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/customers/customerDetails'))
 const BomDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/BOMMaster/bomDetails'))
+const CodeComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/codeMaster/codeComponent'))
+const DepartmentComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/departments/departmentComponent'))
+const UsersComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/users/usersComponent'))
 
+/* Data Management */
+const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/homeComponent'))
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
 const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/components/ActualDispatch/homeComponent'))
-
 
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
 const Chat = React.lazy(() => import('../components/Apps/Chat/Chat'))
