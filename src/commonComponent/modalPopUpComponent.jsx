@@ -219,8 +219,8 @@ const gridItemStyle = {
 
 const mapStatetoProps = (state) => {
     return {
-        saveUploadData: state?.saveUploadData,
-        errorData: state?.errorData,
+        saveUploadData: state?.commonReducer.saveUploadData,
+        errorData: state?.commonReducer.errorData,
     };
 };
 
