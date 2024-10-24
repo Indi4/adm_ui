@@ -327,8 +327,8 @@ function BOMComponent(props) {
 
 const mapStatetoprops = (state) => {
   return {
-    BOMData: state?.bomData,
-    saveBOMData: state?.saveBOMData,
+    BOMData: state?.commonReducer.bomData,
+    saveBOMData: state?.commonReducer.saveBOMData,
   };
 };
 

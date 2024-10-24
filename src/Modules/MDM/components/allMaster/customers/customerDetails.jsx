@@ -380,8 +380,8 @@ function CustomerDetails(props) {
 
 const mapStatetoprops = (state) => {
   return {
-    customerData: state?.customerData,
-    customerNameCodeData: state?.customerNameCodeData,
+    customerData: state?.commonReducer.customerData,
+    customerNameCodeData: state?.commonReducer.customerNameCodeData,
   };
 };
 
