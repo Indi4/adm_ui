@@ -189,7 +189,7 @@ function HomeComponent(props) {
 
 const mapStatetoprops = (state) => {
     return {
-        actualSalesData: state.actualSalesData,
+        actualSalesData: state.commonReducer.actualSalesData,
     }
 }
 const mapDispatchtoprops = (dispatch) => {

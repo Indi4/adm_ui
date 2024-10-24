@@ -23,12 +23,10 @@ function HomeComponent(props) {
 
     useEffect(() => {
         props.getActualDispatchData(endPoint)
-        debugger
         return () => { reset() }
     }, [])
 
     useEffect(() => {
-        debugger
         if (props.actualDispatchData && Object.keys(props.actualDispatchData).length > 0) {
             if (props.actualDispatchData.data && props.actualDispatchData.data.length > 0) {
                 setActualDispatchList(props.actualDispatchData.data)
@@ -67,7 +65,6 @@ function HomeComponent(props) {
         setTotalPage(0)
     }
 
-    console.log("setActualDispatchList",props.actualDispatchData)
     return (
         <Fragment>
             <Pageheader items={breadcrumbs} />
@@ -83,12 +80,6 @@ function HomeComponent(props) {
                                     />
                                 </Card.Title>
                                 <Card.Title style={{ marginLeft: "auto" }}>
-                                    {/* <div className="btn-list"> */}
-                                    {/* <Button type="button" variant="upload" className="bg-purple" >
-                                            <i className="fe fe-upload me-2"></i>
-                                            <span>Import Actual Sales</span>
-                                        </Button></div> */}
-
                                     <Button
                                         onClick={() => handleOpenModal(1, 0)}
                                         variant="upload"
@@ -199,7 +190,7 @@ function HomeComponent(props) {
 
 const mapStatetoprops = (state) => {
     return {
-        actualDispatchData: state.actualDispatchData,
+        actualDispatchData: state.commonReducer.actualDispatchData,
     }
 }
 const mapDispatchtoprops = (dispatch) => {

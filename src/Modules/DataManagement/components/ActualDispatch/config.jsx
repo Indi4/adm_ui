@@ -13,9 +13,7 @@ const actualDispatchColumns = [
         renderCell: (params) => (<div>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
     },
 ];
-const breadcrumbs = [
-    { title: "Actual Dispatch", active: 1 },
-]
+const breadcrumbs = ["Actual Dispatch"];
 
 export {
     initialState,
