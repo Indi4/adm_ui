@@ -119,12 +119,11 @@ const userColumns = [
     { field: "full_name", headerName: "Full Name", width: 150, headerClassName: "wrap-header" },
     { field: "email", headerName: "Email", width: 200, headerClassName: "wrap-header" },
     { field: "mobile_no", headerName: "Mobile No.", width: 150, headerClassName: "wrap-header" },
-    {
-        field: "role", headerName: "Role", width: 200, headerClassName: "wrap-header",
+    {field: "role", headerName: "Role", width: 200, headerClassName: "wrap-header",
         valueGetter: (params) =>
-            params.row.role
-                ? params.row.role.charAt(0).toUpperCase() + params.row.role.slice(1).toLowerCase()
-                : "",
+            params
+        ? params?.charAt(0).toUpperCase() + params?.slice(1).toLowerCase()
+        : "",
     },
     { field: "department_name", headerName: "Department", width: 150, headerClassName: "wrap-header" },
 
