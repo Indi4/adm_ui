@@ -253,7 +253,7 @@ function CodeComponent(props) {
 
 const mapStatetoprops = (state) => {
     return {
-        codeDetailsData: state?.codeDetailsData
+        codeDetailsData: state?.commonReducer.codeDetailsData
     }
 }
 const mapDispatchtoprops = (dispatch) => {

@@ -244,9 +244,9 @@ const gridContainerStyle = {
 
 const mapStatetoProps = (state) => {
     return {
-        saveCodeDetailsData: state?.saveCodeDetailsData,
-        updateCodeDetailsData: state?.updateCodeDetailsData,
-        errorData: state?.errorData
+        saveCodeDetailsData: state?.commonReducer.saveCodeDetailsData,
+        updateCodeDetailsData: state?.commonReducer.updateCodeDetailsData,
+        errorData: state?.commonReducer.errorData
     }
 }
 const mapDispatchtoProps = (dispatch) => {
