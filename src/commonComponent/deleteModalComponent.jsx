@@ -86,8 +86,8 @@ function DeleteModalComponent(props) {
 }
 const mapStatetoProps = (state) => {
     return {
-        deleteData: state.deleteData,
-        errorData: state.errorData
+        deleteData: state.commonReducer.deleteData,
+        errorData: state.commonReducer.errorData
     }
 }
 const mapDispatchtoProps = (dispatch) => {

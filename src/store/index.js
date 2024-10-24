@@ -8,7 +8,7 @@ import authSlice from "./authentication/authSlice"
 
 
 const rootReducer = combineReducers({
-    // product: CommonReducer, 
+    commonReducer: CommonReducer,  
     auth: authSlice,
     forgotpassword: forgotPasswordSlice,
 });
