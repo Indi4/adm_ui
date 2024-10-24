@@ -1,16 +1,16 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import Pageheader from '../../../layouts/pageheader/pageheader'
-import { GradientBarChart, GradientBarChart2, LineChart } from './ecommerce/ecommercedata/barcharts'
 import { connect } from 'react-redux'
 import { GET_CARDS_DATA } from "../../../Modules/endPointConfig"
 import { callCommonGetAPI } from '../../../store/action/action'
 import PlanByMonthComponent from './planByMonthComponent'
+import ChangesMadeBycustomer from './changesMadeBycustomer'
+import ChangeMadeByProductCode from './changeMadeByProductCode'
 import AOS from 'aos';
 import 'aos/dist/aos.css';  // Import AOS CSS
 
 function HomeComponent(props) {
-
     const [data, setData] = useState([])
 
     useEffect(() => {
@@ -48,11 +48,8 @@ function HomeComponent(props) {
                                 <Card.Body>
                                     <div className="d-flex">
                                         <div>
-                                            <p className="mb-0 text-dark fw-semibold">Rolling Plan Accuracy</p>
+                                            <p className="mb-0 text-dark fw-semibold">Dispatch Plan Accuracy</p>
                                             <h3 className="mt-1 mb-1 text-dark fw-semibold">{data.rolling_plan_accuracy}</h3>
-                                            {/* <div className="text-muted fs-12 mt-2"><i className="fa fa-signal text-success me-1"></i>
-                                <span className="fw-bold fs-12 text-body">6.05%</span> (30 days)
-                              </div> */}
                                         </div>
                                         <span className="ms-auto my-auto circle-icon bg-success text-center"><i className="bi bi-graph-up fs-20"></i></span>
                                     </div>
@@ -65,10 +62,7 @@ function HomeComponent(props) {
                                     <div className="d-flex">
                                         <div>
                                             <p className="mb-0 text-dark fw-semibold">RM & WIP Avail. To Produce</p>
-                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{new Intl.NumberFormat('en-IN').format(data.rm_and_wip_available_to_produce)}</h3>
-                                            {/* <div className="text-muted fs-12 mt-2"><i className="fa fa-signal text-success me-1"></i>
-                                <span className="fw-bold fs-12 text-body">04.12%</span> (30 days)
-                              </div> */}
+                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data.rm_and_wip_available_to_produce && new Intl.NumberFormat('en-IN').format(data.rm_and_wip_available_to_produce)}</h3>
                                         </div>
                                         <span className="ms-auto my-auto circle-icon bg-info text-center"><i className="bi bi-cart-plus fs-20"></i></span>
                                     </div>
@@ -302,7 +296,7 @@ function HomeComponent(props) {
                                 <Card.Title className="card-title mb-3 mb-sm-0">% Demand changes as per customer name</Card.Title>
                             </Card.Header>
                             <Card.Body className="card-body pb-0">
-                                <GradientBarChart />
+                                <ChangesMadeBycustomer />
                             </Card.Body>
                         </div>
                     </Card>
@@ -314,7 +308,7 @@ function HomeComponent(props) {
                                 <Card.Title className="card-title mb-3 mb-sm-0">% Demand changes as per FG Code</Card.Title>
                             </Card.Header>
                             <Card.Body className="card-body pb-0">
-                                <GradientBarChart2 />
+                                <ChangeMadeByProductCode />
                             </Card.Body>
                         </div>
                     </Card>
@@ -323,9 +317,8 @@ function HomeComponent(props) {
         </Fragment>
     )
 } const mapStatetoprops = (state) => {
-    console.log("state", state)
     return {
-        cardsData: state.cardsData,
+        cardsData: state.commonReducer.cardsData,
     }
 }
 
