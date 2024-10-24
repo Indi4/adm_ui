@@ -272,14 +272,14 @@ function CustomerDetails(props) {
                   display: "flex",
                   justifyContent: "space-between",
                   width: "100%",
-                  padding:"0px",
+                  padding: "0px",
                 }}
               >
-                <Card.Title style={{ flexGrow: 1, paddingTop:"10px" }}>
+                <Card.Title style={{ flexGrow: 1, paddingTop: "10px" }}>
                   Customer Details
                 </Card.Title>
                 <Card.Title style={{ marginLeft: "auto" }}>
-                <Button
+                  <Button
                     onClick={() => handleOpenModal(1, 0)}
                     variant="contained"
                     className="bg-cyan"
@@ -306,6 +306,8 @@ function CustomerDetails(props) {
                   <Typography variant="body1">
                     Total Records :{customerList.length}
                   </Typography>
+
+                  
                 </Grid>
                 <div
                   style={{ marginTop: "10px", height: 500, overflowY: "auto" }}
@@ -323,10 +325,15 @@ function CustomerDetails(props) {
                         "& .MuiDataGrid-columnHeaders": {
                           backgroundColor: "rgba(255, 255, 255, 0.7)",
                           color: "rgba(0, 0, 0, 0.87)",
-                          fontSize: "15px",
+                          fontSize: "14px",
                           borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
                           backdropFilter: "blur(10px)",
-                          boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
+                          WebkitBackdropFilter: "blur(10px)",
+                          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                        },
+                        "& .MuiDataGrid-columnHeaderTitle": {
+                          whiteSpace: "normal", // Make sure the header title also wraps
+                          textAlign: "center", // Center the text
                         },
                         "& .MuiDataGrid-cell": {
                           borderBottom: "1px solid #e0e0e0",
@@ -341,6 +348,31 @@ function CustomerDetails(props) {
                         },
                         "& .MuiDataGrid-selectedRowCount": {
                           color: "#4a6fa1",
+                        },
+                        "& .MuiDataGrid-virtualScroller": {
+                          "&::-webkit-scrollbar": {
+                            width: "10px",
+                            height: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#d3d3d3",
+                            borderRadius: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            backgroundColor: "#bbb",
+                          },
+                        },
+                        "& .MuiDataGrid-root": {
+                          "&::-webkit-scrollbar": {
+                            height: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#d3d3d3",
+                            borderRadius: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            backgroundColor: "#bbb",
+                          },
                         },
                         "& .MuiDataGrid-toolbarContainer": {
                           backgroundColor: "#f0f0f0",
@@ -412,13 +444,3 @@ const mapDispatchtoprops = (dispatch) => {
 };
 
 export default connect(mapStatetoprops, mapDispatchtoprops)(CustomerDetails);
-
-// import React from 'react'
-
-// function customerDetails() {
-//   return (
-//     <div>customerDetails</div>
-//   )
-// }
-
-// export default customerDetails
