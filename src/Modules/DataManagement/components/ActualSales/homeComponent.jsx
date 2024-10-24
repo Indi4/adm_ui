@@ -1,20 +1,15 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from 'react-redux'
-import { Alert, Card, CloseButton, Col, Collapse, Form, Row } from 'react-bootstrap'
+import { Alert, Card, Button, Col, Collapse, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Pageheader from '../../../../layouts/pageheader/pageheader'
-// import { AlertswithIcons, Defaultalerts, Dismissing, Icon, Linkwithalert, Style } from './data/alertsdata'
-// import { Col, Card, CardBody, Row } from "reactstrap";
-// import { DataGrid } from "@mui/x-data-grid";
-
-// import ModalPopUpComponent from '../../../commonComponent/modalPopUpComponent'
-// import { Button } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import ModalPopUpComponent from '../../../../commonComponent/modalPopUpComponent'
 import FilterComponent from "../../commonComponent/filter";
 import { actualSalesColumns, initialState, breadcrumbs } from "./config"
 import { CDC_SAVE_ACTUALSALES, CDC_GET_ACTUALSALES } from "../../../endPointConfig"
-// import { CustomFooter } from "../../../commonConfig"
 import { callCommonGetAPI } from '../../../../store/action/action'
-// import { ToastContainer, toast } from "react-toastify";
+ import { ToastContainer, toast } from "react-toastify";
 
 
 function HomeComponent(props) {
@@ -26,6 +21,7 @@ function HomeComponent(props) {
     const [totalPage, setTotalPage] = useState(0)
     const [columns, setColumns] = useState([])
     const [customerNameorCode, setCustomerNameorCode] = useState("")
+
     useEffect(() => {
         props.getActualSalesData(endPoint)
         return () => { reset() }
@@ -67,32 +63,36 @@ function HomeComponent(props) {
             <Pageheader items={breadcrumbs} />
             <Row>
                 <Col xl={12}>
-                    <Card className=" custom-card">
-                        <Card.Header>
-                            <Card.Title>
-                                <Row>
-                                    <Col md="6">
-                                        <FilterComponent
-                                            handleSearchData={handleSearchData}
-                                            callAPI={CDC_GET_ACTUALSALES}
-                                        />
-                                    </Col>
-                                    <Col md="4" >
-                                        <Button
-                                            onClick={() => handleOpenModal(1, 0)}
-                                            variant="contained"
-                                            color="primary"
-                                            style={{ borderRadius: "15px", margin: "10px" }}
-                                        >
-                                            Import Actual Sales
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </Card.Title>
+                    <Card>
+                        <Card.Header className=" d-flex justify-content-between align-items-center">
+                            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "0px" }}>
+                                <Card.Title style={{ flexGrow: 1 }}>
+                                    <FilterComponent
+                                        handleSearchData={handleSearchData}
+                                        callAPI={CDC_GET_ACTUALSALES}
+                                    />
+                                </Card.Title>
+                                <Card.Title style={{ marginLeft: "auto" }}>
+                                    {/* <div className="btn-list"> */}
+                                    {/* <Button type="button" variant="upload" className="bg-purple" >
+                                            <i className="fe fe-upload me-2"></i>
+                                            <span>Import Actual Sales</span>
+                                        </Button></div> */}
+
+                                    <Button
+                                        onClick={() => handleOpenModal(1, 0)}
+                                        variant="upload"
+                                        className="bg-purple"
+                                        sx={{ borderRadius: "20px" }}
+                                    >
+                                        <i className="fe fe-upload me-2"></i>
+                                        Import Actual Sales
+                                    </Button>
+                                </Card.Title>
+                            </div>
                         </Card.Header>
                         <Card.Body>
                             <div className="card-area">
-
                                 <Col md="12">
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
                                         {actualSalesList && actualSalesList.length > 0 ?
@@ -178,10 +178,12 @@ function HomeComponent(props) {
                         </Card.Body>
                     </Card>
                 </Col>
-
-            </Row>
-
-        </Fragment>
+            </Row >
+            <ModalPopUpComponent open={state.openModal}
+                handleOpenModal={handleOpenModal}
+                callEndPoint={CDC_SAVE_ACTUALSALES}
+            />
+        </Fragment >
     )
 }
 
