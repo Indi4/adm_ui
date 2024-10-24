@@ -1,9 +1,12 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './layouts/App';
 import './index.scss';
 import { Routingdata } from './common/routingdata';
+import { Provider } from 'react-redux';
+import store from './store/index';
+import PrivateRoute from './commonComponent/PrivateRoute';
 
 
 // const App = lazy(() => import('./layouts/App'));
@@ -27,6 +30,7 @@ const CodeComponent = lazy(() => import('./Modules/MDM/components/allMaster/code
 const Login = lazy(() => import('./components/authentication/login/login'));
 const Register = lazy(() => import('./components/Authentication/Register/Register'));
 const ForgotPassword = lazy(() => import('./components/Authentication/ForgotPassword/ForgotPassword'));
+const ResetPassword = lazy(() => import('./components/authentication/forgotpassword/resetpassword'));
 const Lockscreen = lazy(() => import('./components/Authentication/Lockscreen/Lockscreen'));
 const Error400 = lazy(() => import('./components/Authentication/ErrorPages/Error400/Error400'));
 const Error401 = lazy(() => import('./components/authentication/errorpages/error401/error401'));
@@ -39,14 +43,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Fragment>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Suspense fallback={<Loaderimage />}>
-        {/* <Provider store={store}> */}
+        <Provider store={store}>
           {/* <App/> */}
           <ScrollToTop />
+          {/* <PrivateRoute> */}
           <Routes>
             {/* Auth Layout */}
-            <Route path="/" element={<Auth />}>
-              <Route index element={<Authlogin />} />
-              <Route path="authlogin" element={<Authlogin />} />
+            <Route path="/">
+              {/* <Route index element={<Authlogin />} /> */}
+              <Route path="" element={<Navigate to='/main' />} />
               <Route path="signup" element={<Signup />} />
               <Route path="main" element={<Main />} />
 
@@ -69,6 +74,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="authentication/login" element={<Login />} />
               <Route path="authentication/register" element={<Register />} />
               <Route path="authentication/forgotpassword" element={<ForgotPassword />} />
+              <Route path="authentication/forgotpassword" element={<ForgotPassword />} />
+              <Route path="/resetpassword" element={<ResetPassword />} />
+
               <Route path="authentication/lockscreen" element={<Lockscreen />} />
               <Route path="authentication/errorpages/error400" element={<Error400 />} />
               <Route path="authentication/errorpages/error401" element={<Error401 />} />
@@ -80,7 +88,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="*" element={<Error400 />} />
             </Route>
           </Routes>
-        {/* </Provider> */}
+          {/* </PrivateRoute> */}
+        </Provider>
       </Suspense>
     </BrowserRouter>
   </Fragment>

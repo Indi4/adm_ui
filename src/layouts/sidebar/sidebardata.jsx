@@ -97,35 +97,20 @@ export const CDNMenuItems = [
       },
       {
         title: "Actual Sales",
-        type: "sub",
-        icon: <i className="fe fe-shopping-cart"></i>,
+        path: "/cdn/actualSales",
+        icon: <i className="fe fe-fast-forward"></i>,
+        type: "link",
         active: false,
         selected: false,
-        children: [
-          {
-            title: "Finished & Unpainted Stock",
-            path: "/cdn/actual-sales/finished-unpainted-stock",
-            type: "link",
-            active: false,
-            selected: false,
-          },
-          {
-            title: "Delivery Requirement",
-            path: "/cdn/actual-sales/delivery-requirement",
-            type: "link",
-            active: false,
-            selected: false,
-          },
-          {
-            title: "Procurement Plan",
-            path: "/cdn/actual-sales/procurement-plan",
-            type: "link",
-            active: false,
-            selected: false,
-          },
-        ],
       },
-
+      {
+        title: "Actual Dispatch",
+        path: "/cdn/actualDispatch",
+        icon: <i className="fe fe-fast-forward"></i>,
+        type: "link",
+        active: false,
+        selected: false,
+      },
       {
         title: "Report",
         type: "sub",

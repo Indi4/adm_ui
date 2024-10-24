@@ -6,6 +6,7 @@ const CodeComponent = React.lazy(() => import('../Modules/MDM/components/allMast
 const DepartmentComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/departments/departmentComponent'))
 const UsersComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/users/usersComponent'))
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
+const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/components/ActualDispatch/homeComponent'))
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
 const Chat = React.lazy(() => import('../components/Apps/Chat/Chat'))
 const Contentscrollbar = React.lazy(() => import('../components/Apps/ContentScrollbar/ContentScrollbar'))
@@ -126,9 +127,8 @@ export const Routingdata = [
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <Fulcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <Chat /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/finished-unpainted-stock`, element: <SweetAlerts /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/delivery-requirement`, element: <Rangeslider /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/procurement-plan`, element: <Contentscrollbar /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/actualSales`, element: <ActualSales /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/actualDispatch`, element: <ActualDispatch /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/sales`, element: <Loaders /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/inventory`, element: <Counters /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/financial`, element: <Ratings /> },

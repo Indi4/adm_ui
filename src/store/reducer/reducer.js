@@ -48,6 +48,7 @@ const initialstate = {
   userDetailsData:{},
   partNoByCustCodeData:{},
   actualSalesData:{},
+  actualDispatchData:{},
   fgCodeData:{},
   rmCodeData:{},
   quarterlyData:{},

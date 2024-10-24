@@ -97,7 +97,6 @@ function Header () {
         DarkMenu3.checked = true;
       }
       else{
-        
         sessionStorage.setItem("darkMode",true)
        // sessionStorage.remove("lightMode")
         document.querySelector(".app").classList.add('dark-mode');

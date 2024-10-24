@@ -56,6 +56,10 @@ export const CDC__GET_RAWMATERIAL = "mdm/rm_stock2/?"
 export const CDC_SAVE_ACTUALSALES = "mdm/upload_actual_sales/"
 export const CDC_GET_ACTUALSALES = "mdm/actual_sales/"
 
+//Actual Dispatch
+export const CDC_SAVE_ACTUALDISPATCH = "mdm/upload_actual_dispatch/"
+export const CDC_GET_ACTUALDISPATCH = "mdm/actual_dispatch/"
+
 //Logos
 export const GET_CUSTOMER_LOGO_LIST = "mdm/customer_logos/";
 

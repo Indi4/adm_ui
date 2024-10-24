@@ -107,6 +107,18 @@
   .icon {
     font-size: "2.45vw";
   }
+
+
+  .logout-button {
+	position: absolute;
+	top: 16px; /* Adjust top spacing as needed */
+	right: 16px; /* Adjust right spacing as needed */
+	z-index: 1000; /* Ensure it stays on top */
+  }
+  
+  .logout-button .MuiButton-root {
+	font-size: 0.875rem; /* Adjust font size if needed */
+  }
   
   @media (min-width:1541px){
 	.page-home {
