@@ -7,11 +7,12 @@ import { callCommonGetAPI } from '../../../store/action/action'
 import PlanByMonthComponent from './planByMonthComponent'
 import ChangesMadeBycustomer from './changesMadeBycustomer'
 import ChangeMadeByProductCode from './changeMadeByProductCode'
+import RmRequirements from './rmRequirements'
 import AOS from 'aos';
 import 'aos/dist/aos.css';  // Import AOS CSS
 
 function HomeComponent(props) {
-    const [data, setData] = useState([])
+    const [data, setData] = useState({})
 
     useEffect(() => {
         AOS.init({
@@ -21,7 +22,6 @@ function HomeComponent(props) {
     }, []);
 
     useEffect(() => {
-        // debugger
         props.getCards(GET_CARDS_DATA)
         return () => { reset() }
     }, [])
@@ -33,7 +33,7 @@ function HomeComponent(props) {
     }, [props.cardsData])
 
     const reset = () => {
-        setData([])
+        setData({})
     }
 
     const breadcrumbs = ["Home", "Dashboard"];
@@ -44,17 +44,20 @@ function HomeComponent(props) {
                 <Col sm={12} md={12} lg={12} xl={6} xxl={6} data-aos="fade-up">
                     <Row>
                         <Col lg={6} md={6} sm={6} xl={6} data-aos="fade-up">
-                            <Card className=" overflow-hidden">
+                        <Card className=" overflow-hidden">
                                 <Card.Body>
                                     <div className="d-flex">
                                         <div>
-                                            <p className="mb-0 text-dark fw-semibold">Dispatch Plan Accuracy</p>
-                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{data.rolling_plan_accuracy}</h3>
+                                            <p className="mb-0 text-dark fw-semibold">Rolling Plan Accuracy</p>
+                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data && Object.keys(data).length > 0 && data.rolling_plan_accuracy + ' %'}</h3>
+                                            {/* <div className="text-muted fs-12 mt-2"><i className="fa fa-signal text-success me-1"></i>
+                                <span className="fw-bold fs-12 text-body">6.05%</span> (30 days)
+                              </div> */}
                                         </div>
                                         <span className="ms-auto my-auto circle-icon bg-success text-center"><i className="bi bi-graph-up fs-20"></i></span>
                                     </div>
                                 </Card.Body>
-                            </Card>
+                            </Card> 
                         </Col>
                         <Col lg={6} md={6} sm={6} xl={6} data-aos="fade-up">
                             <Card className=" overflow-hidden">
@@ -62,7 +65,7 @@ function HomeComponent(props) {
                                     <div className="d-flex">
                                         <div>
                                             <p className="mb-0 text-dark fw-semibold">RM & WIP Avail. To Produce</p>
-                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data.rm_and_wip_available_to_produce && new Intl.NumberFormat('en-IN').format(data.rm_and_wip_available_to_produce)}</h3>
+                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data && Object.keys(data).length > 0 && new Intl.NumberFormat('en-IN').format(data.rm_and_wip_available_to_produce)}</h3>
                                         </div>
                                         <span className="ms-auto my-auto circle-icon bg-info text-center"><i className="bi bi-cart-plus fs-20"></i></span>
                                     </div>
@@ -87,182 +90,7 @@ function HomeComponent(props) {
                             <Card.Title className=" mb-0">Raw Material Requirements - Tons(Kg)</Card.Title>
                         </Card.Header>
                         <Card.Body className="p-0">
-                            <div className="table-responsive">
-                                <table className="table border-0 mb-0 text-nowrap">
-                                    <thead>
-                                        <tr>
-                                            <th className="border-top-0 text-dark fw-semibold ps-5 fs-13">Grade</th>
-                                            <th className="border-top-0 text-dark fw-semibold fs-13">Oct</th>
-                                            <th className="border-top-0 text-dark fw-semibold fs-13">Nov</th>
-                                            <th className="border-top-0 text-dark fw-semibold fs-13">Dec</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-dark">
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL009</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">2317.56</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-1685.80</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-1727.12</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL009</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-152.56</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">20.84</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">0</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL011</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-564.20</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-203.70</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-428.06</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL011</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-564.20</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-203.70</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-428.06</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL011</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-564.20</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-203.70</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-428.06</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL011</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-564.20</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-203.70</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-428.06</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL029</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-661.21</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-188.51</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-229.73</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL02</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">0</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">0</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">0</h6>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-bottom">
-                                            <td className="ps-5 d-flex border-bottom-0 overflow-hidden">
-                                                {/* <img alt="product-image" className="avatar avatar-md cover-image br-7 me-3" src={imagesData('product6')} /> */}
-                                                <div>
-                                                    <h6 className="mb-0 mt-1 fw-semibold">KLL -004</h6>
-                                                    {/* <p className="mb-0 text-muted fs-12">Men, Backpack</p> */}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-554.45</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-246.51</h6>
-                                            </td>
-                                            <td>
-                                                <h6 className="text-dark fw-semibold">-246.51</h6>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <RmRequirements />
                         </Card.Body>
                     </Card>
                     {/* <Card className=" overflow-hidden">
