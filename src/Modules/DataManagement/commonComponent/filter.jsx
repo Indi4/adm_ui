@@ -217,12 +217,12 @@ const FilterComponent = (props) => {
 
 const mapStatetoprops = (state) => {
     return {
-        allDemandData: state.allDemandData,
-        customerNameCodeData: state.customerNameCodeData,
-        partNoByCustCodeData: state.partNoByCustCodeData,
-        fgCodeData: state.fgCodeData,
-        rmCodeData: state.rmCodeData,
-        errorData: state.errorData
+        allDemandData: state.commonReducer.allDemandData,
+        customerNameCodeData: state.commonReducer.customerNameCodeData,
+        partNoByCustCodeData: state.commonReducer.partNoByCustCodeData,
+        fgCodeData: state.commonReducer.fgCodeData,
+        rmCodeData: state.commonReducer.rmCodeData,
+        errorData: state.commonReducer.errorData
     }
 }
 

@@ -1,8 +1,17 @@
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom/client'
+/* MDM Routes */
 const CustomerDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/customers/customerDetails'))
 const BomDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/BOMMaster/bomDetails'))
+const CodeComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/codeMaster/codeComponent'))
+const DepartmentComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/departments/departmentComponent'))
+const UsersComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/users/usersComponent'))
+
+/* Data Management */
+const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/homeComponent'))
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
+const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/components/ActualDispatch/homeComponent'))
+
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
 const Chat = React.lazy(() => import('../components/Apps/Chat/Chat'))
 const Contentscrollbar = React.lazy(() => import('../components/Apps/ContentScrollbar/ContentScrollbar'))
@@ -110,22 +119,21 @@ export const Routingdata = [
 
     { path: `${import.meta.env.BASE_URL}/mdm/customer-details`, element: <CustomerDetails /> },
     {path:`${import.meta.env.BASE_URL}/mdm/bom-details` ,element : <BomDetails/>},
-    {path:`${import.meta.env.BASE_URL}/mdm/plant-code` ,element:<Ecommerce />},
-    {path:`${import.meta.env.BASE_URL}/mdm/department` ,element:<Analytics />},
-    {path:`${import.meta.env.BASE_URL}/mdm/user-details` ,element:<Crypto />},
+    {path:`${import.meta.env.BASE_URL}/mdm/plant-code` ,element: <CodeComponent />},
+    {path:`${import.meta.env.BASE_URL}/mdm/department` ,element:<DepartmentComponent />},
+    {path:`${import.meta.env.BASE_URL}/mdm/user-details` ,element:<UsersComponent />},
     /* Dashboard page */
 
 
     /* App page */
 
-    { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Cardsdesign /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Dashboard /> },
     { path: `${import.meta.env.BASE_URL}/cdn/quick-action`, element: <Defaultcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <Fulcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <Chat /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/finished-unpainted-stock`, element: <SweetAlerts /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/delivery-requirement`, element: <Rangeslider /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/actual-sales/procurement-plan`, element: <Contentscrollbar /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/actualSales`, element: <ActualSales /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/actualDispatch`, element: <ActualDispatch /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/sales`, element: <Loaders /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/inventory`, element: <Counters /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/financial`, element: <Ratings /> },

@@ -1,7 +1,24 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { connect } from "react-redux";
-import { Card, Col, Row } from "react-bootstrap";
-import { Typography, Grid } from "@mui/material";
+import {
+  Alert,
+  Card,
+  CloseButton,
+  Col,
+  Collapse,
+  Form,
+  Row,
+} from "react-bootstrap";
+// import { Col, Card, CardBody, CardHeader, Label, Row, CardTitle } from "reactstrap";
+import {
+  //   Card,
+  //   CardHeader,
+  //   CardContent,
+  Typography,
+  Grid,
+  Button,
+} from "@mui/material";
+// import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
@@ -15,6 +32,7 @@ import {
   MDM_SAVE_CUSTOMER,
   GETALL_LIST,
 } from "../../../../endPointConfig";
+import { CustomFooter } from "../../../../commonConfig";
 import { callCommonGetAPI } from "../../../../../store/action/action";
 import EditCustomerComponent from "./editCustomerComponent";
 import { ToastContainer, toast } from "react-toastify";
@@ -23,10 +41,12 @@ import LogoPopupComponent from "./logoPopupComponent";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { IconButton } from "@mui/material";
 import { Iconloader } from "../../../../../components/bootstrap/buttons/data/buttondata";
-import { Buttonsoutline } from "../../../../../components/bootstrap/badgespills/data/badgesdata";
-import { Badge, Button } from "react-bootstrap";
+// import { Iconloader } from "../../bootstrap/buttons/data/buttondata";
+import { Badge } from "react-bootstrap";
 
 function CustomerDetails(props) {
+  console.log({ props });
+  // debugger;
   const [show, setShow] = useState(true);
   const [state, setState] = useState({ ...initialState });
   const [endPoint] = useState(MDM_GET_CUSTOMER);
@@ -55,6 +75,7 @@ function CustomerDetails(props) {
   useEffect(() => {
     if (customerData && Object.keys(customerData).length > 0) {
       if (customerData.data && customerData.data.length > 0) {
+        // console.log(customerData.data, customerData.length,"===================")
         setCustomerList(customerData.data);
         setTotalPage(customerData.length);
         setCategoryList(
@@ -65,7 +86,6 @@ function CustomerDetails(props) {
       }
     }
   }, [customerData]);
-  console.log(customerData, "customerData");
 
   useEffect(() => {
     if (customerNameCodeData && Object.keys(customerNameCodeData).length > 0) {
@@ -79,7 +99,15 @@ function CustomerDetails(props) {
     }
   }, [customerNameCodeData]);
 
+  // useEffect(() => {
+  //     if (paginationModel && Object.keys(paginationModel).length > 0) {
+  //         getCustomerData(`${endPoint}?page=${paginationModel.page + 1}`);
+  //         getCustomerNameCode(GETALL_LIST);
+  //     }
+  // }, [paginationModel]);
+
   const handleOpenModal = (openModal, success, message = "") => {
+    // debugger;
     setState({ openModal: openModal, success });
     if (success && message !== "") {
       toast.success(message);
@@ -125,6 +153,7 @@ function CustomerDetails(props) {
 
       const updatedColumns = customerColumns.map((column) => {
         if (column.field === "category") {
+          // Replace "category" with the actual field name for category
           return {
             ...column,
             renderCell: (params) => {
@@ -212,6 +241,7 @@ function CustomerDetails(props) {
     setState({ ...state, openEditModal: open, rowID: rowId, success });
     if (success && message !== "") {
       toast.success(message);
+      // getCustomerData(`${endPoint}?page=${paginationModel.page + 1}`);
       getCustomerData(`${endPoint}`);
       getCustomerNameCode(GETALL_LIST);
     } else if (!success && message !== "") {
@@ -224,8 +254,11 @@ function CustomerDetails(props) {
     setCustomerList([]);
     setTotalPage(0);
   };
-  useEffect(() => {}, [customerData, customerNameCodeData]);
+  useEffect(() => {
+    console.log({ customerData, customerNameCodeData });
+  }, [customerData, customerNameCodeData]);
 
+  console.log({ customerList });
   return (
     <div style={{ marginTop: "80px" }}>
       <ToastContainer />
@@ -252,6 +285,7 @@ function CustomerDetails(props) {
                     className="bg-cyan"
                     sx={{ borderRadius: "20px" }}
                   >
+                    {/* <i className={`fa-spin ms-2 fa fa-${Iconloader.icon==="refresh"} `}></i> */}
                     Sync ERP Data
                     {Iconloader.filter((idx) => idx.icon === "refresh").map(
                       (load, index) => (
@@ -264,16 +298,17 @@ function CustomerDetails(props) {
             </Card.Header>
             <Card.Body>
               <div className="card-area">
-                {Buttonsoutline.filter(
-                  (idx) => idx.color === "outline-info"
-                ).map((idx, index) => (
-                  <Button type="button" variant={idx.color} className="me-2">
-                    <span style={{ fontSize: "14px" }}>Total Records </span>
-                    <Badge bg={idx.bg} className="ms-2">
-                      {customerList.length}
-                    </Badge>
-                  </Button>
-                ))}
+                <Grid
+                  container
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography variant="body1">
+                    Total Records :{customerList.length}
+                  </Typography>
+
+                  
+                </Grid>
                 <div
                   style={{ marginTop: "10px", height: 500, overflowY: "auto" }}
                 >
@@ -297,8 +332,8 @@ function CustomerDetails(props) {
                           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                         },
                         "& .MuiDataGrid-columnHeaderTitle": {
-                          whiteSpace: "normal", 
-                          textAlign: "center", 
+                          whiteSpace: "normal", // Make sure the header title also wraps
+                          textAlign: "center", // Center the text
                         },
                         "& .MuiDataGrid-cell": {
                           borderBottom: "1px solid #e0e0e0",
@@ -392,9 +427,10 @@ function CustomerDetails(props) {
 }
 
 const mapStatetoprops = (state) => {
+  console.log({ state });
   return {
-    customerData: state?.commonReducer.customerData,
-    customerNameCodeData: state?.commonReducer.customerNameCodeData,
+    customerData: state?.customerData,
+    customerNameCodeData: state?.customerNameCodeData,
   };
 };
 

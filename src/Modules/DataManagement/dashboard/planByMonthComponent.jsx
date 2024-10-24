@@ -1,34 +1,98 @@
 import React, { useState, useEffect } from 'react';
-// import { Chart } from 'react-google-charts';
-// import { Card, CardBody, CardTitle } from "reactstrap";
+import { Line } from 'react-chartjs-2'
 import { connect } from 'react-redux';
+import { Chart, ArcElement, Tooltip, Legend, registerables } from 'chart.js'
 import { GET_PLAN_BY_MONTH } from "../../endPointConfig";
 import { callCommonGetAPI } from '../../../store/action/action';
+Chart.register(...registerables, ArcElement, Tooltip, Legend)
 
-export const options = {
-  colors: ["#FF5733", "#008B8B", "#FFD700"],
-  hAxis: {
-    title: "Months", 
-    minValue: 0,
-    textStyle: {
-      fontSize: 14, 
-      color: '#000000'
+//   colors: ["#FF5733", "#008B8B", "#FFD700"],
+//   hAxis: {
+//     title: "Months", 
+//     minValue: 0,
+//     textStyle: {
+//       fontSize: 14, 
+//       color: '#000000'
+//     },
+//     titleTextStyle: {
+//       fontSize: 14,
+//       bold: true,
+//       color: '#000000'
+//     }
+//   },
+//   vAxis: {},
+//   legend: {
+//     position: 'right',
+//   },
+// };
+//  LineChart
+export const getLineOptions = (isDarkMode) => ({
+  maintainAspectRatio: false,
+  responsive: true,
+  plugins: {
+    legend: {
+      display: true,
+      labels: {
+        display: true,
+        font: {
+          size: 13
+        },
+        color: isDarkMode ? '#ffffff' : '#495057', // Adjust based on dark mode
+        boxHeight: 5,
+        boxWidth: 5,
+        padding: 15
+      },
+      position: 'top'
     },
-    titleTextStyle: {
-      fontSize: 14,
-      bold: true,
-      color: '#000000'
+    tooltip: {
+      enabled: true
     }
   },
-  vAxis: {},
-  legend: {
-    position: 'right',
-  },
-};
+  scales: {
+    x: {
+      ticks: {
+        beginAtZero: true,
+        fontSize: 10,
+        fontColor: isDarkMode ? '#ffffff' : 'rgba(180, 183, 197, 0.4)', // Adjust based on dark mode
+        padding: 10
+      },
+      title: {
+        display: true,
+        text: 'Month',
+        font: {
+          size: 14
+        },
+        color: isDarkMode ? '#ffffff' : '#495057' // Adjust based on dark mode
+      },
+      grid: {
+        display: false,
+       // color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(180, 183, 197, 0.4)',
+        drawBorder: false
+      }
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Plans'
+      },
+      grid: {
+        display: false,
+       // color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(180, 183, 197, 0.4)',
+        drawBorder: false
+      }
+    }
+  }
+});
+// const isDarkMode = document.body.classList.contains('dark-mode'); // Example for checking dark mode
+// console.log("isDarkMode",isDarkMode)
+let isDarkMode = sessionStorage.getItem("darkMode",true)
+console.log("isDarkMode",isDarkMode)
+//const lineOptions = getLineOptions(isDarkMode); // Pass the current theme status
+const lineOptions = getLineOptions(false); // Pass the current theme status
 
 function PlanByMonthComponent(props) {
-  const [data, setData] = useState([]);
-
+    const [data, setData] = useState([]);
+    const [labels, setLabels] = useState([]);
   useEffect(() => {
     props.getPlanByMonthData(GET_PLAN_BY_MONTH);
     return () => { reset(); };
@@ -36,20 +100,20 @@ function PlanByMonthComponent(props) {
 
   useEffect(() => {
     if (props.planByMonthData && Object.keys(props.planByMonthData).length > 0) {
-      setData(props.planByMonthData.data);
+      setData(props.planByMonthData.datasets);
+      setLabels(props.planByMonthData.labels)
     }
   }, [props.planByMonthData]);
 
   const reset = () => {
     setData([]);
   };
-  console.log("props.planByMonthData",props.planByMonthData)
+  
   const LineData = {
-
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: labels && labels.length> 0 && labels,
     datasets: [{
       label: 'AOP', // Add a label for the second dataset
-      data: [36550, 34866, 34670, 39860, 50500, 62780, 67600, 46500, 65000, 79200, 42910, 47100],
+      data: data && data.length> 0 && data[0].data,
       borderColor: '#5eba00',
       backgroundColor: '#5eba00', // Add fill color (used in legends)
       borderWidth: 3,
@@ -58,7 +122,7 @@ function PlanByMonthComponent(props) {
     },
     {
       label: 'Rolling Plan', // Add a label for the second dataset
-      data: [0, 0, 0, 0, 0, 0, 0, 0, 2600, 1000, 498, 340],
+      data: data && data.length> 0 && data[1].data,
       borderColor: '#FFEB3B',
       backgroundColor: '#FFEB3B', // Add fill color (used in legends)
       borderWidth: 3,
@@ -67,7 +131,7 @@ function PlanByMonthComponent(props) {
     },
     {
       label: 'Actual Sales', // Add a label for the second dataset
-      data: [43189, 43189, 43189, 43189, 43189, 43189, 43189, 43189, 0, 0, 0, 0],
+      data: data && data.length> 0 && data[2].data,
       borderColor: '#D500F9',
       backgroundColor: '#D500F9', // Add fill color (used in legends)
       borderWidth: 3,
@@ -75,41 +139,17 @@ function PlanByMonthComponent(props) {
       lineTension: 0.1
     }]
   }
-  function LineChart() {
-    return (
-      <div className="e-table px-5 pb-5">
-        <Line options={lineOptions} data={LineData} height='350px' />
-      </div>
-    )
-  };
   
-  return ( <></>
-    // <Card >
-    //   <CardTitle 
-    //     tag="h6" 
-    //     className="border-bottom p-1 mb-0" 
-    //     style={{ padding: '0px', margin:'10px' }}> 
-    //     Plans By Month
-    //   </CardTitle>
-    //   <CardBody style={{ padding: '0px', margin: '0px' }}>
-    //     <div style={{ margin: '0', padding: '0' }}>
-    //       <Chart
-    //         chartType="LineChart"
-    //         width="100%"
-    //         height="400px" 
-    //         data={data}
-    //         options={options}
-    //         style={{ margin: '0', padding: '0' }} 
-    //       />
-    //     </div>
-    //   </CardBody>
-    // </Card>
+  return (
+    <div className="e-table px-5 pb-5">
+      <Line options={lineOptions} data={LineData} height='350px' />
+    </div>
   );
 }
 
-const mapStatetoprops = (state) => {
+const mapStatetoprops = (state) => {console.log("state",state)
   return {
-    planByMonthData: state.planByMonthData,
+    planByMonthData: state.commonReducer.planByMonthData,
   };
 };
 

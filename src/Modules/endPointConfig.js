@@ -27,9 +27,9 @@ export const GETALL_LIST = "mdm/dropdowns"
 
 //Dashboard
 export const GET_QUARTERLY_DATA = "mdm/quarterly_data/"
-export const GET_CHANGES_MADEBY_CUSTOMER = "mdm/changes_made_by_customer/"
-export const GET_CHANGES_MADEBY_CODE = "mdm/changes_made_by_code/"
-export const GET_PLAN_BY_MONTH = "mdm/plan_by_month/"
+export const GET_CHANGES_MADEBY_CUSTOMER = "mdm/changes_made_by_customer2/"
+export const GET_CHANGES_MADEBY_CODE = "mdm/changes_made_by_code2/"
+export const GET_PLAN_BY_MONTH = "mdm/plan_by_month2/"
 export const GET_CARDS_DATA = "mdm/dashboard_cards/"
 export const GET_RM_REQUIREMENTS = "mdm/nplus2report/"
 //Demands
@@ -55,6 +55,10 @@ export const CDC__GET_RAWMATERIAL = "mdm/rm_stock2/?"
 //Actual Sales
 export const CDC_SAVE_ACTUALSALES = "mdm/upload_actual_sales/"
 export const CDC_GET_ACTUALSALES = "mdm/actual_sales/"
+
+//Actual Dispatch
+export const CDC_SAVE_ACTUALDISPATCH = "mdm/upload_actual_dispatch/"
+export const CDC_GET_ACTUALDISPATCH = "mdm/actual_dispatch/"
 
 //Logos
 export const GET_CUSTOMER_LOGO_LIST = "mdm/customer_logos/";

@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { connect } from "react-redux";
-import Button from "@mui/material/Button";
 import { DataGrid } from "@mui/x-data-grid";
 import {
-  Typography,
-  Grid,
-} from "@mui/material";
-import {
+  Badge,
     Card,
     Col,
-    Row,
+    Row,Button
   } from "react-bootstrap";
 import ModalPopUpComponent from "../../../../../commonComponent/modalPopUpComponent";
 import { BOMColumns, initialState } from "../../../../DataManagement/config";
@@ -26,6 +22,7 @@ import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Iconloader } from "../../../../../components/bootstrap/buttons/data/buttondata";
+import { Buttonsoutline } from "../../../../../components/bootstrap/badgespills/data/badgesdata";
 
 function BOMComponent(props) {
   const [state, setState] = useState({ ...initialState });
@@ -33,7 +30,7 @@ function BOMComponent(props) {
   const [BOMList, setBOMList] = useState([]);
 
   const [paginationModel, setPaginationModel] = useState({
-    pageSize: 20,
+    pageSize: 5,
     page: 0,
   });
   const [totalPage, setTotalPage] = useState(0);
@@ -50,7 +47,7 @@ function BOMComponent(props) {
       const dataCount = props.BOMData.count || props.BOMData.data.length;
 
       setBOMList(props.BOMData.data);
-      setTotalPage(dataCount); // Use the fallback count
+      setTotalPage(dataCount); 
     }
   }, [props.BOMData]);
 
@@ -74,9 +71,7 @@ function BOMComponent(props) {
     }
   };
 
-  // const handlePaginationChange = (newPagination) => {
-  //     setPaginationModel(newPagination);
-  // };
+ 
 
   const handlePaginationChange = (newPagination) => {
     setPaginationModel(newPagination);
@@ -85,7 +80,7 @@ function BOMComponent(props) {
     const limit = newPagination.pageSize;
 
     const paginatedEndPoint = `${endPoint}?offset=${offset}&limit=${limit}`;
-    props.getBOMData(paginatedEndPoint); // Call the API with pagination parameters
+    props.getBOMData(paginatedEndPoint); 
   };
 
   const handleDelete = (open, rowId, success, message = "") => {
@@ -150,10 +145,10 @@ function BOMComponent(props) {
   }, [BOMColumns]);
 
   return (
-    <div>
+    <div style={{ marginTop: "80px" }}>
       <ToastContainer />
       <Row>
-        <Col md="12">
+        <Col xl={12}>
           <Card className="custom-card">
             <Card.Header>
               <div
@@ -174,7 +169,6 @@ function BOMComponent(props) {
                     className="bg-cyan"
                     sx={{ borderRadius: "20px" }}
                   >
-                    {/* <i className={`fa-spin ms-2 fa fa-${Iconloader.icon==="refresh"} `}></i> */}
                     Sync ERP Data
                     {Iconloader.filter((idx) => idx.icon === "refresh").map(
                       (load, index) => (
@@ -185,23 +179,28 @@ function BOMComponent(props) {
                 </Card.Title>
               </div>
             </Card.Header>
-            {/* <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-                            BOM Details
-                        </CardTitle> */}
+           
             <Card.Body>
               <div className="card-area">
-                <Grid
-                  container
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography variant="body1">
-                    Total Records :{BOMList.length}
-                  </Typography>
-                </Grid>
+
+
+                {Buttonsoutline.filter(
+                    (idx) => idx.color === "outline-info"
+                  ).map((idx, index) => (
+                    <Button
+                      type="button"
+                      variant={idx.color}
+                      className="me-2"
+                    >
+                      <span style={{fontSize:"14px"}}>Total Records </span>
+                      <Badge bg={idx.bg} className="ms-2">
+                        {BOMList.length}
+                      </Badge>
+                    </Button>
+                  ))}
                 <div
                   style={{
-                    marginTop: "15px",
+                    marginTop: "10px",
                     display: "grid",
                     height: 500,
                     overflowY: "auto",
@@ -212,23 +211,7 @@ function BOMComponent(props) {
                       rows={BOMList}
                       columns={BOMColumns || []}
                       getRowId={(row) => row.id}
-                      pageSize={paginationModel.pageSize} // Set page size from pagination model
-                      rowCount={totalPage} // Total number of records
-                      paginationMode="server" // Enable server-side pagination
-                      onPageChange={(newPage) =>
-                        handlePaginationChange({
-                          ...paginationModel,
-                          page: newPage,
-                        })
-                      } // Handle page change
-                      onPageSizeChange={(newPageSize) =>
-                        handlePaginationChange({
-                          ...paginationModel,
-                          pageSize: newPageSize,
-                        })
-                      } // Handle page size change
-                      pagination
-                      // hideFooterPagination
+                      hideFooterPagination
                       components={{
                         Footer: () => <CustomFooter total={BOMList.length} />,
                       }}
@@ -240,15 +223,15 @@ function BOMComponent(props) {
                         "& .MuiDataGrid-columnHeaders": {
                           backgroundColor: "rgba(255, 255, 255, 0.7)",
                           color: "rgba(0, 0, 0, 0.87)",
-                          fontSize: "15px",
+                          fontSize: "14px",
                           borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
                           backdropFilter: "blur(10px)",
                           WebkitBackdropFilter: "blur(10px)",
                           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                         },
                         "& .MuiDataGrid-columnHeaderTitle": {
-                          whiteSpace: "normal", // Make sure the header title also wraps
-                          textAlign: "center", // Center the text
+                          whiteSpace: "normal",
+                          textAlign: "center", 
                         },
                         "& .MuiDataGrid-cell": {
                           borderBottom: "1px solid #e0e0e0",
@@ -327,8 +310,8 @@ function BOMComponent(props) {
 
 const mapStatetoprops = (state) => {
   return {
-    BOMData: state?.bomData,
-    saveBOMData: state?.saveBOMData,
+    BOMData: state?.commonReducer.bomData,
+    saveBOMData: state?.commonReducer.saveBOMData,
   };
 };
 

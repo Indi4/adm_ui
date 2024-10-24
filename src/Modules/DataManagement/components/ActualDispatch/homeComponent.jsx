@@ -6,55 +6,62 @@ import Pageheader from '../../../../layouts/pageheader/pageheader'
 import { DataGrid } from "@mui/x-data-grid";
 import ModalPopUpComponent from '../../../../commonComponent/modalPopUpComponent'
 import FilterComponent from "../../commonComponent/filter";
-import { actualSalesColumns, initialState, breadcrumbs } from "./config"
-import { CDC_SAVE_ACTUALSALES, CDC_GET_ACTUALSALES } from "../../../endPointConfig"
+import { actualDispatchColumns, initialState, breadcrumbs } from "./config"
+import { CDC_SAVE_ACTUALDISPATCH, CDC_GET_ACTUALDISPATCH } from "../../../endPointConfig"
 import { callCommonGetAPI } from '../../../../store/action/action'
 import { ToastContainer, toast } from "react-toastify";
 
-
 function HomeComponent(props) {
-
     const [state, setState] = useState({ ...initialState })
-    const [endPoint] = useState(CDC_GET_ACTUALSALES)
-    const [actualSalesList, setActualSalesList] = useState([])
-    const [paginationModel, setPaginationModel] = useState({ pageSize: 5, page: 0 });
+    const [endPoint] = useState(CDC_GET_ACTUALDISPATCH)
+    const [actualDispatchList, setActualDispatchList] = useState([])
+    const [paginationModel, setPaginationModel] = useState({ pageSize: 50, page: 0 });
     const [totalPage, setTotalPage] = useState(0)
     const [columns, setColumns] = useState([])
     const [customerNameorCode, setCustomerNameorCode] = useState("")
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        props.getActualSalesData(endPoint)
+        props.getActualDispatchData(endPoint)
         return () => { reset() }
     }, [])
 
     useEffect(() => {
-        if (props.actualSalesData && Object.keys(props.actualSalesData).length > 0) {
-            setActualSalesList(props.actualSalesData.data)
-            setTotalPage(props.actualSalesData.count)
+        if (props.actualDispatchData && Object.keys(props.actualDispatchData).length > 0) {
+            if (props.actualDispatchData.data && props.actualDispatchData.data.length > 0) {
+                setActualDispatchList(props.actualDispatchData.data)
+                setTotalPage(props.actualDispatchData.count || props.actualDispatchData.data.length)
+            }
         }
-    }, [props.actualSalesData])
+    }, [props.actualDispatchData])
 
     const handleOpenModal = (openModal, success, message = "") => {
         setState({ openModal: openModal, success })
         if (!!success && message !== "") {
             toast.success(message)
-            props.getActualSalesData(endPoint)
+            props.getActualDispatchData(endPoint)
         } else if (!success && message !== "") {
             toast.error(message)
         }
     }
 
-    const handleSearchData = (actualSalesData, data, customerNameCode) => {
+    const handlePaginationChange = (newPagination) => {
+        setPaginationModel(newPagination);
+        props.getActualDispatchData(`${endPoint}?page=${newPagination.page + 1}`);
+    };
+
+
+    const handleSearchData = (actualDispatchData, data, customerNameCode) => {
         setCustomerNameorCode(customerNameCode)
-        if (actualSalesData && Object.keys(actualSalesData).length > 0) {
-            setActualSalesList(actualSalesData.data)
-            setTotalPage(actualSalesData.count)
+        if (actualDispatchData && Object.keys(actualDispatchData).length > 0) {
+            setActualDispatchList(actualDispatchData.data)
+            setTotalPage(actualDispatchData.count)
         }
     }
 
     const reset = () => {
         setState(initialState)
-        setActualSalesList([])
+        setActualDispatchList([])
         setTotalPage(0)
     }
 
@@ -69,16 +76,10 @@ function HomeComponent(props) {
                                 <Card.Title style={{ flexGrow: 1 }}>
                                     <FilterComponent
                                         handleSearchData={handleSearchData}
-                                        callAPI={CDC_GET_ACTUALSALES}
+                                        callAPI={CDC_SAVE_ACTUALDISPATCH}
                                     />
                                 </Card.Title>
                                 <Card.Title style={{ marginLeft: "auto" }}>
-                                    {/* <div className="btn-list"> */}
-                                    {/* <Button type="button" variant="upload" className="bg-purple" >
-                                            <i className="fe fe-upload me-2"></i>
-                                            <span>Import Actual Sales</span>
-                                        </Button></div> */}
-
                                     <Button
                                         onClick={() => handleOpenModal(1, 0)}
                                         variant="upload"
@@ -86,7 +87,7 @@ function HomeComponent(props) {
                                         sx={{ borderRadius: "20px" }}
                                     >
                                         <i className="fe fe-upload me-2"></i>
-                                        Import Actual Sales
+                                        Import Actual Dispatch
                                     </Button>
                                 </Card.Title>
                             </div>
@@ -95,10 +96,10 @@ function HomeComponent(props) {
                             <div className="card-area">
                                 <Col md="12">
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
-                                        {actualSalesList && actualSalesList.length > 0 ?
+                                        {actualDispatchList && actualDispatchList.length > 0 ?
                                             <DataGrid
-                                                rows={actualSalesList}
-                                                columns={actualSalesColumns}
+                                                rows={actualDispatchList}
+                                                columns={actualDispatchColumns}
                                                 pagination
                                                 paginationMode="server"
                                                 rowCount={totalPage}  // Ensure the total number of records is provided
@@ -109,7 +110,7 @@ function HomeComponent(props) {
                                                 getRowId={(row) => row.id}
                                                 hideFooterPagination
                                                 components={{
-                                                    Footer: () => <CustomFooter total={actualSalesList.length} />,
+                                                    Footer: () => <CustomFooter total={actualDispatchList.length} />,
                                                 }}
                                                 sx={{
                                                     '& .MuiDataGrid-root': {
@@ -181,7 +182,7 @@ function HomeComponent(props) {
             </Row >
             <ModalPopUpComponent open={state.openModal}
                 handleOpenModal={handleOpenModal}
-                callEndPoint={CDC_SAVE_ACTUALSALES}
+                callEndPoint={CDC_SAVE_ACTUALDISPATCH}
             />
         </Fragment >
     )
@@ -189,12 +190,12 @@ function HomeComponent(props) {
 
 const mapStatetoprops = (state) => {
     return {
-        actualSalesData: state.commonReducer.actualSalesData,
+        actualDispatchData: state.commonReducer.actualDispatchData,
     }
 }
 const mapDispatchtoprops = (dispatch) => {
     return {
-        getActualSalesData: (endPoint) => dispatch(callCommonGetAPI(endPoint, 'actualSales'))
+        getActualDispatchData: (endPoint) => dispatch(callCommonGetAPI(endPoint, 'actualDispatch'))
     }
 }
 export default connect(mapStatetoprops, mapDispatchtoprops)(HomeComponent)

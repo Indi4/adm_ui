@@ -119,6 +119,8 @@ function ModalPopUpComponent(props) {
                             <div
                                 style={{
                                     display: "flex",
+                                    flexDirection:"column",
+                                    alignItems:"center",
                                     margin: "auto",
                                     outline: "dotted",
                                     width: "70%",
@@ -219,8 +221,8 @@ const gridItemStyle = {
 
 const mapStatetoProps = (state) => {
     return {
-        saveUploadData: state?.saveUploadData,
-        errorData: state?.errorData,
+        saveUploadData: state?.commonReducer.saveUploadData,
+        errorData: state?.commonReducer.errorData,
     };
 };
 
