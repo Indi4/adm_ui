@@ -6,8 +6,8 @@ import MenuItems, { CDNMenuItems } from "./sidebardata";
 
 import logo from "../../assets/images/brand/Kizuna.svg";
 import logolight from "../../assets/images/brand/KizunaWhiteLogo.svg";
-import icon1 from "../../assets/images/brand/icon.png";
-import icon2 from "../../assets/images/brand/icon2.png";
+import icon1 from "../../assets/images/brand/Kizuna-01.png";
+import { Typography } from "@mui/material";
 
 export default function Sidebar({ menuType }) {
   const location = useLocation();
@@ -50,9 +50,8 @@ export default function Sidebar({ menuType }) {
   }
 
   function toggleItem(index) {
-    
     const newOpenItems = Object.keys(openItems).reduce((acc, curr) => {
-      acc[curr] = false; 
+      acc[curr] = false;
       return acc;
     }, {});
 
@@ -69,7 +68,7 @@ export default function Sidebar({ menuType }) {
             <div className="side-header">
               <Link
                 className="header-brand1"
-                to={`${import.meta.env.BASE_URL}/customer-details`}
+                to={`${import.meta.env.BASE_URL}main`}
               >
                 <img
                   src={logo}
@@ -81,18 +80,17 @@ export default function Sidebar({ menuType }) {
                   className="header-brand-img darklogo"
                   alt="Kizuna logo"
                 />
+               
                 <img
                   src={icon1}
                   className="header-brand-img icon-logo"
-                  alt="Icon 1"
-                  style={{ marginRight: "8px" }}
-                />
-                <img
-                  src={icon2}
-                  className="header-brand-img icon-logo"
                   alt="Icon 2"
-                  style={{ marginRight: "8px" }}
+                  style={{ marginLeft: "8px",marginTop:"22px",marginBottom:"15px" }}
                 />
+
+                <Typography variant="h6" style={{ fontSize:"11px" ,color:"red" }}>
+                  {locationPaths?.includes("mdm") ? "Master Data Management" : "Demand Management"}
+                </Typography>
               </Link>
             </div>
             <div className="main-sidemenu">
@@ -144,7 +142,7 @@ export default function Sidebar({ menuType }) {
                                   }`}
                                   onClick={() => setActiveMenuItem(child.path)}
                                 >
-                                  <span style={{ marginRight: "12px" }}>•</span>{" "}
+                                  <span style={{ marginRight: "12px",marginLeft:"20px" }}>•</span>{" "}
                                   <span className="side-menu__label">
                                     {child.title}
                                   </span>

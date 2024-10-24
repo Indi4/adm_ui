@@ -1,37 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { Chart } from 'react-google-charts'
-import { Card, CardBody, CardTitle } from "reactstrap";
 import { connect } from 'react-redux'
+import { Bar } from 'react-chartjs-2'
+import { Chart, ArcElement, Tooltip, Legend, registerables } from 'chart.js'
 import { GET_CHANGES_MADEBY_CODE } from "../../endPointConfig"
 import { callCommonGetAPI } from '../../../store/action/action'
 import '../../../layouts/styles/Common.css'
+Chart.register(...registerables, ArcElement, Tooltip, Legend)
 
-export const options = {
-    chart: {
-       // title: "% Demand changes as per FG Code",
-    },
-    colors: ["#8B008B"], // Custom color for bars
-    hAxis: {
-        title: "Value", // X-axis title
-        minValue: 0,
-    },
-    vAxis: {
-        title: "Company", // Y-axis title
-        textPosition: 'out', // Position of the text
-        textStyle: {
-            fontSize: 12, // Adjust font size for more spacing
-        },
-        slantedText: true, // Slant text if too long
-        slantedTextAngle: 30, // Angle for slanted text
-    },
-    bar: {
-        groupWidth: "40%", // Reduce the width of the bars
-    },
-    legend: {
-        position: 'none', // This hides the legend
-    },
+function getGradient(ctx) {
+    const gradient = ctx.createLinearGradient(0, 0, 1, 250)
+    gradient.addColorStop(0, '#467fcf')
+    gradient.addColorStop(1, '#5eba00')
+    return gradient
 }
-
 function ChangeMadeByProductCode(props) {
     const [data, setData] = useState([])
 
@@ -42,7 +23,7 @@ function ChangeMadeByProductCode(props) {
 
     useEffect(() => {
         if (props.changesMadeByProductCodeData && Object.keys(props.changesMadeByProductCodeData).length > 0) {
-            setData(props.changesMadeByProductCodeData.data)
+            setData(props.changesMadeByProductCodeData)
         }
     }, [props.changesMadeByProductCodeData])
 
@@ -50,32 +31,93 @@ function ChangeMadeByProductCode(props) {
         setData([])
     }
 
+    const GradientOption = {
+        maintainAspectRatio: false,
+        responsive: true,
+        barPercentage: 0.5,
+        plugins: {
+            legend: {
+                display: false,
+                labels: {
+                    display: false
+                }
+            },
+            tooltip: {
+                enabled: true
+            }
+        },
+        hover: { mode: null },
+        scales: {
+            x: {
+                // ticks: {
+                //   beginAtZero: true,
+                //   fontSize: 10,
+                //   fontColor: 'rgba(180, 183, 197, 0.4)'
+                // },
+                title: {
+                    display: true, // Enable the display of the title
+                    text: 'FG Code', // Set the title text
+                    font: {
+                        size: 14 // Adjust the font size for the axis title
+                    },
+                    color: '#495057', // Set the color for the title
+                    padding: { top: 10 } // Add space between the title and the x-axis
+                },
+                grid: {
+                    display: false,
+                    color: 'rgba(180, 183, 197, 0.4)',
+                    drawBorder: false
+                }
+            },
+            y: {
+                // ticks: {
+                //   beginAtZero: true,
+                //   fontSize: 10,
+                //   fontColor: 'rgba(180, 183, 197, 0.4)',
+                //   stepSize: 10,
+                //   min: 0,
+                //   max: 80
+                // },
+                title: {
+                    display: true,
+                    text: '% Changes'
+                },
+                grid: {
+                    display: false,
+                    color: 'rgba(180, 183, 197, 0.4)',
+                    drawBorder: false
+                }
+            }
+        }
+    };
+
+    const GradientData = {
+        labels: data && Object.keys(data).length > 0 && data.labels,
+        datasets: [
+            {
+                label: '#',
+                data: data && Object.keys(data).length > 0 && data.per_data,
+                backgroundColor: function (context) {
+                    const chart = context.chart
+                    const { ctx, chartArea } = chart
+                    if (!chartArea) {
+                        // This case happens on initial chart load
+                        return
+                    }
+                    return getGradient(ctx, chartArea)
+                }
+            }
+        ]
+    }
+
     return (
-        <Card >
-            <CardTitle
-                tag="h6"
-                className="border-bottom p-2 mb-3" 
-                style={{ margin: '10px' }}> 
-                % Demand changes as per FG Code
-            </CardTitle>
-            <CardBody style={{ padding: '10px' }}> 
-                <div style={{ margin: '0', padding: '0 10px' }}> 
-                    <Chart
-                        chartType="Bar"
-                        width="100%"
-                        height="350px"
-                        data={data}
-                        options={options}
-                    />
-                </div>
-            </CardBody>
-        </Card>
+        <Bar options={GradientOption} data={GradientData} height='300px' />
     )
 }
 
 const mapStatetoprops = (state) => {
     return {
-        changesMadeByProductCodeData: state.product.changesMadeByProductCodeData,
+        changesMadeByProductCodeData: state.commonReducer.changesMadeByProductCodeData,
     }
 }
 

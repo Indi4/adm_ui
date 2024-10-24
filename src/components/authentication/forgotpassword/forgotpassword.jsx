@@ -49,10 +49,10 @@ export default function ForgotPassword() {
       <div className="page-content">
         <div className="container text-center text-dark">
           <Row>
-            <Col lg={4} className="d-block mx-auto">
-              <Row>
+            <Col lg={6} className="d-block mx-auto">
+            
                 <Col xl={12} md={12} className="col-md-12">
-                  <Card style={{ width: '700px', right:"190px", height:"300px" }}>
+                  <Card >
                     <Card.Body>
                       <div className="text-center mb-6">
                         <Link className="header-brand1" to={`${import.meta.env.BASE_URL}`}>
@@ -62,7 +62,7 @@ export default function ForgotPassword() {
                             className="header-brand-img darklogo" alt="Sparic logo" />
                         </Link>
                       </div>
-                      <h4 className="fw-semiboild">Forgot password</h4>
+                      <h4 className="fw-semiboild" style={{color:"black",fontWeight:"bolder"}}>Forgot password</h4>
                       <form onSubmit={handleSubmit}>
                         <InputGroup className="input-group  me-auto ms-auto mb-4">
                           <span className="input-group-addon bg-white">
@@ -89,7 +89,7 @@ export default function ForgotPassword() {
                           </Button>
                         </div>
                       </form>
-                      <div className="mt-6 btn-list">
+                      {/* <div className="mt-6 btn-list">
                         <Button variant="facebook" type="button" className="btn btn-icon btn-facebook"><i
                           className="fa fa-facebook"></i></Button>
                         <Button variant="google" type="button" className="btn btn-ico"><i
@@ -98,11 +98,11 @@ export default function ForgotPassword() {
                           className="fa fa-twitter"></i></Button>
                         <Button variant="dribbble" type="button" className="btn btn-icon "><i
                           className="fa fa-dribbble"></i></Button>
-                      </div>
+                      </div> */}
                     </Card.Body>
                   </Card>
                 </Col>
-              </Row>
+              
             </Col>
           </Row>
         </div>

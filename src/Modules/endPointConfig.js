@@ -27,9 +27,9 @@ export const GETALL_LIST = "mdm/dropdowns"
 
 //Dashboard
 export const GET_QUARTERLY_DATA = "mdm/quarterly_data/"
-export const GET_CHANGES_MADEBY_CUSTOMER = "mdm/changes_made_by_customer/"
-export const GET_CHANGES_MADEBY_CODE = "mdm/changes_made_by_code/"
-export const GET_PLAN_BY_MONTH = "mdm/plan_by_month/"
+export const GET_CHANGES_MADEBY_CUSTOMER = "mdm/changes_made_by_customer2/"
+export const GET_CHANGES_MADEBY_CODE = "mdm/changes_made_by_code2/"
+export const GET_PLAN_BY_MONTH = "mdm/plan_by_month2/"
 export const GET_CARDS_DATA = "mdm/dashboard_cards/"
 export const GET_RM_REQUIREMENTS = "mdm/nplus2report/"
 //Demands

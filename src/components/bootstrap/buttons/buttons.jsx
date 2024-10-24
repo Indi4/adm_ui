@@ -142,7 +142,7 @@ export default function Buttons() {
         </Col>
         <Col md={12} lg={6} xl={6}>
           <Card>
-            <Card.Header  className='flex-wrap gap-2'>
+            <Card.Header className='flex-wrap gap-2'>
               <Card.Title>Btn Outline Disabled buttons</Card.Title>
               <Form.Check label="show code" type='switch' id="custom-switch" className="ms-auto" onClick={() => { setShow6(!show6) }} />
             </Card.Header>
@@ -529,7 +529,7 @@ export default function Buttons() {
                 <div className="example p-0">
                   <div className="btn-list dropstart">
                     <Dropdown>
-                      <Dropdown.Toggle variant='secondary' type="button" 
+                      <Dropdown.Toggle variant='secondary' type="button"
                         data-bs-toggle="dropdown">
                         <i className="fe fe-calendar"></i>
                       </Dropdown.Toggle>
@@ -553,7 +553,7 @@ export default function Buttons() {
                       </Dropdown.Menu>
                     </Dropdown>
                     <Dropdown>
-                      <Dropdown.Toggle variant='danger' type="button" 
+                      <Dropdown.Toggle variant='danger' type="button"
                         data-bs-toggle="dropdown">
                         Show calendar
                       </Dropdown.Toggle>
