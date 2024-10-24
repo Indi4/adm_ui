@@ -1,24 +1,15 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { connect } from "react-redux";
 import {
-  Alert,
   Card,
-  CloseButton,
   Col,
-  Collapse,
-  Form,
   Row,
 } from "react-bootstrap";
-// import { Col, Card, CardBody, CardHeader, Label, Row, CardTitle } from "reactstrap";
 import {
-  //   Card,
-  //   CardHeader,
-  //   CardContent,
   Typography,
   Grid,
   Button,
 } from "@mui/material";
-// import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { DataGrid } from "@mui/x-data-grid";
@@ -32,7 +23,6 @@ import {
   MDM_SAVE_CUSTOMER,
   GETALL_LIST,
 } from "../../../../endPointConfig";
-import { CustomFooter } from "../../../../commonConfig";
 import { callCommonGetAPI } from "../../../../../store/action/action";
 import EditCustomerComponent from "./editCustomerComponent";
 import { ToastContainer, toast } from "react-toastify";
@@ -45,8 +35,6 @@ import { Iconloader } from "../../../../../components/bootstrap/buttons/data/but
 import { Badge } from "react-bootstrap";
 
 function CustomerDetails(props) {
-  console.log({ props });
-  // debugger;
   const [show, setShow] = useState(true);
   const [state, setState] = useState({ ...initialState });
   const [endPoint] = useState(MDM_GET_CUSTOMER);
@@ -75,7 +63,6 @@ function CustomerDetails(props) {
   useEffect(() => {
     if (customerData && Object.keys(customerData).length > 0) {
       if (customerData.data && customerData.data.length > 0) {
-        console.log(customerData.data, customerData.length,"===================")
         setCustomerList(customerData.data);
         setTotalPage(customerData.length);
         setCategoryList(
@@ -108,7 +95,6 @@ function CustomerDetails(props) {
   // }, [paginationModel]);
 
   const handleOpenModal = (openModal, success, message = "") => {
-    // debugger;
     setState({ openModal: openModal, success });
     if (success && message !== "") {
       toast.success(message);
@@ -256,10 +242,8 @@ function CustomerDetails(props) {
     setTotalPage(0);
   };
   useEffect(() => {
-    console.log({ customerData, customerNameCodeData });
   }, [customerData, customerNameCodeData]);
 
-  console.log({ customerList });
   return (
     <div style={{ marginTop: "80px" }}>
       <ToastContainer />
@@ -396,7 +380,6 @@ function CustomerDetails(props) {
 }
 
 const mapStatetoprops = (state) => {
-  console.log({ state });
   return {
     customerData: state?.customerData,
     customerNameCodeData: state?.customerNameCodeData,
