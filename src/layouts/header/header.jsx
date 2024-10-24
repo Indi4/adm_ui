@@ -1,174 +1,248 @@
 
-import React, { Fragment, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { Fragment, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/brand/Kizuna.svg'
 import logolight from '../../assets/images/brand/KizunaWhiteLogo.svg'
-import { Button, Container, Dropdown, Form, FormControl, InputGroup, ListGroup, Nav, Navbar } from 'react-bootstrap'
+import { Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form, FormControl, InputGroup, ListGroup, Nav, Navbar } from 'react-bootstrap'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { imagesData } from "../../common/commomimages/imagedata"
 import MenuItems from '../sidebar/sidebardata'
+import { Typography, CircularProgress, Card, Box, DialogActions, TextField, DialogTitle, Dialog, DialogContent, Button, IconButton, InputAdornment, Divider, Avatar, Grid } from "@mui/material";
+import { getMyAccount, PostChangePassword } from '../../store/authentication/authSlice'
+import { jwtDecode } from 'jwt-decode';
 
+function Header() {
 
-
-
-function Header () {
-
-
-    
     //Search functionality
+    const { role, accountDetails, ResetPassword, loading, error } = useSelector((state) => state.auth);
+    const token = localStorage.getItem("accessToken");
+    const decoded = jwtDecode(token)
+    const user_id = decoded?.user_id
     const [show1, setShow1] = useState(false);
-	const [InputValue, setInputValue] = useState("");
-	const [show2, setShow2] = useState(false);
-	const [searchcolor, setsearchcolor] = useState("text-dark");
-	const [searchval, setsearchval] = useState("Type something");
-	const [NavData, setNavData] = useState([]);
+    const [InputValue, setInputValue] = useState("");
+    const [show2, setShow2] = useState(false);
+    const [searchcolor, setsearchcolor] = useState("text-dark");
+    const [searchval, setsearchval] = useState("Type something");
+    const [NavData, setNavData] = useState([]);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
+    const [showOldPassword, setShowOldPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordError, setPasswordError] = useState(null);
+    const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+    const [isAccountOpen, setIsAccountOpen] = useState(false);
 
-    document.addEventListener("click", function(){
+    const handleToggleShowOldPassword = () => setShowOldPassword(!showOldPassword);
+    const handleToggleShowNewPassword = () => setShowNewPassword(!showNewPassword);
+    const handleToggleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => setMenuOpen(prevState => !prevState);
+
+    useEffect(() => {
+        if (user_id) {
+            dispatch(getMyAccount(user_id));
+        }
+    }, [dispatch, user_id]);
+
+    const handleChangePasswordClick = () => {
+        setOldPassword("")
+        setIsChangingPassword(true);
+    };
+    const handleAccount = () => {
+        setIsAccountOpen(true);
+    };
+    const handleCloseAccountDialog = () => {
+        setIsChangingPassword(false);
+        setIsAccountOpen(false)
+    };
+
+    const handleSavePassword = async () => {
+        if (newPassword !== confirmPassword) {
+            alert("New password and confirm password do not match!");
+            return;
+        }
+
+        const data = {
+            id: user_id,
+            old_password: oldPassword,
+            new_password: newPassword,
+            confirm_password: confirmPassword,
+        };
+
+        try {
+            await dispatch(PostChangePassword(data)).unwrap();
+            toast("Password changed successfully!");
+            handleCloseAccountDialog();
+        } catch (err) {
+            toast("Incorrect old password provided");
+        }
+    };
+
+    const isPasswordStrong = (password) => {
+        const strongPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{8,}$/;
+        return strongPasswordRegex.test(password);
+    };
+    const handleLogout = () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        // dispatch(removeRole());
+        navigate("/main")
+    };
+
+    document.addEventListener("click", function () {
         document.querySelector(".search-result")?.classList.add("d-none")
     });
-	let myfunction = (inputvalue) => {
-        
+    let myfunction = (inputvalue) => {
+
         document.querySelector(".search-result")?.classList.remove("d-none")
-        
-		let i = []
-		let allElement2 = [];
 
-		MenuItems.map(mainlevel => {
-			if (mainlevel.Items) {
-				setShow1(true)
-				mainlevel.Items.map(sublevel => {
-					
-					if (sublevel.children) {
-						sublevel.children.map(sublevel1 => {
-							
-							i.push(sublevel1)
-							if (sublevel1.children) {
-								sublevel1.children.map(sublevel2 => {
-								
-									i.push(sublevel2)
-									return sublevel2;
-								})
-							}
-							return sublevel1;
-						})
-					}
-					return sublevel;
-				})
-			}
-			return mainlevel;
-		}
-		)
-		for (let allElement of i) {
-			if (allElement.title.toLowerCase().includes(inputvalue.toLowerCase())) {
-				if (allElement.title.toLowerCase().startsWith(inputvalue.toLowerCase())) {
-					setShow2(true)
-					allElement2.push(allElement)
-				}
-			}
-		}
-		if (!allElement2.length || inputvalue === "") {
-			if (inputvalue === "") {
-				setShow2(false);
-				setsearchval("Type something")
-				setsearchcolor('text-dark')
-			}
-			if (!allElement2.length) {
-				setShow2(false);
-				setsearchcolor('text-danger')
-				setsearchval("There is no component with this name")
-			}
-		}
-		setNavData(allElement2)
+        let i = []
+        let allElement2 = [];
 
-	}
+        MenuItems.map(mainlevel => {
+            if (mainlevel.Items) {
+                setShow1(true)
+                mainlevel.Items.map(sublevel => {
 
-  const Darkmode = () => {
-  
-    if(document.querySelector(".app").classList.contains('dark-mode')){
-        
-        sessionStorage.setItem("darkMode",false)
-       // sessionStorage.removeItem("darkMode")
-        document.querySelector(".app").classList.remove('dark-mode');
-        let DarkMenu1 = document.querySelector("#myonoffswitch1") //light theme
-        DarkMenu1.checked = true;
-        let DarkMenu2 = document.querySelector("#myonoffswitch6")  // light header
-        DarkMenu2.checked = true;
-        let DarkMenu3 = document.querySelector("#myonoffswitch3")  //light menu
-        DarkMenu3.checked = true;
-      }
-      else{
-        sessionStorage.setItem("darkMode",true)
-       // sessionStorage.remove("lightMode")
-        document.querySelector(".app").classList.add('dark-mode');
-        let DarkMenu1 = document.querySelector("#myonoffswitch2") //dark theme
-        DarkMenu1.checked = true;
-        let DarkMenu2 = document.querySelector("#myonoffswitch8") //dark header
-        DarkMenu2.checked = true;
-        let DarkMenu3 = document.querySelector("#myonoffswitch5") //dark menu
-        DarkMenu3.checked = true;
-      }
-  }
+                    if (sublevel.children) {
+                        sublevel.children.map(sublevel1 => {
 
-  // FuScreen-start
-function Fullscreen () {
-    if (
-      (document.fullScreenElement && document.fullScreenElement === null) ||
-          (!document.mozFullScreen && !document.webkitIsFullScreen)
-    ) {
-      if (document.documentElement.requestFullScreen) {
-        document.documentElement.requestFullScreen()
-      } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen()
-      } else if (document.documentElement.webkitRequestFullScreen) {
-        document.documentElement.webkitRequestFullScreen(
-          Element.ALLOW_KEYBOARD_INPUT
+                            i.push(sublevel1)
+                            if (sublevel1.children) {
+                                sublevel1.children.map(sublevel2 => {
+
+                                    i.push(sublevel2)
+                                    return sublevel2;
+                                })
+                            }
+                            return sublevel1;
+                        })
+                    }
+                    return sublevel;
+                })
+            }
+            return mainlevel;
+        }
         )
-      }
-    } else {
-      if (document.cancelFullScreen) {
-        document.cancelFullScreen()
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen()
-      } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen()
-      }
+        for (let allElement of i) {
+            if (allElement.title.toLowerCase().includes(inputvalue.toLowerCase())) {
+                if (allElement.title.toLowerCase().startsWith(inputvalue.toLowerCase())) {
+                    setShow2(true)
+                    allElement2.push(allElement)
+                }
+            }
+        }
+        if (!allElement2.length || inputvalue === "") {
+            if (inputvalue === "") {
+                setShow2(false);
+                setsearchval("Type something")
+                setsearchcolor('text-dark')
+            }
+            if (!allElement2.length) {
+                setShow2(false);
+                setsearchcolor('text-danger')
+                setsearchval("There is no component with this name")
+            }
+        }
+        setNavData(allElement2)
+
     }
-  }
-  // FullScreen-end
- 
-  // rightsiderbar
-  const OPenfunction = () => {
-    document.querySelector('.sidebar-right').classList.toggle('sidebar-open');
-  }
-  //
-  // SwitcherMenu	
-const SwitcherIcon = () => {
-	document.querySelector(".demo_changer").classList.toggle("active");
-	document.querySelector(".demo_changer").style.right = "0px";
 
-}
+    const Darkmode = () => {
 
-//
-const SideMenuIcon = () => {
-    //leftsidemenu
+        if (document.querySelector(".app").classList.contains('dark-mode')) {
+
+            sessionStorage.setItem("darkMode", false)
+            // sessionStorage.removeItem("darkMode")
+            document.querySelector(".app").classList.remove('dark-mode');
+            let DarkMenu1 = document.querySelector("#myonoffswitch1") //light theme
+            DarkMenu1.checked = true;
+            let DarkMenu2 = document.querySelector("#myonoffswitch6")  // light header
+            DarkMenu2.checked = true;
+            let DarkMenu3 = document.querySelector("#myonoffswitch3")  //light menu
+            DarkMenu3.checked = true;
+        }
+        else {
+            sessionStorage.setItem("darkMode", true)
+            // sessionStorage.remove("lightMode")
+            document.querySelector(".app").classList.add('dark-mode');
+            let DarkMenu1 = document.querySelector("#myonoffswitch2") //dark theme
+            DarkMenu1.checked = true;
+            let DarkMenu2 = document.querySelector("#myonoffswitch8") //dark header
+            DarkMenu2.checked = true;
+            let DarkMenu3 = document.querySelector("#myonoffswitch5") //dark menu
+            DarkMenu3.checked = true;
+        }
+    }
+
+    // FuScreen-start
+    function Fullscreen() {
+        if (
+            (document.fullScreenElement && document.fullScreenElement === null) ||
+            (!document.mozFullScreen && !document.webkitIsFullScreen)
+        ) {
+            if (document.documentElement.requestFullScreen) {
+                document.documentElement.requestFullScreen()
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen()
+            } else if (document.documentElement.webkitRequestFullScreen) {
+                document.documentElement.webkitRequestFullScreen(
+                    Element.ALLOW_KEYBOARD_INPUT
+                )
+            }
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen()
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen()
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen()
+            }
+        }
+    }
+    // FullScreen-end
+
+    // rightsiderbar
+    const OPenfunction = () => {
+        // document.querySelector('.sidebar-right').classList.toggle('sidebar-open');
+    }
+    //
+    // SwitcherMenu	
+    const SwitcherIcon = () => {
+        document.querySelector(".demo_changer").classList.toggle("active");
+        document.querySelector(".demo_changer").style.right = "0px";
+
+    }
+
+    //
+    const SideMenuIcon = () => {
+        //leftsidemenu
         document.querySelector(".app").classList.toggle("sidenav-toggled");
-  }
+    }
 
 
 
-  return (
+    return (
         <Fragment>
 
-           
+
             <div className="app-header header sticky" style={{ marginBottom: '-70.7812px' }}>
                 <Container fluid className=" main-container">
                     <div className="d-flex">
                         <Link aria-label="Hide Sidebar" className="app-sidebar__toggle" data-bs-toggle="sidebar"
-                       
-                        onClick={() => SideMenuIcon()}
+
+                            onClick={() => SideMenuIcon()}
 
                             to="#"></Link>
-                  
+
                         <Link className="logo-horizontal" to={`${import.meta.env.BASE_URL}dashboard`}>
                             <img src={logo} className="header-brand-img main-logo"
                                 alt="Sparic logo" />
@@ -176,7 +250,7 @@ const SideMenuIcon = () => {
                                 alt="Sparic logo" />
                         </Link>
                        
-                        <div className="main-header-center ms-3 d-none d-lg-block">
+                        {/* <div className="main-header-center ms-3 d-none d-lg-block">
                             <Form.Control type="text" defaultValue ={InputValue} id="typehead" placeholder="Search for results..." 
                                 autoComplete="off" onChange={(ele => { myfunction(ele.target.value); setInputValue(ele.target.value) })} />
                             <Button variant='' className="btn px-2 "><i className="fe fe-search" aria-hidden="true"></i></Button>
@@ -197,7 +271,7 @@ const SideMenuIcon = () => {
 
 							</div>
 							: ""}
-                        </div>
+                        </div> */}
                         <Navbar className="d-flex order-lg-2 ms-auto header-right-icons px-0" expand="lg">
                             <Dropdown className="d-none">
                                 <Dropdown.Toggle as="a" href="#" variant='light' className="no-caret nav-link icon " >
@@ -205,18 +279,18 @@ const SideMenuIcon = () => {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu className=" header-search dropdown-menu-start">
                                     <InputGroup className=" w-100 p-2">
-                                        <Form.Control type="text"  placeholder="Search...." />
+                                        <Form.Control type="text" placeholder="Search...." />
                                         <InputGroup.Text variant='primary' className=" btn btn-primary me-2">
                                             <i className="fe fe-search" aria-hidden="true"></i>
                                         </InputGroup.Text>
                                     </InputGroup>
                                 </Dropdown.Menu>
                             </Dropdown>
-                          
+
                             <Navbar.Toggle className="navbar-toggler navresponsive-toggler d-lg-none ms-auto" type="button"
-								data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
-								aria-controls="navbarSupportedContent-4" aria-expanded="false"
-								aria-label="Toggle navigation">
+                                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
+                                aria-controls="navbarSupportedContent-4" aria-expanded="false"
+                                aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon fe fe-more-vertical"></span>
                             </Navbar.Toggle>
                             <div className="responsive-navbar p-0">
@@ -229,343 +303,82 @@ const SideMenuIcon = () => {
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu className=" header-search dropdown-menu-start">
                                                 <InputGroup className="w-100 p-2">
-                                                    <Form.Control type="text"  placeholder="Search...." />
+                                                    <Form.Control type="text" placeholder="Search...." />
                                                     <InputGroup.Text className="input-group-text btn btn-primary">
                                                         <i className="fa fa-search" aria-hidden="true"></i>
                                                     </InputGroup.Text>
                                                 </InputGroup>
                                             </Dropdown.Menu>
                                         </Dropdown>
-                                           
-                
-                
-                                     
-                                           <Dropdown className="dropdown d-flex country">
-                                            <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
-                                                <i className="ri-global-line"></i>
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <div className="drop-heading border-bottom">
-                                                    <h6 className="mt-1 mb-0 fs-14 fw-semibold text-dark"> Choose Language</h6>
-                                                </div>
-                                                <Dropdown.Item className="d-flex align-items-center" to="#">
-                                                    <img src={imagesData('flagimage3')} alt="img" className="me-2 country language-img" /> <span className="fs-13 text-wrap text-dark fw-semibold"> Germany</span> </Dropdown.Item>
-                                                <Dropdown.Item className="d-flex align-items-center" to="#">
-                                                    <img src={imagesData('flagimage5')} alt="img" className="me-2 country language-img" /> <span className="fs-13 text-wrap text-dark fw-semibold"> Russia</span> </Dropdown.Item>
-                                                <Dropdown.Item className="d-flex align-items-center" to="#">
-                                                    <img src={imagesData('flagimage6')} alt="img" className="me-2 country language-img" /> <span className="fs-13 text-wrap text-dark fw-semibold"> United Kingdom</span> </Dropdown.Item>
-                                                <Dropdown.Item className="d-flex align-items-center" to="#">
-                                                    <img src={imagesData('flagimage2')} alt="img" className=" me-2 country language-img" /> <span className="fs-13 text-wrap text-dark fw-semibold"> Canada</span> </Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                     
-                                        <div className="d-flex country"  onClick={() => Darkmode()}>
+
+
+                                        <div className="d-flex country" onClick={() => Darkmode()}>
+                                            
                                             <Link to='#' className="nav-link icon theme-layout nav-link-bg layout-setting">
                                                 <span className="dark-layout mt-1"><i className="ri-moon-clear-line"></i></span>
                                                 <span className="light-layout mt-1"><i className="ri-sun-line"></i></span>
                                             </Link>
                                         </div>
-                                      
-                                       
 
-                                        <Dropdown className=" d-flex shopping-cart">
-                                            <Dropdown.Toggle as='a'  className="no-caret nav-link icon text-center">
-                                                <i className="ri-shopping-bag-line"></i><span
-                                                    className="badge bg-secondary header-badge">4</span>
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu className="dropdown-menu-end dropdown-menu-arrow">
-                                                <div className="drop-heading border-bottom">
-                                                    <h6 className="mt-1 mb-0 fs-14 fw-semibold text-dark"> My Shopping
-                                                        Cart</h6>
-                                                </div>
-                                                <div className="header-dropdown-list message-menu">
-                                                    <PerfectScrollbar>
-                                                        <Dropdown.Item className="d-flex " href={`${import.meta.env.BASE_URL}ecommerce/shoppingcart`}>
-                                                           
-                                                                <img
-                                                                    className="avatar avatar-lg br-7 me-3 align-self-center cover-image" alt="product-image"
-                                                                    src={imagesData('product7')} />
-                                                         
-                                                            <div className="wd-50p d-flex flex-column">
-                                                                <span  className="p-0 h6 text-dark fw-semibold mb-0">Flower pot home decores</span>
-                                                                <span>Qty: 1</span>
-                                                                <span>Status: <span className="text-success">In
-                                                                    Stock</span></span>
-                                                            </div>
-                                                            <div className="my-auto ms-auto text-end">
-                                                                <p className="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
-                                                                    $438
-                                                                </p>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="d-flex" href={`${import.meta.env.BASE_URL}ecommerce/shoppingcart`}>
-                                                         
-                                                                <img
-                                                                    className="avatar avatar-lg br-7 me-3 align-self-center cover-image" alt="product-image"
-                                                                    src={imagesData('product4')} />
-                                                           
-                                                            <div className="wd-50p d-flex flex-column">
-                                                                <span  className="p-0 h6 text-dark fw-semibold mb-0">Smart watch</span>
-                                                                <span>Qty: 3</span>
-                                                                <span>Status: <span className="text-danger">Out Stock</span></span>
-                                                            </div>
-                                                            <div className="my-auto ms-auto text-end">
-                                                                <p className="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
-                                                                    $323
-                                                                </p>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="d-flex" href={`${import.meta.env.BASE_URL}ecommerce/shoppingcart`}>
-                                                          
-                                                                <img
-                                                                    className="avatar avatar-lg br-7 me-3 align-self-center cover-image" alt="product-image"
-                                                                    src={imagesData('product5')} />
-                                                           
-                                                            <div className="wd-50p d-flex flex-column">
-                                                                <span className="p-0 h6 text-dark fw-semibold mb-0">Headphones</span>
-                                                                <span>Qty: 2</span>
-                                                                <span>Status: <span className="text-success">In
-                                                                    Stock</span></span>
-                                                            </div>
-                                                            <div className="my-auto ms-auto text-end">
-                                                                <p className="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
-                                                                    $867
-                                                                </p>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="d-flex" href={`${import.meta.env.BASE_URL}ecommerce/shoppingcart`}>
-                                                            
-                                                                <img
-                                                                    className="avatar avatar-lg br-7 me-3 align-self-center cover-image" alt="product-image"
-                                                                    src={imagesData('product30')} />
-                                                         
-                                                            <div className="wd-50p d-flex flex-column">
-                                                                <span  className="p-0 h6 text-dark fw-semibold mb-0">Furniture (chair)</span>
-                                                                <span>Qty: 1</span>
-                                                                <span>Status: <span className="text-success">In
-                                                                    Stock</span></span>
-                                                            </div>
-                                                            <div className="my-auto ms-auto text-end">
-                                                                <p className="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
-                                                                    $456
-                                                                </p>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="d-flex border-bottom-0" href={`${import.meta.env.BASE_URL}ecommerce/shoppingcart`}>
-                                                           
-                                                                <img
-                                                                    className="avatar avatar-lg br-7 me-3 align-self-center cover-image" alt="product-image"
-                                                                    src={imagesData('product8')} />
-                                                           
-                                                            <div className="wd-50p d-flex flex-column">
-                                                                <span className="p-0 h6 text-dark fw-semibold mb-0">Running Shoes</span>
-                                                                <span>Qty: 4</span>
-                                                                <span>Status: <span className="text-danger">In
-                                                                    Stock</span></span>
-                                                            </div>
-                                                            <div className="my-auto ms-auto text-end">
-                                                                <p className="fs-16 fw-semibold text-dark d-none d-sm-block px-3 mb-0">
-                                                                    $438
-                                                                </p>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                   
-                                                    </PerfectScrollbar>
-                                                </div>
-                                                <div className="dropdown-divider m-0"></div>
-                                                <div className="dropdown-footer d-felx justify-content-between align-items-center">
-                                                    <Button className="btn btn-primary btn-pill btn-sm"
-                                                        href={`${import.meta.env.BASE_URL}ecommerce/checkout`}><i className="fe fe-check-circle me-1"></i>
-                                                        CHECKOUT</Button>
-                                                    <span className="float-end fs-17 fw-semibold text-dark"><span className="text-muted-dark">Total:</span> $4206</span>
-                                                </div>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                        
                                         <div className="dropdown d-flex">
                                             <Link className="nav-link icon full-screen-link" id="fullscreen-button" onClick={Fullscreen}>
                                                 <i className="ri-fullscreen-exit-line fullscreen-button"></i>
                                             </Link>
                                         </div>
-                             
-                                      
-                                         <Dropdown className="dropdown d-flex notifications">
-                                            <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
-                                                <i className="ri-notification-line"></i><span className=" pulse"></span>
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow ">
-                                                <div className="drop-heading border-bottom">
-                                                    <h6 className="mt-1 mb-0 fs-14 text-dark fw-semibold">Notifications
-                                                    </h6>
-                                                </div>
-                                                <div className="notifications-menu header-dropdown-scroll">
-                                                    <PerfectScrollbar>
-                                                        <Dropdown.Item className="border-bottom d-flex" href={`${import.meta.env.BASE_URL}pages/notificationslist`}>
-                                                            <div>
-                                                                <span className="avatar avatar-md fs-20 brround fw-semibold text-center bg-primary-transparent"><i className="fe fe-message-square text-primary"></i></span>
-                                                            </div>
-                                                            <div className="wd-80p ms-3 my-auto">
-                                                                <h5 className="text-dark mb-0 fw-semibold">Gladys Dare <span
-                                                                    className="text-muted">commented on</span>
-                                                                    Ecosystems</h5>
-                                                                <span className="notification-subtext">2m ago</span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="border-bottom d-flex" href={`${import.meta.env.BASE_URL}pages/notificationslist`}>
-                                                            <div>
-                                                                <span className="avatar avatar-md fs-20 brround fw-semibold text-danger bg-danger-transparent"><i className="fe fe-user"></i></span>
-                                                            </div>
-                                                            <div className="wd-80p ms-3 my-auto">
-                                                                <h5 className="text-dark mb-0 fw-semibold">Jackson Wisky
-                                                                    <span className="text-muted"> followed
-                                                                        you</span>
-                                                                </h5>
-                                                                <span className="notification-subtext">15 min ago</span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="border-bottom d-flex" href={`${import.meta.env.BASE_URL}pages/notificationslist`}>
-                                                            <span
-                                                                className="avatar avatar-md fs-20 brround fw-semibold text-center bg-success-transparent"><i
-                                                                    className="fe fe-check text-success"></i></span>
-                                                            <div className="wd-80p ms-3 my-auto">
-                                                                <h5 className="text-muted fw-semibold mb-0">You swapped exactly
-                                                                    <span className="text-dark fw-bold">2.054 BTC</span> for
-                                                                    <span className="text-dark fw-bold">14,124.00</span>
-                                                                </h5>
-                                                                <span className="notification-subtext">1 day ago</span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="border-bottom d-flex" href={`${import.meta.env.BASE_URL}pages/notificationslist`}>
-                                                            <div>
-                                                                <span className="avatar avatar-md fs-20 brround fw-semibold text-center bg-warning-transparent"><i className="fe fe-dollar-sign text-warning"></i></span>
-                                                            </div>
-                                                            <div className="wd-80p ms-3 my-auto">
-                                                                <h5 className="text-dark mb-0 fw-semibold">Laurel <span
-                                                                    className="text-muted">donated</span> <span
-                                                                        className="text-success fw-semibold">$100</span> <span
-                                                                            className="text-muted">for</span> carbon removal</h5>
-                                                                <span className="notification-subtext">15 min ago</span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="d-flex" href={`${import.meta.env.BASE_URL}pages/notificationslist`}>
-                                                            <div>
-                                                                <span className="avatar avatar-md fs-20 brround fw-semibold text-center bg-info-transparent"><i className="fe fe-thumbs-up text-info"></i></span>
-                                                            </div>
-                                                            <div className="wd-80p ms-3 my-auto">
-                                                                <h5 className="text-dark mb-0 fw-semibold">Sunny Grahm <span
-                                                                    className="text-muted">voted for</span> carbon capture
-                                                                </h5>
-                                                                <span className="notification-subtext">2 hors ago</span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                    </PerfectScrollbar>
-                                                </div>
-                                                <div className="text-center dropdown-footer">
-                                                    <Link className="btn btn-primary btn-sm btn-block text-center" to={`${import.meta.env.BASE_URL}pages/notificationslist`}>VIEW ALL NOTIFICATIONS</Link>
-                                                </div>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    
-                                     
-                                        <Dropdown className="dropdown d-flex message">
-                                            <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
-                                            <i className="ri-chat-1-line"></i><span className="pulse-danger"></span>
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                <div className="drop-heading border-bottom">
-                                                    <h6 className="mt-1 mb-0 fs-14 fw-semibold text-dark">You have 5
-                                                        Messages</h6>
-                                                </div>
-                                                <div className="message-menu message-menu-scroll">
-                                                    <PerfectScrollbar>
-                                                        <Dropdown.Item className="border-bottom d-flex align-items-center" href={`${import.meta.env.BASE_URL}apps/chat`}>
-                                                            <img className="avatar avatar-md brround cover-image"
-                                                                src={imagesData('male28')} alt="person-image" />
-                                                            <div className="wd-90p ms-2">
-                                                                <div className="d-flex">
-                                                                    <h5 className="mb-0 text-dark fw-semibold ">Madeleine</h5>
-                                                                    <small className="text-muted ms-auto">
-                                                                        2 min ago
-                                                                    </small>
-                                                                </div>
-                                                                <span className="fw-semibold mb-0">Just completed <span className="text-info">Project</span></span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="border-bottom d-flex align-items-center" href={`${import.meta.env.BASE_URL}apps/chat`}>
-                                                            <img className="avatar avatar-md brround me-3 align-self-center cover-image"
-                                                                src={imagesData('male32')} alt="person-image" />
-                                                            <div className="wd-90p">
-                                                                <div className="d-flex">
-                                                                    <h5 className="mb-0 text-dark fw-semibold ">Anthony</h5>
-                                                                    <small className="text-muted ms-auto text-end">
-                                                                        1 hour ago
-                                                                    </small>
-                                                                </div>
-                                                                <span className="fw-semibold">Updates the new <span className="text-info">Task Names</span></span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="border-bottom d-flex align-items-center" href={`${import.meta.env.BASE_URL}apps/chat`}>
-                                                            <img className="avatar avatar-md brround me-3 cover-image"
-                                                                src={imagesData('female21')} alt="person-image" />
-                                                            <div className="wd-90p">
-                                                                <div className="d-flex">
-                                                                    <h5 className="mb-0 text-dark fw-semibold ">Olivia</h5>
-                                                                    <small className="text-muted ms-auto text-end">
-                                                                        1 hour ago
-                                                                    </small>
-                                                                </div>
-                                                                <span className="fw-semibold">Added a file into <span className="text-info">Project Name</span></span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="d-flex align-items-center" href={`${import.meta.env.BASE_URL}apps/chat`}>
-                                                            <img className="avatar avatar-md brround me-3 cover-image"
-                                                                src={imagesData('maxionLogo')} alt="person-image" />
-                                                            <div className="wd-90p">
-                                                                <div className="d-flex">
-                                                                    <h5 className="mb-0 text-dark fw-semibold ">Sanderson</h5>
-                                                                    <small className="text-muted ms-auto text-end">
-                                                                        1 days ago
-                                                                    </small>
-                                                                </div>
-                                                                <span className="fw-semibold">Assigned 9 Upcoming <span className="text-info">Projects</span></span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                        <Dropdown.Item className="border-bottom d-flex align-items-center border-bottom-0" href={`${import.meta.env.BASE_URL}apps/chat`} >
-                                                            <img className="avatar avatar-md brround cover-image"
-                                                                src={imagesData('male8')} alt="person-image" />
-                                                            <div className="wd-90p ms-2">
-                                                                <div className="d-flex">
-                                                                    <h5 className="mb-0 text-dark fw-semibold ">Madeleine</h5>
-                                                                    <small className="text-muted ms-auto">
-                                                                        2 min ago
-                                                                    </small>
-                                                                </div>
-                                                                <span className="fw-semibold mb-0">Just completed <span className="text-info">Project</span></span>
-                                                            </div>
-                                                        </Dropdown.Item>
-                                                    </PerfectScrollbar>
-                                                </div>
-                                                <div className="dropdown-divider m-0">
 
-                                                </div>
-                                                <div className="text-center dropdown-footer">
-                                                    <Link className="btn btn-primary btn-sm btn-block text-center" to={`${import.meta.env.BASE_URL}apps/chat`}>MARK ALL AS READ</Link>
-                                                </div>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                        
-                                        
-                                        <div className="dropdown d-flex header-settings" onClick={() => OPenfunction ()}>
-                                            <Link  className=" nav-link icon siderbar-link">
+                                        {/* <div className="dropdown d-flex header-settings" onClick={() => OPenfunction()}>
+                                            <Link className=" nav-link icon siderbar-link">
                                                 <i className="ri-menu-fold-fill"></i>
                                             </Link>
-                                            </div>
+                                        </div> */}
+                                        <div className="dropdown d-flex header-settings">
+                                            <Link
+                                                className="nav-link icon siderbar-link"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    toggleMenu(); // Call the toggleMenu function to control the dropdown state
+                                                }}
+                                                data-bs-toggle="dropdown" // Bootstrap attribute to toggle the dropdown
+                                                aria-expanded={menuOpen} // Reflects whether the menu is open or closed
+                                            >
+                                                {/* Icon remains the same as the original one */}
+                                                <i className="ri-menu-fold-fill" style={{ color: "inherit" }}></i>
+                                            </Link>
 
-                                       
-                                        
+                                            {/* Bootstrap dropdown menu */}
+                                            <ul className={`dropdown-menu ${menuOpen ? 'show' : ''}`}>
+                                                <li>
+                                                    <a
+                                                        className="dropdown-item"
+                                                        onClick={() => {
+                                                            navigate("/cdn/dashboard", { state: { layout: "CDC_Tool" } });
+                                                            sessionStorage.setItem("layout", "CDC_Tool");
+                                                        }}
+                                                    >
+                                                        Delivery Management
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        className="dropdown-item"
+                                                        onClick={() => {
+                                                            navigate("/mdm/customer-details", { state: { layout: "MDM" } });
+                                                            sessionStorage.setItem("layout", "MDM");
+                                                        }}
+                                                    >
+                                                        Master Data Management
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+
+
+
                                         <Dropdown className="dropdown d-flex profile-1">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link leading-none d-flex">
-                                            <img src={imagesData('maxionLogo')} alt="profile-user"
+                                                <img src={imagesData('maxionLogo')} alt="profile-user"
                                                     className="avatar  profile-user  cover-image" style={{ width: '4rem' }} />
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
@@ -576,9 +389,282 @@ const SideMenuIcon = () => {
                                                         <span className="text-muted fs-12">Administrator</span>
                                                     </div>
                                                 </div>
-                                                <Dropdown.Item className="text-dark fw-semibold border-top" href={`${import.meta.env.BASE_URL}pages/profile`}>
-                                                    <i className="dropdown-icon fe fe-user"></i> Profile
+                                                <Dropdown.Item className="text-dark fw-semibold border-top" onClick={handleAccount}>
+                                                    <i className="dropdown-icon fe fe-user"></i> My Account
                                                 </Dropdown.Item>
+                                                <Dialog
+                                                    open={isAccountOpen}
+                                                    onClose={handleCloseAccountDialog}
+                                                    maxWidth="sm"
+                                                    fullWidth
+                                                    PaperProps={{
+                                                        style: { borderRadius: "12px", padding: "24px", minHeight: "450px" },
+                                                    }}
+                                                >
+                                                    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%" width="100%">
+                                                        {accountDetails?.data?.[0] && (
+                                                            <Avatar
+                                                                sx={{
+                                                                    bgcolor: accountDetails.data[0].role === "Admin" ? "blue" : "green",
+                                                                    width: 80,
+                                                                    height: 80,
+                                                                    fontSize: 40,
+                                                                    marginBottom: 2,
+                                                                }}
+                                                            >
+                                                                {accountDetails.data[0]?.role?.[0]?.toUpperCase() ?? "?"}
+                                                            </Avatar>
+                                                        )}
+
+                                                        {accountDetails?.data?.[0] ? (
+                                                            <DialogContent dividers style={{ paddingBottom: "20px" }}>
+                                                                <Box mb={2} width="80%" mt={4}>
+                                                                    <Grid container spacing={2} justifyContent="center" width="80%">
+                                                                        {/* Role Section */}
+                                                                        <Grid item xs={4}>
+                                                                            <Typography variant="body1"><strong>Role:</strong></Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={8}>
+                                                                            <Typography variant="body1" sx={{ marginLeft: "100px" }}>
+                                                                                {accountDetails.data[0].role ? accountDetails.data[0].role.charAt(0).toUpperCase() + accountDetails.data[0].role.slice(1).toLowerCase() : ""}
+                                                                            </Typography>
+                                                                        </Grid>
+
+                                                                        {/* Email Section */}
+                                                                        <Grid item xs={4}>
+                                                                            <Typography variant="body1"><strong>Email:</strong></Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={8}>
+                                                                            <Typography variant="body1" sx={{ marginLeft: "100px" }}>
+                                                                                {accountDetails.data[0].email ? accountDetails.data[0].email : "--"}
+                                                                            </Typography>
+                                                                        </Grid>
+
+                                                                        {/* Mobile Section */}
+                                                                        <Grid item xs={4}>
+                                                                            <Typography variant="body1"><strong>Mobile:</strong></Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={8}>
+                                                                            <Typography variant="body1" sx={{ marginLeft: "100px" }}>
+                                                                                {accountDetails.data[0].mobile_no ? accountDetails.data[0].mobile_no : "--"}
+                                                                            </Typography>
+                                                                        </Grid>
+
+                                                                        <Grid item xs={4}>
+                                                                            <Typography variant="body1"><strong>Department:</strong></Typography>
+                                                                        </Grid>
+                                                                        <Grid item xs={8}>
+                                                                            <Typography variant="body1" sx={{ marginLeft: "100px" }}>
+                                                                                {accountDetails.data[0].department_name ? accountDetails.data[0].department_name : "--"}
+                                                                            </Typography>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </Box>
+                                                            </DialogContent>
+                                                        ) : (
+                                                            <Typography>No account details available.</Typography>
+                                                        )}
+
+                                                        {isChangingPassword ? (
+                                                            <Box width="100%">
+                                                                {/* Old Password Field */}
+                                                                {/* <TextField
+                                                                    label="Old Password"
+                                                                    type={showOldPassword ? "text" : "password"}
+                                                                    fullWidth
+                                                                    margin="normal"
+                                                                    value={oldPassword}
+                                                                    onChange={(e) => setOldPassword(e.target.value)}
+                                                                    InputProps={{
+                                                                        endAdornment: (
+                                                                            <InputAdornment position="end">
+                                                                                <IconButton onClick={handleToggleShowOldPassword}>
+                                                                                    {showOldPassword ? <VisibilityOff /> : <Visibility />}
+                                                                                </IconButton>
+                                                                            </InputAdornment>
+                                                                        ),
+                                                                    }}
+                                                                /> */}
+                                                                <div className="input-group mb-4">
+                                                                    <span className="input-group-addon bg-white">
+                                                                        <i className="fa fa-lock text-dark"></i>
+                                                                    </span>
+                                                                    <input
+                                                                        type={showOldPassword ? "text" : "password"}  // Toggling between text and password
+                                                                        className="form-control"
+                                                                        placeholder="Old Password"
+                                                                        name="oldPassword"
+                                                                        id="oldPassword"
+                                                                        value={oldPassword}
+                                                                        onChange={(e) => {
+
+                                                                            setOldPassword(e.target.value)
+                                                                        }
+
+                                                                        } // Set old password on change
+
+                                                                        required
+                                                                    />
+                                                                    <div className="input-group-append">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-outline-secondary"
+                                                                            onClick={handleToggleShowOldPassword}  // Toggle visibility
+                                                                        >
+                                                                            {showOldPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                                {/* <TextField
+                                                                    label="New Password"
+                                                                    type={showNewPassword ? "text" : "password"}
+                                                                    fullWidth
+                                                                    margin="normal"
+                                                                    value={newPassword}
+                                                                    onChange={(e) => {
+                                                                        const password = e.target.value;
+                                                                        setNewPassword(password);
+                                                                        // Password validation
+                                                                        if (password.length < 8) {
+                                                                            setPasswordError("Password must be at least 8 characters long.");
+                                                                        } else {
+                                                                            setPasswordError(null);
+                                                                        }
+                                                                        if (confirmPassword && password !== confirmPassword) {
+                                                                            setConfirmPasswordError("Passwords do not match.");
+                                                                        } else {
+                                                                            setConfirmPasswordError(null);
+                                                                        }
+                                                                    }}
+                                                                    error={!!passwordError}
+                                                                    helperText={passwordError}
+                                                                    InputProps={{
+                                                                        endAdornment: (
+                                                                            <InputAdornment position="end">
+                                                                                <IconButton onClick={handleToggleShowNewPassword}>
+                                                                                    {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                                                                                </IconButton>
+                                                                            </InputAdornment>
+                                                                        ),
+                                                                    }}
+                                                                /> */}
+                                                                <div className="input-group mb-4">
+                                                                    <span className="input-group-addon bg-white">
+                                                                        <i className="fa fa-unlock-alt text-dark"></i>
+                                                                    </span>
+                                                                    <input
+                                                                        type={showNewPassword ? "text" : "password"}  // Toggling between text and password
+                                                                        className="form-control"
+                                                                        placeholder="New Password"
+                                                                        name="password"
+                                                                        id="password"
+                                                                        // autoComplete="current-password"
+                                                                        value={newPassword}
+                                                                        onChange={(e) => {
+                                                                            const password = e.target.value;
+                                                                            setNewPassword(password);
+
+                                                                            // Password validation
+                                                                            if (password.length < 8) {
+                                                                                setPasswordError("Password must be at least 8 characters long.");
+                                                                            } else {
+                                                                                setPasswordError(null);
+                                                                            }
+
+                                                                            if (confirmPassword && password !== confirmPassword) {
+                                                                                setConfirmPasswordError("Passwords do not match.");
+                                                                            } else {
+                                                                                setConfirmPasswordError(null);
+                                                                            }
+                                                                        }}
+                                                                        required
+                                                                    />
+                                                                    <div className="input-group-append">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-outline-secondary"
+                                                                            onClick={handleToggleShowNewPassword}
+                                                                        >
+                                                                            {showNewPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                                {passwordError && <div className="text-danger">{passwordError}</div>}
+
+                                                                <div className="input-group mb-4">
+                                                                    <span className="input-group-addon bg-white">
+                                                                        <i className="fa fa-lock text-dark"></i>
+                                                                    </span>
+                                                                    <input
+                                                                        type={showConfirmPassword ? "text" : "password"}  // Toggling between text and password
+                                                                        className="form-control"
+                                                                        placeholder="Confirm Password"
+                                                                        name="confirmPassword"
+                                                                        id="confirmPassword"
+                                                                        value={confirmPassword}
+                                                                        onChange={(e) => {
+                                                                            const confirmPwd = e.target.value;
+                                                                            setConfirmPassword(confirmPwd);
+
+                                                                            // Password match validation
+                                                                            if (newPassword && confirmPwd !== newPassword) {
+                                                                                setConfirmPasswordError("Passwords do not match.");
+                                                                            } else {
+                                                                                setConfirmPasswordError(null);
+                                                                            }
+                                                                        }}
+                                                                        required
+                                                                    />
+                                                                    <div className="input-group-append">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-outline-secondary"
+                                                                            onClick={handleToggleShowConfirmPassword}
+                                                                        >
+                                                                            {showConfirmPassword ? <i className="fa fa-eye-slash"></i> : <i className="fa fa-eye"></i>}
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                                {confirmPasswordError && <div className="text-danger">{confirmPasswordError}</div>}
+
+                                                            </Box>
+                                                        ) : (
+                                                            <Box display="flex" justifyContent="center" mt={2}>
+                                                                <Typography
+                                                                    variant="body2"
+                                                                    color="primary"
+                                                                    style={{ cursor: "pointer", textDecoration: "underline" }}
+                                                                    onClick={handleChangePasswordClick}
+                                                                >
+                                                                    Change Password
+                                                                </Typography>
+                                                            </Box>
+                                                        )}
+                                                    </Box>
+
+                                                    <DialogActions>
+                                                        {!isChangingPassword ? (
+                                                            <Button onClick={handleCloseAccountDialog} variant="outlined" sx={{ borderRadius: "7px", width: "150px" }}>
+                                                                Close
+                                                            </Button>
+                                                        ) : (
+                                                            <>
+                                                                <Button onClick={handleCloseAccountDialog} variant="outlined"
+                                                                    color="error" sx={{ borderRadius: "7px", width: "150px" }}>
+                                                                    Cancel
+                                                                </Button>
+                                                                <Button onClick={handleSavePassword} variant="contained" sx={{ borderRadius: "7px", width: "150px" }}>
+                                                                    Save
+                                                                </Button>
+                                                            </>
+                                                        )}
+                                                    </DialogActions>
+                                                </Dialog>
+
+
                                                 <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/mailinbox`}>
                                                     <i className="dropdown-icon fe fe-mail"></i> Inbox
                                                     <span className="badge bg-success float-end">3</span>
@@ -590,7 +676,7 @@ const SideMenuIcon = () => {
                                                     <i className="dropdown-icon fe fe-alert-triangle"></i>
                                                     Support ?
                                                 </Dropdown.Item>
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}firebaseauth/authlogin`}>
+                                                <Dropdown.Item className="text-dark fw-semibold" onClick={handleLogout}>
                                                     <i className="dropdown-icon fe fe-log-out"></i> Sign
                                                     out
                                                 </Dropdown.Item>
@@ -599,7 +685,7 @@ const SideMenuIcon = () => {
                                     </div>
                                 </Navbar.Collapse>
                             </div>
-                            <div className="demo-icon nav-link icon" onClick={()=>SwitcherIcon()}>
+                            <div className="demo-icon nav-link icon" onClick={() => SwitcherIcon()}>
                                 <i className="fe fe-settings fa-spin text_primary"></i>
                             </div>
                         </Navbar>
@@ -607,7 +693,7 @@ const SideMenuIcon = () => {
                 </Container>
             </div>
             <div className="jumps-prevent" style={{ paddingTop: '70.7812px' }}></div>
-            
+
         </Fragment>)
 }
 export default Header

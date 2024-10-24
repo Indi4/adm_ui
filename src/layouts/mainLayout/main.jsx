@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/Main.css";
 import "../styles/styles.css";
 import logo from "../../assets/images/bg/logo.svg";
@@ -29,6 +29,12 @@ function main() {
 
 
   };
+
+  useEffect(()=>{
+    if(!accessToken){
+      setIsAuthenticate(false)
+    }
+  },[accessToken])
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
