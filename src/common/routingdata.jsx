@@ -2,6 +2,9 @@ import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom/client'
 const CustomerDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/customers/customerDetails'))
 const BomDetails = React.lazy(() => import('../Modules/MDM/components/allMaster/BOMMaster/bomDetails'))
+const CodeComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/codeMaster/codeComponent'))
+const DepartmentComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/departments/departmentComponent'))
+const UsersComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/users/usersComponent'))
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
 const Chat = React.lazy(() => import('../components/Apps/Chat/Chat'))
@@ -110,9 +113,9 @@ export const Routingdata = [
 
     { path: `${import.meta.env.BASE_URL}/mdm/customer-details`, element: <CustomerDetails /> },
     {path:`${import.meta.env.BASE_URL}/mdm/bom-details` ,element : <BomDetails/>},
-    {path:`${import.meta.env.BASE_URL}/mdm/plant-code` ,element:<Ecommerce />},
-    {path:`${import.meta.env.BASE_URL}/mdm/department` ,element:<Analytics />},
-    {path:`${import.meta.env.BASE_URL}/mdm/user-details` ,element:<Crypto />},
+    {path:`${import.meta.env.BASE_URL}/mdm/plant-code` ,element: <CodeComponent />},
+    {path:`${import.meta.env.BASE_URL}/mdm/department` ,element:<DepartmentComponent />},
+    {path:`${import.meta.env.BASE_URL}/mdm/user-details` ,element:<UsersComponent />},
     /* Dashboard page */
 
 

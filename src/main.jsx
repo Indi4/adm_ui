@@ -20,6 +20,8 @@ const Customswitcher = lazy(() => import('./components/pages/switcherpage/switch
 const ScrollToTop = lazy(() => import('./layouts/scrollTop/scrollTop'));
 const CustomerDetails = lazy(() => import('./Modules/MDM/components/allMaster/customers/customerDetails'));
 const BOMDetails = lazy(() => import('./Modules/MDM/components/allMaster/BOMMaster/bomDetails'));
+const CodeComponent = lazy(() => import('./Modules/MDM/components/allMaster/codeMaster/codeComponent'));
+
 
 // Authentication 
 const Login = lazy(() => import('./components/authentication/login/login'));
