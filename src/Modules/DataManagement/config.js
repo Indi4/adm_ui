@@ -122,9 +122,9 @@ const userColumns = [
     {
         field: "role", headerName: "Role", width: 200, headerClassName: "wrap-header",align: "left",
         valueGetter: (params) =>
-            params.row.role
-                ? params.row.role.charAt(0).toUpperCase() + params.row.role.slice(1).toLowerCase()
-                : "",
+            params
+        ? params?.charAt(0).toUpperCase() + params?.slice(1).toLowerCase()
+        : "",
     },
     { field: "department_name", headerName: "Department", width: 150, headerClassName: "wrap-header",align: "left", },
 
