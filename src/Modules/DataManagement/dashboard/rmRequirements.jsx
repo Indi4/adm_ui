@@ -37,7 +37,7 @@ function RmRequirements(props) {
     };
 console.log("props.rmRequirementsData",props.rmRequirementsData)
     return (
-        <div style={{ width: '100%', height: '500px', overflowY: 'auto' }}>
+        <div style={{ width: '100%', height: '470px', overflowY: 'auto' }}>
                     <DataGrid
                         rows={rmRequirementsList}
                         columns={columns}
