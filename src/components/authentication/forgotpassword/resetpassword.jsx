@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import logo from '../../../assets/images/brand/Kizuna.svg'
 import logolight from '../../../assets/images/brand/KizunaWhiteLogo.svg'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Button, Card, Col, InputGroup, Row } from 'react-bootstrap'
 import { postForgotPassword } from '../../../store/authentication/forgotpasswordSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +10,7 @@ import { toast, ToastContainer } from 'react-toastify'
 
 export default function ResetPassword() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const { loading, error, success, NewPassword } = useSelector((state) => state.auth);
 
@@ -24,7 +25,7 @@ export default function ResetPassword() {
         if (success) {
             alert(success)
             dispatch(clearMessage());
-            navigate(`${import.meta.env.BASE_URL}main`);
+            navigate(`/main`);
         }
     }, [success])
 
