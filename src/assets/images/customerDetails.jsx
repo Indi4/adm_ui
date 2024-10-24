@@ -75,7 +75,7 @@ function CustomerDetails(props) {
   useEffect(() => {
     if (customerData && Object.keys(customerData).length > 0) {
       if (customerData.data && customerData.data.length > 0) {
-        console.log(customerData.data, customerData.length,"===================")
+        // console.log(customerData.data, customerData.length,"===================")
         setCustomerList(customerData.data);
         setTotalPage(customerData.length);
         setCategoryList(
@@ -86,7 +86,6 @@ function CustomerDetails(props) {
       }
     }
   }, [customerData]);
-  console.log(customerData,"customerData")
 
   useEffect(() => {
     if (customerNameCodeData && Object.keys(customerNameCodeData).length > 0) {
