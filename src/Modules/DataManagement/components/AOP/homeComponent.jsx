@@ -30,7 +30,7 @@ import {
   callCommonRefreshProps,
   callCommonUpdateAPI,
 } from "../../../../store/action/action";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 
 import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
 import FilterComponent from "../../commonComponent/filter";
@@ -42,6 +42,8 @@ import {
   Appbtn,
   Outline,
 } from "../../../../components/bootstrap/buttons/data/buttondata";
+import TotalRecords from "../../../../commonComponent/totalRecords";
+import { Singlesquare } from "../../../../components/Bootstrap/Dropdowns/data/dropdowndata";
 const style = {
   fontWeight: "bold",
 };
@@ -562,6 +564,8 @@ function HomeComponent(props) {
     <>
       <div style={{ marginTop: "80px" }}>
         <ToastContainer />
+        <Pageheader items={breadcrumbs} />
+
         <Row>
           <Col xl={12}>
             <Card className="custom-card">
@@ -589,38 +593,49 @@ function HomeComponent(props) {
                         alignItems: "center",
                       }}
                     >
-                      <Autocomplete
-                        id="year-select-autocomplete"
-                        options={yearList || []}
-                        getOptionLabel={(option) => option}
-                        renderInput={(params) => (
-                          <TextField {...params} label="Year" />
-                        )}
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            borderRadius: "15px",
-                          },
-                          "& .MuiInputBase-input::placeholder": {
-                            color: "inherit",
-                            opacity: 1,
-                          },
-                          width: 200,
-                        }}
-                        onChange={(e, newValue) => {
-                          handleChangeEvent({
-                            target: {
-                              name: "year",
-                              value: newValue ? newValue : "",
-                            },
-                          });
-                        }}
-                      />
+                      <div className="btn-group mt-2 mb-2 flex-wrap">
+                        {Singlesquare.filter(
+                          (item) => item.color === "outline-primary"
+                        ).map((item, index) => (
+                          <Dropdown className="me-2 my-2" key={index}>
+                            <Dropdown.Toggle
+                              variant={item.color}
+                              type="button"
+                              className={`btn btn-${item.color} dropdown-toggle`}
+                            >
+                              Year <span className="caret"></span>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu role="menu">
+                              <li className="dropdown-plus-title">
+                                {item.menu}
+                                <b
+                                  className="fa fa-angle-up"
+                                  aria-hidden="true"
+                                ></b>
+                              </li>
+                              {yearList.map((year, idx) => (
+                                <li key={idx}>
+                                  <Dropdown.Item
+                                    onClick={() =>
+                                      handleChangeEvent({
+                                        target: { name: "year", value: year },
+                                      })
+                                    }
+                                  >
+                                    {year}
+                                  </Dropdown.Item>
+                                </li>
+                              ))}
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        ))}
+                      </div>
 
                       <Button
                         onClick={() => handleOpenModal(1, 0)}
                         variant="upload"
                         className="bg-purple"
-                        sx={{ borderRadius: "10px", marginLeft: "20px" }}
+                        sx={{ borderRadius: "10px", marginLeft: "10px" }}
                       >
                         <i className="fe fe-upload me-2"></i>
                         Import AOP
@@ -631,16 +646,10 @@ function HomeComponent(props) {
               </Card.Header>
               <Card.Body>
                 <div className="card-area">
-                  {Buttonsoutline.filter(
-                    (idx) => idx.color === "outline-info"
-                  ).map((idx, index) => (
-                    <Button type="button" variant={idx.color} className="me-2">
-                      <span style={{ fontSize: "14px" }}>Total Records </span>
-                      <Badge bg={idx.bg} className="ms-2">
-                        {allDemandList.length}
-                      </Badge>
-                    </Button>
-                  ))}
+                  <TotalRecords
+                    color="outline-success"
+                    length={allDemandList && allDemandList.length}
+                  />
 
                   <div
                     style={{
@@ -757,8 +766,6 @@ function HomeComponent(props) {
                         alignItems: "center",
                       }}
                     >
-                     
-
                       {Outline.filter(
                         (idx) => idx.color === "outline-danger"
                       ).map((idx, out) => (
@@ -766,7 +773,11 @@ function HomeComponent(props) {
                           key={out}
                           variant={idx.color}
                           onClick={handleCancel}
-                          style={{ width: "100px", height: "30px" ,marginRight:"10px" }}
+                          style={{
+                            width: "100px",
+                            height: "30px",
+                            marginRight: "10px",
+                          }}
                         >
                           Cancel
                         </Button>
