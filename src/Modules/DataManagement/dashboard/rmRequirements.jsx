@@ -35,75 +35,78 @@ function RmRequirements(props) {
     const reset = () => {
         setRmRequirementsList([]);
     };
-console.log("props.rmRequirementsData",props.rmRequirementsData)
+
     return (
         <div style={{ width: '100%', height: '470px', overflowY: 'auto' }}>
-                    <DataGrid
-                        rows={rmRequirementsList}
-                        columns={columns}
-                        getRowId={(row) => row.id}
-                        hideFooterPagination
-                        autoHeight
-                        sx={{
-                            '& .MuiDataGrid-root': {
-                                border: 'none',
-                                //fontFamily: 'Arial, sans-serif',
-                            },
-                            '& .MuiDataGrid-columnHeaders': {
-                                backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                color: 'rgba(0, 0, 0, 0.87)',
-                                fontSize: '15px',
-                                borderBottom: '2px solid rgba(60, 90, 120, 0.5)',
-                                backdropFilter: 'blur(10px)',
-                                WebkitBackdropFilter: 'blur(10px)',
-                                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                            },
-                            '& .MuiDataGrid-cell': {
-                                borderBottom: '1px solid #e0e0e0',
-                            },
-                            '& .footer-row': {
-                                fontWeight: 'bold',
-                                backgroundColor: '#f7f7f7',
-                                borderTop: '2px solid #4a6fa1',
-                            },
-                            '& .MuiDataGrid-row:hover': {
-                                backgroundColor: '#e0f7fa',
-                            },
-                            '& .MuiDataGrid-selectedRowCount': {
-                                color: '#4a6fa1',
-                            },
-                            "& .MuiDataGrid-virtualScroller": {
-                                "&::-webkit-scrollbar": {
-                                    width: "10px",
-                                    height: "10px",
-                                },
-                                "&::-webkit-scrollbar-thumb": {
-                                    backgroundColor: "#d3d3d3",
-                                    borderRadius: "10px",
-                                },
-                                "&::-webkit-scrollbar-thumb:hover": {
-                                    backgroundColor: "#bbb",
-                                },
-                            },
-                            "& .MuiDataGrid-root": {
-                                "&::-webkit-scrollbar": {
-                                    height: "10px",
-                                },
-                                "&::-webkit-scrollbar-thumb": {
-                                    backgroundColor: "#d3d3d3",
-                                    borderRadius: "10px",
-                                },
-                                "&::-webkit-scrollbar-thumb:hover": {
-                                    backgroundColor: "#bbb",
-                                },
-                            },
-                            '& .MuiDataGrid-toolbarContainer': {
-                                backgroundColor: '#f0f0f0',
-                                borderBottom: '1px solid #d3d3d3',
-                            },
-                        }}
-                    />
-                </div>
+            <DataGrid
+                rows={rmRequirementsList}
+                columns={columns}
+                getRowId={(row) => row.id}
+                hideFooterPagination
+                autoHeight
+                sx={{
+                    '& .MuiDataGrid-root': {
+                        border: 'none',
+                    },
+                    '& .MuiDataGrid-columnHeaders': {
+                        position: 'sticky', // Make the header sticky
+                        top: 0, // Stick to the top
+                        zIndex: 1, // Ensure it's on top of other elements
+                        backgroundColor: 'rgba(255, 255, 255, 0.7)', // Background color to prevent overlap
+                        color: 'rgba(0, 0, 0, 0.87)',
+                        fontSize: '15px',
+                        borderBottom: '2px solid rgba(60, 90, 120, 0.5)',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                    },
+                    '& .MuiDataGrid-cell': {
+                        borderBottom: '1px solid #e0e0e0',
+                    },
+                    '& .footer-row': {
+                        fontWeight: 'bold',
+                        backgroundColor: '#f7f7f7',
+                        borderTop: '2px solid #4a6fa1',
+                    },
+                    '& .MuiDataGrid-row:hover': {
+                        backgroundColor: '#e0f7fa',
+                    },
+                    '& .MuiDataGrid-selectedRowCount': {
+                        color: '#4a6fa1',
+                    },
+                    "& .MuiDataGrid-virtualScroller": {
+                        "&::-webkit-scrollbar": {
+                            width: "10px",
+                            height: "10px",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#d3d3d3",
+                            borderRadius: "10px",
+                        },
+                        "&::-webkit-scrollbar-thumb:hover": {
+                            backgroundColor: "#bbb",
+                        },
+                    },
+                    "& .MuiDataGrid-root": {
+                        "&::-webkit-scrollbar": {
+                            height: "10px",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#d3d3d3",
+                            borderRadius: "10px",
+                        },
+                        "&::-webkit-scrollbar-thumb:hover": {
+                            backgroundColor: "#bbb",
+                        },
+                    },
+                    '& .MuiDataGrid-toolbarContainer': {
+                        backgroundColor: '#f0f0f0',
+                        borderBottom: '1px solid #d3d3d3',
+                    },
+                }}
+            />
+
+        </div>
         // <Card style={{ margin: '0px', padding: '0px' }}>
         //     <CardTitle
         //         tag="h6"
