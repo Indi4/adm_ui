@@ -119,22 +119,22 @@ export const CDNMenuItems = [
         selected: false,
         children: [
           {
-            title: "Sales Report",
-            path: "/cdn/report/sales",
+            title: "Finished & Unpainted Stock",
+            path: "/cdn/report/finished-unpainted-stock",
             type: "link",
             active: false,
             selected: false,
           },
           {
-            title: "Inventory Report",
-            path: "/cdn/report/inventory",
+            title: "Delivery Requirement",
+            path: "/cdn/report/delivery-requirement",
             type: "link",
             active: false,
             selected: false,
           },
           {
-            title: "Financial Report",
-            path: "/cdn/report/financial",
+            title: "Procurement Plan",
+            path: "/cdn/report/procurement-plan",
             type: "link",
             active: false,
             selected: false,
