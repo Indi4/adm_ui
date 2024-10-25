@@ -136,8 +136,6 @@ export const Routingdata = [
     { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Dashboard /> },
     { path: `${import.meta.env.BASE_URL}/cdn/quick-action`, element: <Defaultcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <AOP /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <Chat /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <Fulcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <RollingPlan /> },
 
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
