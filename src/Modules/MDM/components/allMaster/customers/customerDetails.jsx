@@ -65,7 +65,6 @@ function CustomerDetails(props) {
       }
     }
   }, [customerData]);
-  console.log(customerData, "customerData");
 
   useEffect(() => {
     if (customerNameCodeData && Object.keys(customerNameCodeData).length > 0) {

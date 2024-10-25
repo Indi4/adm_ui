@@ -8,6 +8,7 @@ const DepartmentComponent = React.lazy(() => import('../Modules/MDM/components/a
 const UsersComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/users/usersComponent'))
 
 /* Data Management */
+const AOP = React.lazy(() => import('../Modules/DataManagement/components/AOP/homeComponent'))
 const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/homeComponent'))
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
 const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/components/ActualDispatch/homeComponent'))
@@ -129,7 +130,7 @@ export const Routingdata = [
 
     { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Dashboard /> },
     { path: `${import.meta.env.BASE_URL}/cdn/quick-action`, element: <Defaultcalender /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <Fulcalender /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <AOP /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <Chat /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
     { path: `${import.meta.env.BASE_URL}/cdn/actualSales`, element: <ActualSales /> },

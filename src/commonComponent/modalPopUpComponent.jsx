@@ -224,7 +224,7 @@ function ModalPopUpComponent(props) {
                     disabled={loading}
                     style={{ width: "100px", height: "30px" }}
                   >
-                    <i className={`me-2 fs-13 fa fa-${idx.icon}`}></i>Save
+                    <i className={`me-2 fs-13 fa fa-${idx.icon}`}></i>Upload
                   </Button>
                 ))}
               </div>
