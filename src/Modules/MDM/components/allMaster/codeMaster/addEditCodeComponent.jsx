@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  // Button,
   Grid,
   IconButton,
   InputLabel,
@@ -31,11 +30,10 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 800,
-  // maxHeight: "90vh", // Set maximum height and enable vertical scroll
-  // overflowY: "auto", // Enable vertical scroll
+
   bgcolor: "background.paper",
   borderRadius: "6",
-  boxShadow: "none", // Remove the default box shadow
+  boxShadow: "none",
   p: 4,
 };
 
@@ -128,10 +126,6 @@ function AddEditCodeComponent(props) {
     return valid;
   };
 
-  // const handleInputChange = (e) => {
-  //     setState({ ...state, [e.target.name]: e.target.value })
-  //     setErrors({ ...errors, [e.target.name]: '' });
-  // }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -281,8 +275,8 @@ const gridContainerStyle = {
 };
 
 const gridItemStyle = {
-    marginBottom: 10,
-  };
+  marginBottom: 10,
+};
 
 const mapStatetoProps = (state) => {
   return {
@@ -300,8 +294,6 @@ const mapDispatchtoProps = (dispatch) => {
     refreshProps: (title) => dispatch(callCommonRefreshProps(title)),
   };
 };
-
-
 
 export default connect(
   mapStatetoProps,

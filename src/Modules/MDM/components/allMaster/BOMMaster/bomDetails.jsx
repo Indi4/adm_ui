@@ -1,12 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { connect } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
-import {
-  Badge,
-    Card,
-    Col,
-    Row,Button
-  } from "react-bootstrap";
+import { Badge, Card, Col, Row, Button } from "react-bootstrap";
 import ModalPopUpComponent from "../../../../../commonComponent/modalPopUpComponent";
 import { BOMColumns, initialState } from "../../../../DataManagement/config";
 import {
@@ -47,7 +42,7 @@ function BOMComponent(props) {
       const dataCount = props.BOMData.count || props.BOMData.data.length;
 
       setBOMList(props.BOMData.data);
-      setTotalPage(dataCount); 
+      setTotalPage(dataCount);
     }
   }, [props.BOMData]);
 
@@ -71,8 +66,6 @@ function BOMComponent(props) {
     }
   };
 
- 
-
   const handlePaginationChange = (newPagination) => {
     setPaginationModel(newPagination);
 
@@ -80,7 +73,7 @@ function BOMComponent(props) {
     const limit = newPagination.pageSize;
 
     const paginatedEndPoint = `${endPoint}?offset=${offset}&limit=${limit}`;
-    props.getBOMData(paginatedEndPoint); 
+    props.getBOMData(paginatedEndPoint);
   };
 
   const handleDelete = (open, rowId, success, message = "") => {
@@ -179,25 +172,19 @@ function BOMComponent(props) {
                 </Card.Title>
               </div>
             </Card.Header>
-           
+
             <Card.Body>
               <div className="card-area">
-
-
                 {Buttonsoutline.filter(
-                    (idx) => idx.color === "outline-info"
-                  ).map((idx, index) => (
-                    <Button
-                      type="button"
-                      variant={idx.color}
-                      className="me-2"
-                    >
-                      <span style={{fontSize:"14px"}}>Total Records </span>
-                      <Badge bg={idx.bg} className="ms-2">
-                        {BOMList.length}
-                      </Badge>
-                    </Button>
-                  ))}
+                  (idx) => idx.color === "outline-info"
+                ).map((idx, index) => (
+                  <Button type="button" variant={idx.color} className="me-2">
+                    <span style={{ fontSize: "14px" }}>Total Records </span>
+                    <Badge bg={idx.bg} className="ms-2">
+                      {BOMList.length}
+                    </Badge>
+                  </Button>
+                ))}
                 <div
                   style={{
                     marginTop: "10px",
@@ -231,7 +218,7 @@ function BOMComponent(props) {
                         },
                         "& .MuiDataGrid-columnHeaderTitle": {
                           whiteSpace: "normal",
-                          textAlign: "center", 
+                          textAlign: "center",
                         },
                         "& .MuiDataGrid-cell": {
                           borderBottom: "1px solid #e0e0e0",

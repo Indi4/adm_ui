@@ -32,7 +32,7 @@ const style = {
   width: 800,
   bgcolor: "background.paper",
   borderRadius: "6",
-  boxShadow: "none", // Remove the default box shadow
+  boxShadow: "none",
   p: 4,
 };
 
