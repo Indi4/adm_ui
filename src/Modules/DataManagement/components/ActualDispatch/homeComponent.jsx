@@ -51,7 +51,6 @@ function HomeComponent(props) {
         props.getActualDispatchData(`${endPoint}?page=${newPagination.page + 1}`);
     };
 
-
     const handleSearchData = (actualDispatchData, data, customerNameCode) => {
         setCustomerNameorCode(customerNameCode)
         if (actualDispatchData && Object.keys(actualDispatchData).length > 0) {

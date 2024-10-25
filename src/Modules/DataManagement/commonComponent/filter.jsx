@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import Autocomplete from "@mui/material/Autocomplete";
-import { Grid, TextField, Button } from "@mui/material";
+import { Grid, TextField, ListItem } from "@mui/material";
 import { callCommonGetAPI, callCommonRefreshProps } from '../../../store/action/action'
 import { GETALL_LIST } from "../../endPointConfig"
 import GetAppIcon from "@mui/icons-material/GetApp";
@@ -9,8 +9,26 @@ import { useDispatch, useSelector } from "react-redux";
 // import apiService from '../../../../services/apiService';
 import { saveAs } from 'file-saver';
 import { toast, ToastContainer } from "react-toastify";
+import { styled } from "@mui/material/styles";
 //import { downloadExcelStart, downloadExcelFailure, downloadExcelSuccess } from '../../../../store/authentication/forgotpasswordSlice';
 import { useLocation } from 'react-router-dom';
+const StyledAutocomplete = styled(Autocomplete)({
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '15px',
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'green', // Default border color
+  },
+  '&:hover .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'blue', // Border color on hover
+  },
+  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'red', // Border color when focused
+  },
+});
+const StyledListItem = styled(ListItem)({
+    fontSize: "14px", // Adjust font size for list items
+});
 
 const FilterComponent = (props) => {
     const { fromPage = '', handleSearchData, getCustomerNameCode, callAPI, getRmCodeData, rmCodeData,
@@ -111,7 +129,7 @@ const FilterComponent = (props) => {
                     <Grid item xs={8}>
                         {filterType === 'fgCode' &&
                             //FG Code filter
-                            <Autocomplete
+                            <StyledAutocomplete
                                 id="filter-select-autocomplete"
                                 options={FGCodeList || []}
                                 getOptionLabel={(option) => option || ""}
@@ -121,71 +139,49 @@ const FilterComponent = (props) => {
                                     });
                                 }}
                                 renderInput={(params) => <TextField {...params} label="FG Code" />}
-                                sx={{
-                                    "& .MuiOutlinedInput-root": {
-                                        borderRadius: "15px",
-                                    },
-                                    "& .MuiInputBase-input::placeholder": {
-                                        color: "inherit",
-                                        opacity: 1,
-                                    },
-                                }}
+                                renderOption={(props, option) => (
+                                    <StyledListItem {...props} style={{ color: "teal" }}>
+                                        {option}
+                                    </StyledListItem>
+                                )}
                             />
                         }
                         {filterType === '' &&
                             //Customer Name and Code filter
-                            <Autocomplete
-                            id="cutomerNameOrCode"
-                            options={[
-                              fromPage !== 'addNewDemand' && "---------- All ----------",
-                              ...(customerNameorCodeList && customerNameorCodeList?.length > 0
-                                ? customerNameorCodeList.map(
-                                    (option) =>
-                                      option.customer_code &&
-                                      option.customer_name &&
-                                      option.plant_location
-                                        ? `${option.customer_code} ${option.customer_name} [${option.plant_location}]`
-                                        : ""
-                                  )
-                                : []),
-                            ]}
-                            onChange={(event, newValue) => {
-                              handleInputChange({
-                                target: {
-                                  name: "cutomerNameOrCode",
-                                  value: newValue ? newValue : "",
-                                },
-                              });
-                            }}
-                            sx={{
-                              "& .MuiOutlinedInput-root": {
-                                borderRadius: "15px",
-                              },
-                              "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "red", // Default border color
-                              },
-                              "&:hover .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "blue", // Border color on hover
-                              },
-                              "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                                borderColor: "green", // Border color when focused
-                              },
-                            }}
-                            renderInput={(params) => (
-                              <TextField {...params} label="Customer Name/Code" />
-                            )}
-                            renderOption={(props, option) => (
-                              <li {...props} style={{ color: "rgba(0, 0, 0, 0.75)" }}>
-                                {option}
-                              </li>
-                            )}
-                          />
-                          
-                          
+                            <StyledAutocomplete
+                                id="cutomerNameOrCode"
+                                options={[
+                                    fromPage !== "addNewDemand" && "---------- All ----------",
+                                    ...(customerNameorCodeList && customerNameorCodeList?.length > 0
+                                        ? customerNameorCodeList.map((option) =>
+                                            option.customer_code &&
+                                                option.customer_name &&
+                                                option.plant_location
+                                                ? `${option.customer_code} ${option.customer_name} [${option.plant_location}]`
+                                                : ""
+                                        )
+                                        : []),
+                                ]}
+                                onChange={(event, newValue) => {
+                                    handleInputChange({
+                                        target: {
+                                            name: "cutomerNameOrCode",
+                                            value: newValue ? newValue : "",
+                                        },
+                                    });
+                                }}
+                                renderInput={(params) => <TextField {...params} label="Customer Name/Code" />}
+                                renderOption={(props, option) => (
+                                    <StyledListItem {...props} style={{ color: "teal" }}>
+                                        {option}
+                                    </StyledListItem>
+                                )}
+                            />
                         }
+
                         {filterType === 'rmCode' &&
                             //RM Code filter
-                            <Autocomplete
+                            <StyledAutocomplete
                                 id="filter-select-autocomplete"
                                 options={RMCodeList || []}
                                 getOptionLabel={(option) => option || ""}
@@ -195,15 +191,11 @@ const FilterComponent = (props) => {
                                     });
                                 }}
                                 renderInput={(params) => <TextField {...params} label="RM Code" />}
-                                sx={{
-                                    "& .MuiOutlinedInput-root": {
-                                        borderRadius: "15px",
-                                    },
-                                    "& .MuiInputBase-input::placeholder": {
-                                        color: "inherit",
-                                        opacity: 1,
-                                    },
-                                }}
+                                renderOption={(props, option) => (
+                                    <StyledListItem {...props} style={{ color: "teal" }}>
+                                        {option}
+                                    </StyledListItem>
+                                )}
                             />
                         }
                     </Grid>
