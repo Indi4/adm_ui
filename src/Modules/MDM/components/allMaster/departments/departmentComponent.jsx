@@ -44,7 +44,7 @@ function DepartmentComponent(props) {
         renderCell: (params) => (
           <React.Fragment>
             {params && params.row.id !== 1 ? (
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <div style={{ display: "flex", justifyContent: "flex-start" }}>
                 <Tooltip title="Edit Data">
                   <IconButton
                     variant="outlined"

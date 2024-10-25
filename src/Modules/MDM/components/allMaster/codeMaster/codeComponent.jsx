@@ -54,7 +54,7 @@ function CodeComponent(props) {
         width: 100,
         headerClassName: "wrap-header",
         renderCell: (params) => (
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
             <Tooltip title="Edit Data">
               <IconButton
                 variant="outlined"
