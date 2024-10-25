@@ -12,8 +12,7 @@ import { initialState, breadcrumbs } from "./config";
 import { ToastContainer, toast } from "react-toastify";
 import FilterComponent from "../../commonComponent/filter";
 import { CircularProgress } from "@mui/material";
-import { Buttonsoutline } from "../../../../components/bootstrap/badgespills/data/badgesdata";
-import { Badge, Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
 import TotalRecords from "../../../../commonComponent/totalRecords";
 

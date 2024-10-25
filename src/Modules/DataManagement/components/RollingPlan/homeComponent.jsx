@@ -1,10 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Col, Row } from "reactstrap";
+import {  Row } from "reactstrap";
 import {
-  Autocomplete,
-  FormControl,
-  TextField,
-  Grid,
+
   Menu,
   MenuItem,
   IconButton,
@@ -30,8 +27,7 @@ import { CustomFooter } from "../../../commonConfig";
 import { CDC_ALLDEMANDS, CDC_GET_ALLDEMANDS } from "../../../endPointConfig";
 import { connect } from "react-redux";
 import { Card } from "react-bootstrap";
-import { Buttonsoutline } from "../../../../components/bootstrap/badgespills/data/badgesdata";
-import { Badge, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import TotalRecords from "../../../../commonComponent/totalRecords";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
 

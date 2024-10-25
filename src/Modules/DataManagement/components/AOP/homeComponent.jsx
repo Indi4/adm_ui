@@ -2,14 +2,6 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import { ToastContainer, toast } from "react-toastify";
-import {
-  Autocomplete,
-  FormControl,
-  TextField,
-  Grid,
-  Menu,
-  MenuItem,
-} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -35,9 +27,8 @@ import { Button, Dropdown } from "react-bootstrap";
 import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
 import FilterComponent from "../../commonComponent/filter";
 import { Tooltip } from "@mui/material";
-import { Badge, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
-import { Buttonsoutline } from "../../../../components/bootstrap/badgespills/data/badgesdata";
 import {
   Appbtn,
   Outline,
