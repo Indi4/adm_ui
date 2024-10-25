@@ -142,7 +142,7 @@ export default function Sidebar({ menuType }) {
                                   }`}
                                   onClick={() => setActiveMenuItem(child.path)}
                                 >
-                                  <span style={{ marginRight: "12px",marginLeft:"20px" }}>•</span>{" "}
+                                  <span style={{ marginRight: "11px",marginLeft:"15px" }}>•</span>{" "}
                                   <span className="side-menu__label">
                                     {child.title}
                                   </span>

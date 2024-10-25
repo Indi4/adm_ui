@@ -12,6 +12,11 @@ const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/h
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
 const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/components/ActualDispatch/homeComponent'))
 
+const RollingPlan = React.lazy(() => import('../Modules/DataManagement/components/RollingPlan/homeComponent'))
+const TotalStock = React.lazy(() => import('../Modules/DataManagement/StockDetails/TotalStock/homeComponent'))
+
+
+
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
 const Chat = React.lazy(() => import('../components/Apps/Chat/Chat'))
 const Contentscrollbar = React.lazy(() => import('../components/Apps/ContentScrollbar/ContentScrollbar'))
@@ -130,13 +135,14 @@ export const Routingdata = [
     { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Dashboard /> },
     { path: `${import.meta.env.BASE_URL}/cdn/quick-action`, element: <Defaultcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <Fulcalender /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <Chat /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <RollingPlan /> },
+
     { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
     { path: `${import.meta.env.BASE_URL}/cdn/actualSales`, element: <ActualSales /> },
     { path: `${import.meta.env.BASE_URL}/cdn/actualDispatch`, element: <ActualDispatch /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/sales`, element: <Loaders /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/inventory`, element: <Counters /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/financial`, element: <Ratings /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/finished-unpainted-stock`, element: <TotalStock /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/delivery-requirement`, element: <Counters /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/procurement-plan`, element: <Ratings /> },
 
     /* Bootstrap page  */
 
