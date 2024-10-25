@@ -14067,7 +14067,7 @@ label.control-label {
     display: flex;
     -ms-flex-align: center;
     align-items: center;
-    padding: 1.5rem 0;
+    padding: 0 0 0 5px;
     -ms-flex-wrap: wrap;
     justify-content: space-between;
     border-radius: 4px;
