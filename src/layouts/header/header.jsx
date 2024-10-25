@@ -357,7 +357,7 @@ function Header() {
                                                             sessionStorage.setItem("layout", "CDC_Tool");
                                                         }}
                                                     >
-                                                        Delivery Management
+                                                        Demand Management
                                                     </a>
                                                 </li>
                                                 <li>

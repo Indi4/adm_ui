@@ -297,8 +297,8 @@ function CustomerDetails(props) {
                           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
                         },
                         "& .MuiDataGrid-columnHeaderTitle": {
-                          whiteSpace: "normal", 
-                          textAlign: "center", 
+                          whiteSpace: "normal",
+                          textAlign: "center",
                         },
                         "& .MuiDataGrid-cell": {
                           borderBottom: "1px solid #e0e0e0",

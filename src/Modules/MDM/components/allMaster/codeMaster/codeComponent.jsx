@@ -1,20 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { connect } from "react-redux";
-import {
-    Badge,
-      Card,
-      Col,
-      Row,Button
-    } from "react-bootstrap";
-import {
-  Grid,
-  TextField,
-  MenuItem,
-  Autocomplete,
-  Select,
-  TableCell,
-  Tooltip,
-} from "@mui/material";
+import { Badge, Card, Col, Row, Button } from "react-bootstrap";
+import { Tooltip } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { codeColumns, initialState } from "../../../../DataManagement/config";
 import { ToastContainer, toast } from "react-toastify";
@@ -25,7 +12,6 @@ import DeleteModalComponent from "../../../../../commonComponent/deleteModalComp
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { CustomFooter } from "../../../../commonConfig";
 import { Buttonsoutline } from "../../../../../components/bootstrap/badgespills/data/badgesdata";
 
 function CodeComponent(props) {
@@ -62,9 +48,9 @@ function CodeComponent(props) {
                   color: "#3498db",
                   margin: "5px",
                   borderRadius: "15px",
-                  maxWidth: "150px", // Adjusted width
-                  fontWeight: "bold", // Bold styling
-                  fontSize: "12px", // Adjusted font size
+                  maxWidth: "150px",
+                  fontWeight: "bold",
+                  fontSize: "12px",
                 }}
                 onClick={() =>
                   handleAddEditOpenModal(1, params.row.id, 0, "Edit")
@@ -80,9 +66,9 @@ function CodeComponent(props) {
                   color: "#bf361b",
                   margin: "5px",
                   borderRadius: "15px",
-                  maxWidth: "150px", // Adjusted width
-                  fontWeight: "bold", // Bold styling
-                  fontSize: "12px", // Adjusted font size
+                  maxWidth: "150px",
+                  fontWeight: "bold",
+                  fontSize: "12px",
                 }}
                 onClick={(e) => handleDelete(1, params.row.id, 0, "")}
               >
@@ -106,12 +92,6 @@ function CodeComponent(props) {
       setTotalPage(props.codeDetailsData.count);
     }
   }, [props.codeDetailsData]);
-
-  // useEffect(() => {
-  //     if (!!paginationModel && Object.keys(paginationModel).length > 0) {
-  //         props.getCodeData(`${endPoint}?page=${paginationModel.page + 1}`)
-  //     }
-  // }, [paginationModel])
 
   const handleAddEditOpenModal = (open, rowId, success, type, message) => {
     setState({ ...state, openPopUp: open, rowID: rowId, success, type });
@@ -169,7 +149,6 @@ function CodeComponent(props) {
                     sx={{ borderRadius: "20px" }}
                   >
                     + Add Plant
-                    
                   </Button>
                 </Card.Title>
               </div>
@@ -201,7 +180,6 @@ function CodeComponent(props) {
                       columns={memoizedColumns || []}
                       getRowId={(row) => row.id}
                       hideFooterPagination
-                    
                       sx={{
                         "& .MuiDataGrid-root": {
                           border: "none",
@@ -217,7 +195,7 @@ function CodeComponent(props) {
                         },
                         "& .MuiDataGrid-columnHeaderTitle": {
                           whiteSpace: "normal",
-                          textAlign: "center", 
+                          textAlign: "center",
                         },
                         "& .MuiDataGrid-cell": {
                           borderBottom: "1px solid #e0e0e0",

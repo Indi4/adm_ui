@@ -14,7 +14,7 @@ import DeleteModalComponent from "../../../../../commonComponent/deleteModalComp
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import {Buttonsoutline} from "../../../../../components/bootstrap/badgespills/data/badgesdata";
+import { Buttonsoutline } from "../../../../../components/bootstrap/badgespills/data/badgesdata";
 
 function DepartmentComponent(props) {
   const [state, setState] = useState({ ...initialState });
@@ -52,9 +52,9 @@ function DepartmentComponent(props) {
                       color: "#3498db",
                       margin: "5px",
                       borderRadius: "15px",
-                      maxWidth: "150px", // Adjusted width
-                      fontWeight: "bold", // Bold styling
-                      fontSize: "12px", // Adjusted font size
+                      maxWidth: "150px",
+                      fontWeight: "bold",
+                      fontSize: "12px",
                     }}
                     onClick={() =>
                       handleAddEditOpenModal(1, params.row.id, 0, "Edit")
@@ -70,9 +70,9 @@ function DepartmentComponent(props) {
                       color: "#bf361b",
                       margin: "5px",
                       borderRadius: "15px",
-                      maxWidth: "150px", // Adjusted width
-                      fontWeight: "bold", // Bold styling
-                      fontSize: "12px", // Adjusted font size
+                      maxWidth: "150px",
+                      fontWeight: "bold",
+                      fontSize: "12px",
                     }}
                     onClick={(e) => handleDelete(1, params.row.id, 0, "")}
                   >
@@ -157,7 +157,7 @@ function DepartmentComponent(props) {
                 </Card.Title>
                 <Card.Title style={{ marginLeft: "auto" }}>
                   <Button
-                   onClick={() => handleAddEditOpenModal(1, 0, 0, "Add", "")}
+                    onClick={() => handleAddEditOpenModal(1, 0, 0, "Add", "")}
                     variant="contained"
                     className="bg-cyan"
                     sx={{ borderRadius: "20px" }}
@@ -210,7 +210,7 @@ function DepartmentComponent(props) {
                         },
                         "& .MuiDataGrid-columnHeaderTitle": {
                           whiteSpace: "normal",
-                          textAlign: "center", 
+                          textAlign: "center",
                         },
                         "& .MuiDataGrid-cell": {
                           borderBottom: "1px solid #e0e0e0",
