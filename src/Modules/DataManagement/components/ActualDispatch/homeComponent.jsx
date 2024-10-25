@@ -9,7 +9,8 @@ import FilterComponent from "../../commonComponent/filter";
 import { actualDispatchColumns, initialState, breadcrumbs } from "./config"
 import { CDC_SAVE_ACTUALDISPATCH, CDC_GET_ACTUALDISPATCH } from "../../../endPointConfig"
 import { callCommonGetAPI } from '../../../../store/action/action'
-import { ToastContainer, toast } from "react-toastify";
+import TotalRecords from '../../../../commonComponent/totalRecords'
+import { toast } from "react-toastify";
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState })
@@ -72,14 +73,14 @@ function HomeComponent(props) {
                 <Col xl={12}>
                     <Card>
                         <Card.Header className=" d-flex justify-content-between align-items-center">
-                            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "0px" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
                                 <Card.Title style={{ flexGrow: 1 }}>
                                     <FilterComponent
                                         handleSearchData={handleSearchData}
                                         callAPI={CDC_SAVE_ACTUALDISPATCH}
                                     />
                                 </Card.Title>
-                                <Card.Title style={{ marginLeft: "auto" }}>
+                                <Card.Title style={{ marginLeft: "auto", padding: "5px" }}>
                                     <Button
                                         onClick={() => handleOpenModal(1, 0)}
                                         variant="upload"
@@ -92,9 +93,10 @@ function HomeComponent(props) {
                                 </Card.Title>
                             </div>
                         </Card.Header>
-                        <Card.Body>
+                        <Card.Body className="p-0">
                             <div className="card-area">
                                 <Col md="12">
+                                    <TotalRecords color='outline-success' length={actualDispatchList && actualDispatchList.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
                                         {actualDispatchList && actualDispatchList.length > 0 ?
                                             <DataGrid
