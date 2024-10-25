@@ -265,6 +265,22 @@ function HomeComponent(props) {
     }
   };
 
+  const [selectedYear, setSelectedYear] = useState(null);
+
+  const handleSelectYear = (year) => {
+    setSelectedYear(year);
+    handleChangeEvent({
+      target: { name: "year", value: year },
+    });
+  };
+
+  const resetYearSelection = () => {
+    setSelectedYear(null);
+    handleChangeEvent({
+      target: { name: "year", value: "" },
+    });
+  };
+
   const reset = () => {
     setCustomerNameorCode("");
     setallDemandList([]);
@@ -601,26 +617,32 @@ function HomeComponent(props) {
                             <Dropdown.Toggle
                               variant={item.color}
                               type="button"
-                              className={`btn btn-${item.color} dropdown-toggle`}
+                              className={`btn btn-${item.color} dropdown-toggle d-flex align-items-center`}
                             >
-                              Year <span className="caret"></span>
+                              {selectedYear || "Year"}
+                              {selectedYear && (
+                                <span
+                                  className="ms-2"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    resetYearSelection();
+                                  }}
+                                  style={{
+                                    cursor: "pointer",
+                                    color: "red",
+                                    fontSize: "0.8rem",
+                                    marginLeft: "5px",
+                                  }}
+                                >
+                                  &#10005;
+                                </span>
+                              )}
                             </Dropdown.Toggle>
                             <Dropdown.Menu role="menu">
-                              <li className="dropdown-plus-title">
-                                {item.menu}
-                                <b
-                                  className="fa fa-angle-up"
-                                  aria-hidden="true"
-                                ></b>
-                              </li>
                               {yearList.map((year, idx) => (
                                 <li key={idx}>
                                   <Dropdown.Item
-                                    onClick={() =>
-                                      handleChangeEvent({
-                                        target: { name: "year", value: year },
-                                      })
-                                    }
+                                    onClick={() => handleSelectYear(year)}
                                   >
                                     {year}
                                   </Dropdown.Item>
