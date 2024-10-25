@@ -1,6 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from 'react-redux'
-import { Alert, Card, Button, Col, Collapse, Form, Row } from 'react-bootstrap'
+import { Alert, Card, Button, Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Pageheader from '../../../../layouts/pageheader/pageheader'
 import { DataGrid } from "@mui/x-data-grid";
@@ -9,8 +9,8 @@ import FilterComponent from "../../commonComponent/filter";
 import { actualSalesColumns, initialState, breadcrumbs } from "./config"
 import { CDC_SAVE_ACTUALSALES, CDC_GET_ACTUALSALES } from "../../../endPointConfig"
 import { callCommonGetAPI } from '../../../../store/action/action'
-import { ToastContainer, toast } from "react-toastify";
-
+import { toast } from "react-toastify";
+import TotalRecords from '../../../../commonComponent/totalRecords'
 
 function HomeComponent(props) {
 
@@ -65,20 +65,14 @@ function HomeComponent(props) {
                 <Col xl={12}>
                     <Card>
                         <Card.Header className=" d-flex justify-content-between align-items-center">
-                            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "0px" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
                                 <Card.Title style={{ flexGrow: 1 }}>
                                     <FilterComponent
                                         handleSearchData={handleSearchData}
                                         callAPI={CDC_GET_ACTUALSALES}
                                     />
                                 </Card.Title>
-                                <Card.Title style={{ marginLeft: "auto" }}>
-                                    {/* <div className="btn-list"> */}
-                                    {/* <Button type="button" variant="upload" className="bg-purple" >
-                                            <i className="fe fe-upload me-2"></i>
-                                            <span>Import Actual Sales</span>
-                                        </Button></div> */}
-
+                                <Card.Title style={{ marginLeft: "auto", padding: "5px" }}>
                                     <Button
                                         onClick={() => handleOpenModal(1, 0)}
                                         variant="upload"
@@ -91,9 +85,10 @@ function HomeComponent(props) {
                                 </Card.Title>
                             </div>
                         </Card.Header>
-                        <Card.Body>
+                        <Card.Body className="p-0">
                             <div className="card-area">
                                 <Col md="12">
+                                <TotalRecords color = 'outline-success' length = {actualSalesList && actualSalesList.length}/>
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
                                         {actualSalesList && actualSalesList.length > 0 ?
                                             <DataGrid
