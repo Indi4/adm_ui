@@ -45,7 +45,7 @@ function HomeComponent(props) {
                     <Row>
                         <Col lg={6} md={6} sm={6} xl={6} data-aos="fade-up">
                         <Card className=" overflow-hidden">
-                                <Card.Body>
+                                <Card.Body className="p-15">
                                     <div className="d-flex">
                                         <div>
                                             <p className="mb-0 text-dark fw-semibold">Dispatch Plan Accuracy</p>
@@ -61,7 +61,7 @@ function HomeComponent(props) {
                         </Col>
                         <Col lg={6} md={6} sm={6} xl={6} data-aos="fade-up">
                             <Card className=" overflow-hidden">
-                                <Card.Body>
+                                <Card.Body className="p-15">
                                     <div className="d-flex">
                                         <div>
                                             <p className="mb-0 text-dark fw-semibold">RM & WIP Avail. To Produce</p>
