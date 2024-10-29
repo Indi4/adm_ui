@@ -72,7 +72,7 @@ function HomeComponent(props) {
                                         callAPI={CDC_GET_ACTUALSALES}
                                     />
                                 </Card.Title>
-                                <Card.Title style={{ marginLeft: "auto", padding: "5px" }}>
+                                <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
                                     <Button
                                         onClick={() => handleOpenModal(1, 0)}
                                         variant="upload"
