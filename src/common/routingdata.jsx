@@ -15,6 +15,7 @@ const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/compon
 const RollingPlan = React.lazy(() => import('../Modules/DataManagement/components/RollingPlan/homeComponent'))
 const TotalStock = React.lazy(() => import('../Modules/DataManagement/StockDetails/TotalStock/homeComponent'))
 const ProcurementPlan = React.lazy(() => import('../Modules/DataManagement/StockDetails/RawMaterials/homeComponent'))
+const DeliveryRequirement = React.lazy(() => import('../Modules/DataManagement/StockDetails/DeliveryRequirements/homeComponent'))
 
 
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
@@ -143,7 +144,7 @@ export const Routingdata = [
     { path: `${import.meta.env.BASE_URL}/cdn/actualSales`, element: <ActualSales /> },
     { path: `${import.meta.env.BASE_URL}/cdn/actualDispatch`, element: <ActualDispatch /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/finished-unpainted-stock`, element: <TotalStock /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/delivery-requirement`, element: <Counters /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/delivery-requirement`, element: <DeliveryRequirement /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/procurement-plan`, element: <ProcurementPlan /> },
 
     /* Bootstrap page  */
