@@ -12,10 +12,9 @@ const AOP = React.lazy(() => import('../Modules/DataManagement/components/AOP/ho
 const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/homeComponent'))
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
 const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/components/ActualDispatch/homeComponent'))
-
 const RollingPlan = React.lazy(() => import('../Modules/DataManagement/components/RollingPlan/homeComponent'))
 const TotalStock = React.lazy(() => import('../Modules/DataManagement/StockDetails/TotalStock/homeComponent'))
-
+const ProcurementPlan = React.lazy(() => import('../Modules/DataManagement/StockDetails/RawMaterials/homeComponent'))
 
 
 const Cardsdesign = React.lazy(() => import('../components/Apps/Cardsdesign/Cardsdesign'))
@@ -145,7 +144,7 @@ export const Routingdata = [
     { path: `${import.meta.env.BASE_URL}/cdn/actualDispatch`, element: <ActualDispatch /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/finished-unpainted-stock`, element: <TotalStock /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/delivery-requirement`, element: <Counters /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/procurement-plan`, element: <Ratings /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/report/procurement-plan`, element: <ProcurementPlan /> },
 
     /* Bootstrap page  */
 
