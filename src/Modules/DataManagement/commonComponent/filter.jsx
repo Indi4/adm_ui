@@ -200,7 +200,7 @@ const FilterComponent = (props) => {
                         }
                     </Grid>
                     <Grid item xs={4} marginTop={1.5}>
-                        <button type="button" class="btn btn-primary btn btn-primary" onClick={handleSearch}><i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-primary" onClick={handleSearch}><i class="fa fa-search"></i></button>
                     </Grid>
                 </Grid>
             }
