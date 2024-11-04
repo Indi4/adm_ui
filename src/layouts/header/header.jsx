@@ -9,10 +9,11 @@ import { Container, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Form, 
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { imagesData } from "../../common/commomimages/imagedata"
 import MenuItems from '../sidebar/sidebardata'
-import { Typography, CircularProgress, Card, Box, DialogActions, TextField, DialogTitle, Dialog, DialogContent, Button, IconButton, InputAdornment, Divider, Avatar, Grid } from "@mui/material";
+import { Typography, CircularProgress, Card, Box, DialogActions, TextField, DialogTitle, Dialog, DialogContent, IconButton, InputAdornment, Divider, Avatar, Grid } from "@mui/material";
 import { getMyAccount, PostChangePassword } from '../../store/authentication/authSlice'
 import { jwtDecode } from "jwt-decode";
-
+import { Appbtn, Outline } from '../../components/bootstrap/buttons/data/buttondata';
+import { Button } from "react-bootstrap";
 
 
 function Header() {
@@ -314,13 +315,13 @@ function Header() {
                                         </Dropdown>
 
 
-                                        <div className="d-flex country" onClick={() => Darkmode()}>
-                                            
+                                        {/* <div className="d-flex country" onClick={() => Darkmode()}>
+
                                             <Link to='#' className="nav-link icon theme-layout nav-link-bg layout-setting">
                                                 <span className="dark-layout mt-1"><i className="ri-moon-clear-line"></i></span>
                                                 <span className="light-layout mt-1"><i className="ri-sun-line"></i></span>
                                             </Link>
-                                        </div>
+                                        </div> */}
 
                                         <div className="dropdown d-flex">
                                             <Link className="nav-link icon full-screen-link" id="fullscreen-button" onClick={Fullscreen}>
@@ -343,11 +344,9 @@ function Header() {
                                                 data-bs-toggle="dropdown" // Bootstrap attribute to toggle the dropdown
                                                 aria-expanded={menuOpen} // Reflects whether the menu is open or closed
                                             >
-                                                {/* Icon remains the same as the original one */}
-                                                <i className="ri-menu-fold-fill" style={{ color: "inherit" }}></i>
+                                                <i class="bi bi-list" style={{ color: "inherit" }}></i>
                                             </Link>
 
-                                            {/* Bootstrap dropdown menu */}
                                             <ul className={`dropdown-menu ${menuOpen ? 'show' : ''}`}>
                                                 <li>
                                                     <a
@@ -385,12 +384,29 @@ function Header() {
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
                                                 data-bs-popper="none">
-                                                <div className="drop-heading">
+                                                {/* <div className="drop-heading">
                                                     <div className="text-center">
                                                         <h5 className="text-dark mb-0 fw-semibold">Alison</h5>
                                                         <span className="text-muted fs-12">Administrator</span>
                                                     </div>
+                                                </div> */}
+                                                <div className="drop-heading">
+                                                    <div className="text-center">
+                                                        <h4 className="text-dark mb-0 fw-semibold">
+                                                            {accountDetails?.data?.[0]?.role
+                                                                ? accountDetails.data[0].role.toUpperCase() // Display the full role name in uppercase
+                                                                : "Unknown"}
+                                                        </h4>
+                                                        <span className="text-muted fs-12">
+                                                            {accountDetails?.data?.[0]?.role === "Admin"
+                                                                ? "ADMINISTRATOR"
+                                                                : accountDetails?.data?.[0]?.role === "Manager"
+                                                                    ? "MANAGER"
+                                                                    : "User"}
+                                                        </span>
+                                                    </div>
                                                 </div>
+
                                                 <Dropdown.Item className="text-dark fw-semibold border-top" onClick={handleAccount}>
                                                     <i className="dropdown-icon fe fe-user"></i> My Account
                                                 </Dropdown.Item>
@@ -649,35 +665,69 @@ function Header() {
 
                                                     <DialogActions>
                                                         {!isChangingPassword ? (
-                                                            <Button onClick={handleCloseAccountDialog} variant="outlined" sx={{ borderRadius: "7px", width: "150px" }}>
-                                                                Close
-                                                            </Button>
+                                                           <>
+                                                            {
+                                                                Outline.filter((idx) => idx.color === "outline-danger").map(
+                                                                    (idx, out) => (
+                                                                        <Button
+                                                                            key={out}
+                                                                            variant={idx.color}
+                                                                            onClick={handleCloseAccountDialog}
+                                                                            style={{ width: "100px", height: "30px" }}
+                                                                        >
+                                                                            Close
+                                                                        </Button>
+                                                                    )
+                                                                )
+                                                            }</>
                                                         ) : (
                                                             <>
-                                                                <Button onClick={handleCloseAccountDialog} variant="outlined"
-                                                                    color="error" sx={{ borderRadius: "7px", width: "150px" }}>
-                                                                    Cancel
-                                                                </Button>
-                                                                <Button onClick={handleSavePassword} variant="contained" sx={{ borderRadius: "7px", width: "150px" }}>
-                                                                    Save
-                                                                </Button>
+                                                              
+
+                                                                {Outline.filter((idx) => idx.color === "outline-danger").map(
+                                                                    (idx, out) => (
+                                                                        <Button
+                                                                            key={out}
+                                                                            variant={idx.color}
+                                                                            onClick={handleCloseAccountDialog}
+                                                                            style={{ width: "100px", height: "30px" }}
+                                                                        >
+                                                                            Cancel
+                                                                        </Button>
+                                                                    )
+                                                                )}
+                                                                
+                                                                {Appbtn.filter((idx) => idx.icon === "save").map(
+                                                                    (idx, ap) => (
+                                                                        <Button
+                                                                            key={ap}
+                                                                            variant="secondary"
+                                                                            className="btn btn-app"
+                                                                            onClick={handleSavePassword}
+                                                                            style={{ width: "100px", height: "30px" }}
+                                                                        >
+                                                                            <i className={`me-2 fs-13 fa fa-${idx.icon}`}></i>
+                                                                            Save
+                                                                        </Button>
+                                                                    )
+                                                                )}
                                                             </>
                                                         )}
                                                     </DialogActions>
                                                 </Dialog>
 
 
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/mailinbox`}>
+                                                {/* <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/mailinbox`}>
                                                     <i className="dropdown-icon fe fe-mail"></i> Inbox
                                                     <span className="badge bg-success float-end">3</span>
-                                                </Dropdown.Item>
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/settings`}>
+                                                </Dropdown.Item> */}
+                                                {/* <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/settings`}>
                                                     <i className="dropdown-icon fe fe-settings"></i> Settings
-                                                </Dropdown.Item>
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/faqs`} >
+                                                </Dropdown.Item> */}
+                                                {/* <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/faqs`} >
                                                     <i className="dropdown-icon fe fe-alert-triangle"></i>
                                                     Support ?
-                                                </Dropdown.Item>
+                                                </Dropdown.Item> */}
                                                 <Dropdown.Item className="text-dark fw-semibold" onClick={handleLogout}>
                                                     <i className="dropdown-icon fe fe-log-out"></i> Sign
                                                     out

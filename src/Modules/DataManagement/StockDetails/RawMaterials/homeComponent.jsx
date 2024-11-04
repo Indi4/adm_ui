@@ -9,14 +9,18 @@ import { initialState, breadcrumbs, RMColumns, generateDynamicColumns } from "./
 import { CDC__GET_RAWMATERIAL } from "../../../endPointConfig"
 import { currentMonth } from "../../../commonConfig";
 import { callCommonGetAPI, callCommonRefreshProps } from '../../../../store/action/action'
-import TotalRecords from '../../../../commonComponent/totalRecords'
+import TotalRecords from '../../../../commonComponent/totalRecords';
 import apiService from "../../../../services/apiService";
 import { v4 as uuidv4 } from 'uuid';
 import { saveAs } from 'file-saver';
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import config from "../../../../config";
+const BASE_URL = config.apiUrl;
+
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState });
+    const [downloading, setDownloading] = useState(false);
     const { getRawMaterialData, rawMaterialData, refreshProps } = props;
     const [endPoint] = useState(CDC__GET_RAWMATERIAL);
     const [loading, setLoading] = useState(false);  // New loading state for the whole component
@@ -69,10 +73,37 @@ function HomeComponent(props) {
         }
     };
 
+    // const handleExport = async () => {
+    //     //  setDownloading(true);
+    //     try {
+    //         const response = await apiService.get(`mdm/rm_stock2/?export=xlsx`);
+    //         if (!response.ok) {
+
+    //             throw new Error('Failed to download Excel file');
+
+    //         }
+    //         const blob = await response.blob();
+    //         const reader = new FileReader();
+    //         reader.onload = () => {
+    //             saveAs(new Blob([reader.result]), `Procurement_Plan.xlsx`);
+    //         };
+    //         reader.readAsArrayBuffer(blob);
+    //         // console.log(response,"^^^^^^^^^^^^^^");
+
+
+    //         toast.success('Excel file downloaded successfully!');
+    //     } catch (error) {
+
+    //         console.error('Error downloading Excel file:', error);
+    //         toast.error('Failed to download Excel file!');
+    //     }
+    // };
+
     const handleExport = async () => {
-        //  setDownloading(true);
+        setDownloading(true);
         try {
-            const response = await apiService.get(`mdm/rm_stock2/?export=xlsx`);
+            const response = await fetch(`${BASE_URL}/mdm/rm_stock2/?export=xlsx`);
+            
             if (!response.ok) {
                 throw new Error('Failed to download Excel file');
             }
@@ -82,21 +113,21 @@ function HomeComponent(props) {
                 saveAs(new Blob([reader.result]), `Procurement_Plan.xlsx`);
             };
             reader.readAsArrayBuffer(blob);
-
             toast.success('Excel file downloaded successfully!');
         } catch (error) {
-
             console.error('Error downloading Excel file:', error);
             toast.error('Failed to download Excel file!');
+        } finally {
+            setDownloading(false);
         }
     };
-
     const reset = () => {
         setState({ ...initialState });
     };
 
     return (
         <Fragment>
+             <ToastContainer />
             <Pageheader items={breadcrumbs} />
             <Row>
                 <Col xl={12}>
@@ -115,9 +146,11 @@ function HomeComponent(props) {
                                     </Row>
                                 </Card.Title>
                                 <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
-                                    <Button type="button" variant="danger" onClick={handleExport}>
+                                    <Button type="button" className="bg-purple btn btn-upload" onClick={handleExport}>
                                         <i className="fe fe-download me-2"></i>
-                                        <span>Export</span>
+                                        <span >
+                                            {downloading ? 'Downloading...' : 'Export'}
+                                        </span>
                                     </Button>
                                 </Card.Title>
                             </div>
