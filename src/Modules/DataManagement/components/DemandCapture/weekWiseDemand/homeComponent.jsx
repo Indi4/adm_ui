@@ -156,6 +156,7 @@ function HomeComponent(props) {
     }
 
     const handleSave = () => {
+        debugger
         const keysToRemove = ["customer_name", "plant_location", "editable", "fg_stock_qty", "rm_stock_qty", "rolling_plan_qty", "total_quantity", "fg_part_no", "isNew", "id"];
         // Create payload by filtering records where any demand contains string data
         const payload = allDemandList.map((item, index) => {

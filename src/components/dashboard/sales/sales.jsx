@@ -29,7 +29,7 @@ export default function Sales() {
                 <div className="col-8">
                   <div className="mt-4 mb-0 text-white">
                     <h3 className="mb-0">20.88 %</h3>
-                    <p className="text-white mt-1">Rolling Plan Accuracy </p>
+                    <p className="text-white mt-1">Dispatch Plan Accuracy </p>
                   </div>
                 </div>
                 <div className="col-4 my-auto">

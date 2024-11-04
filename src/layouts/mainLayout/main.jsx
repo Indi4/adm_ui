@@ -67,7 +67,7 @@ function main() {
               <div className="item-tip tip-2">
                 <Link elevation={0} className="tip">
                   <Typography fontWeight="bold" color="black" variant="h5">
-                    e-Scheduling
+                    e-scheduling
                   </Typography>
                   <ArrowRightAltIcon
                     style={{ color: "black", width: "100%", height: "60%" }}

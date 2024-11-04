@@ -46,7 +46,7 @@ const rollingPlanColumns = [
     { field: "size", headerName: "Size", width: 125, headerClassName: "wrap-header",align: "left", },
     { field: "grade", headerName: "Grade", width: 125, headerClassName: "wrap-header",align: "left", },
     { field: "vendor_stock", headerName: "Stock at Vendor", width: 125, headerClassName: "wrap-header",align: "left", },
-    { field: "rolling_plan", headerName: "Rolling Plan", width: 125, headerClassName: "wrap-header",align: "left", },
+    { field: "rolling_plan", headerName: "Dispatch Plan", width: 125, headerClassName: "wrap-header",align: "left", },
 
 ];
 const WIPColumns = [

@@ -31,7 +31,7 @@ export default function Ecommerce() {
                 <Card.Body>
                   <div className="d-flex">
                     <div>
-                      <p className="mb-0 text-dark fw-semibold">Rolling Plan Accuracy</p>
+                      <p className="mb-0 text-dark fw-semibold">Dispatch Plan Accuracy</p>
                       <h3 className="mt-1 mb-1 text-dark fw-semibold">20.88 %</h3>
                       {/* <div className="text-muted fs-12 mt-2"><i className="fa fa-signal text-success me-1"></i>
                               <span className="fw-bold fs-12 text-body">6.05%</span> (30 days)

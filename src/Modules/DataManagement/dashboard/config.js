@@ -6,7 +6,7 @@ const quarterlyColumns = [
         renderCell: (params) => (<div>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
     },
     {
-        field: 'rolling_plan', headerName: 'Rolling Plan', width: 130,
+        field: 'rolling_plan', headerName: 'Dispatch Plan', width: 130,
         renderCell: (params) => (<div>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
     },
     {
@@ -17,7 +17,7 @@ const quarterlyColumns = [
         field: 'actual_sales', headerName: 'Actual Sales', width: 130,
         renderCell: (params) => (<div>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
     },
-    { field: 'rolling_plan_percentage_change', headerName: 'Rolling Plan % Change', width: 100 },
+    { field: 'rolling_plan_percentage_change', headerName: 'Dispatch Plan % Change', width: 100 },
     { field: 'actual_sales_percentage_change', headerName: 'Actual Sales % Change', width: 100 },
     { field: 'sales_plan_percentage_change', headerName: 'Sales Plan % Change', width: 90 },
 ];

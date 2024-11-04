@@ -138,7 +138,7 @@ export const Routingdata = [
 
     { path: `${import.meta.env.BASE_URL}/cdc/quickAction`, element: <Defaultcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/annualPlan`, element: <AOP /> },
-    { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/rollingPlan`, element: <RollingPlan /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/dispatchPlan`, element: <RollingPlan /> },
     { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/weekWiseSequencing`, element: <WeekWiseDemands /> },
 
     { path: `${import.meta.env.BASE_URL}/cdc/quick-action`, element: <Defaultcalender /> },

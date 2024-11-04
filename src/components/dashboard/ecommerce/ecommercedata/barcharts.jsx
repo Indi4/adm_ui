@@ -272,7 +272,7 @@ export const LineData = {
     lineTension: 0.1
   },
   {
-    label: 'Rolling Plan', // Add a label for the second dataset
+    label: 'Dispatch Plan', // Add a label for the second dataset
     data: [0, 0, 0, 0, 0, 0, 0, 0, 2600, 1000, 498, 340],
     borderColor: '#FFEB3B',
     backgroundColor: '#FFEB3B', // Add fill color (used in legends)

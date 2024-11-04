@@ -121,7 +121,7 @@ function PlanByMonthComponent(props) {
       lineTension: 0.1
     },
     {
-      label: 'Rolling Plan', // Add a label for the second dataset
+      label: 'Dispatch Plan', // Add a label for the second dataset
       data: data && data.length> 0 && data[1].data,
       borderColor: '#FFEB3B',
       backgroundColor: '#FFEB3B', // Add fill color (used in legends)
