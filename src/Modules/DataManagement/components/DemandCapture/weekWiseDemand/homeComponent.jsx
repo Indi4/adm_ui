@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from 'react-redux'
 import { Alert, Card, Button, Col, Row } from 'react-bootstrap'
+import { Grid, Autocomplete, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
@@ -16,6 +17,7 @@ import { callCommonGetAPI, callCommonRefreshProps, callCommonUpdateAPI } from '.
 import { toast } from "react-toastify";
 import debounce from 'lodash/debounce';
 import TotalRecords from '../../../../../commonComponent/totalRecords'
+import { Appbtn, Outline } from "../../../../../components/bootstrap/buttons/data/buttondata";
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState });
@@ -224,13 +226,14 @@ function HomeComponent(props) {
         let index1 = newArr.findIndex((item) => item.id === updatedRow.id)
         newArr[index1] = updatedRow
         console.log(updatedRow)
-        const keysToCheck = ['W1(1-5)', 'W2(6-12)', 'W3(13-19)', 'W4(20-26)', 'W5(27-31)']; // Specify the keys you want to check
-
+        const keysToCheck = ['W1(1-5)', 'W2(6-12)', 'W3(13-19)', 'W4(20-26)', 'W5(27-31)','W1(1-2)', 'W2(3-9)', 'W3(10-16)', 'W4(17-23)', 'W5(24-30)']; // Specify the keys you want to check
+        debugger
         let result = tempArray.find((item) => item.id === newRow.id);
         keysToCheck.forEach(key => {
             if (updatedRow.hasOwnProperty(key)) {
                 let color = '';
                 let newValue = updatedRow[key]
+                debugger
                 if (newValue > 0) {
                     if (newValue <= result.fg_stock_qty) {
                         color = 'green';
@@ -249,9 +252,10 @@ function HomeComponent(props) {
                         tempArray[rowIndex].fg_stock_qty = 0;
                         tempArray[rowIndex].rm_stock_qty = 0;
                     }
-                }
+                }else {color = 'red';}
                 setFgRmStockList(tempArray);
                 let cellColumn = key + "Color";
+                console.log("colorred",color)
                 newArr[rowIndex][cellColumn] = color
                 console.log(`Object contains key '${key}' with value ${updatedRow[key]}.`);
             } else {
@@ -329,8 +333,8 @@ function HomeComponent(props) {
 
             renderCell: (params) => {
                 const demandValue = params.value; // The demand value for this column
-                if (typeof demandValue === 'number') {
-                    return <div style={{ color: params.row[`${key}Color`] ? params.row[`${key}Color`] : "" }}>
+                if (typeof demandValue === 'number') { console.log("color", params.row[`${key}Color`] ? params.row[`${key}Color`] + ' !important': "")
+                    return <div style={{ color: params.row[`${key}Color`] ? params.row[`${key}Color`] + ' !important' : "" }}>
                         {new Intl.NumberFormat('en-IN').format(demandValue)}</div>
                 }
             },
@@ -489,7 +493,7 @@ function HomeComponent(props) {
                     tempArray[rowIndex].fg_stock_qty = 0;
                     tempArray[rowIndex].rm_stock_qty = 0;
                 }
-            }
+            }else { color = 'red';}
             setFgRmStockList(tempArray);
         }
 
@@ -520,15 +524,115 @@ function HomeComponent(props) {
                                     />
                                 </Card.Title>
                                 <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
-                                    {/* <Button
-                                    onClick={() => handleOpenModal(1, 0)}
-                                    variant="upload"
-                                    className="bg-purple"
-                                    sx={{ borderRadius: "20px" }}
-                                >
-                                    <i className="fe fe-upload me-2"></i>
-                                    Import Actual Sales
-                                </Button> */}
+                                    <Grid
+                                        container
+                                        spacing={2}
+                                        alignItems="center"
+                                        justifyContent="flex-end" // Align the items to the right
+                                    >
+                                        {/* Year Select Autocomplete */}
+                                        <Grid item>
+                                            <Autocomplete
+                                                id="year-select-autocomplete"
+                                                options={years || []}
+                                                getOptionLabel={(option) => option.demand_year || ""}
+                                                value={
+                                                    years.find((year) => year.demand_year === state.demand_year) || null
+                                                }
+                                                onChange={(event, newValue) => {
+                                                    handleInputChange({
+                                                        target: {
+                                                            name: "demand_year",
+                                                            value: newValue ? newValue.demand_year : "",
+                                                        },
+                                                    });
+                                                }}
+                                                renderInput={(params) => (
+                                                    <TextField
+                                                        {...params}
+                                                        label="Years"
+                                                        style={{ width: "120px", height: "56px" }} // Adjust height as needed
+                                                        InputProps={{
+                                                            ...params.InputProps,
+                                                            style: {
+                                                                height: "70%", fontSize: "0.9rem", textAlign: "left",
+                                                                paddingBottom: "10px",
+                                                                color: '#28afd0'
+                                                            }, // Center align text
+                                                        }}
+                                                        InputLabelProps={{
+                                                            style: {
+                                                                fontSize: "0.8rem", // Adjust label size if needed
+                                                                textAlign: "left", // Center the label
+                                                                width: "100%", // Ensure label takes full width for centering
+                                                                position: "absolute", // Required for centering
+                                                                paddingBottom: "15px",
+                                                                color: '#28afd0'
+                                                            },
+                                                        }}
+                                                    />
+                                                )}
+                                                sx={{
+                                                    "& .MuiOutlinedInput-root": {
+                                                        borderRadius: "10px",
+                                                        "& fieldset": {
+                                                            borderColor: "#28afd0 !important", // Default border color
+                                                            borderWidth: "2px !important", // Increase border width
+                                                        },
+                                                        "&:hover fieldset": {
+                                                            borderColor: "#0c98bb !important", // Border color on hover
+                                                            borderWidth: "2px !important", // Ensure hover border width is consistent
+                                                        },
+                                                        "&.Mui-focused fieldset": {
+                                                            borderColor: "#0c98bb !important", // Border color when focused
+                                                            borderWidth: "2px !important", // Ensure focused border width is consistent
+                                                        },
+                                                    },
+                                                    "& .MuiInputBase-input::placeholder": {
+                                                        color: "cyan !important", // Set placeholder color to cyan
+                                                        fontSize: "0.8rem", // Reduce placeholder font size
+                                                    },
+                                                    width: 150,
+                                                }}
+                                            />
+
+
+                                        </Grid>
+
+                                        {/* Demand Month Autocomplete */}
+                                        <Grid item>
+                                            <Autocomplete
+                                                id="demand_month"
+                                                name="demand_month"
+                                                value={
+                                                    months.find((months) => months.demand_month === state.demand_month) || null
+                                                }
+                                                options={months || []}
+                                                getOptionLabel={(month) => month.demand_month || ""}
+                                                onChange={(event, newValue) => {
+                                                    handleInputChange({
+                                                        target: {
+                                                            name: "demand_month",
+                                                            value: newValue ? newValue.demand_month : "",
+                                                        },
+                                                    });
+                                                }}
+                                                renderInput={(params) => (
+                                                    <TextField {...params} label="Month" style={{ width: "150px" }} />
+                                                )}
+                                                sx={{
+                                                    "& .MuiOutlinedInput-root": {
+                                                        borderRadius: "15px",
+                                                    },
+                                                    "& .MuiInputBase-input::placeholder": {
+                                                        color: "inherit",
+                                                        opacity: 1,
+                                                    },
+                                                    width: 200,
+                                                }}
+                                            />
+                                        </Grid>
+                                    </Grid>
                                 </Card.Title>
                             </div>
                         </Card.Header>
@@ -640,6 +744,48 @@ function HomeComponent(props) {
                                         )}
                                     </div>
                                 </Col>
+                                {allDemandList && allDemandList.length > 0 && (
+                                    <div
+                                        style={{
+                                            margin: "20px",
+                                            display: "flex",
+                                            justifyContent: "flex-end",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        {Outline.filter(
+                                            (idx) => idx.color === "outline-danger"
+                                        ).map((idx, out) => (
+                                            <Button
+                                                key={out}
+                                                variant={idx.color}
+                                                onClick={handleCancel}
+                                                style={{
+                                                    width: "100px",
+                                                    height: "30px",
+                                                    marginRight: "10px",
+                                                }}
+                                            >
+                                                Cancel
+                                            </Button>
+                                        ))}
+
+                                        {Appbtn.filter((idx) => idx.icon === "save").map(
+                                            (idx, ap) => (
+                                                <Button
+                                                    key={ap}
+                                                    variant="secondary"
+                                                    className="btn btn-app"
+                                                    onClick={handleSave}
+                                                    style={{ width: "100px", height: "30px" }}
+                                                >
+                                                    <i className={`me-2 fs-13 fa fa-${idx.icon}`}></i>
+                                                    Save
+                                                </Button>
+                                            )
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </Card.Body>
                     </Card>
