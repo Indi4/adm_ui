@@ -59,7 +59,7 @@ export const CDNMenuItems = [
       },
       {
         title: "Quick Action",
-        path: "/cdn/quick-action",
+        path: "/cdn/quickAction",
         icon: <i className="fe fe-fast-forward"></i>,
         type: "link",
         active: false,
@@ -74,21 +74,21 @@ export const CDNMenuItems = [
         children: [
           {
             title: "Annual Plan",
-            path: "/cdn/demand-capture/annual-plan",
+            path: "/cdn/demandCapture/annualPlan",
             type: "link",
             active: false,
             selected: false,
           },
           {
             title: "Rolling Plan",
-            path: "/cdn/demand-capture/rolling-plan",
+            path: "/cdn/demandCapture/rollingPlan",
             type: "link",
             active: false,
             selected: false,
           },
           {
             title: "Week Wise Sequencing",
-            path: "/cdn/demand-capture/week-wise-sequencing",
+            path: "/cdn/demandCapture/weekWiseSequencing",
             type: "link",
             active: false,
             selected: false,
@@ -120,21 +120,21 @@ export const CDNMenuItems = [
         children: [
           {
             title: "Finished & Unpainted Stock",
-            path: "/cdn/report/finished-unpainted-stock",
+            path: "/cdn/report/finishedUnpaintedStock",
             type: "link",
             active: false,
             selected: false,
           },
           {
             title: "Delivery Requirement",
-            path: "/cdn/report/delivery-requirement",
+            path: "/cdn/report/deliveryRequirement",
             type: "link",
             active: false,
             selected: false,
           },
           {
             title: "Procurement Plan",
-            path: "/cdn/report/procurement-plan",
+            path: "/cdn/report/procurementPlan",
             type: "link",
             active: false,
             selected: false,

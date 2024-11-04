@@ -5,9 +5,9 @@ import { Card, Button, Col, Row } from 'react-bootstrap'
 import Pageheader from '../../../../layouts/pageheader/pageheader'
 import { DataGrid } from "@mui/x-data-grid";
 import FilterComponent from "../../commonComponent/filter";
-import { initialState, breadcrumbs, RMColumns, generateDynamicColumns } from "./config"
-import { CDC__GET_RAWMATERIAL } from "../../../endPointConfig"
-import { currentMonth } from "../../../commonConfig";
+import { initialState, breadcrumbs } from "./config"
+import { CDC_GET_TOTALNETOFF } from "../../../endPointConfig"
+import { generateDynamicColumns, currentMonth } from "../../../commonConfig"
 import { callCommonGetAPI, callCommonRefreshProps } from '../../../../store/action/action'
 import TotalRecords from '../../../../commonComponent/totalRecords'
 import apiService from "../../../../services/apiService";
@@ -17,84 +17,75 @@ import { toast } from "react-toastify";
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState });
-    const { getRawMaterialData, rawMaterialData, refreshProps } = props;
-    const [endPoint] = useState(CDC__GET_RAWMATERIAL);
+    const { getTotalNetOffData, totalNetOffData } = props
+    const [endPoint, setEndpoint] = useState(CDC_GET_TOTALNETOFF)
+    const [paginationModel, setPaginationModel] = useState({ pageSize: 5, page: 0 });
+    const [totalPage, setTotalPage] = useState(0);
     const [loading, setLoading] = useState(false);  // New loading state for the whole component
-    const [paginationModel, setPaginationModel] = useState({ pageSize: 50, page: 0 });
-    const [totalPage, setTotalPage] = useState(0)
-    const [columns, setColumns] = useState([])
-    const [customerNameorCode, setCustomerNameorCode] = useState("")
+
 
     useEffect(() => {
         setLoading(true);
-        getRawMaterialData(`${endPoint}search=&month=${currentMonth}`);
-        return () => { reset(); };
-    }, []);
+
+        getTotalNetOffData(`${endPoint}search=&demand_month=${currentMonth}`)
+        return () => { reset() };
+    }, [])
+
+    // useEffect(() => {
+    //     if (!!state.paginationModel && Object.keys(state.paginationModel).length > 0) {
+    //         props.refreshProps("totalNetOffData");
+    //         getTotalNetOffData(`${endPoint}demand_month=${state.demand_month}&page=${state.paginationModel.page + 1}`)
+    //     }
+    // }, [state.paginationModel]);
 
     useEffect(() => {
-        if (rawMaterialData && Object.keys(rawMaterialData).length > 0) {
+        if (totalNetOffData && Object.keys(totalNetOffData).length > 0) {
+            setState({
+                ...state,
+                totalNetOffList: totalNetOffData.data && totalNetOffData.data.length > 0 ? totalNetOffData.data : [],
+                //  totalPage: totalNetOffData.count
+            })
             setLoading(false);
         }
-    }, [rawMaterialData]);
+    }, [totalNetOffData]);
 
     useEffect(() => {
-        if (rawMaterialData && Object.keys(rawMaterialData).length > 0) {
-            const updatedData = rawMaterialData.data.map((item) => ({
-                ...item,
-                id: uuidv4(), // Generate a unique ID for each row
-            }));
-
-            const dynamicColumns = generateDynamicColumns(rawMaterialData.data);
-
-            setState((prevState) => ({
-                ...prevState,
-                rawMaterialList: updatedData.length > 0 ? updatedData : [],
-                columns: [...RMColumns, ...dynamicColumns]
-            }));
+        if (state.totalNetOffList && Object.keys(state.totalNetOffList).length > 0) {
+            setState({
+                ...state,
+                columns: generateDynamicColumns(state.totalNetOffList && state.totalNetOffList.length > 0 ? state.totalNetOffList : [])
+            })
         }
-    }, [rawMaterialData]);
+    }, [state.totalNetOffList]);
 
-    const handleSearchData = (rmCodeData, rmCode) => {
-        if (rmCodeData && Object.keys(rmCodeData).length > 0) {
-            const updatedData = rmCodeData.data.map((item) => ({
-                ...item,
-                id: uuidv4(), // Generate a unique ID for each row
-            }));
-            setState((prevState) => ({
-                ...prevState,
-                month: '',
-                rmCode: rmCode,
-                rawMaterialList: updatedData || [],
-            }));
+    const handleSearchData = (fgCodeData, fgCode) => {
+        if (fgCodeData && Object.keys(fgCodeData).length > 0) {
+            setState({
+                ...state,
+                demand_month: '',
+                fgCode: fgCode,
+                totalNetOffList: (fgCodeData.data)
+            })
         }
-    };
+    }
 
-    const handleExport = async () => {
-        //  setDownloading(true);
-        try {
-            const response = await apiService.get(`mdm/rm_stock2/?export=xlsx`);
-            if (!response.ok) {
-                throw new Error('Failed to download Excel file');
-            }
-            const blob = await response.blob();
-            const reader = new FileReader();
-            reader.onload = () => {
-                saveAs(new Blob([reader.result]), `Procurement_Plan.xlsx`);
-            };
-            reader.readAsArrayBuffer(blob);
-
-            toast.success('Excel file downloaded successfully!');
-        } catch (error) {
-
-            console.error('Error downloading Excel file:', error);
-            toast.error('Failed to download Excel file!');
+    const handleInputChange = (e) => {
+        const { name, value } = e.target
+        setState({ ...state, [name]: value })
+        if (name === "demand_month") {
+            state.fgCode === '' ? getTotalNetOffData(`${endPoint}search=&demand_month=${value}`) :
+                getTotalNetOffData(`${endPoint}search=${state.fgCode}&demand_month=${value}`)
         }
-    };
+    }
 
     const reset = () => {
-        setState({ ...initialState });
+        setState(initialState);
     };
 
+    const handlePaginationChange = (newPagination) => {
+        setPaginationModel(newPagination);
+        getTotalNetOffData(`${endPoint}?page=${newPagination.page + 1}`);
+    };
     return (
         <Fragment>
             <Pageheader items={breadcrumbs} />
@@ -108,39 +99,40 @@ function HomeComponent(props) {
                                         <Col xl={6}>
                                             <FilterComponent
                                                 handleSearchData={handleSearchData}
-                                                callAPI={CDC__GET_RAWMATERIAL}
+                                                callAPI={CDC_GET_TOTALNETOFF}
                                                 filterType='fgCode'
                                             />
                                         </Col>
                                     </Row>
-                                </Card.Title>
-                                <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
-                                    <Button type="button" variant="danger" onClick={handleExport}>
-                                        <i className="fe fe-download me-2"></i>
-                                        <span>Export</span>
-                                    </Button>
                                 </Card.Title>
                             </div>
                         </Card.Header>
                         <Card.Body className="p-0">
                             <div className="card-area">
                                 <Col md="12">
-                                    <TotalRecords color='outline-success' length={state.rawMaterialList && state.rawMaterialList.length} />
-                                    <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
+                                    <TotalRecords color='outline-success' length={state.totalNetOffList && state.totalNetOffList.length} />
+                                    <div style={{ marginTop: "15px", display: 'grid', height: 460, overflowY: 'auto' }}>
                                         {loading ? (
                                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                                                 <CircularProgress />
                                             </div>
                                         ) : (
-                                            state.rawMaterialList && state.rawMaterialList.length > 0 ? (
+                                            state.totalNetOffList && state.totalNetOffList.length > 0 ? (
                                                 <DataGrid
-                                                    rows={state.rawMaterialList || []}
-                                                    columns={state.columns || []}
+                                                    rows={state.totalNetOffList || []}
+                                                    pagination
+                                                    paginationMode="server"
+                                                    rowCount={totalPage}  // Ensure the total number of records is provided
+                                                    pageSize={paginationModel.pageSize}
+                                                    page={paginationModel.page}
+                                                    onPageChange={(newPage) => handlePaginationChange({ ...paginationModel, page: newPage })}
+                                                    onPageSizeChange={(newPageSize) => handlePaginationChange({ ...paginationModel, pageSize: newPageSize })}
+                                                    columns={state.columns}
                                                     components={{
-                                                        Footer: () => <CustomFooter total={state.rawMaterialList.length} />,
+                                                        Footer: () => <CustomFooter total={state.totalNetOffList.length} />,
                                                     }}
+                                                    getRowId={(row) => row.fg_code}
                                                     hideFooterPagination
-                                                    getRowId={(row) => row.id}
                                                     sx={{
                                                         '& .MuiDataGrid-root': {
                                                             border: 'none',
@@ -220,12 +212,12 @@ function HomeComponent(props) {
     )
 } const mapStatetoprops = (state) => {
     return {
-        rawMaterialData: state.commonReducer.rawMaterialData,
+        totalNetOffData: state.commonReducer.totalNetOffData,
     }
 }
 const mapDispatchtoprops = (dispatch) => {
     return {
-        getRawMaterialData: (endPoint) => dispatch(callCommonGetAPI(endPoint, 'rawMaterial')),
+        getTotalNetOffData: (endPoint) => dispatch(callCommonGetAPI(endPoint, 'totalNetOff')),
         refreshProps: (title) => dispatch(callCommonRefreshProps(title)),
     }
 }
