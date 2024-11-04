@@ -107,30 +107,30 @@ export const Horizontalmenu = () => {
 }
 
 //Vertical
-export const Verticalmenu = () => {
+// export const Verticalmenu = () => {
 
 
-  localStorage.setItem('sparicvertical', true);
-  localStorage.removeItem("sparichorizontal");
-  localStorage.removeItem('sparichorizontalhover')
-  document.querySelector('body').classList.remove('horizontal');
-  document.querySelector('.main-content').classList.remove('horizontal-content');
-  document.querySelector(".main-container").classList.remove("container");
-  document.querySelector('.header').classList.remove('hor-header');
-  document.querySelector('.app-sidebar').classList.remove('horizontal-main');
-  document.querySelector(".side-app").classList.remove("container");
-  document.querySelector(".main-sidemenu").classList.remove("container");
+//   localStorage.setItem('sparicvertical', true);
+//   localStorage.removeItem("sparichorizontal");
+//   localStorage.removeItem('sparichorizontalhover')
+//   document.querySelector('body').classList.remove('horizontal');
+//   document.querySelector('.main-content').classList.remove('horizontal-content');
+//   document.querySelector(".main-container").classList.remove("container");
+//   document.querySelector('.header').classList.remove('hor-header');
+//   document.querySelector('.app-sidebar').classList.remove('horizontal-main');
+//   document.querySelector(".side-app").classList.remove("container");
+//   document.querySelector(".main-sidemenu").classList.remove("container");
 
-  document.querySelector("body").classList.remove("horizontal-hover");
+//   document.querySelector("body").classList.remove("horizontal-hover");
 
-  document.querySelector('.main-content').classList.add('app-content');
-  document.querySelector(".main-container").classList.add("container-fluid");
-  document.querySelector('.header').classList.add('app-header');
-  document.querySelector('body').classList.add('horizontal-hover');
-  document.querySelector('body').classList.add('sidebar-mini');
+//   document.querySelector('.main-content').classList.add('app-content');
+//   document.querySelector(".main-container").classList.add("container-fluid");
+//   document.querySelector('.header').classList.add('app-header');
+//   document.querySelector('body').classList.add('horizontal-hover');
+//   document.querySelector('body').classList.add('sidebar-mini');
 
 
-}
+// }
 
 //HORIZONTALHOVERMENU
 export const HorizontalHoverMenu = () => {
@@ -336,7 +336,7 @@ export const LocalBackup = () => {
   (localStorage.sparicfixed) && Fixed();
   (localStorage.sparicscrollable) && Scrollable();
   (localStorage.sparichorizontal) && Horizontalmenu();
-  (localStorage.sparicvertical) && Verticalmenu();
+  // (localStorage.sparicvertical) && Verticalmenu();
   (localStorage.sparichorizontalhover) && HorizontalHoverMenu();
 
   if (localStorage.getItem("sparicprimarycolor") !== null) {
