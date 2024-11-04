@@ -104,11 +104,15 @@ function HomeComponent(props) {
                         <Card.Header className=" d-flex justify-content-between align-items-center">
                             <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
                                 <Card.Title style={{ flexGrow: 1 }}>
-                                    <FilterComponent
-                                        handleSearchData={handleSearchData}
-                                        callAPI={CDC__GET_RAWMATERIAL}
-                                        filterType='fgCode'
-                                    />
+                                    <Row>
+                                        <Col xl={6}>
+                                            <FilterComponent
+                                                handleSearchData={handleSearchData}
+                                                callAPI={CDC__GET_RAWMATERIAL}
+                                                filterType='fgCode'
+                                            />
+                                        </Col>
+                                    </Row>
                                 </Card.Title>
                                 <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
                                     <Button type="button" variant="danger" onClick={handleExport}>
