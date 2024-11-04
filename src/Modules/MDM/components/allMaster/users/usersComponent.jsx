@@ -40,9 +40,9 @@ function UsersComponent(props) {
         field: "action",
         headerName: "Action",
         width: 100,
-        headerClassName: "wrap-header",
+        headerClassName: "wrap-header",headerAlign: "center",
         renderCell: (params) => (
-          <div style={{ display: "flex", justifyContent: "flex-start" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <Tooltip title="Edit Data">
               <IconButton
                 variant="outlined"

@@ -134,24 +134,24 @@ export const Routingdata = [
 
     /* App page */
 
-    { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Dashboard /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/dashboard`, element: <Dashboard /> },
 
-    { path: `${import.meta.env.BASE_URL}/cdn/quickAction`, element: <Defaultcalender /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demandCapture/annualPlan`, element: <AOP /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demandCapture/rollingPlan`, element: <RollingPlan /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demandCapture/weekWiseSequencing`, element: <WeekWiseDemands /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/quickAction`, element: <Defaultcalender /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/annualPlan`, element: <AOP /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/rollingPlan`, element: <RollingPlan /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/weekWiseSequencing`, element: <WeekWiseDemands /> },
 
-    { path: `${import.meta.env.BASE_URL}/cdn/quick-action`, element: <Defaultcalender /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <AOP /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <RollingPlan /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/quick-action`, element: <Defaultcalender /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/demand-capture/annual-plan`, element: <AOP /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/demand-capture/rolling-plan`, element: <RollingPlan /> },
 
-    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/demand-capture/week-wise-sequencing`, element: <Notifications /> },
 
-    { path: `${import.meta.env.BASE_URL}/cdn/actualSales`, element: <ActualSales /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/actualDispatch`, element: <ActualDispatch /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/finishedUnpaintedStock`, element: <TotalStock /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/deliveryRequirement`, element: <DeliveryRequirement /> },
-    { path: `${import.meta.env.BASE_URL}/cdn/report/procurementPlan`, element: <ProcurementPlan /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/actualSales`, element: <ActualSales /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/actualDispatch`, element: <ActualDispatch /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/report/finishedUnpaintedStock`, element: <TotalStock /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/report/deliveryRequirement`, element: <DeliveryRequirement /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/report/procurementPlan`, element: <ProcurementPlan /> },
 
     /* Bootstrap page  */
 

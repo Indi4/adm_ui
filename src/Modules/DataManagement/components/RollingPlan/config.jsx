@@ -48,7 +48,7 @@ const allDemandColumns = [
   },
 ];
 
-const breadcrumbs = ["Rolling Plan"];
+const breadcrumbs = ["Demand Capture","Rolling Plan"];
 
 const generateDynamicColumns = (data, excludedFields = []) => {
   const currentDate = new Date();

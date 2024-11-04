@@ -268,7 +268,12 @@ function AddEditUserComponent(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ borderBottom: "1px solid #e0e0e0", padding: 2 }}
+          >
             {type + " " + "User" || ""}
           </Typography>
           <IconButton
@@ -333,9 +338,9 @@ function AddEditUserComponent(props) {
                 inputProps={{ maxLength: 10 }}
               />
             </Grid>
-            <Grid item xs={6} marginTop={3}>
+            <Grid item xs={6} marginTop={1}>
+              <InputLabel id="category-label" style={{marginBottom:"24px"}}>Role</InputLabel>
               <FormControl fullWidth>
-                Role
                 <Autocomplete
                   id="roles"
                   value={
@@ -379,8 +384,8 @@ function AddEditUserComponent(props) {
               </FormControl>
             </Grid>
             <Grid item xs={6} marginTop={1}>
+              <InputLabel id="category-label"> Department</InputLabel>
               <FormControl fullWidth>
-                Department
                 <Autocomplete
                   id="department"
                   value={
@@ -437,7 +442,7 @@ function AddEditUserComponent(props) {
           <Grid item xs={12} style={gridItemStyle}>
             <div
               style={{
-                marginTop: "7px",
+                marginTop: "20px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

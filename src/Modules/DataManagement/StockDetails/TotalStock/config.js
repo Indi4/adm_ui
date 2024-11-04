@@ -1,4 +1,4 @@
-const breadcrumbs = ["Finished & Unpainted Stock"];
+const breadcrumbs = ["Reports","Finished & Unpainted Stock"];
 
 const initialState = {
   isSuccess: 0,
