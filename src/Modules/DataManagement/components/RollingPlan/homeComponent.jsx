@@ -1,39 +1,65 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Col, Row, } from "reactstrap";
-import {  Autocomplete, FormControl, TextField, Grid, Menu, MenuItem, IconButton } from "@mui/material";
+import {  Row } from "reactstrap";
+import {
+
+  Menu,
+  MenuItem,
+  IconButton,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { allDemandColumns, initialState, breadcrumbs, generateDynamicColumns } from "./config";
+import {
+  allDemandColumns,
+  initialState,
+  breadcrumbs,
+  generateDynamicColumns,
+} from "./config";
 import ModalPopUpComponent from "../../../../commonComponent/modalPopUpComponent";
-import { callCommonGetAPI, callCommonRefreshProps } from "../../../../store/action/action";
+import {
+  callCommonGetAPI,
+  callCommonRefreshProps,
+} from "../../../../store/action/action";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast, ToastContainer } from "react-toastify";
-import AddEditNewDemandComponent from "./addEditNewDemandComponent"
+import AddEditNewDemandComponent from "./addEditNewDemandComponent";
 import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
-import FilterComponent from "../../commonComponent/filter"
+import FilterComponent from "../../commonComponent/filter";
 import { CustomFooter } from "../../../commonConfig";
 import { CDC_ALLDEMANDS, CDC_GET_ALLDEMANDS } from "../../../endPointConfig";
 import { connect } from "react-redux";
 import { Card } from "react-bootstrap";
-import { Buttonsoutline } from "../../../../components/bootstrap/badgespills/data/badgesdata";
-import { Badge, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import TotalRecords from "../../../../commonComponent/totalRecords";
+import Pageheader from "../../../../layouts/pageheader/pageheader";
 
 function HomeComponent(props) {
   const [state, setState] = useState({ ...initialState });
   const [anchorEl, setAnchorEl] = useState(null);
   const [endPoint] = useState(CDC_GET_ALLDEMANDS);
   const [allDemandList, setallDemandList] = useState([]);
-  const [paginationModel, setPaginationModel] = useState({ pageSize: 5, page: 0 });
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 5,
+    page: 0,
+  });
   const [totalPage, setTotalPage] = useState(0);
   const [columns, setColumns] = useState([]);
   const [flag, setFlag] = useState([false]);
   const [customerNameorCodeList, setCustomerNameorCodeList] = useState([]);
   const [customerNameorCode, setCustomerNameorCode] = useState("");
-  const { customerNameCodeData, allDemandData, refreshProps, errorData, getallDemandData, getCustomerNameCode } = props;
+  const {
+    customerNameCodeData,
+    allDemandData,
+    refreshProps,
+    errorData,
+    getallDemandData,
+    getCustomerNameCode,
+  } = props;
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-    getallDemandData(`${endPoint}`)
-    return () => { reset() }
+    getallDemandData(`${endPoint}`);
+    return () => {
+      reset();
+    };
   }, []);
 
   useEffect(() => {
@@ -45,53 +71,85 @@ function HomeComponent(props) {
     }
   }, [allDemandData]);
 
-  const editColumns = [{
-    field: 'actions',
-    type: 'actions',
-    headerName: "Action",
-    width: 100,
-    renderCell: (params) => (
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <IconButton
-          variant="outlined"
-          sx={{
-            color: "#5875ea",
-            margin: "5px",
-            borderRadius: "15px",
-            maxWidth: "150px",
-            fontWeight: "bold",
-            fontSize: "12px",
-          }}
-          onClick={() => handleAddEditOpenModal(1, params.row.id, 0, "Edit", "", params.row.customer_code)}
-        >
-          <EditIcon />
-        </IconButton>
-
-      </div>
-    )
-  }];
+  const editColumns = [
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Action",
+      width: 100,
+      renderCell: (params) => (
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <IconButton
+            variant="outlined"
+            sx={{
+              color: "#5875ea",
+              margin: "5px",
+              borderRadius: "15px",
+              maxWidth: "150px",
+              fontWeight: "bold",
+              fontSize: "12px",
+            }}
+            onClick={() =>
+              handleAddEditOpenModal(
+                1,
+                params.row.id,
+                0,
+                "Edit",
+                "",
+                params.row.customer_code
+              )
+            }
+          >
+            <EditIcon />
+          </IconButton>
+        </div>
+      ),
+    },
+  ];
 
   useEffect(() => {
     if (allDemandList && Object.keys(allDemandList).length > 0) {
-
-      setColumns([...generateDynamicColumns(allDemandList, ['id', 'customer_code', 'demands', 'color', 'description', 'category']), ...editColumns])
+      setColumns([
+        ...generateDynamicColumns(allDemandList, [
+          "id",
+          "customer_code",
+          "demands",
+          "color",
+          "description",
+          "category",
+        ]),
+        ...editColumns,
+      ]);
     }
   }, [allDemandList]);
 
   useEffect(() => {
     if (customerNameCodeData && Object.keys(customerNameCodeData).length > 0) {
-      if (customerNameCodeData.data && Object.keys(customerNameCodeData.data).length > 0) {
-        setCustomerNameorCodeList(customerNameCodeData.data.customers_list && customerNameCodeData.data.customers_list.length > 0 &&
-          customerNameCodeData.data.customers_list);
-        setCategoryList(customerNameCodeData.data.category && customerNameCodeData.data.category.length > 0 &&
-          customerNameCodeData.data.category)
+      if (
+        customerNameCodeData.data &&
+        Object.keys(customerNameCodeData.data).length > 0
+      ) {
+        setCustomerNameorCodeList(
+          customerNameCodeData.data.customers_list &&
+            customerNameCodeData.data.customers_list.length > 0 &&
+            customerNameCodeData.data.customers_list
+        );
+        setCategoryList(
+          customerNameCodeData.data.category &&
+            customerNameCodeData.data.category.length > 0 &&
+            customerNameCodeData.data.category
+        );
         setCustomerNameorCode("");
       }
     }
   }, [customerNameCodeData]);
 
   useEffect(() => {
-    if (errorData && Object.keys(errorData).length > 0 && !errorData.is_success) {
+    if (
+      errorData &&
+      Object.keys(errorData).length > 0 &&
+      !errorData.is_success
+    ) {
       toast.error(errorData.error);
     }
   }, [errorData]);
@@ -126,11 +184,19 @@ function HomeComponent(props) {
                 fontWeight: "bold",
                 fontSize: "12px",
               }}
-              onClick={() => handleAddEditOpenModal(1, params.row.id, 0, "Edit", "", params.row.customer_code)}
+              onClick={() =>
+                handleAddEditOpenModal(
+                  1,
+                  params.row.id,
+                  0,
+                  "Edit",
+                  "",
+                  params.row.customer_code
+                )
+              }
             >
               <EditIcon />
             </IconButton>
-
           </div>
         ),
         width: 200,
@@ -140,14 +206,27 @@ function HomeComponent(props) {
     return allDemandColumns;
   }, [allDemandColumns]);
 
-
-  const handleAddEditOpenModal = (open, rowId, success, type, message, customerCode) => {
-    setState({ ...state, openPopUp: open, rowID: rowId, success, type, customerCode });
+  const handleAddEditOpenModal = (
+    open,
+    rowId,
+    success,
+    type,
+    message,
+    customerCode
+  ) => {
+    setState({
+      ...state,
+      openPopUp: open,
+      rowID: rowId,
+      success,
+      type,
+      customerCode,
+    });
     if (!!success && message !== "") {
       toast.success(message);
-      customerNameorCode !== '' ?
-        getallDemandData(`${endPoint}?search=${customerNameorCode}`)
-        : getallDemandData(`${endPoint}`)
+      customerNameorCode !== ""
+        ? getallDemandData(`${endPoint}?search=${customerNameorCode}`)
+        : getallDemandData(`${endPoint}`);
     } else if (!success && message !== "") {
       toast.error(message);
     }
@@ -158,9 +237,9 @@ function HomeComponent(props) {
     setState({ ...state, openDeleteModal: open, rowID: rowId, success });
     if (!!success && message !== "") {
       toast.success(message);
-      customerNameorCode !== '' ?
-        getallDemandData(`${endPoint}?search=${customerNameorCode}`)
-        : getallDemandData(`${endPoint}`)
+      customerNameorCode !== ""
+        ? getallDemandData(`${endPoint}?search=${customerNameorCode}`)
+        : getallDemandData(`${endPoint}`);
     } else if (!success && message !== "") {
       toast.error(message);
     }
@@ -178,22 +257,22 @@ function HomeComponent(props) {
     setState({ ...state, openModal: open, success });
     if (!!success && message !== "") {
       toast.success(message);
-      customerNameorCode !== '' ?
-        getallDemandData(`${endPoint}?search=${customerNameorCode}`)
-        : getallDemandData(`${endPoint}`)
+      customerNameorCode !== ""
+        ? getallDemandData(`${endPoint}?search=${customerNameorCode}`)
+        : getallDemandData(`${endPoint}`);
     } else if (!success && message !== "") {
       toast.error(message);
     }
   };
 
   const handleSearchData = (allDemandData, data, customerNameCode) => {
-    setCustomerNameorCode(customerNameCode)
+    setCustomerNameorCode(customerNameCode);
     if (allDemandData && Object.keys(allDemandData).length > 0) {
-      setallDemandList(allDemandData.data)
-      setTotalPage(allDemandData.count)
+      setallDemandList(allDemandData.data);
+      setTotalPage(allDemandData.count);
     }
     setFlag(true);
-  }
+  };
 
   const reset = () => {
     setState({ ...initialState });
@@ -204,26 +283,33 @@ function HomeComponent(props) {
     setColumns([]);
   };
 
-
   return (
-    <div>
+    <div style={{ marginTop: "80px" }}>
+      <Pageheader items={breadcrumbs} />
       <Row>
-        <Card>
-          <Card.Body>
-            <Row>
-              <Col md="8">
+        <Card className="custom-card">
+          <Card.Header>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+                padding: "0px",
+              }}
+            >
+              <Card.Title style={{ flexGrow: 1 }}>
                 <FilterComponent
                   handleSearchData={handleSearchData}
                   callAPI={CDC_GET_ALLDEMANDS}
                 />
-              </Col>
-              
-              <Col md="2">
+              </Card.Title>
+
+              <Card.Title style={{ marginLeft: "auto" }}>
                 <Button
                   onClick={handleButtonClick}
                   variant="contained"
                   className="bg-purple"
-                  style={{ borderRadius: "15px", marginTop: '10px' }}
+                  style={{ borderRadius: "10px", marginTop: "10px" }}
                 >
                   + Add New Demand/s
                 </Button>
@@ -235,32 +321,33 @@ function HomeComponent(props) {
                   <MenuItem onClick={() => handleImportExcelClick(1, 0)}>
                     Import From Excel
                   </MenuItem>
-                  <MenuItem onClick={() => handleAddEditOpenModal(1, 0, 0, "Add", "", "")} >
+                  <MenuItem
+                    onClick={() =>
+                      handleAddEditOpenModal(1, 0, 0, "Add", "", "")
+                    }
+                  >
                     Add New Demand
                   </MenuItem>
                 </Menu>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-        <Card>
+              </Card.Title>
+            </div>
+          </Card.Header>
+
           <Card.Body>
-          {Buttonsoutline.filter(
-                    (idx) => idx.color === "outline-info"
-                  ).map((idx, index) => (
-                    <Button
-                      type="button"
-                      variant={idx.color}
-                      className="me-2"
-                    >
-                      <span style={{fontSize:"14px"}}>Total Records </span>
-                      <Badge bg={idx.bg} className="ms-2">
-                        {allDemandList.length}
-                      </Badge>
-                    </Button>
-                  ))}
-            <Col md="12">
-              <div style={{ marginTop: "15px", display: "grid", height: 500, overflowY: 'auto' }}>
+            <div className="card-area">
+              <TotalRecords
+                color="outline-success"
+                length={allDemandList && allDemandList.length}
+              />
+
+              <div
+                style={{
+                  marginTop: "10px",
+                  display: "grid",
+                  height: 500,
+                  overflowY: "auto",
+                }}
+              >
                 {allDemandList && allDemandList.length > 0 ? (
                   <DataGrid
                     rows={allDemandList || []}
@@ -268,13 +355,25 @@ function HomeComponent(props) {
                     hideFooterPagination
                     pagination
                     paginationMode="server"
-                    rowCount={totalPage}  // Ensure the total number of records is provided
+                    rowCount={totalPage} // Ensure the total number of records is provided
                     pageSize={paginationModel.pageSize}
                     page={paginationModel.page}
-                    onPageChange={(newPage) => handlePaginationChange({ ...paginationModel, page: newPage })}
-                    onPageSizeChange={(newPageSize) => handlePaginationChange({ ...paginationModel, pageSize: newPageSize })}
+                    onPageChange={(newPage) =>
+                      handlePaginationChange({
+                        ...paginationModel,
+                        page: newPage,
+                      })
+                    }
+                    onPageSizeChange={(newPageSize) =>
+                      handlePaginationChange({
+                        ...paginationModel,
+                        pageSize: newPageSize,
+                      })
+                    }
                     components={{
-                      Footer: () => <CustomFooter total={allDemandList.length} />,
+                      Footer: () => (
+                        <CustomFooter total={allDemandList.length} />
+                      ),
                     }}
                     sx={{
                       "& .MuiDataGrid-root": {
@@ -342,10 +441,9 @@ function HomeComponent(props) {
                   "No Data Found"
                 )}
               </div>
-            </Col>
+            </div>
           </Card.Body>
         </Card>
-
       </Row>
 
       {!!state.openModal && (
@@ -362,8 +460,12 @@ function HomeComponent(props) {
           type={state.type}
           rowId={state.rowID}
           customerCode={state.customerCode}
-          allDemandList={allDemandList && allDemandList.length > 0 ? allDemandList : []}
-          categoryList={categoryList && categoryList.length > 0 ? categoryList : []}
+          allDemandList={
+            allDemandList && allDemandList.length > 0 ? allDemandList : []
+          }
+          categoryList={
+            categoryList && categoryList.length > 0 ? categoryList : []
+          }
           handleAddEditOpenModal={handleAddEditOpenModal}
         />
       )}
@@ -377,7 +479,6 @@ function HomeComponent(props) {
         />
       )}
     </div>
-
   );
 }
 
@@ -387,13 +488,16 @@ const mapStatetoprops = (state) => {
     customerNameCodeData: state.commonReducer.customerNameCodeData,
     errorData: state.commonReducer.errorData,
   };
-}
+};
 
 const mapDispatchtoprops = (dispatch) => {
   return {
-    getallDemandData: (endPoint, queryParams) => dispatch(callCommonGetAPI(endPoint, "allDemand", queryParams)),
-    getallDemandSearchData: (endPoint) => dispatch(callCommonGetAPI(endPoint, "allDemand")),
-    getCustomerNameCode: (endPoint) => dispatch(callCommonGetAPI(endPoint, "customerNameCode")),
+    getallDemandData: (endPoint, queryParams) =>
+      dispatch(callCommonGetAPI(endPoint, "allDemand", queryParams)),
+    getallDemandSearchData: (endPoint) =>
+      dispatch(callCommonGetAPI(endPoint, "allDemand")),
+    getCustomerNameCode: (endPoint) =>
+      dispatch(callCommonGetAPI(endPoint, "customerNameCode")),
     refreshProps: (title) => dispatch(callCommonRefreshProps(title)),
   };
 };

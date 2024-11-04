@@ -2,14 +2,6 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import { ToastContainer, toast } from "react-toastify";
-import {
-  Autocomplete,
-  FormControl,
-  TextField,
-  Grid,
-  Menu,
-  MenuItem,
-} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -30,18 +22,19 @@ import {
   callCommonRefreshProps,
   callCommonUpdateAPI,
 } from "../../../../store/action/action";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 
 import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
 import FilterComponent from "../../commonComponent/filter";
 import { Tooltip } from "@mui/material";
-import { Badge, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
-import { Buttonsoutline } from "../../../../components/bootstrap/badgespills/data/badgesdata";
 import {
   Appbtn,
   Outline,
 } from "../../../../components/bootstrap/buttons/data/buttondata";
+import TotalRecords from "../../../../commonComponent/totalRecords";
+import { Singlesquare } from "../../../../components/Bootstrap/Dropdowns/data/dropdowndata";
 const style = {
   fontWeight: "bold",
 };
@@ -261,6 +254,22 @@ function HomeComponent(props) {
       setallDemandList(allDemandData.data);
       setTotalPage(allDemandData.count);
     }
+  };
+
+  const [selectedYear, setSelectedYear] = useState(null);
+
+  const handleSelectYear = (year) => {
+    setSelectedYear(year);
+    handleChangeEvent({
+      target: { name: "year", value: year },
+    });
+  };
+
+  const resetYearSelection = () => {
+    setSelectedYear(null);
+    handleChangeEvent({
+      target: { name: "year", value: "" },
+    });
   };
 
   const reset = () => {
@@ -562,6 +571,8 @@ function HomeComponent(props) {
     <>
       <div style={{ marginTop: "80px" }}>
         <ToastContainer />
+        <Pageheader items={breadcrumbs} />
+
         <Row>
           <Col xl={12}>
             <Card className="custom-card">
@@ -589,38 +600,55 @@ function HomeComponent(props) {
                         alignItems: "center",
                       }}
                     >
-                      <Autocomplete
-                        id="year-select-autocomplete"
-                        options={yearList || []}
-                        getOptionLabel={(option) => option}
-                        renderInput={(params) => (
-                          <TextField {...params} label="Year" />
-                        )}
-                        sx={{
-                          "& .MuiOutlinedInput-root": {
-                            borderRadius: "15px",
-                          },
-                          "& .MuiInputBase-input::placeholder": {
-                            color: "inherit",
-                            opacity: 1,
-                          },
-                          width: 200,
-                        }}
-                        onChange={(e, newValue) => {
-                          handleChangeEvent({
-                            target: {
-                              name: "year",
-                              value: newValue ? newValue : "",
-                            },
-                          });
-                        }}
-                      />
+                      <div className="btn-group mt-2 mb-2 flex-wrap">
+                        {Singlesquare.filter(
+                          (item) => item.color === "outline-primary"
+                        ).map((item, index) => (
+                          <Dropdown className="me-2 my-2" key={index}>
+                            <Dropdown.Toggle
+                              variant={item.color}
+                              type="button"
+                              className={`btn btn-${item.color} dropdown-toggle d-flex align-items-center`}
+                            >
+                              {selectedYear || "Year"}
+                              {selectedYear && (
+                                <span
+                                  className="ms-2"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    resetYearSelection();
+                                  }}
+                                  style={{
+                                    cursor: "pointer",
+                                    color: "red",
+                                    fontSize: "0.8rem",
+                                    marginLeft: "5px",
+                                  }}
+                                >
+                                  &#10005;
+                                </span>
+                              )}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu role="menu">
+                              {yearList.map((year, idx) => (
+                                <li key={idx}>
+                                  <Dropdown.Item
+                                    onClick={() => handleSelectYear(year)}
+                                  >
+                                    {year}
+                                  </Dropdown.Item>
+                                </li>
+                              ))}
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        ))}
+                      </div>
 
                       <Button
                         onClick={() => handleOpenModal(1, 0)}
                         variant="upload"
                         className="bg-purple"
-                        sx={{ borderRadius: "10px", marginLeft: "20px" }}
+                        sx={{ borderRadius: "10px", marginLeft: "10px" }}
                       >
                         <i className="fe fe-upload me-2"></i>
                         Import AOP
@@ -631,16 +659,10 @@ function HomeComponent(props) {
               </Card.Header>
               <Card.Body>
                 <div className="card-area">
-                  {Buttonsoutline.filter(
-                    (idx) => idx.color === "outline-info"
-                  ).map((idx, index) => (
-                    <Button type="button" variant={idx.color} className="me-2">
-                      <span style={{ fontSize: "14px" }}>Total Records </span>
-                      <Badge bg={idx.bg} className="ms-2">
-                        {allDemandList.length}
-                      </Badge>
-                    </Button>
-                  ))}
+                  <TotalRecords
+                    color="outline-success"
+                    length={allDemandList && allDemandList.length}
+                  />
 
                   <div
                     style={{
@@ -757,8 +779,6 @@ function HomeComponent(props) {
                         alignItems: "center",
                       }}
                     >
-                     
-
                       {Outline.filter(
                         (idx) => idx.color === "outline-danger"
                       ).map((idx, out) => (
@@ -766,7 +786,11 @@ function HomeComponent(props) {
                           key={out}
                           variant={idx.color}
                           onClick={handleCancel}
-                          style={{ width: "100px", height: "30px" ,marginRight:"10px" }}
+                          style={{
+                            width: "100px",
+                            height: "30px",
+                            marginRight: "10px",
+                          }}
                         >
                           Cancel
                         </Button>

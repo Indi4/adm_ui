@@ -27,7 +27,7 @@ const allDemandColumns = [
     headerName: "Sep",
     width: 125,
     renderCell: (params) => (
-      <div>{new Intl.NumberFormat('en-IN').format(params.value)}</div>
+      <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
     ),
   },
   {
@@ -35,7 +35,7 @@ const allDemandColumns = [
     headerName: "Oct",
     width: 125,
     renderCell: (params) => (
-      <div>{new Intl.NumberFormat('en-IN').format(params.value)}</div>
+      <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
     ),
   },
   {
@@ -43,21 +43,24 @@ const allDemandColumns = [
     headerName: "Nov",
     width: 125,
     renderCell: (params) => (
-      <div>{new Intl.NumberFormat('en-IN').format(params.value)}</div>
+      <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
     ),
   },
 ];
 
-const breadcrumbs = [
-  { title: "Demand Details", active: 1 },
-  { title: "Dispatch Plan", active: 1 },
-];
+const breadcrumbs = ["Rolling Plan"];
 
 const generateDynamicColumns = (data, excludedFields = []) => {
   const currentDate = new Date();
-  const currentMonth = currentDate.toLocaleString("default", { month: "short" });
-  const nextMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1)).toLocaleString("default", { month: "short" });
-  const nextToNextMonth = new Date(currentDate.setMonth(currentDate.getMonth() + 1)).toLocaleString("default", { month: "short" });
+  const currentMonth = currentDate.toLocaleString("default", {
+    month: "short",
+  });
+  const nextMonth = new Date(
+    currentDate.setMonth(currentDate.getMonth() + 1)
+  ).toLocaleString("default", { month: "short" });
+  const nextToNextMonth = new Date(
+    currentDate.setMonth(currentDate.getMonth() + 1)
+  ).toLocaleString("default", { month: "short" });
 
   const monthOrder = [currentMonth, nextMonth, nextToNextMonth];
 
@@ -91,4 +94,10 @@ const generateDynamicColumns = (data, excludedFields = []) => {
   return [...staticColumns, ...dynamicColumns];
 };
 
-export { initialState, allDemandColumns, initialAddRowState, breadcrumbs, generateDynamicColumns };
+export {
+  initialState,
+  allDemandColumns,
+  initialAddRowState,
+  breadcrumbs,
+  generateDynamicColumns,
+};

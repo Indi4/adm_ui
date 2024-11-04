@@ -1,17 +1,11 @@
 const initialState = {
-    openModal: 0,
-    success: 0,
-    rowID: 0,
-    openDeleteModal: 0,
-    year:''
-}
+  openModal: 0,
+  success: 0,
+  rowID: 0,
+  openDeleteModal: 0,
+  year: "",
+};
 
-const breadcrumbs = [
-    { title: "Demand Details", active: 1 },
-    { title: "Annual Plan", active: 0 },
-]
+const breadcrumbs = ["Annual Plan"];
 
-export {
-    initialState,
-    breadcrumbs
-}
+export { initialState, breadcrumbs };

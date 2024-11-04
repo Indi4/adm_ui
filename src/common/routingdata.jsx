@@ -135,10 +135,18 @@ export const Routingdata = [
     /* App page */
 
     { path: `${import.meta.env.BASE_URL}/cdn/dashboard`, element: <Dashboard /> },
+
     { path: `${import.meta.env.BASE_URL}/cdn/quickAction`, element: <Defaultcalender /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demandCapture/annualPlan`, element: <AOP /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demandCapture/rollingPlan`, element: <RollingPlan /> },
     { path: `${import.meta.env.BASE_URL}/cdn/demandCapture/weekWiseSequencing`, element: <WeekWiseDemands /> },
+
+    { path: `${import.meta.env.BASE_URL}/cdn/quick-action`, element: <Defaultcalender /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/annual-plan`, element: <AOP /> },
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/rolling-plan`, element: <RollingPlan /> },
+
+    { path: `${import.meta.env.BASE_URL}/cdn/demand-capture/week-wise-sequencing`, element: <Notifications /> },
+
     { path: `${import.meta.env.BASE_URL}/cdn/actualSales`, element: <ActualSales /> },
     { path: `${import.meta.env.BASE_URL}/cdn/actualDispatch`, element: <ActualDispatch /> },
     { path: `${import.meta.env.BASE_URL}/cdn/report/finishedUnpaintedStock`, element: <TotalStock /> },
