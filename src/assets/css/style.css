@@ -2071,6 +2071,7 @@ button::-moz-focus-inner,
     font-size: 0.9125rem;
     border-radius: 0.3125rem;
     text-decoration: none;
+    font-family: "Nunito", sans-serif;
 }
 
 .btn:hover {
@@ -25018,7 +25019,7 @@ dd {
 }
 
 .sidebar-mini .side-menu {
-    margin-block-start: 36px;
+    margin-block-start: 50px;
 }
 
 @media (max-width: 991px) {
@@ -25404,6 +25405,7 @@ dd {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     margin-block-start: 2px;
+    padding: 5px;
 }
 
 .slide.is-expanded .slide-menu {
@@ -25536,7 +25538,7 @@ dd {
 
     .sidebar-mini.sidenav-toggled .app-sidebar {
         inset-inline-start: 0;
-        width: 90px;
+        width: 95px;
         overflow: hidden;
     }
 
@@ -25802,8 +25804,8 @@ dd {
 
 .side-header {
     display: flex;
-    border-block-end: 1px solid var(--border);
-    border-inline-end: 1px solid var(--border);
+    /* border-block-end: 1px solid var(--border);
+    border-inline-end: 1px solid var(--border); */
     padding: 19px 17px;
     align-items: center;
     -webkit-transition: inset-inline-start 0.3s ease, width 450ms ease;

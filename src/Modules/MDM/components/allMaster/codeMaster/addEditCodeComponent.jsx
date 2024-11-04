@@ -180,7 +180,12 @@ function AddEditCodeComponent(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ borderBottom: "1px solid #e0e0e0", padding: 2 }}
+          >
             {type + " " + "Plant" || ""}
           </Typography>
           <IconButton

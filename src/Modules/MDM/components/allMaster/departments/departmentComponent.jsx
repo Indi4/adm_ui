@@ -40,11 +40,12 @@ function DepartmentComponent(props) {
         field: "action",
         headerName: "Action",
         width: 100,
+        headerAlign: "center",
         headerClassName: "wrap-header",
         renderCell: (params) => (
           <React.Fragment>
             {params && params.row.id !== 1 ? (
-              <div style={{ display: "flex", justifyContent: "flex-start" }}>
+              <div style={{ display: "flex", justifyContent: "center" }}>
                 <Tooltip title="Edit Data">
                   <IconButton
                     variant="outlined"

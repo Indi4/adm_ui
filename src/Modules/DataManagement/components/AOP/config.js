@@ -6,6 +6,6 @@ const initialState = {
   year: "",
 };
 
-const breadcrumbs = ["Annual Plan"];
+const breadcrumbs = ["Demand Capture","Annual Plan"];
 
 export { initialState, breadcrumbs };

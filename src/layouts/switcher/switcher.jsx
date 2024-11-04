@@ -23,14 +23,7 @@ export default function Switcher() {
 						 >
 							<Row className="row">
 								<div className="predefined_styles">
-									<div className="swichermainleft text-center">
-										<div className="p-3 px-4 d-grid">
-											<a href='https://react.spruko.com/sparic' target='_blank' className="button1 btn btn-primary mt-0">View Demo</a>
-											<a href="https://themeforest.net/user/spruko/portfolio"  target='_blank' className="button1 btn btn-info">Buy Now</a>
-											<a href="https://themeforest.net/user/spruko/portfolio"  target='_blank' className=" button1 btn btn-danger">Our
-												Portfolio</a>
-										</div>
-									</div>
+									
 									<div className="swichermainleft text-center">
 										<h4>LTR AND RTL VERSIONS</h4>
 										<div className="skin-body">

@@ -80,16 +80,25 @@ export default function Sidebar({ menuType }) {
                   className="header-brand-img darklogo"
                   alt="Kizuna logo"
                 />
-               
+
                 <img
                   src={icon1}
                   className="header-brand-img icon-logo"
                   alt="Icon 2"
-                  style={{ marginLeft: "8px",marginTop:"22px",marginBottom:"15px" }}
+                  style={{
+                    marginLeft: "11px",
+                    marginTop: "43px",
+                    marginBottom: "2px",
+                  }}
                 />
 
-                <Typography variant="h6" style={{ fontSize:"11px" ,color:"red" }}>
-                  {locationPaths?.includes("mdm") ? "Master Data Management" : "Demand Management"}
+                <Typography
+                  variant="h6"
+                  style={{ fontSize: "11px", color: "red" }}
+                >
+                  {locationPaths?.includes("mdm")
+                    ? "Master Data Management"
+                    : "Demand Management"}
                 </Typography>
               </Link>
             </div>
@@ -142,7 +151,9 @@ export default function Sidebar({ menuType }) {
                                   }`}
                                   onClick={() => setActiveMenuItem(child.path)}
                                 >
-                                  <span style={{ marginRight: "11px",marginLeft:"15px" }}>•</span>{" "}
+                                  <span style={{ marginRight: "12px" ,marginLeft:"10px",height:"10px"}}>
+                                    {child.icon}
+                                  </span>
                                   <span className="side-menu__label">
                                     {child.title}
                                   </span>
