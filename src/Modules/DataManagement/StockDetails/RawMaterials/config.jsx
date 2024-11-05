@@ -46,7 +46,7 @@ const RMColumns = [
             <span
                 style={{
                     backgroundColor: params.value === "Disc" ? "rgba(255, 195, 0,0.19)" : params.value === "Rim" ? "rgb(0,128,128,0.19)" : "transparent",
-                    color: params.value === "Disc" ? "rgba(255, 195, 0)" : params.value === "Rim" ? "rgb(0,128,128,0.90)" : "transparent",
+                    color: params.value === "Disc" ? "#f39c12" : params.value === "Rim" ? "rgb(0,128,128,0.90)" : "transparent",
                     fontWeight: "500",
                     letterSpacing: '1px',
                     fontSize: '15px',
