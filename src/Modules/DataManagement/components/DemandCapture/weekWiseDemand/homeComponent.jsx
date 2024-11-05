@@ -526,7 +526,7 @@ function HomeComponent(props) {
                                     />
                                 </Card.Title>
                                 <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
-                                    <Grid container alignItems="center" justifyContent="flex-end"> 
+                                    <Grid container alignItems="center" justifyContent="flex-end">
                                         {/* Year Select Autocomplete */}
                                         <Grid item>
                                             <Autocomplete
@@ -705,20 +705,14 @@ function HomeComponent(props) {
                                                 sx={{
                                                     '& .MuiDataGrid-root': {
                                                         border: 'none',
-                                                        //fontFamily: 'Arial, sans-serif',
                                                     },
                                                     '& .MuiDataGrid-columnHeaders': {
-                                                        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                                        color: 'rgba(0, 0, 0, 0.87)',
-                                                        fontSize: '15px',
-                                                        borderBottom: '2px solid rgba(60, 90, 120, 0.5)',
-                                                        backdropFilter: 'blur(10px)',
-                                                        WebkitBackdropFilter: 'blur(10px)',
-                                                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                                                    },
-                                                    "& .MuiDataGrid-columnHeaderTitle": {
-                                                        whiteSpace: "normal",   // Make sure the header title also wraps
-                                                        textAlign: "center",    // Center the text
+                                                        backgroundColor: "rgba(255, 255, 255, 0.7)",
+                                                        color: "rgba(0, 0, 0, 0.87)",
+                                                        fontSize: "15px",
+                                                        borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                                                        backdropFilter: "blur(10px)",
+                                                        boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                                                     },
                                                     '& .MuiDataGrid-cell': {
                                                         borderBottom: '1px solid #e0e0e0',
@@ -740,11 +734,11 @@ function HomeComponent(props) {
                                                             height: "10px",
                                                         },
                                                         "&::-webkit-scrollbar-thumb": {
-                                                            backgroundColor: "#d3d3d3",
+                                                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                                                             borderRadius: "10px",
                                                         },
                                                         "&::-webkit-scrollbar-thumb:hover": {
-                                                            backgroundColor: "#bbb",
+                                                            backgroundColor: "#8c8c8c", // Darker grey on hover
                                                         },
                                                     },
                                                     "& .MuiDataGrid-root": {
@@ -752,11 +746,11 @@ function HomeComponent(props) {
                                                             height: "10px",
                                                         },
                                                         "&::-webkit-scrollbar-thumb": {
-                                                            backgroundColor: "#d3d3d3",
+                                                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                                                             borderRadius: "10px",
                                                         },
                                                         "&::-webkit-scrollbar-thumb:hover": {
-                                                            backgroundColor: "#bbb",
+                                                            backgroundColor: "#8c8c8c", // Darker grey on hover
                                                         },
                                                     },
                                                     '& .MuiDataGrid-toolbarContainer': {

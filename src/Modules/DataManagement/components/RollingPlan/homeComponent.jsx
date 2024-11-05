@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import {  Row } from "reactstrap";
+import { Row } from "reactstrap";
 import {
 
   Menu,
@@ -131,13 +131,13 @@ function HomeComponent(props) {
       ) {
         setCustomerNameorCodeList(
           customerNameCodeData.data.customers_list &&
-            customerNameCodeData.data.customers_list.length > 0 &&
-            customerNameCodeData.data.customers_list
+          customerNameCodeData.data.customers_list.length > 0 &&
+          customerNameCodeData.data.customers_list
         );
         setCategoryList(
           customerNameCodeData.data.category &&
-            customerNameCodeData.data.category.length > 0 &&
-            customerNameCodeData.data.category
+          customerNameCodeData.data.category.length > 0 &&
+          customerNameCodeData.data.category
         );
         setCustomerNameorCode("");
       }
@@ -376,35 +376,30 @@ function HomeComponent(props) {
                       ),
                     }}
                     sx={{
-                      "& .MuiDataGrid-root": {
-                        border: "none",
+                      '& .MuiDataGrid-root': {
+                        border: 'none',
                       },
-                      "& .MuiDataGrid-columnHeaders": {
+                      '& .MuiDataGrid-columnHeaders': {
                         backgroundColor: "rgba(255, 255, 255, 0.7)",
                         color: "rgba(0, 0, 0, 0.87)",
-                        fontSize: "14px",
+                        fontSize: "15px",
                         borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
                         backdropFilter: "blur(10px)",
-                        WebkitBackdropFilter: "blur(10px)",
-                        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                        boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                       },
-                      "& .MuiDataGrid-columnHeaderTitle": {
-                        whiteSpace: "normal",
-                        textAlign: "center",
+                      '& .MuiDataGrid-cell': {
+                        borderBottom: '1px solid #e0e0e0',
                       },
-                      "& .MuiDataGrid-cell": {
-                        borderBottom: "1px solid #e0e0e0",
+                      '& .footer-row': {
+                        fontWeight: 'bold',
+                        backgroundColor: '#f7f7f7',
+                        borderTop: '2px solid #4a6fa1',
                       },
-                      "& .footer-row": {
-                        fontWeight: "bold",
-                        backgroundColor: "#f7f7f7",
-                        borderTop: "2px solid #4a6fa1",
+                      '& .MuiDataGrid-row:hover': {
+                        backgroundColor: '#e0f7fa',
                       },
-                      "& .MuiDataGrid-row:hover": {
-                        backgroundColor: "#e0f7fa",
-                      },
-                      "& .MuiDataGrid-selectedRowCount": {
-                        color: "#4a6fa1",
+                      '& .MuiDataGrid-selectedRowCount': {
+                        color: '#4a6fa1',
                       },
                       "& .MuiDataGrid-virtualScroller": {
                         "&::-webkit-scrollbar": {
@@ -412,11 +407,11 @@ function HomeComponent(props) {
                           height: "10px",
                         },
                         "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "#d3d3d3",
+                          backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                           borderRadius: "10px",
                         },
                         "&::-webkit-scrollbar-thumb:hover": {
-                          backgroundColor: "#bbb",
+                          backgroundColor: "#8c8c8c", // Darker grey on hover
                         },
                       },
                       "& .MuiDataGrid-root": {
@@ -424,16 +419,16 @@ function HomeComponent(props) {
                           height: "10px",
                         },
                         "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "#d3d3d3",
+                          backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                           borderRadius: "10px",
                         },
                         "&::-webkit-scrollbar-thumb:hover": {
-                          backgroundColor: "#bbb",
+                          backgroundColor: "#8c8c8c", // Darker grey on hover
                         },
                       },
-                      "& .MuiDataGrid-toolbarContainer": {
-                        backgroundColor: "#f0f0f0",
-                        borderBottom: "1px solid #d3d3d3",
+                      '& .MuiDataGrid-toolbarContainer': {
+                        backgroundColor: '#f0f0f0',
+                        borderBottom: '1px solid #d3d3d3',
                       },
                     }}
                   />
