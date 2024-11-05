@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, Fragment } from "react";
 import { connect } from "react-redux";
 import { Badge, Card, Col, Row, Button } from "react-bootstrap";
 import { DataGrid } from "@mui/x-data-grid";
@@ -139,24 +139,18 @@ function DepartmentComponent(props) {
   };
 
   return (
-    <div style={{ marginTop: "80px" }}>
+    <Fragment>
       <ToastContainer />
       <Row>
-        <Col md="12">
-          <Card className="custom-card">
-            <Card.Header>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  width: "100%",
-                  padding: "0px",
-                }}
-              >
-                <Card.Title style={{ flexGrow: 1, paddingTop: "10px" }}>
-                  Departments
+        <Col xl={12}>
+          <Card>
+          <Card.Header className=" d-flex justify-content-between align-items-center">
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
+
+                <Card.Title style={{ flexGrow: 1,marginTop: "20px", }}>
+                   Departments
                 </Card.Title>
-                <Card.Title style={{ marginLeft: "auto" }}>
+                <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
                   <Button
                     onClick={() => handleAddEditOpenModal(1, 0, 0, "Add", "")}
                     variant="contained"
@@ -169,8 +163,10 @@ function DepartmentComponent(props) {
               </div>
             </Card.Header>
 
-            <Card.Body>
+            <Card.Body className="p-0">
               <div className="card-area">
+              <Col md="12" style={{marginTop:"10px" ,marginBottom:"10px"}}>
+
                 {Buttonsoutline.filter(
                   (idx) => idx.color === "outline-info"
                 ).map((idx, index) => (
@@ -262,6 +258,7 @@ function DepartmentComponent(props) {
                     "No Data Found"
                   )}
                 </div>
+                </Col>
               </div>
             </Card.Body>
           </Card>
@@ -282,7 +279,7 @@ function DepartmentComponent(props) {
         handleDeleteModal={handleDelete}
         callEndPoint={MDM_GET_SAVE_DEPARTMENTDETAILS}
       />
-    </div>
+    </Fragment>
   );
 }
 

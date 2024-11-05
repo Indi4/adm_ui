@@ -18,7 +18,11 @@ import { toast } from "react-toastify";
 import debounce from 'lodash/debounce';
 import TotalRecords from '../../../../../commonComponent/totalRecords'
 import { Appbtn, Outline } from "../../../../../components/bootstrap/buttons/data/buttondata";
+
 import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
+
+import '../../../../../layouts/styles/Common.css'
+
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState });
@@ -60,7 +64,6 @@ function HomeComponent(props) {
             weekDemandData.data.length > 0 && weekDemandData.data.map((item) => {
                 tempArr.push({ 'id': item._id, 'fg_stock_qty': item.fg_stock_qty, 'rm_stock_qty': item.rm_stock_qty })
             })
-            console.log("tempArr", tempArr)
             setFgRmStockList(tempArr)
             setLoading(false);
         }
@@ -95,7 +98,6 @@ function HomeComponent(props) {
             allDemandList.length > 0 && allDemandList.map((item) => {
                 tempArr.push({ 'id': item._id, 'fg_stock_qty': item.fg_stock_qty, 'rm_stock_qty': item.rm_stock_qty })
             })
-            console.log("tempArr", tempArr)
             setFgRmStockList(tempArr)
         }
     }, [allDemandList]);
@@ -160,7 +162,6 @@ function HomeComponent(props) {
     }
 
     const handleSave = () => {
-        debugger
         const keysToRemove = ["customer_name", "plant_location", "editable", "fg_stock_qty", "rm_stock_qty", "rolling_plan_qty", "total_quantity", "fg_part_no", "isNew", "id"];
         // Create payload by filtering records where any demand contains string data
         const payload = allDemandList.map((item, index) => {
@@ -230,15 +231,12 @@ function HomeComponent(props) {
         let newArr = [...rowss]
         let index1 = newArr.findIndex((item) => item.id === updatedRow.id)
         newArr[index1] = updatedRow
-        console.log(updatedRow)
         const keysToCheck = ['W1(1-5)', 'W2(6-12)', 'W3(13-19)', 'W4(20-26)', 'W5(27-31)', 'W1(1-2)', 'W2(3-9)', 'W3(10-16)', 'W4(17-23)', 'W5(24-30)']; // Specify the keys you want to check
-        debugger
         let result = tempArray.find((item) => item.id === newRow.id);
         keysToCheck.forEach(key => {
             if (updatedRow.hasOwnProperty(key)) {
                 let color = '';
                 let newValue = updatedRow[key]
-                debugger
                 if (newValue > 0) {
                     if (newValue <= result.fg_stock_qty) {
                         color = 'green';
@@ -260,14 +258,12 @@ function HomeComponent(props) {
                 } else { color = 'red'; }
                 setFgRmStockList(tempArray);
                 let cellColumn = key + "Color";
-                console.log("colorred", color)
                 newArr[rowIndex][cellColumn] = color
-                console.log(`Object contains key '${key}' with value ${updatedRow[key]}.`);
+                // console.log(`Object contains key '${key}' with value ${updatedRow[key]}.`);
             } else {
-                console.log(`Object does not contain key '${key}'.`);
+                //console.log(`Object does not contain key '${key}'.`);
             }
         });
-        console.log("newArr", newArr)
         setRowss(newArr)
         return updatedRow;
     };
@@ -339,7 +335,6 @@ function HomeComponent(props) {
             renderCell: (params) => {
                 const demandValue = params.value; // The demand value for this column
                 if (typeof demandValue === 'number') {
-                    console.log("color", params.row[`${key}Color`] ? params.row[`${key}Color`] + ' !important' : "")
                     return <div style={{ color: params.row[`${key}Color`] ? params.row[`${key}Color`] + ' !important' : "" }}>
                         {new Intl.NumberFormat('en-IN').format(demandValue)}</div>
                 }
