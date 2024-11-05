@@ -19,6 +19,7 @@ export default function Sidebar({ menuType }) {
 
   useEffect(() => {
     setActiveMenuItem(location.pathname);
+    setMenuItems(locationPaths?.includes("mdm") ? MenuItems : CDNMenuItems)
   }, [location.pathname]);
 
   function setActiveMenuItem(pathname) {
@@ -59,6 +60,7 @@ export default function Sidebar({ menuType }) {
 
     setOpenItems(newOpenItems);
   }
+
 
   return (
     <Fragment>
@@ -121,7 +123,7 @@ export default function Sidebar({ menuType }) {
                           }`}
                           onClick={() => {
                             setActiveMenuItem(item.path);
-                            if (item.children) toggleItem(idx);
+                            toggleItem(idx);
                           }}
                         >
                           <span style={{ marginRight: "12px" }}>

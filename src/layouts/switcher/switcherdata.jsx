@@ -229,7 +229,7 @@ export const HorizontalHoverMenu = () => {
   localStorage.setItem('sparichorizontalhover', true)
   localStorage.removeItem('sparichorizontal');
   localStorage.removeItem('sparicvertical');
-  document.querySelector("body").classList.add("horizontal-hover");
+  document.querySelector("body").classList.remove("horizontal-hover");
 
   document.querySelector("body").classList.add("horizontal");
   document.querySelector(".main-content").classList.add("horizontal-content");
