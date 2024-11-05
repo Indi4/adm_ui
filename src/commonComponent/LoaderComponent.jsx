@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Collapse } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const LoaderComponent = () => {
+const LoaderComponent = (props) => {
   const [loaderExpanded, setLoaderExpanded] = useState(true);
   const [loaderShow, setLoaderShow] = useState(true);
 
@@ -13,17 +13,19 @@ const LoaderComponent = () => {
   if (!loaderShow) return null;
 
   return (
-      <Card>
-       
-        <Collapse in={loaderExpanded} timeout={9000}>
-          <Card.Body className="p-0">
-            <div className="dimmer active">
-              <div className="lds-hourglass"></div>
-            </div>
-          </Card.Body>
-        </Collapse>
-      </Card>
-  );
+    <>
+      {!props.spinner ?
+        <div className="dimmer active">
+          <div className="lds-hourglass"></div>
+        </div>
+        :
+        <div className="spinner4">
+          <div className="bounce1"></div>
+          <div className="bounce2"></div>
+          <div className="bounce3"></div>
+        </div>
+      }
+    </>)
 };
 
 export default LoaderComponent;

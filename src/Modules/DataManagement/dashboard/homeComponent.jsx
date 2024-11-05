@@ -8,17 +8,20 @@ import PlanByMonthComponent from './planByMonthComponent'
 import ChangesMadeBycustomer from './changesMadeBycustomer'
 import ChangeMadeByProductCode from './changeMadeByProductCode'
 import RmRequirements from './rmRequirements'
+import LoaderComponent from "../../../commonComponent/LoaderComponent";
 import AOS from 'aos';
 import 'aos/dist/aos.css';  // Import AOS CSS
 
 function HomeComponent(props) {
     const [data, setData] = useState({})
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         AOS.init({
             duration: 1000, // Animation duration in milliseconds
             once: true, // Whether animation should happen only once or every time you scroll
         });
+        setLoading(true);
     }, []);
 
     useEffect(() => {
@@ -29,6 +32,7 @@ function HomeComponent(props) {
     useEffect(() => {
         if (props.cardsData && Object.keys(props.cardsData).length > 0) {
             setData(props.cardsData.data)
+            setLoading(false);
         }
     }, [props.cardsData])
 
@@ -44,20 +48,19 @@ function HomeComponent(props) {
                 <Col sm={12} md={12} lg={12} xl={6} xxl={6} data-aos="fade-up">
                     <Row>
                         <Col lg={6} md={6} sm={6} xl={6} data-aos="fade-up">
-                        <Card className=" overflow-hidden">
+                            <Card className=" overflow-hidden">
                                 <Card.Body className="p-15">
                                     <div className="d-flex">
                                         <div>
                                             <p className="mb-0 text-dark fw-semibold">Dispatch Plan Accuracy</p>
-                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data && Object.keys(data).length > 0 && data.rolling_plan_accuracy + ' %'}</h3>
-                                            {/* <div className="text-muted fs-12 mt-2"><i className="fa fa-signal text-success me-1"></i>
-                                <span className="fw-bold fs-12 text-body">6.05%</span> (30 days)
-                              </div> */}
-                                        </div>
+                                            {loading ? (
+                                                <LoaderComponent spinner={1} />
+                                            ) : <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data && Object.keys(data).length > 0 && data.rolling_plan_accuracy + ' %'}</h3>
+                                            } </div>
                                         <span className="ms-auto my-auto circle-icon bg-success text-center"><i className="bi bi-graph-up fs-20"></i></span>
                                     </div>
                                 </Card.Body>
-                            </Card> 
+                            </Card>
                         </Col>
                         <Col lg={6} md={6} sm={6} xl={6} data-aos="fade-up">
                             <Card className=" overflow-hidden">
@@ -65,8 +68,10 @@ function HomeComponent(props) {
                                     <div className="d-flex">
                                         <div>
                                             <p className="mb-0 text-dark fw-semibold">RM & WIP Avail. To Produce</p>
-                                            <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data && Object.keys(data).length > 0 && new Intl.NumberFormat('en-IN').format(data.rm_and_wip_available_to_produce)}</h3>
-                                        </div>
+                                            {loading ? (
+                                                <LoaderComponent spinner={1} />
+                                            ) : <h3 className="mt-1 mb-1 text-dark fw-semibold">{!!data && Object.keys(data).length > 0 && new Intl.NumberFormat('en-IN').format(data.rm_and_wip_available_to_produce)}</h3>
+                                            } </div>
                                         <span className="ms-auto my-auto circle-icon bg-info text-center"><i className="bi bi-cart-plus fs-20"></i></span>
                                     </div>
                                 </Card.Body>
