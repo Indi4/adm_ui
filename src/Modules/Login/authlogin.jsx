@@ -114,7 +114,7 @@ function Authlogin() {
                                 <div className="text-center mb-2">
                                   <Link className="header-brand1" to={`${import.meta.env.BASE_URL}dashboard/sales`}>
                                     <img src={logo}
-                                      className="header-brand-img main-logo" alt="Sparic logo" />
+                                      className="header-brand-img main-logo" alt="Sparic logo2" />
                                     <img src={logolight}
                                       className="header-brand-img darklogo" alt="Sparic logo" />
                                   </Link>

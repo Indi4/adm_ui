@@ -290,6 +290,7 @@ function HomeComponent(props) {
 
   return (
     <div style={{ marginTop: "80px" }}>
+       <ToastContainer />
       <Pageheader items={breadcrumbs} />
       <Row>
         <Card className="custom-card">
@@ -342,7 +343,7 @@ function HomeComponent(props) {
             <div className="card-area">
               <TotalRecords
                 color="outline-success"
-                length={allDemandList && allDemandList.length}
+                length={allDemandList && allDemandList?.length}
               />
 
               <div

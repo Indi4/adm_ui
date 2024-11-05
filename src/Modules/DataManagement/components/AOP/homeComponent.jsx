@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import Box from "@mui/material/Box";
 import { ToastContainer, toast } from "react-toastify";
@@ -16,7 +16,11 @@ import {
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 import { CDC_SAVE_AOP, CDC_AOP, GETALL_LIST } from "../../../endPointConfig";
-import { getYearList, CustomFooter } from "../../../commonConfig";
+import {
+  getYearList,
+  CustomFooter,
+  renderTooltipCell,
+} from "../../../commonConfig";
 import {
   callCommonGetAPI,
   callCommonRefreshProps,
@@ -26,7 +30,7 @@ import { Button, Dropdown } from "react-bootstrap";
 
 import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
 import FilterComponent from "../../commonComponent/filter";
-import { CircularProgress, Tooltip } from "@mui/material";
+import { Autocomplete, Grid, TextField, Tooltip } from "@mui/material";
 import { Card } from "react-bootstrap";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
 import {
@@ -45,7 +49,7 @@ function HomeComponent(props) {
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
   const [isSave, setIsSave] = useState(0);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 5,
     page: 0,
@@ -65,6 +69,7 @@ function HomeComponent(props) {
   const [allDemandList, setallDemandList] = useState([]);
   const [yearList, setYearList] = useState([]);
 
+  // const yearOptions = yearList.map((year) => ({ year }));
   useEffect(() => {
     // getCustomerNameCode(endPoint)
     setLoading(true);
@@ -92,9 +97,10 @@ function HomeComponent(props) {
       toast.success(updateMonthlyDemandDetailsData.message);
       customerNameorCode !== ""
         ? getallDemandData(
-          `${CDC_AOP}?year=${!!state.year ? state.year : ""
-          }&search=${customerNameorCode}`
-        )
+            `${CDC_AOP}?year=${
+              !!state.year ? state.year : ""
+            }&search=${customerNameorCode}`
+          )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     }
     if (
@@ -114,9 +120,10 @@ function HomeComponent(props) {
       refreshProps("allDemandData");
       customerNameorCode !== ""
         ? getallDemandData(
-          `${CDC_AOP}?year=${!!state.year ? state.year : ""
-          }&search=${customerNameorCode}`
-        )
+            `${CDC_AOP}?year=${
+              !!state.year ? state.year : ""
+            }&search=${customerNameorCode}`
+          )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     } else if (!success && message !== "") {
       toast.error(message);
@@ -126,8 +133,8 @@ function HomeComponent(props) {
   const handleChangeEvent = (e, i) => {
     customerNameorCode !== ""
       ? getallDemandData(
-        `${CDC_AOP}?year=${e.target.value}&search=${customerNameorCode}`
-      )
+          `${CDC_AOP}?year=${e.target.value}&search=${customerNameorCode}`
+        )
       : getallDemandData(`${CDC_AOP}?year=${e.target.value}`);
   };
 
@@ -157,9 +164,10 @@ function HomeComponent(props) {
       refreshProps("allDemandData");
       customerNameorCode !== ""
         ? getallDemandData(
-          `${CDC_AOP}?year=${!!state.year ? state.year : ""
-          }&search=${customerNameorCode}`
-        )
+            `${CDC_AOP}?year=${
+              !!state.year ? state.year : ""
+            }&search=${customerNameorCode}`
+          )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     } else if (!success && message !== "") {
       toast.error(message);
@@ -259,10 +267,11 @@ function HomeComponent(props) {
 
   const [selectedYear, setSelectedYear] = useState(null);
 
-  const handleSelectYear = (year) => {
-    setSelectedYear(year);
+  const handleSelectYear = (e) => {
+    const { name, value } = e.target;
+    setSelectedYear(value);
     handleChangeEvent({
-      target: { name: "year", value: year },
+      target: { name: "year", value: value },
     });
   };
 
@@ -304,137 +313,156 @@ function HomeComponent(props) {
         </Tooltip>
       ),
     },
-    { field: "plant_location", headerName: "Location", width: 120 },
+    {
+      field: "plant_location",
+      headerName: "Location",
+      width: 120,
+      renderCell: (params) => renderTooltipCell(params.value),
+    },
     {
       field: "fg_code",
       headerName: "FG Code",
       width: 120,
       getCellClassName: (params) => "fg-code-cell",
+      renderCell: (params) => renderTooltipCell(params.value),
     },
     {
       field: "wheel_size",
       headerName: "Wheel Size",
       width: 120,
+      renderCell: (params) => renderTooltipCell(params.value),
     },
     {
       field: "Jan",
       headerName: "Jan",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Feb",
       headerName: "Feb",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Mar",
       headerName: "Mar",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Apr",
       headerName: "Apr",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "May",
       headerName: "May",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Jun",
       headerName: "Jun",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Jul",
       headerName: "Jul",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Aug",
       headerName: "Aug",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Sep",
       headerName: "Sep",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Oct",
       headerName: "Oct",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Nov",
       headerName: "Nov",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "Dec",
       headerName: "Dec",
       width: 90,
       editable: (params) => params.row.id !== "footer",
-      renderCell: (params) => (
-        <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
+        ),
     },
     {
       field: "total_quantity",
       headerName: "Total",
       width: 90,
-      renderCell: (params) => (
-        <div style={{ fontWeight: "bold" }}>
-          {new Intl.NumberFormat("en-IN").format(params.value)}
-        </div>
-      ),
+      renderCell: (params) =>
+        renderTooltipCell(
+          <div style={{ fontWeight: "bold" }}>
+            {new Intl.NumberFormat("en-IN").format(params.value)}
+          </div>
+        ),
     },
-
   ];
 
   const getFooterRow = () => {
@@ -481,22 +509,16 @@ function HomeComponent(props) {
 
   return (
     <>
-      <div style={{ marginTop: "80px" }}>
+      <Fragment>
         <ToastContainer />
         <Pageheader items={breadcrumbs} />
 
         <Row>
           <Col xl={12}>
-            <Card className="custom-card">
-              <Card.Header>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                    padding: "0px",
-                  }}
-                >
+            <Card>
+            <Card.Header className=" d-flex justify-content-between align-items-center">
+            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
+
                   <Card.Title style={{ flexGrow: 1 }}>
                     <FilterComponent
                       handleSearchData={handleSearchData}
@@ -506,55 +528,77 @@ function HomeComponent(props) {
                   <Card.Title style={{ marginLeft: "auto" }}>
                     <div
                       style={{
-                        marginTop: "7px",
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
                       }}
                     >
-                      <div className="btn-group mt-2 mb-2 flex-wrap">
-                        {Singlesquare.filter(
-                          (item) => item.color === "outline-primary"
-                        ).map((item, index) => (
-                          <Dropdown className="me-2 my-2" key={index}>
-                            <Dropdown.Toggle
-                              variant={item.color}
-                              type="button"
-                              className={`btn btn-${item.color} dropdown-toggle d-flex align-items-center`}
-                            >
-                              {selectedYear || "Year"}
-                              {selectedYear && (
-                                <span
-                                  className="ms-2"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    resetYearSelection();
-                                  }}
-                                  style={{
-                                    cursor: "pointer",
-                                    color: "red",
-                                    fontSize: "0.8rem",
-                                    marginLeft: "5px",
-                                  }}
-                                >
-                                  &#10005;
-                                </span>
-                              )}
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu role="menu">
-                              {yearList.map((year, idx) => (
-                                <li key={idx}>
-                                  <Dropdown.Item
-                                    onClick={() => handleSelectYear(year)}
-                                  >
-                                    {year}
-                                  </Dropdown.Item>
-                                </li>
-                              ))}
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        ))}
-                      </div>
+                      <Grid item sx={{marginTop:"20px"}}>
+                        <Autocomplete
+                          id="year-select-autocomplete"
+                          options={yearList || []}
+                          value={selectedYear || ""}
+                          onChange={(event, newValue) => {
+                            handleSelectYear({
+                              target: {
+                                name: "year",
+                                value: newValue ? newValue : "",
+                              },
+                            });
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Years"
+                              style={{ width: "120px", height: "60px" }}
+                              InputProps={{
+                                ...params.InputProps,
+                                style: {
+                                  height: "70%",
+                                  fontSize: "0.9rem",
+                                  textAlign: "start",
+                                  paddingBottom: "10px",
+                                  color: "#28afd0",
+                                  
+                                  
+                                },
+                              }}
+                              InputLabelProps={{
+                                style: {
+                                  fontSize: "0.8rem",
+                                  textAlign: "start",
+                                  width: "100%",
+                                  position: "absolute",
+                                  paddingBottom: "15px",
+                                  color: "#28afd0",
+                                },
+                              }}
+                            />
+                          )}
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              borderRadius: "10px",
+                              "& fieldset": {
+                                borderColor: "#28afd0 !important", // Default border color
+                                borderWidth: "2px !important", // Increase border width
+                              },
+                              "&:hover fieldset": {
+                                borderColor: "#0c98bb !important", // Border color on hover
+                                borderWidth: "2px !important", // Ensure hover border width is consistent
+                              },
+                              "&.Mui-focused fieldset": {
+                                borderColor: "#0c98bb !important", // Border color when focused
+                                borderWidth: "2px !important", // Ensure focused border width is consistent
+                              },
+                            },
+                            "& .MuiInputBase-input::placeholder": {
+                              color: "cyan !important", // Set placeholder color to cyan
+                              fontSize: "0.8rem", // Reduce placeholder font size
+                            },
+                            width: 150,
+                          }}
+                        />
+                      </Grid>
 
                       <Button
                         onClick={() => handleOpenModal(1, 0)}
@@ -569,8 +613,10 @@ function HomeComponent(props) {
                   </Card.Title>
                 </div>
               </Card.Header>
-              <Card.Body>
+              <Card.Body className="p-0">
                 <div className="card-area">
+              <Col md="12" style={{marginTop:"10px" ,marginBottom:"10px"}}>
+
                   <TotalRecords
                     color="outline-success"
                     length={allDemandList && allDemandList.length}
@@ -585,10 +631,8 @@ function HomeComponent(props) {
                     }}
                   >
                     {loading ? (
-                  
-                    <LoaderComponent   />
-                ) :
-                  allDemandList && allDemandList.length > 0 ? (
+                      <LoaderComponent />
+                    ) : allDemandList && allDemandList.length > 0 ? (
                       <DataGrid
                         rows={rowsWithFooter}
                         columns={MonthColumns}
@@ -598,13 +642,12 @@ function HomeComponent(props) {
                             <CustomFooter total={allDemandList.length} />
                           ),
                         }}
-
                         hideFooterPagination
                         sx={{
-                          '& .MuiDataGrid-root': {
-                            border: 'none',
+                          "& .MuiDataGrid-root": {
+                            border: "none",
                           },
-                          '& .MuiDataGrid-columnHeaders': {
+                          "& .MuiDataGrid-columnHeaders": {
                             backgroundColor: "rgba(255, 255, 255, 0.7)",
                             color: "rgba(0, 0, 0, 0.87)",
                             fontSize: "15px",
@@ -612,19 +655,19 @@ function HomeComponent(props) {
                             backdropFilter: "blur(10px)",
                             boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                           },
-                          '& .MuiDataGrid-cell': {
-                            borderBottom: '1px solid #e0e0e0',
+                          "& .MuiDataGrid-cell": {
+                            borderBottom: "1px solid #e0e0e0",
                           },
-                          '& .footer-row': {
-                            fontWeight: 'bold',
-                            backgroundColor: '#f7f7f7',
-                            borderTop: '2px solid #4a6fa1',
+                          "& .footer-row": {
+                            fontWeight: "bold",
+                            backgroundColor: "#f7f7f7",
+                            borderTop: "2px solid #4a6fa1",
                           },
-                          '& .MuiDataGrid-row:hover': {
-                            backgroundColor: '#e0f7fa',
+                          "& .MuiDataGrid-row:hover": {
+                            backgroundColor: "#e0f7fa",
                           },
-                          '& .MuiDataGrid-selectedRowCount': {
-                            color: '#4a6fa1',
+                          "& .MuiDataGrid-selectedRowCount": {
+                            color: "#4a6fa1",
                           },
                           "& .MuiDataGrid-virtualScroller": {
                             "&::-webkit-scrollbar": {
@@ -651,9 +694,9 @@ function HomeComponent(props) {
                               backgroundColor: "#8c8c8c", // Darker grey on hover
                             },
                           },
-                          '& .MuiDataGrid-toolbarContainer': {
-                            backgroundColor: '#f0f0f0',
-                            borderBottom: '1px solid #d3d3d3',
+                          "& .MuiDataGrid-toolbarContainer": {
+                            backgroundColor: "#f0f0f0",
+                            borderBottom: "1px solid #d3d3d3",
                           },
                         }}
                       />
@@ -704,7 +747,10 @@ function HomeComponent(props) {
                       )}
                     </div>
                   )}
+                  </Col>
                 </div>
+
+                
               </Card.Body>
             </Card>
           </Col>
@@ -725,7 +771,7 @@ function HomeComponent(props) {
             callEndPoint={CDC_AOP}
           />
         )}
-      </div>
+      </Fragment>
     </>
   );
 }

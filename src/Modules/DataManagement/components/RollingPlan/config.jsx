@@ -1,3 +1,5 @@
+import {renderTooltipCell} from "../../../commonConfig";
+
 const initialState = {
   openModal: 0,
   success: 0,
@@ -85,10 +87,10 @@ const generateDynamicColumns = (data, excludedFields = []) => {
   }));
 
   const staticColumns = [
-    { field: "customer_name", headerName: "Customer Name", width: 300 },
-    { field: "plant_location", headerName: "Location", width: 150 },
-    { field: "fg_part_no", headerName: "FG Code", width: 150 },
-    { field: "wheel_size", headerName: "Wheel Size", width: 125 },
+    { field: "customer_name", headerName: "Customer Name", width: 300 ,renderCell: (params) => renderTooltipCell(params.value),},
+    { field: "plant_location", headerName: "Location", width: 150,renderCell: (params) => renderTooltipCell(params.value), },
+    { field: "fg_part_no", headerName: "FG Code", width: 150,renderCell: (params) => renderTooltipCell(params.value), },
+    { field: "wheel_size", headerName: "Wheel Size", width: 125 ,renderCell: (params) => renderTooltipCell(params.value),},
   ];
 
   return [...staticColumns, ...dynamicColumns];
