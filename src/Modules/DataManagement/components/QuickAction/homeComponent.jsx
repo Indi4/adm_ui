@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment, startTransition } from "react";
 import { Alert, Card, Button, Col, Row } from 'react-bootstrap'
+import Pageheader from '../../../../layouts/pageheader/pageheader'
 import { Grid, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -79,110 +80,98 @@ function HomeComponent() {
             label: "Procurement Plan",
             path: "/cdc/report/procurementPlan",
             tab: "stockDetails",
-            icon: <AssessmentIcon fontSize="large" sx={{ color: "#45b39d" }} />,
+            icon: <AssessmentIcon fontSize="large" sx={{ color: "#2980b9" }} />,
         },
     ];
 
+    const breadcrumbs = ["Quick Action"]
+
     return (
         <Fragment>
-            {/* <Pageheader items={breadcrumbs} /> */}
+            <Pageheader items={breadcrumbs} />
             <Row>
                 <Col xl={12}>
-                    {/* <div >
-                        <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/053.webp" alt="Avatar" class="image" />
-                            <div class="overlay">My Name is John</div>
-                    </div> */}
+                    <Card className=" mg-b-20">
+                        <Card.Header>
+                            <Card.Title>
+                                Demand Capture
+                            </Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                            <Grid container spacing={3} sx={{ padding: 4 }}>
+                                {demandDetailsActions.map((action, index) => (
+                                    <Grid item xs={12} sm={6} md={4} key={index}>
+                                        <Box
+                                            onClick={() => handleNavigate(action.path, action.tab)}
+                                            sx={{
+                                                backgroundColor: "#f0f0f5",
+                                                borderRadius: "12px",
+                                                boxShadow: "0px 4px 5px rgba(0, 0, 0, 0.1)",
+                                                padding: 3,
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                position: "relative", // Required for overlay positioning
+                                                transition: "transform 0.3s, box-shadow 0.3s, background 0.3s",
+                                                "&:hover": {
+                                                    transform: "scale(1.05)",
+                                                    boxShadow: "0px 8px 5px rgba(0, 0, 0, 0.2)",
+                                                    background: "#0d6b91a3",
+                                                    // "linear-gradient(93deg, #6119a4 1%, #c53745 48%, #4520af 90%, #0c2655 100%)",
+                                                    color: "#fff",
+                                                },
+                                            }}
+                                        >
+                                            {/* Content inside the Box */}
 
-                    <Typography component="div" sx={{ mb: { xs: 4, md: 6 } }}>
-                        <Typography variant="h7" color="primary" >
-                            Quick Action
-                        </Typography>
-                    </Typography>
-
-                    <Typography variant="h6" sx={{ mb: 2, color: "#333" }}>
-                        Demand Capture
-                    </Typography>
-
-                    <Grid container spacing={3} sx={{ padding: 4 }}>
-                        {demandDetailsActions.map((action, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index}>
-                                <Box
-                                    onClick={() => handleNavigate(action.path, action.tab)}
-                                    sx={{
-                                        backgroundColor: "#f0f0f5",
-                                        borderRadius: "12px",
-                                        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                                        padding: 3,
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                        position: "relative", // Required for overlay positioning
-                                        transition: "transform 0.3s, box-shadow 0.3s, background 0.3s",
-                                        "&:hover": {
-                                            transform: "scale(1.05)",
-                                            boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
-                                            background: "#0d6b91a3",
-                                            // "linear-gradient(93deg, #6119a4 1%, #c53745 48%, #4520af 90%, #0c2655 100%)",
-                                            color: "#fff",
-                                        },
-                                        // "&:hover::after": {
-                                        //     content: '""',
-                                        //     position: "absolute",
-                                        //     top: 0,
-                                        //     left: 0,
-                                        //     right: 0,
-                                        //     bottom: 0,
-                                        //     background: "rgba(0, 0, 0, 0.2)", // Black-blue overlay with transparency
-                                        //     borderRadius: "12px", // Ensure it matches the border radius
-                                        //     pointerEvents: "none", // Prevent overlay from blocking clicks
-                                        //     color: "#fff",
-                                        // },
-                                    }}
-                                >
-                                    {/* Content inside the Box */}
-
-                                    <Box sx={{ fontSize: 40, mb: 1 }}>{action.icon}</Box>
-                                    <Typography variant="h6" sx={{ mt: 1, fontWeight: "medium", opacity: 1 }}>
-                                        {action.label}
-                                    </Typography>
-                                </Box>
+                                            <Box sx={{ fontSize: 40, mb: 1 }}>{action.icon}</Box>
+                                            <Typography variant="h6" sx={{ mt: 1, fontWeight: "medium", opacity: 1 }}>
+                                                {action.label}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                ))}
                             </Grid>
-                        ))}
-                    </Grid>
-
-                    <Typography variant="h6" sx={{ mb: 4, color: "#333" }}>
-                        Reports
-                    </Typography>
-
-                    <Grid container spacing={3} sx={{ padding: 4 }}>
-                        {reportsActions.map((action, index) => (
-                            <Grid item xs={12} sm={6} md={4} key={index}>
-                                <Box
-                                    onClick={() => handleNavigate(action.path, action.tab)}
-                                    sx={{
-                                        backgroundColor: "#f0f0f5",
-                                        borderRadius: "12px",
-                                        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                                        padding: 3,
-                                        textAlign: "center",
-                                        cursor: "pointer",
-                                        transition: "transform 0.3s, box-shadow 0.3s",
-                                        "&:hover": {
-                                            transform: "scale(1.05)",
-                                            boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
-                                            background: "#0d6b91a3",
-                                            // "linear-gradient(93deg, #6119a4 1%, #c53745 48%, #4520af 90%, #0c2655 100%)",
-                                            color: "#fff",
-                                        },
-                                    }}
-                                >
-                                    <Box sx={{ fontSize: 40, mb: 1 }}>{action.icon}</Box>
-                                    <Typography variant="h6" sx={{ mt: 1, fontWeight: "medium", opacity: 1 }}>
-                                        {action.label}
-                                    </Typography>
-                                </Box>
+                        </Card.Body>
+                    </Card>
+                    <Card>
+                        <Card.Header>
+                            <Card.Title>
+                               Reports
+                            </Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                            <Grid container spacing={3} sx={{ padding: 4 }}>
+                                {reportsActions.map((action, index) => (
+                                    <Grid item xs={12} sm={6} md={4} key={index}>
+                                        <Box
+                                            onClick={() => handleNavigate(action.path, action.tab)}
+                                            sx={{
+                                                backgroundColor: "#f0f0f5",
+                                                borderRadius: "12px",
+                                                boxShadow: "0px 4px 5px rgba(0, 0, 0, 0.1)",
+                                                padding: 3,
+                                                textAlign: "center",
+                                                cursor: "pointer",
+                                                transition: "transform 0.3s, box-shadow 0.3s",
+                                                "&:hover": {
+                                                    transform: "scale(1.05)",
+                                                    boxShadow: "0px 8px 5px rgba(0, 0, 0, 0.2)",
+                                                    background: "#0d6b91a3",
+                                                    // "linear-gradient(93deg, #6119a4 1%, #c53745 48%, #4520af 90%, #0c2655 100%)",
+                                                    color: "#fff",
+                                                },
+                                            }}
+                                        >
+                                            <Box sx={{ fontSize: 40, mb: 1 }}>{action.icon}</Box>
+                                            <Typography variant="h6" sx={{ mt: 1, fontWeight: "medium", opacity: 1 }}>
+                                                {action.label}
+                                            </Typography>
+                                        </Box>
+                                    </Grid>
+                                ))}
                             </Grid>
-                        ))}
-                    </Grid>
+                        </Card.Body>
+                    </Card>
                 </Col>
             </Row>
         </Fragment >
