@@ -11,6 +11,7 @@ import { CDC_SAVE_ACTUALDISPATCH, CDC_GET_ACTUALDISPATCH } from "../../../endPoi
 import { callCommonGetAPI } from '../../../../store/action/action'
 import TotalRecords from '../../../../commonComponent/totalRecords'
 import { toast } from "react-toastify";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState })
@@ -23,6 +24,7 @@ function HomeComponent(props) {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         props.getActualDispatchData(endPoint)
         return () => { reset() }
     }, [])
@@ -33,6 +35,7 @@ function HomeComponent(props) {
                 setActualDispatchList(props.actualDispatchData.data)
                 setTotalPage(props.actualDispatchData.count || props.actualDispatchData.data.length)
             }
+            setLoading(false);
         }
     }, [props.actualDispatchData])
 
@@ -97,7 +100,10 @@ function HomeComponent(props) {
                                 <Col md="12">
                                     <TotalRecords color='outline-success' length={actualDispatchList && actualDispatchList.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
-                                        {actualDispatchList && actualDispatchList.length > 0 ?
+                                    {loading ? (
+                                                <LoaderComponent />
+                                        ) : (
+                                    actualDispatchList && actualDispatchList.length > 0 ?
                                             <DataGrid
                                                 rows={actualDispatchList}
                                                 columns={actualDispatchColumns}
@@ -172,7 +178,7 @@ function HomeComponent(props) {
                                             />
 
                                             :
-                                            "No Data Found"}
+                                            "No Data Found")}
                                     </div>
                                 </Col>
                             </div>

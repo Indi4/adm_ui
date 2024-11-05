@@ -26,7 +26,7 @@ import { Button, Dropdown } from "react-bootstrap";
 
 import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
 import FilterComponent from "../../commonComponent/filter";
-import { Tooltip } from "@mui/material";
+import { CircularProgress, Tooltip } from "@mui/material";
 import { Card } from "react-bootstrap";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
 import {
@@ -35,6 +35,7 @@ import {
 } from "../../../../components/bootstrap/buttons/data/buttondata";
 import TotalRecords from "../../../../commonComponent/totalRecords";
 import { Singlesquare } from "../../../../components/Bootstrap/Dropdowns/data/dropdowndata";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 const style = {
   fontWeight: "bold",
 };
@@ -44,6 +45,7 @@ function HomeComponent(props) {
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
   const [isSave, setIsSave] = useState(0);
+  const [loading, setLoading] = useState(false); 
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 5,
     page: 0,
@@ -65,6 +67,7 @@ function HomeComponent(props) {
 
   useEffect(() => {
     // getCustomerNameCode(endPoint)
+    setLoading(true);
     getallDemandData(`${CDC_AOP}?year=${state.year}`);
     const years = getYearList(10, 5);
     setYearList(years);
@@ -79,6 +82,7 @@ function HomeComponent(props) {
         setallDemandList(allDemandData.data);
         setTotalPage(allDemandData.count || allDemandData.data.length);
       }
+      setLoading(false);
     }
   }, [allDemandData]);
 
@@ -88,10 +92,9 @@ function HomeComponent(props) {
       toast.success(updateMonthlyDemandDetailsData.message);
       customerNameorCode !== ""
         ? getallDemandData(
-            `${CDC_AOP}?year=${
-              !!state.year ? state.year : ""
-            }&search=${customerNameorCode}`
-          )
+          `${CDC_AOP}?year=${!!state.year ? state.year : ""
+          }&search=${customerNameorCode}`
+        )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     }
     if (
@@ -111,10 +114,9 @@ function HomeComponent(props) {
       refreshProps("allDemandData");
       customerNameorCode !== ""
         ? getallDemandData(
-            `${CDC_AOP}?year=${
-              !!state.year ? state.year : ""
-            }&search=${customerNameorCode}`
-          )
+          `${CDC_AOP}?year=${!!state.year ? state.year : ""
+          }&search=${customerNameorCode}`
+        )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     } else if (!success && message !== "") {
       toast.error(message);
@@ -124,8 +126,8 @@ function HomeComponent(props) {
   const handleChangeEvent = (e, i) => {
     customerNameorCode !== ""
       ? getallDemandData(
-          `${CDC_AOP}?year=${e.target.value}&search=${customerNameorCode}`
-        )
+        `${CDC_AOP}?year=${e.target.value}&search=${customerNameorCode}`
+      )
       : getallDemandData(`${CDC_AOP}?year=${e.target.value}`);
   };
 
@@ -155,10 +157,9 @@ function HomeComponent(props) {
       refreshProps("allDemandData");
       customerNameorCode !== ""
         ? getallDemandData(
-            `${CDC_AOP}?year=${
-              !!state.year ? state.year : ""
-            }&search=${customerNameorCode}`
-          )
+          `${CDC_AOP}?year=${!!state.year ? state.year : ""
+          }&search=${customerNameorCode}`
+        )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     } else if (!success && message !== "") {
       toast.error(message);
@@ -433,83 +434,7 @@ function HomeComponent(props) {
         </div>
       ),
     },
-    // {
-    //     field: 'rowTotal',
-    //     headerName: 'Total',
-    //     width: 120,
-    //     valueGetter: (params) => {
-    //         const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    //         return months.reduce((sum, month) => sum + (params.row[month] || 0), 0);
-    //     },
-    //     renderCell: (params) => (
-    //         <div style={{ fontWeight: 'bold' }}>{new Intl.NumberFormat().format(params.value)}</div>
-    //     ),
-    //     editable: false, // Total column is not editable
-    // },
-    // {
-    //     field: 'revision',
-    //     headerName: 'Revision',
-    //     width: 90,
-    //     valueGetter: (params) => {
-    //         if (params.row.id === 'footer') {
-    //             return ''; // Footer row should have no revision value
-    //         }
-    //         // Ensure `params.row.revision` is a string
-    //         const revision = params.row.revision || '';
-    //         // Check if it's a string and contains 'R', otherwise append ' R'
-    //         return typeof revision === 'string' && revision.includes('R')
-    //             ? revision
-    //             : `${revision} R`;
-    //     },
-    // },
-    // {
-    //     field: 'actions',
-    //     type: 'actions',
-    //     width: 100,
-    //     cellClassName: 'actions',
-    //     getActions: ({ id }) => {
-    //         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-    //         if (isInEditMode) {
-    //             return [
-    //                 <GridActionsCellItem
-    //                     icon={<SaveIcon />}
-    //                     label="Save"
-    //                     sx={{ color: 'primary.main' }}
-    //                     onClick={handleSaveClick(id)}
-    //                     disabled={id === 'footer'} // Disable actions for footer row
-    //                 />,
-    //                 <GridActionsCellItem
-    //                     icon={<CancelIcon />}
-    //                     label="Cancel"
-    //                     className="textPrimary"
-    //                     onClick={handleCancelClick(id)}
-    //                     color="inherit"
-    //                 // disabled={id === 'footer'} // Disable actions for footer row
-    //                 />,
-    //             ];
-    //         }
 
-    //         return [
-    //             <GridActionsCellItem
-    //                 icon={<EditIcon />}
-    //                 label="Edit"
-    //                 className="textPrimary"
-    //                 onClick={handleEditClick(id)}
-    //                 color="inherit"
-    //                 sx={{ color: 'green' }}
-    //                 disabled={id === 'footer'} // Disable actions for footer row
-    //             />,
-    //             <GridActionsCellItem
-    //                 icon={<DeleteIcon />}
-    //                 label="Delete"
-    //                 onClick={handleDeleteClick(id)}
-    //                 color="inherit"
-    //                 sx={{ color: '#bf361b' }}
-    //                 disabled={id === 'footer'} // Disable actions for footer row
-    //             />,
-    //         ];
-    //     },
-    // },
   ];
 
   const getFooterRow = () => {
@@ -548,20 +473,7 @@ function HomeComponent(props) {
       totalRowSum += monthSum; // Add to total sum
     });
     footerRow["rowTotal"] = totalRowSum;
-    // Debugging: log the raw values before formatting
 
-    // Format the numbers after all calculations are done
-    // months.forEach((month) => {
-    //     if (typeof footerRow[month] === 'number') {
-    //         console.log("footerRow[month]",footerRow[month])
-    //         footerRow[month] = formatter.format(footerRow[month]);
-    //     }
-    // });
-    // if (typeof footerRow['rowTotal'] === 'number') {
-    //     footerRow['rowTotal'] = formatter.format(footerRow['rowTotal']);
-    // }
-
-    // console.log("Formatted Footer Row:", footerRow);
     return footerRow;
   };
 
@@ -672,7 +584,11 @@ function HomeComponent(props) {
                       overflowY: "auto",
                     }}
                   >
-                    {allDemandList && allDemandList.length > 0 ? (
+                    {loading ? (
+                  
+                    <LoaderComponent   />
+                ) :
+                  allDemandList && allDemandList.length > 0 ? (
                       <DataGrid
                         rows={rowsWithFooter}
                         columns={MonthColumns}
@@ -682,57 +598,33 @@ function HomeComponent(props) {
                             <CustomFooter total={allDemandList.length} />
                           ),
                         }}
-                        // hideFooterPagination
-                        // rowModesModel={rowModesModel}
-                        // onRowModesModelChange={handleRowModesModelChange}
-                        // onRowEditStop={handleRowEditStop}
-
-                        // processRowUpdate={processRowUpdate}
-                        // pagination
-                        // paginationMode="server"
-                        // rowCount={totalPage}  // Ensure the total number of records is provided
-                        // pageSize={paginationModel.pageSize}
-                        // page={paginationModel.page}
-                        // onPageChange={(newPage) => handlePaginationChange({ ...paginationModel, page: newPage })}
-                        // onPageSizeChange={(newPageSize) => handlePaginationChange({ ...paginationModel, pageSize: newPageSize })}
-                        // slotProps={{
-                        //     toolbar: { setRows, setRowModesModel },
-                        // }}
-                        // getRowClassName={(params) =>
-                        //     params.id === `${rowsWithFooter.length - 1}` ? 'footer-row' : ''
-                        // }
 
                         hideFooterPagination
                         sx={{
-                          "& .MuiDataGrid-root": {
-                            border: "none",
+                          '& .MuiDataGrid-root': {
+                            border: 'none',
                           },
-                          "& .MuiDataGrid-columnHeaders": {
+                          '& .MuiDataGrid-columnHeaders': {
                             backgroundColor: "rgba(255, 255, 255, 0.7)",
                             color: "rgba(0, 0, 0, 0.87)",
-                            fontSize: "14px",
+                            fontSize: "15px",
                             borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
                             backdropFilter: "blur(10px)",
-                            WebkitBackdropFilter: "blur(10px)",
-                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                            boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                           },
-                          "& .MuiDataGrid-columnHeaderTitle": {
-                            whiteSpace: "normal",
-                            textAlign: "center",
+                          '& .MuiDataGrid-cell': {
+                            borderBottom: '1px solid #e0e0e0',
                           },
-                          "& .MuiDataGrid-cell": {
-                            borderBottom: "1px solid #e0e0e0",
+                          '& .footer-row': {
+                            fontWeight: 'bold',
+                            backgroundColor: '#f7f7f7',
+                            borderTop: '2px solid #4a6fa1',
                           },
-                          "& .footer-row": {
-                            fontWeight: "bold",
-                            backgroundColor: "#f7f7f7",
-                            borderTop: "2px solid #4a6fa1",
+                          '& .MuiDataGrid-row:hover': {
+                            backgroundColor: '#e0f7fa',
                           },
-                          "& .MuiDataGrid-row:hover": {
-                            backgroundColor: "#e0f7fa",
-                          },
-                          "& .MuiDataGrid-selectedRowCount": {
-                            color: "#4a6fa1",
+                          '& .MuiDataGrid-selectedRowCount': {
+                            color: '#4a6fa1',
                           },
                           "& .MuiDataGrid-virtualScroller": {
                             "&::-webkit-scrollbar": {
@@ -740,11 +632,11 @@ function HomeComponent(props) {
                               height: "10px",
                             },
                             "&::-webkit-scrollbar-thumb": {
-                              backgroundColor: "#d3d3d3",
+                              backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                               borderRadius: "10px",
                             },
                             "&::-webkit-scrollbar-thumb:hover": {
-                              backgroundColor: "#bbb",
+                              backgroundColor: "#8c8c8c", // Darker grey on hover
                             },
                           },
                           "& .MuiDataGrid-root": {
@@ -752,16 +644,16 @@ function HomeComponent(props) {
                               height: "10px",
                             },
                             "&::-webkit-scrollbar-thumb": {
-                              backgroundColor: "#d3d3d3",
+                              backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                               borderRadius: "10px",
                             },
                             "&::-webkit-scrollbar-thumb:hover": {
-                              backgroundColor: "#bbb",
+                              backgroundColor: "#8c8c8c", // Darker grey on hover
                             },
                           },
-                          "& .MuiDataGrid-toolbarContainer": {
-                            backgroundColor: "#f0f0f0",
-                            borderBottom: "1px solid #d3d3d3",
+                          '& .MuiDataGrid-toolbarContainer': {
+                            backgroundColor: '#f0f0f0',
+                            borderBottom: '1px solid #d3d3d3',
                           },
                         }}
                       />

@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { saveAs } from 'file-saver';
 import { ToastContainer, toast } from "react-toastify";
 import config from "../../../../config";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 const BASE_URL = config.apiUrl;
 
 
@@ -103,7 +104,7 @@ function HomeComponent(props) {
         setDownloading(true);
         try {
             const response = await fetch(`${BASE_URL}/mdm/rm_stock2/?export=xlsx`);
-            
+
             if (!response.ok) {
                 throw new Error('Failed to download Excel file');
             }
@@ -127,7 +128,7 @@ function HomeComponent(props) {
 
     return (
         <Fragment>
-             <ToastContainer />
+            <ToastContainer />
             <Pageheader items={breadcrumbs} />
             <Row>
                 <Col xl={12}>
@@ -161,9 +162,8 @@ function HomeComponent(props) {
                                     <TotalRecords color='outline-success' length={state.rawMaterialList && state.rawMaterialList.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
                                         {loading ? (
-                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                <CircularProgress />
-                                            </div>
+                                           
+                                                <LoaderComponent />
                                         ) : (
                                             state.rawMaterialList && state.rawMaterialList.length > 0 ? (
                                                 <DataGrid
@@ -177,20 +177,14 @@ function HomeComponent(props) {
                                                     sx={{
                                                         '& .MuiDataGrid-root': {
                                                             border: 'none',
-                                                            //fontFamily: 'Arial, sans-serif',
                                                         },
                                                         '& .MuiDataGrid-columnHeaders': {
-                                                            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                                            color: 'rgba(0, 0, 0, 0.87)',
-                                                            fontSize: '15px',
-                                                            borderBottom: '2px solid rgba(60, 90, 120, 0.5)',
-                                                            backdropFilter: 'blur(10px)',
-                                                            WebkitBackdropFilter: 'blur(10px)',
-                                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                                                        },
-                                                        "& .MuiDataGrid-columnHeaderTitle": {
-                                                            whiteSpace: "normal",   // Make sure the header title also wraps
-                                                            textAlign: "center",    // Center the text
+                                                            backgroundColor: "rgba(255, 255, 255, 0.7)",
+                                                            color: "rgba(0, 0, 0, 0.87)",
+                                                            fontSize: "15px",
+                                                            borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                                                            backdropFilter: "blur(10px)",
+                                                            boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                                                         },
                                                         '& .MuiDataGrid-cell': {
                                                             borderBottom: '1px solid #e0e0e0',
@@ -212,11 +206,11 @@ function HomeComponent(props) {
                                                                 height: "10px",
                                                             },
                                                             "&::-webkit-scrollbar-thumb": {
-                                                                backgroundColor: "#d3d3d3",
+                                                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                                                                 borderRadius: "10px",
                                                             },
                                                             "&::-webkit-scrollbar-thumb:hover": {
-                                                                backgroundColor: "#bbb",
+                                                                backgroundColor: "#8c8c8c", // Darker grey on hover
                                                             },
                                                         },
                                                         "& .MuiDataGrid-root": {
@@ -224,11 +218,11 @@ function HomeComponent(props) {
                                                                 height: "10px",
                                                             },
                                                             "&::-webkit-scrollbar-thumb": {
-                                                                backgroundColor: "#d3d3d3",
+                                                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                                                                 borderRadius: "10px",
                                                             },
                                                             "&::-webkit-scrollbar-thumb:hover": {
-                                                                backgroundColor: "#bbb",
+                                                                backgroundColor: "#8c8c8c", // Darker grey on hover
                                                             },
                                                         },
                                                         '& .MuiDataGrid-toolbarContainer': {
