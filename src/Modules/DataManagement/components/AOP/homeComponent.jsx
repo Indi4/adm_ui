@@ -35,6 +35,7 @@ import {
 } from "../../../../components/bootstrap/buttons/data/buttondata";
 import TotalRecords from "../../../../commonComponent/totalRecords";
 import { Singlesquare } from "../../../../components/Bootstrap/Dropdowns/data/dropdowndata";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 const style = {
   fontWeight: "bold",
 };
@@ -584,16 +585,8 @@ function HomeComponent(props) {
                     }}
                   >
                     {loading ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "100%",
-                    }}
-                  >
-                    <CircularProgress />
-                  </div>
+                  
+                    <LoaderComponent   />
                 ) :
                   allDemandList && allDemandList.length > 0 ? (
                       <DataGrid

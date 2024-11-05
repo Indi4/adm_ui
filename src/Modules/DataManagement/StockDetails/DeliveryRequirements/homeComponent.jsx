@@ -14,6 +14,7 @@ import apiService from "../../../../services/apiService";
 import { v4 as uuidv4 } from 'uuid';
 import { saveAs } from 'file-saver';
 import { toast } from "react-toastify";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState });
@@ -26,7 +27,6 @@ function HomeComponent(props) {
 
     useEffect(() => {
         setLoading(true);
-
         getTotalNetOffData(`${endPoint}search=&demand_month=${currentMonth}`)
         return () => { reset() };
     }, [])
@@ -113,9 +113,7 @@ function HomeComponent(props) {
                                     <TotalRecords color='outline-success' length={state.totalNetOffList && state.totalNetOffList.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 460, overflowY: 'auto' }}>
                                         {loading ? (
-                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                <CircularProgress />
-                                            </div>
+                                                <LoaderComponent />
                                         ) : (
                                             state.totalNetOffList && state.totalNetOffList.length > 0 ? (
                                                 <DataGrid

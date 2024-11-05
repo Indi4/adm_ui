@@ -15,6 +15,7 @@ import { CircularProgress } from "@mui/material";
 import { Card } from "react-bootstrap";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
 import TotalRecords from "../../../../commonComponent/totalRecords";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 
 function HomeComponent(props) {
   const [state, setState] = useState({ ...initialState });
@@ -125,16 +126,9 @@ function HomeComponent(props) {
                 }}
               >
                 {loading ? (
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: "100%",
-                    }}
-                  >
-                    <CircularProgress />
-                  </div>
+
+                  <LoaderComponent />
+
                 ) : state.totalStockList && state.totalStockList.length > 0 ? (
                   <DataGrid
                     rows={state.totalStockList || []}

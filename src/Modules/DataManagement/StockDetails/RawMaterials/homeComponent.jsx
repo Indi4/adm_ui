@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { saveAs } from 'file-saver';
 import { ToastContainer, toast } from "react-toastify";
 import config from "../../../../config";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 const BASE_URL = config.apiUrl;
 
 
@@ -161,9 +162,8 @@ function HomeComponent(props) {
                                     <TotalRecords color='outline-success' length={state.rawMaterialList && state.rawMaterialList.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
                                         {loading ? (
-                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                <CircularProgress />
-                                            </div>
+                                           
+                                                <LoaderComponent />
                                         ) : (
                                             state.rawMaterialList && state.rawMaterialList.length > 0 ? (
                                                 <DataGrid

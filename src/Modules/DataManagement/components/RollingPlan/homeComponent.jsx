@@ -30,6 +30,7 @@ import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import TotalRecords from "../../../../commonComponent/totalRecords";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
+import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 
 function HomeComponent(props) {
   const [state, setState] = useState({ ...initialState });
@@ -43,6 +44,8 @@ function HomeComponent(props) {
   const [totalPage, setTotalPage] = useState(0);
   const [columns, setColumns] = useState([]);
   const [flag, setFlag] = useState([false]);
+  const [loading, setLoading] = useState(false); 
+
   const [customerNameorCodeList, setCustomerNameorCodeList] = useState([]);
   const [customerNameorCode, setCustomerNameorCode] = useState("");
   const {
@@ -56,6 +59,7 @@ function HomeComponent(props) {
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     getallDemandData(`${endPoint}`);
     return () => {
       reset();
@@ -68,6 +72,7 @@ function HomeComponent(props) {
         setallDemandList(allDemandData.data);
         setTotalPage(allDemandData.count || allDemandData.data.length);
       }
+      setLoading(false);
     }
   }, [allDemandData]);
 
@@ -348,7 +353,11 @@ function HomeComponent(props) {
                   overflowY: "auto",
                 }}
               >
-                {allDemandList && allDemandList.length > 0 ? (
+                 {loading ? (
+                  
+                  <LoaderComponent />
+              ) :
+                allDemandList && allDemandList.length > 0 ? (
                   <DataGrid
                     rows={allDemandList || []}
                     columns={columns}

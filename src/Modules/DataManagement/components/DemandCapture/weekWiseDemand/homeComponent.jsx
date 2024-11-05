@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import debounce from 'lodash/debounce';
 import TotalRecords from '../../../../../commonComponent/totalRecords'
 import { Appbtn, Outline } from "../../../../../components/bootstrap/buttons/data/buttondata";
+import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
 
 function HomeComponent(props) {
     const [state, setState] = useState({ ...initialState });
@@ -37,9 +38,11 @@ function HomeComponent(props) {
     const [isSet, setIsSet] = useState(0);
     //const [onPageLoad, setOnpageLoad] = useState(1);
     const [isSave, setIsSave] = useState(0)
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
+        setLoading(true);
         if (state.demand_year !== "" && state.demand_month !== "") {
             getweekDemandData(`${CDC_WEEKWISE_DEMANDS}?demand_month=${state.demand_month}&demand_year=${state.demand_year}`)
         } else if (state.demand_year === "" && state.demand_month === "") {
@@ -59,6 +62,7 @@ function HomeComponent(props) {
             })
             console.log("tempArr", tempArr)
             setFgRmStockList(tempArr)
+            setLoading(false);
         }
     }, [weekDemandData]);
 
@@ -667,101 +671,105 @@ function HomeComponent(props) {
                                 <Col md="12">
                                     <TotalRecords color='outline-success' length={rowss && rowss.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
-                                        {rowss && rowss.length > 0 ? (
-                                            <DataGrid
-                                                rows={rowss || []}
-                                                columns={columnss}
-                                                editMode="row" // Use cell edit mode
-                                                // onCellKeyDown={handleCellKeyDown} // Handle cell keydown event
-                                                components={{
-                                                    Footer: () => <CustomFooter total={rowss.length} />,
-                                                }}
-                                                //  onCellEditCommit={handleCellEditCommit} // Handle cell edit commit event
-                                                headerHeight={56}
-                                                isCellEditable={(params) => params.row.editable === true}
-                                                rowModesModel={rowModesModel}
-                                                onRowModesModelChange={handleRowModesModelChange}
-                                                onRowEditStop={handleRowEditStop}
-                                                processRowUpdate={processRowUpdate}
-                                                pagination
-                                                paginationMode="server"
-                                                rowCount={totalPage}  // Ensure the total number of records is provided
-                                                pageSize={paginationModel.pageSize}
-                                                page={paginationModel.page}
-                                                onPageChange={(newPage) => handlePaginationChange({ ...paginationModel, page: newPage })}
-                                                onPageSizeChange={(newPageSize) => handlePaginationChange({ ...paginationModel, pageSize: newPageSize })}
-                                                getRowId={(row) => row.id}
-                                                getRowClassName={(params) =>
-                                                    params.row.editable === false ? "light-grey-row" : "" // Apply the light-grey-row class to all rows except the last in the group
-                                                }
-                                                getCellClassName={(params) => {
-                                                    const colorField = `${params.field}Color`; // Field to check for color
-                                                    return params.row[colorField] || ''; // Return the color class if present
-                                                }}
-                                                hideFooterPagination
-                                                slotProps={{
-                                                    toolbar: { setRows, setRowModesModel },
-                                                }}
-                                                sx={{
-                                                    '& .MuiDataGrid-root': {
-                                                        border: 'none',
-                                                    },
-                                                    '& .MuiDataGrid-columnHeaders': {
-                                                        backgroundColor: "rgba(255, 255, 255, 0.7)",
-                                                        color: "rgba(0, 0, 0, 0.87)",
-                                                        fontSize: "15px",
-                                                        borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
-                                                        backdropFilter: "blur(10px)",
-                                                        boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
-                                                    },
-                                                    '& .MuiDataGrid-cell': {
-                                                        borderBottom: '1px solid #e0e0e0',
-                                                    },
-                                                    '& .footer-row': {
-                                                        fontWeight: 'bold',
-                                                        backgroundColor: '#f7f7f7',
-                                                        borderTop: '2px solid #4a6fa1',
-                                                    },
-                                                    '& .MuiDataGrid-row:hover': {
-                                                        backgroundColor: '#e0f7fa',
-                                                    },
-                                                    '& .MuiDataGrid-selectedRowCount': {
-                                                        color: '#4a6fa1',
-                                                    },
-                                                    "& .MuiDataGrid-virtualScroller": {
-                                                        "&::-webkit-scrollbar": {
-                                                            width: "10px",
-                                                            height: "10px",
+                                        {loading ? (
+
+                                            <LoaderComponent />
+                                        ) :
+                                             rowss && rowss.length > 0 ? (
+                                                <DataGrid
+                                                    rows={rowss || []}
+                                                    columns={columnss}
+                                                    editMode="row" // Use cell edit mode
+                                                    // onCellKeyDown={handleCellKeyDown} // Handle cell keydown event
+                                                    components={{
+                                                        Footer: () => <CustomFooter total={rowss.length} />,
+                                                    }}
+                                                    //  onCellEditCommit={handleCellEditCommit} // Handle cell edit commit event
+                                                    headerHeight={56}
+                                                    isCellEditable={(params) => params.row.editable === true}
+                                                    rowModesModel={rowModesModel}
+                                                    onRowModesModelChange={handleRowModesModelChange}
+                                                    onRowEditStop={handleRowEditStop}
+                                                    processRowUpdate={processRowUpdate}
+                                                    pagination
+                                                    paginationMode="server"
+                                                    rowCount={totalPage}  // Ensure the total number of records is provided
+                                                    pageSize={paginationModel.pageSize}
+                                                    page={paginationModel.page}
+                                                    onPageChange={(newPage) => handlePaginationChange({ ...paginationModel, page: newPage })}
+                                                    onPageSizeChange={(newPageSize) => handlePaginationChange({ ...paginationModel, pageSize: newPageSize })}
+                                                    getRowId={(row) => row.id}
+                                                    getRowClassName={(params) =>
+                                                        params.row.editable === false ? "light-grey-row" : "" // Apply the light-grey-row class to all rows except the last in the group
+                                                    }
+                                                    getCellClassName={(params) => {
+                                                        const colorField = `${params.field}Color`; // Field to check for color
+                                                        return params.row[colorField] || ''; // Return the color class if present
+                                                    }}
+                                                    hideFooterPagination
+                                                    slotProps={{
+                                                        toolbar: { setRows, setRowModesModel },
+                                                    }}
+                                                    sx={{
+                                                        '& .MuiDataGrid-root': {
+                                                            border: 'none',
                                                         },
-                                                        "&::-webkit-scrollbar-thumb": {
-                                                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                                                            borderRadius: "10px",
+                                                        '& .MuiDataGrid-columnHeaders': {
+                                                            backgroundColor: "rgba(255, 255, 255, 0.7)",
+                                                            color: "rgba(0, 0, 0, 0.87)",
+                                                            fontSize: "15px",
+                                                            borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                                                            backdropFilter: "blur(10px)",
+                                                            boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                                                         },
-                                                        "&::-webkit-scrollbar-thumb:hover": {
-                                                            backgroundColor: "#8c8c8c", // Darker grey on hover
+                                                        '& .MuiDataGrid-cell': {
+                                                            borderBottom: '1px solid #e0e0e0',
                                                         },
-                                                    },
-                                                    "& .MuiDataGrid-root": {
-                                                        "&::-webkit-scrollbar": {
-                                                            height: "10px",
+                                                        '& .footer-row': {
+                                                            fontWeight: 'bold',
+                                                            backgroundColor: '#f7f7f7',
+                                                            borderTop: '2px solid #4a6fa1',
                                                         },
-                                                        "&::-webkit-scrollbar-thumb": {
-                                                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                                                            borderRadius: "10px",
+                                                        '& .MuiDataGrid-row:hover': {
+                                                            backgroundColor: '#e0f7fa',
                                                         },
-                                                        "&::-webkit-scrollbar-thumb:hover": {
-                                                            backgroundColor: "#8c8c8c", // Darker grey on hover
+                                                        '& .MuiDataGrid-selectedRowCount': {
+                                                            color: '#4a6fa1',
                                                         },
-                                                    },
-                                                    '& .MuiDataGrid-toolbarContainer': {
-                                                        backgroundColor: '#f0f0f0',
-                                                        borderBottom: '1px solid #d3d3d3',
-                                                    },
-                                                }}
-                                            />
-                                        ) : (
-                                            "No Data Found!"
-                                        )}
+                                                        "& .MuiDataGrid-virtualScroller": {
+                                                            "&::-webkit-scrollbar": {
+                                                                width: "10px",
+                                                                height: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb": {
+                                                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                                                borderRadius: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                                                            },
+                                                        },
+                                                        "& .MuiDataGrid-root": {
+                                                            "&::-webkit-scrollbar": {
+                                                                height: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb": {
+                                                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                                                borderRadius: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                                                            },
+                                                        },
+                                                        '& .MuiDataGrid-toolbarContainer': {
+                                                            backgroundColor: '#f0f0f0',
+                                                            borderBottom: '1px solid #d3d3d3',
+                                                        },
+                                                    }}
+                                                />
+                                            ) : (
+                                                "No Data Found!"
+                                            )}
                                     </div>
                                 </Col>
                                 {allDemandList && allDemandList.length > 0 && (
