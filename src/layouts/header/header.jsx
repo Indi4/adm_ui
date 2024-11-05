@@ -232,6 +232,17 @@ function Header() {
     }
 
 
+    const handleCDCTooledirection = () => {
+        navigate("/cdc/dashboard", { state: { layout: "CDC_Tool" } });
+    };
+
+    const handleMDMRedirection = () => {
+        navigate("/mdm/customer-details", { state: { layout: "MDM" } });
+
+
+    };
+
+
 
     return (
         <Fragment>
@@ -252,7 +263,7 @@ function Header() {
                             <img src={logolight} className="header-brand-img darklogo"
                                 alt="Sparic logo" />
                         </Link>
-                       
+
                         {/* <div className="main-header-center ms-3 d-none d-lg-block">
                             <Form.Control type="text" defaultValue ={InputValue} id="typehead" placeholder="Search for results..." 
                                 autoComplete="off" onChange={(ele => { myfunction(ele.target.value); setInputValue(ele.target.value) })} />
@@ -351,10 +362,7 @@ function Header() {
                                                 <li>
                                                     <a
                                                         className="dropdown-item"
-                                                        onClick={() => {
-                                                            navigate("/cdn/dashboard", { state: { layout: "CDC_Tool" } });
-                                                            sessionStorage.setItem("layout", "CDC_Tool");
-                                                        }}
+                                                        onClick={handleCDCTooledirection}
                                                     >
                                                         Demand Management
                                                     </a>
@@ -362,10 +370,7 @@ function Header() {
                                                 <li>
                                                     <a
                                                         className="dropdown-item"
-                                                        onClick={() => {
-                                                            navigate("/mdm/customer-details", { state: { layout: "MDM" } });
-                                                            sessionStorage.setItem("layout", "MDM");
-                                                        }}
+                                                        onClick={handleMDMRedirection}
                                                     >
                                                         Master Data Management
                                                     </a>
@@ -665,24 +670,24 @@ function Header() {
 
                                                     <DialogActions>
                                                         {!isChangingPassword ? (
-                                                           <>
-                                                            {
-                                                                Outline.filter((idx) => idx.color === "outline-danger").map(
-                                                                    (idx, out) => (
-                                                                        <Button
-                                                                            key={out}
-                                                                            variant={idx.color}
-                                                                            onClick={handleCloseAccountDialog}
-                                                                            style={{ width: "100px", height: "30px" }}
-                                                                        >
-                                                                            Close
-                                                                        </Button>
+                                                            <>
+                                                                {
+                                                                    Outline.filter((idx) => idx.color === "outline-danger").map(
+                                                                        (idx, out) => (
+                                                                            <Button
+                                                                                key={out}
+                                                                                variant={idx.color}
+                                                                                onClick={handleCloseAccountDialog}
+                                                                                style={{ width: "100px", height: "30px" }}
+                                                                            >
+                                                                                Close
+                                                                            </Button>
+                                                                        )
                                                                     )
-                                                                )
-                                                            }</>
+                                                                }</>
                                                         ) : (
                                                             <>
-                                                              
+
 
                                                                 {Outline.filter((idx) => idx.color === "outline-danger").map(
                                                                     (idx, out) => (

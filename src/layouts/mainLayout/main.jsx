@@ -17,12 +17,12 @@ function main() {
 
   const handleCDCTooledirection = () => {
     navigate("/cdc/dashboard", { state: { layout: "CDC_Tool" } });
-    sessionStorage.setItem("layout", "CDC_Tool");
+    // sessionStorage.setItem("layout", "CDC_Tool");
   };
 
   const handleMDMRedirection = () => {
     navigate("/mdm/customer-details", { state: { layout: "MDM" } });
-    sessionStorage.setItem("layout", "MDM");
+    // sessionStorage.setItem("layout", "MDM");
   };
 
   useEffect(() => {
