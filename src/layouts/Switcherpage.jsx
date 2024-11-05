@@ -16,7 +16,7 @@ function Switcherpage() {
         <div className="page header-2" >
           <div className="page-main">
             <Header2 />
-            <Newsticker/>
+            {/* <Newsticker/> */}
             <Sidebar />
             <div className="main-content app-content">
               <div className="side-app">

@@ -31,7 +31,7 @@ function App() {
         <div className="page">
           <div className="page-main">
             <Header />
-            <Newsticker />
+            {/* <Newsticker /> */}
             <Sidebar />
             <div className="main-content app-content" onClick={() => Togglefuction()}>
               <div className="side-app">

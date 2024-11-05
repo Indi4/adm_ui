@@ -1,28 +1,10 @@
 @charset "UTF-8";
-/*------------------------------------------------------------------
-[Master Stylesheet]
-
-==========================================================================================================================================
-Project                        :   Sparic - react Javascript Admin dashboard template
-==========================================================================================================================================
-Create Date                    :   21/06/23
-------------------------------------------------------------------------------------------------------------------------------------------
-Author & Copyright Ownership   :   Spruko Technologies Private Limited 
-------------------------------------------------------------------------------------------------------------------------------------------
-Author URL                     :   https://themeforest.net/user/spruko
-------------------------------------------------------------------------------------------------------------------------------------------
-Support		               :   https://support.spruko.com/
-------------------------------------------------------------------------------------------------------------------------------------------
-License Details                :   https://spruko.com/licenses-details
-------------------------------------------------------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------*/
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-    --primary-bg-color: #467fcf;
-    --primary-bg-hover: #2e5d9f;
-    --primary-bg-border: #2e5d9f;
+    --primary-bg-color: #467fcf !important;
+    --primary-bg-hover: #2e5d9f !important;
+    --primary-bg-border: #2e5d9f !important;
     --primary01: rgba(70, 127, 207, 0.1);
     --primary02: rgba(70, 127, 207, 0.2);
     --primary03: rgba(70, 127, 207, 0.3);
@@ -25095,7 +25077,8 @@ dd {
     -o-transition: margin-inline-start 450ms ease;
     transition: margin-inline-start 450ms ease;
     overflow: clip;
-    margin-block-start: 62px;
+    /* margin-block-start: 62px; */
+     margin-block-start: 10px;
 }
 
 .app-content .side-app {
@@ -25309,7 +25292,7 @@ dd {
     -webkit-transition: border-inline-start-color 0.3s ease, background-color 0.3s ease;
     -o-transition: border-inline-start-color 0.3s ease, background-color 0.3s ease;
     transition: border-inline-start-color 0.3s ease, background-color 0.3s ease;
-    color: #454e60;
+    color: #26272b;
     margin: 2px 0px;
     white-space: nowrap;
 }
