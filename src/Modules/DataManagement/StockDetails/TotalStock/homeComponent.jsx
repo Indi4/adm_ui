@@ -126,7 +126,6 @@ function HomeComponent(props) {
                 }}
               >
                 {loading ? (
-
                   <LoaderComponent />
 
                 ) : state.totalStockList && state.totalStockList.length > 0 ? (

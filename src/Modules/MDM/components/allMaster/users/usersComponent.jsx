@@ -12,11 +12,13 @@ import { IconButton, Tooltip } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Buttonsoutline } from "../../../../../components/bootstrap/badgespills/data/badgesdata";
+import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
 
 function UsersComponent(props) {
   const [state, setState] = useState({ ...initialState });
   const [endPoint] = useState(GETALL_USER);
   const [userList, setUserList] = useState([]);
+  const [loading, setLoading] = useState(false); // New loading state for the whole component
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 5,
     page: 0,
@@ -27,6 +29,7 @@ function UsersComponent(props) {
   const { getUserData, userDetailsData } = props;
 
   useEffect(() => {
+    setLoading(true);
     const roles = userDetailsData?.data?.map((item) => item.role);
     setRoles(roles);
     return () => {
@@ -91,6 +94,7 @@ function UsersComponent(props) {
     if (userDetailsData && Object.keys(userDetailsData).length > 0) {
       setUserList(userDetailsData.data);
       setTotalPage(userDetailsData.count);
+      setLoading(false);
     }
   }, [userDetailsData]);
 
@@ -177,7 +181,11 @@ function UsersComponent(props) {
                     overflowY: "auto",
                   }}
                 >
-                  {userList && userList.length > 0 ? (
+                  {loading ? (
+                  <LoaderComponent />
+
+                ) : 
+                  userList && userList.length > 0 ? (
                     <DataGrid
                       rows={userList}
                       columns={memoizedColumns}

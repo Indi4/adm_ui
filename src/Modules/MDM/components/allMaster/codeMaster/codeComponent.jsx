@@ -13,6 +13,7 @@ import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Buttonsoutline } from "../../../../../components/bootstrap/badgespills/data/badgesdata";
+import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
 
 function CodeComponent(props) {
   const [state, setState] = useState({ ...initialState });
@@ -23,9 +24,11 @@ function CodeComponent(props) {
     page: 0,
   });
   const [totalPage, setTotalPage] = useState(0);
+  const [loading, setLoading] = useState(false); // New loading state for the whole component
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     props.getCodeData(endPoint);
     return () => {
       reset();
@@ -90,6 +93,7 @@ function CodeComponent(props) {
     ) {
       setCodeList(props.codeDetailsData.data);
       setTotalPage(props.codeDetailsData.count);
+      setLoading(false);
     }
   }, [props.codeDetailsData]);
 
@@ -129,14 +133,14 @@ function CodeComponent(props) {
       <Row>
         <Col xl={12}>
           <Card>
-          <Card.Header className=" d-flex justify-content-between align-items-center">
+            <Card.Header className=" d-flex justify-content-between align-items-center">
 
-          <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
 
                 <Card.Title style={{ flexGrow: 1, marginTop: "20px", }}>
                   Plant Codes
                 </Card.Title>
-                <Card.Title style={{ marginTop: "10px", padding: "5px"}}>
+                <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
                   <Button
                     onClick={() => handleAddEditOpenModal(1, 0, 0, "Add", "")}
                     variant="contained"
@@ -151,93 +155,96 @@ function CodeComponent(props) {
 
             <Card.Body className="p-0">
               <div className="card-area">
-              <Col md="12" style={{marginTop:"10px" ,marginBottom:"10px"}}>
+                <Col md="12" style={{ marginTop: "10px", marginBottom: "10px" }}>
 
-                {Buttonsoutline.filter(
-                  (idx) => idx.color === "outline-info"
-                ).map((idx, index) => (
-                  <Button type="button" variant={idx.color} className="me-2">
-                    <span style={{ fontSize: "14px" }}>Total Records </span>
-                    <Badge bg={idx.bg} className="ms-2">
-                      {codeList.length}
-                    </Badge>
-                  </Button>
-                ))}
-                <div
-                  style={{
-                    marginTop: "10px",
-                    display: "grid",
-                    height: 500,
-                    overflowY: "auto",
-                  }}
-                >
-                  {codeList && codeList.length > 0 ? (
-                    <DataGrid
-                      rows={codeList || []}
-                      columns={memoizedColumns || []}
-                      getRowId={(row) => row.id}
-                      hideFooterPagination
-                      sx={{
-                        '& .MuiDataGrid-root': {
-                            border: 'none',
-                        },
-                        '& .MuiDataGrid-columnHeaders': {
-                            backgroundColor: "rgba(255, 255, 255, 0.7)",
-                            color: "rgba(0, 0, 0, 0.87)",
-                            fontSize: "15px",
-                            borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
-                            backdropFilter: "blur(10px)",
-                            boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
-                        },
-                        '& .MuiDataGrid-cell': {
-                            borderBottom: '1px solid #e0e0e0',
-                        },
-                        '& .footer-row': {
-                            fontWeight: 'bold',
-                            backgroundColor: '#f7f7f7',
-                            borderTop: '2px solid #4a6fa1',
-                        },
-                        '& .MuiDataGrid-row:hover': {
-                            backgroundColor: '#e0f7fa',
-                        },
-                        '& .MuiDataGrid-selectedRowCount': {
-                            color: '#4a6fa1',
-                        },
-                        "& .MuiDataGrid-virtualScroller": {
-                            "&::-webkit-scrollbar": {
+                  {Buttonsoutline.filter(
+                    (idx) => idx.color === "outline-info"
+                  ).map((idx, index) => (
+                    <Button type="button" variant={idx.color} className="me-2">
+                      <span style={{ fontSize: "14px" }}>Total Records </span>
+                      <Badge bg={idx.bg} className="ms-2">
+                        {codeList.length}
+                      </Badge>
+                    </Button>
+                  ))}
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      display: "grid",
+                      height: 500,
+                      overflowY: "auto",
+                    }}
+                  >
+                    {loading ? (
+                      <LoaderComponent />
+                    ) :
+                      codeList && codeList.length > 0 ? (
+                        <DataGrid
+                          rows={codeList || []}
+                          columns={memoizedColumns || []}
+                          getRowId={(row) => row.id}
+                          hideFooterPagination
+                          sx={{
+                            '& .MuiDataGrid-root': {
+                              border: 'none',
+                            },
+                            '& .MuiDataGrid-columnHeaders': {
+                              backgroundColor: "rgba(255, 255, 255, 0.7)",
+                              color: "rgba(0, 0, 0, 0.87)",
+                              fontSize: "15px",
+                              borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                              backdropFilter: "blur(10px)",
+                              boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
+                            },
+                            '& .MuiDataGrid-cell': {
+                              borderBottom: '1px solid #e0e0e0',
+                            },
+                            '& .footer-row': {
+                              fontWeight: 'bold',
+                              backgroundColor: '#f7f7f7',
+                              borderTop: '2px solid #4a6fa1',
+                            },
+                            '& .MuiDataGrid-row:hover': {
+                              backgroundColor: '#e0f7fa',
+                            },
+                            '& .MuiDataGrid-selectedRowCount': {
+                              color: '#4a6fa1',
+                            },
+                            "& .MuiDataGrid-virtualScroller": {
+                              "&::-webkit-scrollbar": {
                                 width: "10px",
                                 height: "10px",
-                            },
-                            "&::-webkit-scrollbar-thumb": {
+                              },
+                              "&::-webkit-scrollbar-thumb": {
                                 backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                                 borderRadius: "10px",
-                            },
-                            "&::-webkit-scrollbar-thumb:hover": {
+                              },
+                              "&::-webkit-scrollbar-thumb:hover": {
                                 backgroundColor: "#8c8c8c", // Darker grey on hover
+                              },
                             },
-                        },
-                        "& .MuiDataGrid-root": {
-                            "&::-webkit-scrollbar": {
+                            "& .MuiDataGrid-root": {
+                              "&::-webkit-scrollbar": {
                                 height: "10px",
-                            },
-                            "&::-webkit-scrollbar-thumb": {
+                              },
+                              "&::-webkit-scrollbar-thumb": {
                                 backgroundColor: "darkgrey", // Set scrollbar color to dark grey
                                 borderRadius: "10px",
-                            },
-                            "&::-webkit-scrollbar-thumb:hover": {
+                              },
+                              "&::-webkit-scrollbar-thumb:hover": {
                                 backgroundColor: "#8c8c8c", // Darker grey on hover
+                              },
                             },
-                        },
-                        '& .MuiDataGrid-toolbarContainer': {
-                            backgroundColor: '#f0f0f0',
-                            borderBottom: '1px solid #d3d3d3',
-                        },
-                    }}
-                    />
-                  ) : (
-                    "No Data Found"
-                  )}
-                </div>
+                            '& .MuiDataGrid-toolbarContainer': {
+                              backgroundColor: '#f0f0f0',
+                              borderBottom: '1px solid #d3d3d3',
+                            },
+                          }}
+                        />
+                      ) : (
+                        "No Data Found"
+                      )}
+                  </div>
                 </Col>
               </div>
             </Card.Body>
