@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from 'react-redux'
-import { Alert, Card, Button, Col, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Card, Button, Col, Row } from 'react-bootstrap'
 import Pageheader from '../../../../layouts/pageheader/pageheader'
 import { DataGrid } from "@mui/x-data-grid";
 import ModalPopUpComponent from '../../../../commonComponent/modalPopUpComponent'
