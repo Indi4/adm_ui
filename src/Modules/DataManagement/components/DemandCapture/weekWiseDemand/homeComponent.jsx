@@ -11,7 +11,7 @@ import ModalPopUpComponent from '../../../../../commonComponent/modalPopUpCompon
 import { GridRowModes, DataGrid, GridActionsCellItem, GridRowEditStopReasons } from "@mui/x-data-grid";
 import FilterComponent from "../../../commonComponent/filter";
 import { initialState, breadcrumbs } from "./config"
-import { months, years, currentYear, currentMonth } from "../../../../commonConfig";
+import { months, years, currentYear, currentMonth, renderTooltipCell } from "../../../../commonConfig";
 import { CDC_SAVE_WEEKWISE_DEMANDS, CDC_WEEKWISE_DEMANDS, GETALL_LIST } from "../../../../endPointConfig"
 import { callCommonGetAPI, callCommonRefreshProps, callCommonUpdateAPI } from '../../../../../store/action/action'
 import { toast } from "react-toastify";
@@ -346,16 +346,16 @@ function HomeComponent(props) {
     const dynamicMonthName = state.demand_month !== "" ? state.demand_month + " Qty (Nos.)" : currentMonth + " Qty (Nos.)"
     // Define other static columns
     const staticColumns = [
-        { field: 'customer_name', headerName: 'Customer Name', width: 200 },
-        { field: 'plant_location', headerName: 'Location', width: 120 },
-        { field: 'fg_part_no', headerName: 'FG Code', width: 120 },
+        { field: 'customer_name', headerName: 'Customer Name', width: 200 ,renderCell: (params) => renderTooltipCell(params.value),},
+        { field: 'plant_location', headerName: 'Location', width: 120,renderCell: (params) => renderTooltipCell(params.value), },
+        { field: 'fg_part_no', headerName: 'FG Code', width: 120 ,renderCell: (params) => renderTooltipCell(params.value),},
         {
             field: 'rolling_plan_qty', headerName: dynamicMonthName, width: 120,
-            renderCell: (params) => (<div style={{ fontWeight: "bold" }}>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
+            renderCell: (params) => renderTooltipCell(<div style={{ fontWeight: "bold" }}>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
         },
         {
             field: 'total_quantity', headerName: "Total Qty", width: 120,
-            renderCell: (params) => (<div style={{ fontWeight: "bold" }}>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
+            renderCell: (params) => renderTooltipCell(<div style={{ fontWeight: "bold" }}>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
         },
     ];
 
@@ -592,6 +592,7 @@ function HomeComponent(props) {
                                                 }}
                                             />
                                         </Grid>
+                                        
 
                                         {/* Demand Month Autocomplete */}
                                         <Grid item>
