@@ -12,7 +12,7 @@ import { initialState, breadcrumbs } from "./config";
 import { ToastContainer, toast } from "react-toastify";
 import FilterComponent from "../../commonComponent/filter";
 import { CircularProgress } from "@mui/material";
-import { Card } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
 import TotalRecords from "../../../../commonComponent/totalRecords";
 import LoaderComponent from "../../../../commonComponent/LoaderComponent";
@@ -100,13 +100,13 @@ function HomeComponent(props) {
                 padding: "0px",
               }}
             >
-              <Card.Title style={{ flexGrow: 1 }}>
+                 <Col xl={6}>
                 <FilterComponent
                   handleSearchData={handleSearchData}
                   callAPI={CDC_GET_TOTALSTOCK}
                   filterType="fgCode"
                 />
-              </Card.Title>
+              </Col>
             </div>
           </Card.Header>
 
