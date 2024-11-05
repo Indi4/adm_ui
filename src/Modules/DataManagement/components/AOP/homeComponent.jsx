@@ -497,12 +497,12 @@ function HomeComponent(props) {
                     padding: "0px",
                   }}
                 >
-                  <Card.Title style={{ flexGrow: 1 }}>
+                     <Col xl={6}>
                     <FilterComponent
                       handleSearchData={handleSearchData}
                       callAPI={CDC_AOP}
                     />
-                  </Card.Title>
+                   </Col>
                   <Card.Title style={{ marginLeft: "auto" }}>
                     <div
                       style={{
