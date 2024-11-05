@@ -524,7 +524,7 @@ function HomeComponent(props) {
                       handleSearchData={handleSearchData}
                       callAPI={CDC_AOP}
                     />
-                  </Card.Title>
+                    </Card.Title>
                   <Card.Title style={{ marginLeft: "auto" }}>
                     <div
                       style={{

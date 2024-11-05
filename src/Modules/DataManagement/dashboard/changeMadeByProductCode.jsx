@@ -5,6 +5,7 @@ import { Chart, ArcElement, Tooltip, Legend, registerables } from 'chart.js'
 import { GET_CHANGES_MADEBY_CODE } from "../../endPointConfig"
 import { callCommonGetAPI } from '../../../store/action/action'
 import '../../../layouts/styles/Common.css'
+import LoaderComponent from "../../../commonComponent/LoaderComponent";
 Chart.register(...registerables, ArcElement, Tooltip, Legend)
 
 function getGradient(ctx) {
@@ -15,8 +16,10 @@ function getGradient(ctx) {
 }
 function ChangeMadeByProductCode(props) {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         props.getChangesMadeByProductCodeData(GET_CHANGES_MADEBY_CODE)
         return () => { reset() }
     }, [])
@@ -24,6 +27,7 @@ function ChangeMadeByProductCode(props) {
     useEffect(() => {
         if (props.changesMadeByProductCodeData && Object.keys(props.changesMadeByProductCodeData).length > 0) {
             setData(props.changesMadeByProductCodeData)
+            setLoading(false);
         }
     }, [props.changesMadeByProductCodeData])
 
@@ -111,7 +115,13 @@ function ChangeMadeByProductCode(props) {
     }
 
     return (
-        <Bar options={GradientOption} data={GradientData} height='300px' />
+        <React.Fragment>
+            {loading ? (
+                <LoaderComponent spinner={1} />
+            ) :
+                <Bar options={GradientOption} data={GradientData} height='300px' />
+            }
+        </React.Fragment>
     )
 }
 

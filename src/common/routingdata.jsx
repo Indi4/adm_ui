@@ -7,10 +7,12 @@ const CodeComponent = React.lazy(() => import('../Modules/MDM/components/allMast
 const DepartmentComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/departments/departmentComponent'))
 const UsersComponent = React.lazy(() => import('../Modules/MDM/components/allMaster/users/usersComponent'))
 
+
 /* Data Management */
+const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/homeComponent'))
+const QuickAction = React.lazy(() => import('../Modules/DataManagement/components/QuickAction/homeComponent'))
 const AOP = React.lazy(() => import('../Modules/DataManagement/components/AOP/homeComponent'))
 const WeekWiseDemands = React.lazy(() => import('../Modules/DataManagement/components/DemandCapture/weekWiseDemand/homeComponent'))
-const Dashboard = React.lazy(() => import('../Modules/DataManagement/dashboard/homeComponent'))
 const ActualSales = React.lazy(() => import('../Modules/DataManagement/components/ActualSales/homeComponent'))
 const ActualDispatch = React.lazy(() => import('../Modules/DataManagement/components/ActualDispatch/homeComponent'))
 const RollingPlan = React.lazy(() => import('../Modules/DataManagement/components/RollingPlan/homeComponent'))
@@ -136,7 +138,7 @@ export const Routingdata = [
 
     { path: `${import.meta.env.BASE_URL}/cdc/dashboard`, element: <Dashboard /> },
 
-    { path: `${import.meta.env.BASE_URL}/cdc/quickAction`, element: <Defaultcalender /> },
+    { path: `${import.meta.env.BASE_URL}/cdc/quickAction`, element: <QuickAction /> },
     { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/annualPlan`, element: <AOP /> },
     { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/dispatchPlan`, element: <RollingPlan /> },
     { path: `${import.meta.env.BASE_URL}/cdc/demandCapture/weekWiseSequencing`, element: <WeekWiseDemands /> },

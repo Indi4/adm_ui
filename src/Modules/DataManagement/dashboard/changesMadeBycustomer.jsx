@@ -5,6 +5,7 @@ import { Chart, ArcElement, Tooltip, Legend, registerables } from 'chart.js'
 import { GET_CHANGES_MADEBY_CUSTOMER } from "../../endPointConfig"
 import { callCommonGetAPI } from '../../../store/action/action'
 import '../../../layouts/styles/Common.css'
+import LoaderComponent from "../../../commonComponent/LoaderComponent";
 Chart.register(...registerables, ArcElement, Tooltip, Legend)
 
 //     chart: {
@@ -45,8 +46,10 @@ function getGradient(ctx) {
 
 function ChangesMadeBycustomer(props) {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         props.getChangesMadeByCustomerNameData(GET_CHANGES_MADEBY_CUSTOMER)
         return () => { reset() }
     }, [])
@@ -54,6 +57,7 @@ function ChangesMadeBycustomer(props) {
     useEffect(() => {
         if (props.changesMadeByCustomerNameData && Object.keys(props.changesMadeByCustomerNameData).length > 0) {
             setData(props.changesMadeByCustomerNameData)
+            setLoading(false);
         }
     }, [props.changesMadeByCustomerNameData])
 
@@ -141,7 +145,13 @@ function ChangesMadeBycustomer(props) {
     }
 
     return (
-        <Bar options={GradientOption} data={GradientData} height='300px' />
+        <React.Fragment>
+            {loading ? (
+                <LoaderComponent spinner={1} />
+            ) :
+                <Bar options={GradientOption} data={GradientData} height='300px' />
+            }
+        </React.Fragment>
     )
 }
 const mapStatetoprops = (state) => {

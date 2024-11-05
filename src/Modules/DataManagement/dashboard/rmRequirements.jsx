@@ -5,14 +5,17 @@ import { connect } from 'react-redux';
 import { GET_RM_REQUIREMENTS } from "../../endPointConfig";
 import { generateDynamicColumns } from "../../commonConfig";
 import { callCommonGetAPI } from '../../../store/action/action';
+import LoaderComponent from "../../../commonComponent/LoaderComponent";
 import { v4 as uuidv4 } from 'uuid';
 
 function RmRequirements(props) {
     const [rmRequirementsList, setRmRequirementsList] = useState([]);
     const [columns, setColumns] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         props.getRmRequirementsData(GET_RM_REQUIREMENTS);
+        setLoading(true);
         return () => { reset(); };
     }, []);
 
@@ -29,6 +32,7 @@ function RmRequirements(props) {
     useEffect(() => {
         if (rmRequirementsList && rmRequirementsList.length > 0) {
             setColumns(generateDynamicColumns(rmRequirementsList, 'id'));
+            setLoading(false);
         }
     }, [rmRequirementsList]);
 
@@ -38,74 +42,77 @@ function RmRequirements(props) {
 
     return (
         <div style={{ width: '100%', height: '470px', overflowY: 'auto' }}>
-            <DataGrid
-                rows={rmRequirementsList}
-                columns={columns}
-                getRowId={(row) => row.id}
-                hideFooterPagination
-                autoHeight
-                sx={{
-                    '& .MuiDataGrid-root': {
-                        border: 'none',
-                    },
-                    '& .MuiDataGrid-columnHeaders': {
-                        position: 'sticky', // Make the header sticky
-                        top: 0, // Stick to the top
-                        zIndex: 1, // Ensure it's on top of other elements
-                        backgroundColor: 'rgba(255, 255, 255, 0.7)', // Background color to prevent overlap
-                        color: 'rgba(0, 0, 0, 0.87)',
-                        fontSize: '15px',
-                        borderBottom: '2px solid rgba(60, 90, 120, 0.5)',
-                        backdropFilter: 'blur(10px)',
-                        WebkitBackdropFilter: 'blur(10px)',
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                    },
-                    '& .MuiDataGrid-cell': {
-                        borderBottom: '1px solid #e0e0e0',
-                    },
-                    '& .footer-row': {
-                        fontWeight: 'bold',
-                        backgroundColor: '#f7f7f7',
-                        borderTop: '2px solid #4a6fa1',
-                    },
-                    '& .MuiDataGrid-row:hover': {
-                        backgroundColor: '#e0f7fa',
-                    },
-                    '& .MuiDataGrid-selectedRowCount': {
-                        color: '#4a6fa1',
-                    },
-                    "& .MuiDataGrid-virtualScroller": {
-                        "&::-webkit-scrollbar": {
-                            width: "10px",
-                            height: "10px",
+            {loading ? (
+                <LoaderComponent spinner={1} />
+            ) :
+                <DataGrid
+                    rows={rmRequirementsList}
+                    columns={columns}
+                    getRowId={(row) => row.id}
+                    hideFooterPagination
+                    autoHeight
+                    sx={{
+                        '& .MuiDataGrid-root': {
+                            border: 'none',
                         },
-                        "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: "#d3d3d3",
-                            borderRadius: "10px",
+                        '& .MuiDataGrid-columnHeaders': {
+                            position: 'sticky', // Make the header sticky
+                            top: 0, // Stick to the top
+                            zIndex: 1, // Ensure it's on top of other elements
+                            backgroundColor: 'rgba(255, 255, 255, 0.7)', // Background color to prevent overlap
+                            color: 'rgba(0, 0, 0, 0.87)',
+                            fontSize: '15px',
+                            borderBottom: '2px solid rgba(60, 90, 120, 0.5)',
+                            backdropFilter: 'blur(10px)',
+                            WebkitBackdropFilter: 'blur(10px)',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                         },
-                        "&::-webkit-scrollbar-thumb:hover": {
-                            backgroundColor: "#bbb",
+                        '& .MuiDataGrid-cell': {
+                            borderBottom: '1px solid #e0e0e0',
                         },
-                    },
-                    "& .MuiDataGrid-root": {
-                        "&::-webkit-scrollbar": {
-                            height: "10px",
+                        '& .footer-row': {
+                            fontWeight: 'bold',
+                            backgroundColor: '#f7f7f7',
+                            borderTop: '2px solid #4a6fa1',
                         },
-                        "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: "#d3d3d3",
-                            borderRadius: "10px",
+                        '& .MuiDataGrid-row:hover': {
+                            backgroundColor: '#e0f7fa',
                         },
-                        "&::-webkit-scrollbar-thumb:hover": {
-                            backgroundColor: "#bbb",
+                        '& .MuiDataGrid-selectedRowCount': {
+                            color: '#4a6fa1',
                         },
-                    },
-                    '& .MuiDataGrid-toolbarContainer': {
-                        backgroundColor: '#f0f0f0',
-                        borderBottom: '1px solid #d3d3d3',
-                    },
-                }}
-            />
-
+                        "& .MuiDataGrid-virtualScroller": {
+                            "&::-webkit-scrollbar": {
+                                width: "10px",
+                                height: "10px",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: "#d3d3d3",
+                                borderRadius: "10px",
+                            },
+                            "&::-webkit-scrollbar-thumb:hover": {
+                                backgroundColor: "#bbb",
+                            },
+                        },
+                        "& .MuiDataGrid-root": {
+                            "&::-webkit-scrollbar": {
+                                height: "10px",
+                            },
+                            "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: "#d3d3d3",
+                                borderRadius: "10px",
+                            },
+                            "&::-webkit-scrollbar-thumb:hover": {
+                                backgroundColor: "#bbb",
+                            },
+                        },
+                        '& .MuiDataGrid-toolbarContainer': {
+                            backgroundColor: '#f0f0f0',
+                            borderBottom: '1px solid #d3d3d3',
+                        },
+                    }}
+                />
+            }
         </div>
         // <Card style={{ margin: '0px', padding: '0px' }}>
         //     <CardTitle

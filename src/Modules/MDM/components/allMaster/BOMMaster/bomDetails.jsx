@@ -18,11 +18,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Iconloader } from "../../../../../components/bootstrap/buttons/data/buttondata";
 import { Buttonsoutline } from "../../../../../components/bootstrap/badgespills/data/badgesdata";
+import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
 
 function BOMComponent(props) {
   const [state, setState] = useState({ ...initialState });
   const [endPoint] = useState(MDM_GET_BOMDETAILS);
   const [BOMList, setBOMList] = useState([]);
+  const [loading, setLoading] = useState(false); // New loading state for the whole component
+
 
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 5,
@@ -31,6 +34,7 @@ function BOMComponent(props) {
   const [totalPage, setTotalPage] = useState(0);
 
   useEffect(() => {
+    setLoading(true);
     props.getBOMData(`${endPoint}`);
     return () => {
       reset();
@@ -43,6 +47,8 @@ function BOMComponent(props) {
 
       setBOMList(props.BOMData.data);
       setTotalPage(dataCount);
+      setLoading(false);
+
     }
   }, [props.BOMData]);
 
@@ -189,7 +195,10 @@ function BOMComponent(props) {
                     overflowY: "auto",
                   }}
                 >
-                  {BOMList && BOMList.length > 0 ? (
+                   {loading ? (
+                  <LoaderComponent />
+                ) :
+                  BOMList && BOMList.length > 0 ? (
                     <DataGrid
                       rows={BOMList}
                       columns={BOMColumns || []}

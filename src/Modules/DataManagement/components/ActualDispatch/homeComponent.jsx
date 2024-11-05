@@ -76,12 +76,12 @@ function HomeComponent(props) {
                     <Card>
                         <Card.Header className=" d-flex justify-content-between align-items-center">
                             <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
-                                <Card.Title style={{ flexGrow: 1 }}>
+                            <Col xl={6}>
                                     <FilterComponent
                                         handleSearchData={handleSearchData}
                                         callAPI={CDC_SAVE_ACTUALDISPATCH}
                                     />
-                                </Card.Title>
+                                 </Col>
                                 <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
                                     <Button
                                         onClick={() => handleOpenModal(1, 0)}

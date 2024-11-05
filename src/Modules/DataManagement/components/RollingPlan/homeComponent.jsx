@@ -26,7 +26,7 @@ import FilterComponent from "../../commonComponent/filter";
 import { CustomFooter } from "../../../commonConfig";
 import { CDC_ALLDEMANDS, CDC_GET_ALLDEMANDS } from "../../../endPointConfig";
 import { connect } from "react-redux";
-import { Card } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import TotalRecords from "../../../../commonComponent/totalRecords";
 import Pageheader from "../../../../layouts/pageheader/pageheader";
@@ -303,12 +303,12 @@ function HomeComponent(props) {
                 padding: "0px",
               }}
             >
-              <Card.Title style={{ flexGrow: 1 }}>
+                <Col xl={6}>
                 <FilterComponent
                   handleSearchData={handleSearchData}
                   callAPI={CDC_GET_ALLDEMANDS}
                 />
-              </Card.Title>
+            </Col>
 
               <Card.Title style={{ marginLeft: "auto" }}>
                 <Button
