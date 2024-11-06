@@ -8,7 +8,7 @@ import FilterComponent from "../../commonComponent/filter";
 import { actualSalesColumns, initialState, breadcrumbs } from "./config"
 import { CDC_SAVE_ACTUALSALES, CDC_GET_ACTUALSALES } from "../../../endPointConfig"
 import { callCommonGetAPI } from '../../../../store/action/action'
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import TotalRecords from '../../../../commonComponent/totalRecords'
 import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 
@@ -63,18 +63,19 @@ function HomeComponent(props) {
 
     return (
         <Fragment>
+            <ToastContainer />
             <Pageheader items={breadcrumbs} />
             <Row>
                 <Col xl={12}>
                     <Card>
                         <Card.Header className=" d-flex justify-content-between align-items-center">
                             <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
-                            <Col xl={6}>
+                                <Col xl={6}>
                                     <FilterComponent
                                         handleSearchData={handleSearchData}
                                         callAPI={CDC_GET_ACTUALSALES}
                                     />
-                                 </Col>
+                                </Col>
                                 <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
                                     <Button
                                         onClick={() => handleOpenModal(1, 0)}
@@ -97,7 +98,7 @@ function HomeComponent(props) {
 
                                             <LoaderComponent />
                                         ) :
-                                             actualSalesList && actualSalesList.length > 0 ?
+                                            actualSalesList && actualSalesList.length > 0 ?
                                                 <DataGrid
                                                     rows={actualSalesList}
                                                     columns={actualSalesColumns}

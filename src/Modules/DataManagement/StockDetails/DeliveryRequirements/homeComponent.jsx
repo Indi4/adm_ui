@@ -13,7 +13,7 @@ import TotalRecords from '../../../../commonComponent/totalRecords'
 import apiService from "../../../../services/apiService";
 import { v4 as uuidv4 } from 'uuid';
 import { saveAs } from 'file-saver';
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import LoaderComponent from "../../../../commonComponent/LoaderComponent";
 
 function HomeComponent(props) {
@@ -88,6 +88,7 @@ function HomeComponent(props) {
     };
     return (
         <Fragment>
+            <ToastContainer />
             <Pageheader items={breadcrumbs} />
             <Row>
                 <Col xl={12}>
@@ -113,7 +114,7 @@ function HomeComponent(props) {
                                     <TotalRecords color='outline-success' length={state.totalNetOffList && state.totalNetOffList.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 460, overflowY: 'auto' }}>
                                         {loading ? (
-                                                <LoaderComponent />
+                                            <LoaderComponent />
                                         ) : (
                                             state.totalNetOffList && state.totalNetOffList.length > 0 ? (
                                                 <DataGrid
@@ -133,60 +134,60 @@ function HomeComponent(props) {
                                                     hideFooterPagination
                                                     sx={{
                                                         '& .MuiDataGrid-root': {
-                                                          border: 'none',
+                                                            border: 'none',
                                                         },
                                                         '& .MuiDataGrid-columnHeaders': {
-                                                          backgroundColor: "rgba(255, 255, 255, 0.7)",
-                                                          color: "rgba(0, 0, 0, 0.87)",
-                                                          fontSize: "15px",
-                                                          borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
-                                                          backdropFilter: "blur(10px)",
-                                                          boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
+                                                            backgroundColor: "rgba(255, 255, 255, 0.7)",
+                                                            color: "rgba(0, 0, 0, 0.87)",
+                                                            fontSize: "15px",
+                                                            borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                                                            backdropFilter: "blur(10px)",
+                                                            boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                                                         },
                                                         '& .MuiDataGrid-cell': {
-                                                          borderBottom: '1px solid #e0e0e0',
+                                                            borderBottom: '1px solid #e0e0e0',
                                                         },
                                                         '& .footer-row': {
-                                                          fontWeight: 'bold',
-                                                          backgroundColor: '#f7f7f7',
-                                                          borderTop: '2px solid #4a6fa1',
+                                                            fontWeight: 'bold',
+                                                            backgroundColor: '#f7f7f7',
+                                                            borderTop: '2px solid #4a6fa1',
                                                         },
                                                         '& .MuiDataGrid-row:hover': {
-                                                          backgroundColor: '#e0f7fa',
+                                                            backgroundColor: '#e0f7fa',
                                                         },
                                                         '& .MuiDataGrid-selectedRowCount': {
-                                                          color: '#4a6fa1',
+                                                            color: '#4a6fa1',
                                                         },
                                                         "& .MuiDataGrid-virtualScroller": {
-                                                          "&::-webkit-scrollbar": {
-                                                            width: "10px",
-                                                            height: "10px",
-                                                          },
-                                                          "&::-webkit-scrollbar-thumb": {
-                                                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                                                            borderRadius: "10px",
-                                                          },
-                                                          "&::-webkit-scrollbar-thumb:hover": {
-                                                            backgroundColor: "#8c8c8c", // Darker grey on hover
-                                                          },
+                                                            "&::-webkit-scrollbar": {
+                                                                width: "10px",
+                                                                height: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb": {
+                                                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                                                borderRadius: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                                                            },
                                                         },
                                                         "& .MuiDataGrid-root": {
-                                                          "&::-webkit-scrollbar": {
-                                                            height: "10px",
-                                                          },
-                                                          "&::-webkit-scrollbar-thumb": {
-                                                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                                                            borderRadius: "10px",
-                                                          },
-                                                          "&::-webkit-scrollbar-thumb:hover": {
-                                                            backgroundColor: "#8c8c8c", // Darker grey on hover
-                                                          },
+                                                            "&::-webkit-scrollbar": {
+                                                                height: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb": {
+                                                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                                                borderRadius: "10px",
+                                                            },
+                                                            "&::-webkit-scrollbar-thumb:hover": {
+                                                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                                                            },
                                                         },
                                                         '& .MuiDataGrid-toolbarContainer': {
-                                                          backgroundColor: '#f0f0f0',
-                                                          borderBottom: '1px solid #d3d3d3',
+                                                            backgroundColor: '#f0f0f0',
+                                                            borderBottom: '1px solid #d3d3d3',
                                                         },
-                                                      }}
+                                                    }}
                                                 />
 
                                             ) : (
