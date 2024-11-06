@@ -45,7 +45,7 @@ export default function Switcher() {
 											</div>
 										</div>
 									</div>
-									<div className="swichermainleft">
+									{/* <div className="swichermainleft">
 										<h4>Theme Style</h4>
 										<div className="skin-body">
 											<div className="switch_section">
@@ -65,7 +65,7 @@ export default function Switcher() {
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> */}
 									<div className="swichermainleft switcher-nav">
 										<h4>Navigation Style</h4>
 										<div className="skin-body">
@@ -84,13 +84,13 @@ export default function Switcher() {
 														<label htmlFor="myonoffswitch35" className="onoffswitch2-label"></label>
 													</p>
 												</div>
-												<div className="switch-toggle d-flex mt-2" >
+												{/* <div className="switch-toggle d-flex mt-2" >
 													<span className="me-auto">Horizantal Hover Menu</span>
 													<p className="onoffswitch2 my-0"><input type="radio" name="onoffswitch15" onClick={()=>switcherdata.HorizontalHoverMenu()}
 														id="myonoffswitch111" className="onoffswitch2-checkbox" />
 														<label htmlFor="myonoffswitch111" className="onoffswitch2-label"></label>
 													</p>
-												</div>
+												</div> */}
 											</div>
 										</div>
 									</div>

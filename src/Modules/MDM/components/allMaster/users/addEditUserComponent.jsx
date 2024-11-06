@@ -286,13 +286,13 @@ function AddEditUserComponent(props) {
             <CloseIcon />
           </IconButton>
           <Grid container spacing={2} style={gridContainerStyle}>
-            <Grid item xs={6} marginTop={1}>
+            <Grid item xs={6} >
               <InputLabel id="category-label">
                 Full Name<span>*</span>
               </InputLabel>
               <TextField
                 variant="outlined"
-                margin="normal"
+                margin="none"
                 required
                 fullWidth
                 id="full_name"
@@ -303,13 +303,13 @@ function AddEditUserComponent(props) {
                 helperText={errors.full_name}
               />
             </Grid>
-            <Grid item xs={6} marginTop={1}>
+            <Grid item xs={6} >
               <InputLabel id="category-label">
                 Email Id<span>*</span>
               </InputLabel>
               <TextField
                 variant="outlined"
-                margin="normal"
+                margin="none"
                 required
                 fullWidth
                 id="email"
@@ -320,13 +320,13 @@ function AddEditUserComponent(props) {
                 helperText={errors.email}
               />
             </Grid>
-            <Grid item xs={6} marginTop={1}>
+            <Grid item xs={6} >
               <InputLabel id="category-label">
                 Mobile No.<span>*</span>
               </InputLabel>
               <TextField
                 variant="outlined"
-                margin="normal"
+                margin="none"
                 required
                 fullWidth
                 id="mobile_no"
@@ -338,8 +338,8 @@ function AddEditUserComponent(props) {
                 inputProps={{ maxLength: 10 }}
               />
             </Grid>
-            <Grid item xs={6} marginTop={1}>
-              <InputLabel id="category-label" style={{marginBottom:"24px"}}>Role</InputLabel>
+            <Grid item xs={6} >
+              <InputLabel id="category-label">Role</InputLabel>
               <FormControl fullWidth>
                 <Autocomplete
                   id="roles"
@@ -383,7 +383,7 @@ function AddEditUserComponent(props) {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={6} marginTop={1}>
+            <Grid item xs={6} >
               <InputLabel id="category-label"> Department</InputLabel>
               <FormControl fullWidth>
                 <Autocomplete
@@ -442,7 +442,7 @@ function AddEditUserComponent(props) {
           <Grid item xs={12} style={gridItemStyle}>
             <div
               style={{
-                marginTop: "20px",
+                marginTop: "10px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
