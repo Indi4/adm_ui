@@ -83,7 +83,7 @@ export const CDNMenuItems = [
           },
           {
             title: "Dispatch Plan",
-            path: "/cdc/demandCapture/rollingPlan",
+            path: "/cdc/demandCapture/dispatchPlan",
             type: "link",
             icon: <i className="fe fe-repeat"></i>, 
             active: false,

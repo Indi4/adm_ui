@@ -370,7 +370,7 @@ export const Routingdata = [
     element: <Defaultcalender />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/rollingPlan`,
+    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/dispatchPlan`,
     element: <RollingPlan />,
   },
 

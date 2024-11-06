@@ -51,7 +51,7 @@ function HomeComponent() {
         },
         {
             label: "Dispatch Plan",
-            path: "/cdc/demandCapture/rollingPlan",
+            path: "/cdc/demandCapture/dispatchPlan",
             tab: "demandDetails",
             icon: <DatasetIcon fontSize="large" sx={{ color: "#f1c40f" }} />,
         },
