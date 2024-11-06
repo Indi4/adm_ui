@@ -91,7 +91,7 @@ const generateDynamicColumns = (data) => {
     const uniqueKeys = new Set();
     data.forEach((item) => {
         Object.keys(item).forEach((key) => {
-            if (key.startsWith("Stk. Req. in ") && !uniqueKeys.has(key)) {
+            if (key.startsWith("Stock Req. in ") && !uniqueKeys.has(key)) {
                 uniqueKeys.add(key);
 
                 const columnConfig = {
