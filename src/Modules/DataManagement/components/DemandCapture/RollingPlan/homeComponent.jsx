@@ -14,6 +14,7 @@ import {
   generateDynamicColumns,
 } from "./config";
 import ModalPopUpComponent from "../../../../../commonComponent/modalPopUpComponent";
+import { Tooltip } from "@mui/material";
 import {
   callCommonGetAPI,
   callCommonRefreshProps,
@@ -87,25 +88,12 @@ function HomeComponent(props) {
           <IconButton
             variant="outlined"
             sx={{
-              color: "#5875ea",
-              margin: "5px",
-              borderRadius: "15px",
-              maxWidth: "150px",
-              fontWeight: "bold",
-              fontSize: "12px",
+              color: "#0479a9",
+              fontSize: "12px !important",
             }}
-            onClick={() =>
-              handleAddEditOpenModal(
-                1,
-                params.row.id,
-                0,
-                "Edit",
-                "",
-                params.row.customer_code
-              )
-            }
+            onClick={() => handleAddEditOpenModal(1, params.row.id, 0, "Edit", "", params.row.customer_code)}
           >
-            <EditIcon />
+            <Tooltip title="Edit">  <EditIcon /> </Tooltip>
           </IconButton>
         </div>
       ),
@@ -293,169 +281,169 @@ function HomeComponent(props) {
       <ToastContainer />
       <Pageheader items={breadcrumbs} />
       <Row>
-      <Col xl={12}>
-        <Card >
-          <Card.Header  className=" d-flex justify-content-between align-items-center">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-                padding: "7px 5px 0 0px",
-              }}
-            >
-              <Card.Title style={{ flexGrow: 1 }}>
-                <Row>
-                  <Col xl={6}>
-                    <FilterComponent
-                      handleSearchData={handleSearchData}
-                      callAPI={CDC_GET_ALLDEMANDS}
-                    />
-                  </Col>
-                </Row>
-              </Card.Title>
-              <Card.Title style={{ marginLeft: "auto" }}>
-                <Button
-                  onClick={handleButtonClick}
-                  variant="contained"
-                  className="bg-purple"
-                  style={{ borderRadius: "10px", marginTop: "10px" }}
-                >
-                  + Add New Demand/s
-                </Button>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem onClick={() => handleImportExcelClick(1, 0)}>
-                    Import From Excel
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() =>
-                      handleAddEditOpenModal(1, 0, 0, "Add", "", "")
-                    }
-                  >
-                    Add New Demand
-                  </MenuItem>
-                </Menu>
-              </Card.Title>
-            </div>
-          </Card.Header>
-
-          <Card.Body className="p-0">
-            <div className="card-area">
-            <Col md="12" style={{marginTop:"10px" ,marginBottom:"10px"}}>
-
-              <TotalRecords
-                color="outline-success"
-                length={allDemandList && allDemandList?.length}
-              />
-
+        <Col xl={12}>
+          <Card >
+            <Card.Header className=" d-flex justify-content-between align-items-center">
               <div
                 style={{
-                  marginTop: "10px",
-                  display: "grid",
-                  height: 500,
-                  overflowY: "auto",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  padding: "7px 5px 0 0px",
                 }}
               >
-                {loading ? (
-
-                  <LoaderComponent />
-                ) :
-                  allDemandList && allDemandList.length > 0 ? (
-                    <DataGrid
-                      rows={allDemandList || []}
-                      columns={columns}
-                      hideFooterPagination
-                      pagination
-                      paginationMode="server"
-                      rowCount={totalPage} // Ensure the total number of records is provided
-                      pageSize={paginationModel.pageSize}
-                      page={paginationModel.page}
-                      onPageChange={(newPage) =>
-                        handlePaginationChange({
-                          ...paginationModel,
-                          page: newPage,
-                        })
+                <Card.Title style={{ flexGrow: 1 }}>
+                  <Row>
+                    <Col xl={6}>
+                      <FilterComponent
+                        handleSearchData={handleSearchData}
+                        callAPI={CDC_GET_ALLDEMANDS}
+                      />
+                    </Col>
+                  </Row>
+                </Card.Title>
+                <Card.Title style={{ marginLeft: "auto" }}>
+                  <Button
+                    onClick={handleButtonClick}
+                    variant="contained"
+                    className="bg-purple"
+                    style={{ borderRadius: "10px", marginTop: "10px" }}
+                  >
+                    + Add New Demand/s
+                  </Button>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                  >
+                    <MenuItem onClick={() => handleImportExcelClick(1, 0)}>
+                      Import From Excel
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() =>
+                        handleAddEditOpenModal(1, 0, 0, "Add", "", "")
                       }
-                      onPageSizeChange={(newPageSize) =>
-                        handlePaginationChange({
-                          ...paginationModel,
-                          pageSize: newPageSize,
-                        })
-                      }
-                      components={{
-                        Footer: () => (
-                          <CustomFooter total={allDemandList.length} />
-                        ),
-                      }}
-                      sx={{
-                        '& .MuiDataGrid-root': {
-                          border: 'none',
-                        },
-                        '& .MuiDataGrid-columnHeaders': {
-                          backgroundColor: "rgba(255, 255, 255, 0.7)",
-                          color: "rgba(0, 0, 0, 0.87)",
-                          fontSize: "15px",
-                          borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
-                          backdropFilter: "blur(10px)",
-                          boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
-                        },
-                        '& .MuiDataGrid-cell': {
-                          borderBottom: '1px solid #e0e0e0',
-                        },
-                        '& .footer-row': {
-                          fontWeight: 'bold',
-                          backgroundColor: '#f7f7f7',
-                          borderTop: '2px solid #4a6fa1',
-                        },
-                        '& .MuiDataGrid-row:hover': {
-                          backgroundColor: '#e0f7fa',
-                        },
-                        '& .MuiDataGrid-selectedRowCount': {
-                          color: '#4a6fa1',
-                        },
-                        "& .MuiDataGrid-virtualScroller": {
-                          "&::-webkit-scrollbar": {
-                            width: "10px",
-                            height: "10px",
-                          },
-                          "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                            borderRadius: "10px",
-                          },
-                          "&::-webkit-scrollbar-thumb:hover": {
-                            backgroundColor: "#8c8c8c", // Darker grey on hover
-                          },
-                        },
-                        "& .MuiDataGrid-root": {
-                          "&::-webkit-scrollbar": {
-                            height: "10px",
-                          },
-                          "&::-webkit-scrollbar-thumb": {
-                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                            borderRadius: "10px",
-                          },
-                          "&::-webkit-scrollbar-thumb:hover": {
-                            backgroundColor: "#8c8c8c", // Darker grey on hover
-                          },
-                        },
-                        '& .MuiDataGrid-toolbarContainer': {
-                          backgroundColor: '#f0f0f0',
-                          borderBottom: '1px solid #d3d3d3',
-                        },
-                      }}
-                    />
-                  ) : (
-                    "No Data Found"
-                  )}
+                    >
+                      Add New Demand
+                    </MenuItem>
+                  </Menu>
+                </Card.Title>
               </div>
-              </Col>
-            </div>
-          </Card.Body>
-        </Card>
+            </Card.Header>
+
+            <Card.Body className="p-0">
+              <div className="card-area">
+                <Col md="12" style={{ marginTop: "10px", marginBottom: "10px" }}>
+
+                  <TotalRecords
+                    color="outline-success"
+                    length={allDemandList && allDemandList?.length}
+                  />
+
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      display: "grid",
+                      height: 500,
+                      overflowY: "auto",
+                    }}
+                  >
+                    {loading ? (
+
+                      <LoaderComponent />
+                    ) :
+                      allDemandList && allDemandList.length > 0 ? (
+                        <DataGrid
+                          rows={allDemandList || []}
+                          columns={columns}
+                          hideFooterPagination
+                          pagination
+                          paginationMode="server"
+                          rowCount={totalPage} // Ensure the total number of records is provided
+                          pageSize={paginationModel.pageSize}
+                          page={paginationModel.page}
+                          onPageChange={(newPage) =>
+                            handlePaginationChange({
+                              ...paginationModel,
+                              page: newPage,
+                            })
+                          }
+                          onPageSizeChange={(newPageSize) =>
+                            handlePaginationChange({
+                              ...paginationModel,
+                              pageSize: newPageSize,
+                            })
+                          }
+                          components={{
+                            Footer: () => (
+                              <CustomFooter total={allDemandList.length} />
+                            ),
+                          }}
+                          sx={{
+                            '& .MuiDataGrid-root': {
+                              border: 'none',
+                            },
+                            '& .MuiDataGrid-columnHeaders': {
+                              backgroundColor: "rgba(255, 255, 255, 0.7)",
+                              color: "rgba(0, 0, 0, 0.87)",
+                              fontSize: "15px",
+                              borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                              backdropFilter: "blur(10px)",
+                              boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
+                            },
+                            '& .MuiDataGrid-cell': {
+                              borderBottom: '1px solid #e0e0e0',
+                            },
+                            '& .footer-row': {
+                              fontWeight: 'bold',
+                              backgroundColor: '#f7f7f7',
+                              borderTop: '2px solid #4a6fa1',
+                            },
+                            '& .MuiDataGrid-row:hover': {
+                              backgroundColor: '#e0f7fa',
+                            },
+                            '& .MuiDataGrid-selectedRowCount': {
+                              color: '#4a6fa1',
+                            },
+                            "& .MuiDataGrid-virtualScroller": {
+                              "&::-webkit-scrollbar": {
+                                width: "10px",
+                                height: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                borderRadius: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb:hover": {
+                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                              },
+                            },
+                            "& .MuiDataGrid-root": {
+                              "&::-webkit-scrollbar": {
+                                height: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                borderRadius: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb:hover": {
+                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                              },
+                            },
+                            '& .MuiDataGrid-toolbarContainer': {
+                              backgroundColor: '#f0f0f0',
+                              borderBottom: '1px solid #d3d3d3',
+                            },
+                          }}
+                        />
+                      ) : (
+                        "No Data Found"
+                      )}
+                  </div>
+                </Col>
+              </div>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
 
