@@ -219,8 +219,15 @@ function HomeComponent(props) {
                             fontSize: "15px",
                             borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
                             backdropFilter: "blur(10px)",
+                            WebkitBackdropFilter: "blur(10px)",
                             boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
+                            
                           },
+                          "& .MuiDataGrid-columnHeaderTitle": {
+                            whiteSpace: "normal", 
+                            textAlign: "center",
+                          },
+                          
                           "& .MuiDataGrid-cell": {
                             borderBottom: "1px solid #e0e0e0",
                           },

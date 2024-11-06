@@ -198,13 +198,13 @@ function AddEditCodeComponent(props) {
             <CloseIcon />
           </IconButton>
           <Grid container spacing={2} style={gridContainerStyle}>
-            <Grid item xs={6} marginTop={1}>
+            <Grid item xs={6}>
               <InputLabel id="category-label">
                 Code<span>*</span>
               </InputLabel>
               <TextField
                 variant="outlined"
-                margin="normal"
+                margin="none"
                 required
                 fullWidth
                 id="code"
@@ -215,13 +215,13 @@ function AddEditCodeComponent(props) {
                 helperText={errors.code}
               />
             </Grid>
-            <Grid item xs={6} marginTop={1}>
+            <Grid item xs={6}>
               <InputLabel id="category-label">
                 Plant Name<span>*</span>
               </InputLabel>
               <TextField
                 variant="outlined"
-                margin="normal"
+                margin="none"
                 required
                 fullWidth
                 id="description"
@@ -237,7 +237,7 @@ function AddEditCodeComponent(props) {
           <Grid item xs={12} style={gridItemStyle}>
             <div
               style={{
-                marginTop: "7px",
+                marginTop: "10px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

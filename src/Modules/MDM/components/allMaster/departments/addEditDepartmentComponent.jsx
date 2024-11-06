@@ -224,7 +224,7 @@ function AddEditDepartmentComponent(props) {
               </InputLabel>
               <TextField
                 variant="outlined"
-                margin="normal"
+                margin="none"
                 required
                 fullWidth
                 id="department_name"
@@ -241,7 +241,7 @@ function AddEditDepartmentComponent(props) {
           <Grid item xs={12} style={gridItemStyle}>
             <div
               style={{
-                marginTop: "7px",
+                marginTop: "10px",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
