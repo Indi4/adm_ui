@@ -7,14 +7,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { initialAddRowState, initialState } from "./config";
-import { CDC_ALLDEMANDS, CDC_GET_PARTINFO, CDC_SAVE_ALLDEMANDS } from "../../../endPointConfig";
+import { CDC_ALLDEMANDS, CDC_GET_PARTINFO, CDC_SAVE_ALLDEMANDS } from "../../../../endPointConfig";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
-import FilterComponent from "../../commonComponent/filter"
-import { getYearList, months } from "../../../commonConfig";
+import FilterComponent from "../../../commonComponent/filter"
+import { getYearList, months } from "../../../../commonConfig";
 import { Button } from "react-bootstrap";
-import { callCommonRefreshProps, callCommonSaveAPI, callCommonUpdateAPI } from "../../../../store/action/action";
-import { Appbtn, Outline } from "../../../../components/bootstrap/buttons/data/buttondata";
+import { callCommonRefreshProps, callCommonSaveAPI, callCommonUpdateAPI } from "../../../../../store/action/action";
+import { Appbtn, Outline } from "../../../../../components/bootstrap/buttons/data/buttondata";
 
 const style = {
   position: "absolute",

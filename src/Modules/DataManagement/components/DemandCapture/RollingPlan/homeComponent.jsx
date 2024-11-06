@@ -13,24 +13,24 @@ import {
   breadcrumbs,
   generateDynamicColumns,
 } from "./config";
-import ModalPopUpComponent from "../../../../commonComponent/modalPopUpComponent";
+import ModalPopUpComponent from "../../../../../commonComponent/modalPopUpComponent";
 import {
   callCommonGetAPI,
   callCommonRefreshProps,
-} from "../../../../store/action/action";
+} from "../../../../../store/action/action";
 import EditIcon from "@mui/icons-material/Edit";
 import { toast, ToastContainer } from "react-toastify";
 import AddEditNewDemandComponent from "./addEditNewDemandComponent";
-import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
-import FilterComponent from "../../commonComponent/filter";
-import { CustomFooter } from "../../../commonConfig";
-import { CDC_ALLDEMANDS, CDC_GET_ALLDEMANDS } from "../../../endPointConfig";
+import DeleteModalComponent from "../../../../../commonComponent/deleteModalComponent";
+import FilterComponent from "../../../commonComponent/filter";
+import { CustomFooter } from "../../../../commonConfig";
+import { CDC_ALLDEMANDS, CDC_GET_ALLDEMANDS } from "../../../../endPointConfig";
 import { connect } from "react-redux";
 import { Card, Col } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import TotalRecords from "../../../../commonComponent/totalRecords";
-import Pageheader from "../../../../layouts/pageheader/pageheader";
-import LoaderComponent from "../../../../commonComponent/LoaderComponent";
+import TotalRecords from "../../../../../commonComponent/totalRecords";
+import Pageheader from "../../../../../layouts/pageheader/pageheader";
+import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
 
 function HomeComponent(props) {
   const [state, setState] = useState({ ...initialState });

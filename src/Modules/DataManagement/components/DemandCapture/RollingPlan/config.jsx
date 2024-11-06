@@ -1,4 +1,4 @@
-import {renderTooltipCell} from "../../../commonConfig";
+import {renderTooltipCell} from "../../../../commonConfig";
 
 const initialState = {
   openModal: 0,
