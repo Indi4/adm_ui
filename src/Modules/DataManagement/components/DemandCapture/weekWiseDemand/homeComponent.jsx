@@ -4,6 +4,7 @@ import { Alert, Card, Button, Col, Row } from 'react-bootstrap'
 import { Grid, Autocomplete, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Tooltip } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import Pageheader from '../../../../../layouts/pageheader/pageheader'
@@ -271,6 +272,7 @@ function HomeComponent(props) {
     const editColumns = [{
         field: 'actions',
         type: 'actions',
+        headerName: "Action",
         width: 100,
         cellClassName: 'actions',
         getActions: (params) => {
@@ -297,14 +299,15 @@ function HomeComponent(props) {
                         key="cancel"
                     />,
                 ] : [
+                    <Tooltip title="Edit">
                     <GridActionsCellItem
                         icon={<EditIcon />}
                         label="Edit"
                         className="textPrimary"
                         onClick={handleEditClick(id)}
-                        sx={{ color: "green" }} // Setting the color to green
+                        sx={{ color: "#0479a9" }} 
                         key="edit"
-                    />,
+                    /> </Tooltip>,
                     // <GridActionsCellItem
                     //   icon={<DeleteIcon />}
                     //   label="Delete"
@@ -525,7 +528,7 @@ function HomeComponent(props) {
                                         callAPI={CDC_WEEKWISE_DEMANDS}
                                     />
                                 </Col>
-                                <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
+                                <Card.Title style={{ marginTop: "10px" }}>
                                     <Grid container alignItems="center" justifyContent="flex-end">
                                         {/* Year Select Autocomplete */}
                                         <Grid item>
@@ -669,7 +672,6 @@ function HomeComponent(props) {
                                     <TotalRecords color='outline-success' length={rowss && rowss.length} />
                                     <div style={{ marginTop: "15px", display: 'grid', height: 500, overflowY: 'auto' }}>
                                         {loading ? (
-
                                             <LoaderComponent />
                                         ) :
                                             rowss && rowss.length > 0 ? (
