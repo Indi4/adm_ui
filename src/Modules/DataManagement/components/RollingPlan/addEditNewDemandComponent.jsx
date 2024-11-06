@@ -64,6 +64,7 @@ function AddEditNewDemandComponent(props) {
   const currentMonthIndex = currentDate.getMonth();
   const currentYear1 = currentDate.getFullYear();
   const [yearList, setYearList] = useState([])
+  const [selectedYear, setSelectedYear] = useState(0)
   const [partNoBYCustCodeList, setPartNoBYCustCodeList] = useState([])
   const [customerNameorCode, setCustomerNameorCode] = useState("")
   const filteredMonths = months.filter((month) => {
@@ -210,6 +211,18 @@ function AddEditNewDemandComponent(props) {
     }
   }
 
+  let handleAddChangeEvent = (e, i) => {
+    if (e.target.name === "demand_year")
+      setSelectedYear(e.target.value)
+    let newFormValues = [...demandValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setDemandValues(newFormValues);
+  };
+
+  let addFormFields = () => {
+    setDemandValues([...demandValues, { ...initialAddRowState }]);
+  };
+
   const reset = () => {
     props.refreshProps("saveDemandDetailsData");
     props.refreshProps("updateDemandDetailsData");
@@ -218,16 +231,6 @@ function AddEditNewDemandComponent(props) {
     setState({ ...initialState, customer_code: '', customer_name: '', plant_location: '', category: '', wheel_size: '' });
     setPartNoBYCustCodeList([])
     setDemandValues([]);
-  };
-
-  let handleAddChangeEvent = (e, i) => {
-    let newFormValues = [...demandValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setDemandValues(newFormValues);
-  };
-
-  let addFormFields = () => {
-    setDemandValues([...demandValues, { ...initialAddRowState }]);
   };
 
   return (
@@ -414,7 +417,7 @@ function AddEditNewDemandComponent(props) {
                               (month) => month.demand_month === element.demand_month
                             ) || null
                           } // Set the current value
-                          options={filteredMonths}
+                          options={selectedYear === (currentYear1 + 1) ? months : filteredMonths}
                           getOptionLabel={(month) => month.demand_month || ""}
                           onChange={(event, newValue) => {
                             handleAddChangeEvent(
