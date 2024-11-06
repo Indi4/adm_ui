@@ -75,7 +75,7 @@ export const CDNMenuItems = [
         children: [
           {
             title: "Annual Plan",
-            path: "/cdc/demand-capture/annual-plan",
+            path: "/cdc/demandCapture/annualPlan",
             type: "link",
             icon: <i className="fe fe-calendar"></i>, 
             active: false,
@@ -83,7 +83,7 @@ export const CDNMenuItems = [
           },
           {
             title: "Dispatch Plan",
-            path: "/cdc/demand-capture/rolling-plan",
+            path: "/cdc/demandCapture/rollingPlan",
             type: "link",
             icon: <i className="fe fe-repeat"></i>, 
             active: false,
@@ -91,7 +91,7 @@ export const CDNMenuItems = [
           },
           {
             title: "Week Wise Sequencing",
-            path: "/cdc/demand-capture/weekWiseSequencing",
+            path: "/cdc/demandCapture/weekWiseSequencing",
             type: "link",
             icon: <i className="fe fe-sliders"></i>, 
             active: false,

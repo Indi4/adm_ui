@@ -45,19 +45,19 @@ function HomeComponent() {
     const demandDetailsActions = [
         {
             label: "Annual Plan",
-            path: "/cdc/demand-capture/annual-plan",
+            path: "/cdc/demandCapture/annualPlan",
             tab: "demandDetails",
             icon: <CalendarMonthIcon fontSize="large" color="primary" />,
         },
         {
             label: "Dispatch Plan",
-            path: "/cdc/demand-capture/rolling-plan",
+            path: "/cdc/demandCapture/rollingPlan",
             tab: "demandDetails",
             icon: <DatasetIcon fontSize="large" sx={{ color: "#f1c40f" }} />,
         },
         {
             label: "Week Wise Sequencing",
-            path: "/cdc/demand-capture/weekWiseSequencing",
+            path: "/cdc/demandCapture/weekWiseSequencing",
             tab: "demandDetails",
             icon: <CalendarMonthIcon fontSize="large" sx={{ color: "#7d3c98" }} />,
         },

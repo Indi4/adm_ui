@@ -357,11 +357,11 @@ export const Routingdata = [
     element: <QuickAction />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/cdc/demand-capture/annual-plan`,
+    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/annualPlan`,
     element: <AOP />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/cdc/demand-capture/weekWiseSequencing`,
+    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/weekWiseSequencing`,
     element: <WeekWiseDemands />,
   },
 
@@ -370,7 +370,7 @@ export const Routingdata = [
     element: <Defaultcalender />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/cdc/demand-capture/rolling-plan`,
+    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/rollingPlan`,
     element: <RollingPlan />,
   },
 
