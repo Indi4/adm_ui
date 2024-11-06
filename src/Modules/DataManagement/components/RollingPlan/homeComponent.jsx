@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, Fragment } from "react";
 import { Row } from "reactstrap";
 import {
 
@@ -44,7 +44,7 @@ function HomeComponent(props) {
   const [totalPage, setTotalPage] = useState(0);
   const [columns, setColumns] = useState([]);
   const [flag, setFlag] = useState([false]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const [customerNameorCodeList, setCustomerNameorCodeList] = useState([]);
   const [customerNameorCode, setCustomerNameorCode] = useState("");
@@ -289,27 +289,31 @@ function HomeComponent(props) {
   };
 
   return (
-    <div style={{ marginTop: "80px" }}>
-       <ToastContainer />
+    <Fragment>
+      <ToastContainer />
       <Pageheader items={breadcrumbs} />
       <Row>
-        <Card className="custom-card">
-          <Card.Header>
+      <Col xl={12}>
+        <Card >
+          <Card.Header  className=" d-flex justify-content-between align-items-center">
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 width: "100%",
-                padding: "0px",
+                padding: "7px 5px 0 0px",
               }}
             >
-                <Col xl={6}>
-                <FilterComponent
-                  handleSearchData={handleSearchData}
-                  callAPI={CDC_GET_ALLDEMANDS}
-                />
-            </Col>
-
+              <Card.Title style={{ flexGrow: 1 }}>
+                <Row>
+                  <Col xl={6}>
+                    <FilterComponent
+                      handleSearchData={handleSearchData}
+                      callAPI={CDC_GET_ALLDEMANDS}
+                    />
+                  </Col>
+                </Row>
+              </Card.Title>
               <Card.Title style={{ marginLeft: "auto" }}>
                 <Button
                   onClick={handleButtonClick}
@@ -339,8 +343,10 @@ function HomeComponent(props) {
             </div>
           </Card.Header>
 
-          <Card.Body>
+          <Card.Body className="p-0">
             <div className="card-area">
+            <Col md="12" style={{marginTop:"10px" ,marginBottom:"10px"}}>
+
               <TotalRecords
                 color="outline-success"
                 length={allDemandList && allDemandList?.length}
@@ -354,101 +360,103 @@ function HomeComponent(props) {
                   overflowY: "auto",
                 }}
               >
-                 {loading ? (
-                  
+                {loading ? (
+
                   <LoaderComponent />
-              ) :
-                allDemandList && allDemandList.length > 0 ? (
-                  <DataGrid
-                    rows={allDemandList || []}
-                    columns={columns}
-                    hideFooterPagination
-                    pagination
-                    paginationMode="server"
-                    rowCount={totalPage} // Ensure the total number of records is provided
-                    pageSize={paginationModel.pageSize}
-                    page={paginationModel.page}
-                    onPageChange={(newPage) =>
-                      handlePaginationChange({
-                        ...paginationModel,
-                        page: newPage,
-                      })
-                    }
-                    onPageSizeChange={(newPageSize) =>
-                      handlePaginationChange({
-                        ...paginationModel,
-                        pageSize: newPageSize,
-                      })
-                    }
-                    components={{
-                      Footer: () => (
-                        <CustomFooter total={allDemandList.length} />
-                      ),
-                    }}
-                    sx={{
-                      '& .MuiDataGrid-root': {
-                        border: 'none',
-                      },
-                      '& .MuiDataGrid-columnHeaders': {
-                        backgroundColor: "rgba(255, 255, 255, 0.7)",
-                        color: "rgba(0, 0, 0, 0.87)",
-                        fontSize: "15px",
-                        borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
-                        backdropFilter: "blur(10px)",
-                        boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
-                      },
-                      '& .MuiDataGrid-cell': {
-                        borderBottom: '1px solid #e0e0e0',
-                      },
-                      '& .footer-row': {
-                        fontWeight: 'bold',
-                        backgroundColor: '#f7f7f7',
-                        borderTop: '2px solid #4a6fa1',
-                      },
-                      '& .MuiDataGrid-row:hover': {
-                        backgroundColor: '#e0f7fa',
-                      },
-                      '& .MuiDataGrid-selectedRowCount': {
-                        color: '#4a6fa1',
-                      },
-                      "& .MuiDataGrid-virtualScroller": {
-                        "&::-webkit-scrollbar": {
-                          width: "10px",
-                          height: "10px",
+                ) :
+                  allDemandList && allDemandList.length > 0 ? (
+                    <DataGrid
+                      rows={allDemandList || []}
+                      columns={columns}
+                      hideFooterPagination
+                      pagination
+                      paginationMode="server"
+                      rowCount={totalPage} // Ensure the total number of records is provided
+                      pageSize={paginationModel.pageSize}
+                      page={paginationModel.page}
+                      onPageChange={(newPage) =>
+                        handlePaginationChange({
+                          ...paginationModel,
+                          page: newPage,
+                        })
+                      }
+                      onPageSizeChange={(newPageSize) =>
+                        handlePaginationChange({
+                          ...paginationModel,
+                          pageSize: newPageSize,
+                        })
+                      }
+                      components={{
+                        Footer: () => (
+                          <CustomFooter total={allDemandList.length} />
+                        ),
+                      }}
+                      sx={{
+                        '& .MuiDataGrid-root': {
+                          border: 'none',
                         },
-                        "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                          borderRadius: "10px",
+                        '& .MuiDataGrid-columnHeaders': {
+                          backgroundColor: "rgba(255, 255, 255, 0.7)",
+                          color: "rgba(0, 0, 0, 0.87)",
+                          fontSize: "15px",
+                          borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                          backdropFilter: "blur(10px)",
+                          boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                         },
-                        "&::-webkit-scrollbar-thumb:hover": {
-                          backgroundColor: "#8c8c8c", // Darker grey on hover
+                        '& .MuiDataGrid-cell': {
+                          borderBottom: '1px solid #e0e0e0',
                         },
-                      },
-                      "& .MuiDataGrid-root": {
-                        "&::-webkit-scrollbar": {
-                          height: "10px",
+                        '& .footer-row': {
+                          fontWeight: 'bold',
+                          backgroundColor: '#f7f7f7',
+                          borderTop: '2px solid #4a6fa1',
                         },
-                        "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                          borderRadius: "10px",
+                        '& .MuiDataGrid-row:hover': {
+                          backgroundColor: '#e0f7fa',
                         },
-                        "&::-webkit-scrollbar-thumb:hover": {
-                          backgroundColor: "#8c8c8c", // Darker grey on hover
+                        '& .MuiDataGrid-selectedRowCount': {
+                          color: '#4a6fa1',
                         },
-                      },
-                      '& .MuiDataGrid-toolbarContainer': {
-                        backgroundColor: '#f0f0f0',
-                        borderBottom: '1px solid #d3d3d3',
-                      },
-                    }}
-                  />
-                ) : (
-                  "No Data Found"
-                )}
+                        "& .MuiDataGrid-virtualScroller": {
+                          "&::-webkit-scrollbar": {
+                            width: "10px",
+                            height: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                            borderRadius: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            backgroundColor: "#8c8c8c", // Darker grey on hover
+                          },
+                        },
+                        "& .MuiDataGrid-root": {
+                          "&::-webkit-scrollbar": {
+                            height: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                            borderRadius: "10px",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            backgroundColor: "#8c8c8c", // Darker grey on hover
+                          },
+                        },
+                        '& .MuiDataGrid-toolbarContainer': {
+                          backgroundColor: '#f0f0f0',
+                          borderBottom: '1px solid #d3d3d3',
+                        },
+                      }}
+                    />
+                  ) : (
+                    "No Data Found"
+                  )}
               </div>
+              </Col>
             </div>
           </Card.Body>
         </Card>
+        </Col>
       </Row>
 
       {!!state.openModal && (
@@ -483,7 +491,7 @@ function HomeComponent(props) {
           callEndPoint={CDC_GET_ALLDEMANDS}
         />
       )}
-    </div>
+    </Fragment>
   );
 }
 
