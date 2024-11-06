@@ -8,38 +8,38 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 import { initialState, breadcrumbs } from "./config";
 import { Col, CardHeader, Label, Row, CardTitle } from "reactstrap";
-import ModalPopUpComponent from "../../../../commonComponent/modalPopUpComponent";
+import ModalPopUpComponent from "../../../../../commonComponent/modalPopUpComponent";
 import {
   GridRowModes,
   DataGrid,
   GridActionsCellItem,
   GridRowEditStopReasons,
 } from "@mui/x-data-grid";
-import { CDC_SAVE_AOP, CDC_AOP, GETALL_LIST } from "../../../endPointConfig";
+import { CDC_SAVE_AOP, CDC_AOP, GETALL_LIST } from "../../../../endPointConfig";
 import {
   getYearList,
   CustomFooter,
   renderTooltipCell,
-} from "../../../commonConfig";
+} from "../../../../commonConfig";
 import {
   callCommonGetAPI,
   callCommonRefreshProps,
   callCommonUpdateAPI,
-} from "../../../../store/action/action";
+} from "../../../../../store/action/action";
 import { Button, Dropdown } from "react-bootstrap";
 
-import DeleteModalComponent from "../../../../commonComponent/deleteModalComponent";
-import FilterComponent from "../../commonComponent/filter";
+import DeleteModalComponent from "../../../../../commonComponent/deleteModalComponent";
+import FilterComponent from "../../../commonComponent/filter";
 import { Autocomplete, Grid, TextField, Tooltip } from "@mui/material";
 import { Card } from "react-bootstrap";
-import Pageheader from "../../../../layouts/pageheader/pageheader";
+import Pageheader from "../../../../../layouts/pageheader/pageheader";
 import {
   Appbtn,
   Outline,
-} from "../../../../components/bootstrap/buttons/data/buttondata";
-import TotalRecords from "../../../../commonComponent/totalRecords";
-import { Singlesquare } from "../../../../components/Bootstrap/Dropdowns/data/dropdowndata";
-import LoaderComponent from "../../../../commonComponent/LoaderComponent";
+} from "../../../../../components/bootstrap/buttons/data/buttondata";
+import TotalRecords from "../../../../../commonComponent/totalRecords";
+import { Singlesquare } from "../../../../../components/Bootstrap/Dropdowns/data/dropdowndata";
+import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
 const style = {
   fontWeight: "bold",
 };

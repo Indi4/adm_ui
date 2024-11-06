@@ -220,6 +220,10 @@ function BOMComponent(props) {
                             backdropFilter: "blur(10px)",
                             boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                         },
+                        "& .MuiDataGrid-columnHeaderTitle": {
+                            whiteSpace: "normal", 
+                            textAlign: "center",
+                          },
                         '& .MuiDataGrid-cell': {
                             borderBottom: '1px solid #e0e0e0',
                         },
