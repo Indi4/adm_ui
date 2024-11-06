@@ -297,6 +297,7 @@ function HomeComponent(props) {
       field: "customer_name",
       headerName: "Customer Name",
       width: 150,
+      editable: false,
       renderCell: (params) => (
         <Tooltip title={params.value} arrow>
           <span
@@ -317,12 +318,14 @@ function HomeComponent(props) {
       field: "plant_location",
       headerName: "Location",
       width: 120,
+      editable: false,
       renderCell: (params) => renderTooltipCell(params.value),
     },
     {
       field: "fg_code",
       headerName: "FG Code",
       width: 120,
+      editable: false,
       getCellClassName: (params) => "fg-code-cell",
       renderCell: (params) => renderTooltipCell(params.value),
     },
@@ -330,13 +333,15 @@ function HomeComponent(props) {
       field: "wheel_size",
       headerName: "Wheel Size",
       width: 120,
+      editable: false,
       renderCell: (params) => renderTooltipCell(params.value),
     },
     {
       field: "Jan",
       headerName: "Jan",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -346,7 +351,8 @@ function HomeComponent(props) {
       field: "Feb",
       headerName: "Feb",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -356,7 +362,8 @@ function HomeComponent(props) {
       field: "Mar",
       headerName: "Mar",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -366,7 +373,8 @@ function HomeComponent(props) {
       field: "Apr",
       headerName: "Apr",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -376,7 +384,8 @@ function HomeComponent(props) {
       field: "May",
       headerName: "May",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -386,7 +395,8 @@ function HomeComponent(props) {
       field: "Jun",
       headerName: "Jun",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -396,7 +406,8 @@ function HomeComponent(props) {
       field: "Jul",
       headerName: "Jul",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -406,7 +417,8 @@ function HomeComponent(props) {
       field: "Aug",
       headerName: "Aug",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -416,7 +428,8 @@ function HomeComponent(props) {
       field: "Sep",
       headerName: "Sep",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -426,7 +439,8 @@ function HomeComponent(props) {
       field: "Oct",
       headerName: "Oct",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -436,7 +450,8 @@ function HomeComponent(props) {
       field: "Nov",
       headerName: "Nov",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -446,7 +461,8 @@ function HomeComponent(props) {
       field: "Dec",
       headerName: "Dec",
       width: 90,
-      editable: (params) => params.row.id !== "footer",
+      editable: false,
+      // editable: (params) => params.row.id !== "footer",
       renderCell: (params) =>
         renderTooltipCell(
           <div>{new Intl.NumberFormat("en-IN").format(params.value)}</div>
@@ -456,6 +472,7 @@ function HomeComponent(props) {
       field: "total_quantity",
       headerName: "Total",
       width: 90,
+      editable: false,
       renderCell: (params) =>
         renderTooltipCell(
           <div style={{ fontWeight: "bold" }}>
@@ -636,7 +653,8 @@ function HomeComponent(props) {
                       <DataGrid
                         rows={rowsWithFooter}
                         columns={MonthColumns}
-                        editMode="row"
+                        // editMode="row"
+                        disableSelectionOnClick
                         components={{
                           Footer: () => (
                             <CustomFooter total={allDemandList.length} />
@@ -705,7 +723,7 @@ function HomeComponent(props) {
                     )}
                   </div>
 
-                  {allDemandList && allDemandList.length > 0 && (
+                  {/* {allDemandList && allDemandList.length > 0 && (
                     <div
                       style={{
                         marginTop: "7px",
@@ -746,11 +764,9 @@ function HomeComponent(props) {
                         )
                       )}
                     </div>
-                  )}
+                  )} */}
                   </Col>
                 </div>
-
-                
               </Card.Body>
             </Card>
           </Col>
