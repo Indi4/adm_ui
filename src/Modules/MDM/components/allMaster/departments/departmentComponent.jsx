@@ -49,16 +49,11 @@ function DepartmentComponent(props) {
           <React.Fragment>
             {params && params.row.id !== 1 ? (
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <Tooltip title="Edit Data">
+                <Tooltip title="Edit">
                   <IconButton
                     variant="outlined"
                     sx={{
-                      color: "#3498db",
-                      margin: "5px",
-                      borderRadius: "15px",
-                      maxWidth: "150px",
-                      fontWeight: "bold",
-                      fontSize: "12px",
+                      color: "#0479a9",
                     }}
                     onClick={() =>
                       handleAddEditOpenModal(1, params.row.id, 0, "Edit")
@@ -67,7 +62,7 @@ function DepartmentComponent(props) {
                     <EditIcon />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Delete Data">
+                <Tooltip title="Delete">
                   <IconButton
                     variant="outlined"
                     sx={{
