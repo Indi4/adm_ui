@@ -14,7 +14,7 @@ import { initialState, breadcrumbs } from "./config"
 import { months, years, currentYear, currentMonth, renderTooltipCell } from "../../../../commonConfig";
 import { CDC_SAVE_WEEKWISE_DEMANDS, CDC_WEEKWISE_DEMANDS, GETALL_LIST } from "../../../../endPointConfig"
 import { callCommonGetAPI, callCommonRefreshProps, callCommonUpdateAPI } from '../../../../../store/action/action'
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import debounce from 'lodash/debounce';
 import TotalRecords from '../../../../../commonComponent/totalRecords'
 import { Appbtn, Outline } from "../../../../../components/bootstrap/buttons/data/buttondata";
@@ -346,9 +346,9 @@ function HomeComponent(props) {
     const dynamicMonthName = state.demand_month !== "" ? state.demand_month + " Qty (Nos.)" : currentMonth + " Qty (Nos.)"
     // Define other static columns
     const staticColumns = [
-        { field: 'customer_name', headerName: 'Customer Name', width: 200 ,renderCell: (params) => renderTooltipCell(params.value),},
-        { field: 'plant_location', headerName: 'Location', width: 120,renderCell: (params) => renderTooltipCell(params.value), },
-        { field: 'fg_part_no', headerName: 'FG Code', width: 120 ,renderCell: (params) => renderTooltipCell(params.value),},
+        { field: 'customer_name', headerName: 'Customer Name', width: 200, renderCell: (params) => renderTooltipCell(params.value), },
+        { field: 'plant_location', headerName: 'Location', width: 120, renderCell: (params) => renderTooltipCell(params.value), },
+        { field: 'fg_part_no', headerName: 'FG Code', width: 120, renderCell: (params) => renderTooltipCell(params.value), },
         {
             field: 'rolling_plan_qty', headerName: dynamicMonthName, width: 120,
             renderCell: (params) => renderTooltipCell(<div style={{ fontWeight: "bold" }}>{new Intl.NumberFormat('en-IN').format(params.value)}</div>)
@@ -512,18 +512,19 @@ function HomeComponent(props) {
 
     return (
         <Fragment>
+            <ToastContainer />
             <Pageheader items={breadcrumbs} />
             <Row>
                 <Col xl={12}>
                     <Card>
                         <Card.Header className=" d-flex justify-content-between align-items-center">
                             <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
-                            <Col xl={6}>
+                                <Col xl={6}>
                                     <FilterComponent
                                         handleSearchData={handleSearchData}
                                         callAPI={CDC_WEEKWISE_DEMANDS}
                                     />
-                                  </Col>
+                                </Col>
                                 <Card.Title style={{ marginTop: "10px", padding: "5px" }}>
                                     <Grid container alignItems="center" justifyContent="flex-end">
                                         {/* Year Select Autocomplete */}
@@ -592,7 +593,7 @@ function HomeComponent(props) {
                                                 }}
                                             />
                                         </Grid>
-                                        
+
 
                                         {/* Demand Month Autocomplete */}
                                         <Grid item>
@@ -671,7 +672,7 @@ function HomeComponent(props) {
 
                                             <LoaderComponent />
                                         ) :
-                                             rowss && rowss.length > 0 ? (
+                                            rowss && rowss.length > 0 ? (
                                                 <DataGrid
                                                     rows={rowss || []}
                                                     columns={columnss}
