@@ -380,8 +380,21 @@ function Header() {
 
                                         <Dropdown className="dropdown d-flex profile-1">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link leading-none d-flex">
-                                                <div className="dropdown d-flex">
-                                                    <i className="dropdown-icon fe fe-user" style={{color:"#0d6b91 ", marginBottom:"4px", fontSize: "16px"}}></i>
+                                                <div className="dropdown d-flex position-relative" >
+                                                    <i className="dropdown-icon fe fe-user" style={{ color: "#0d6b91 ", marginBottom: "4px", fontSize: "16px" }}></i>
+                                                    <span
+                                                        style={{
+                                                            position: "absolute",
+                                                            top: -3,
+                                                            left:1,
+                                                            right: 0,
+                                                            width: "9px",
+                                                            height: "9px",
+                                                            backgroundColor: "#07bc0c",
+                                                            borderRadius: "50%",
+                                                            border: "2px solid white" // Optional for better visibility
+                                                        }}
+                                                    ></span>
                                                 </div>
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
