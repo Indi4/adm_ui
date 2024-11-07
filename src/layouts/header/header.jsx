@@ -378,23 +378,15 @@ function Header() {
                                             </ul>
                                         </div>
 
-
-
-
-
                                         <Dropdown className="dropdown d-flex profile-1">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link leading-none d-flex">
-                                                <img src={imagesData('maxionLogo')} alt="profile-user"
-                                                    className="avatar  profile-user  cover-image" style={{ width: '4rem' }} />
+                                                <div className="dropdown d-flex">
+                                                    <i className="dropdown-icon fe fe-user" style={{color:"#0d6b91 ", marginBottom:"4px", fontSize: "16px"}}></i>
+                                                </div>
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
                                                 data-bs-popper="none">
-                                                {/* <div className="drop-heading">
-                                                    <div className="text-center">
-                                                        <h5 className="text-dark mb-0 fw-semibold">Alison</h5>
-                                                        <span className="text-muted fs-12">Administrator</span>
-                                                    </div>
-                                                </div> */}
+
                                                 <div className="drop-heading">
                                                     <div className="text-center">
                                                         <h4 className="text-dark mb-0 fw-semibold">
@@ -701,7 +693,7 @@ function Header() {
                                                                         </Button>
                                                                     )
                                                                 )}
-                                                                
+
                                                                 {Appbtn.filter((idx) => idx.icon === "save").map(
                                                                     (idx, ap) => (
                                                                         <Button
@@ -721,24 +713,15 @@ function Header() {
                                                     </DialogActions>
                                                 </Dialog>
 
-
-                                                {/* <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/mailinbox`}>
-                                                    <i className="dropdown-icon fe fe-mail"></i> Inbox
-                                                    <span className="badge bg-success float-end">3</span>
-                                                </Dropdown.Item> */}
-                                                {/* <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/settings`}>
-                                                    <i className="dropdown-icon fe fe-settings"></i> Settings
-                                                </Dropdown.Item> */}
-                                                {/* <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/faqs`} >
-                                                    <i className="dropdown-icon fe fe-alert-triangle"></i>
-                                                    Support ?
-                                                </Dropdown.Item> */}
                                                 <Dropdown.Item className="text-dark fw-semibold" onClick={handleLogout}>
                                                     <i className="dropdown-icon fe fe-log-out"></i> Sign
                                                     out
                                                 </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
+
+                                        <img src={imagesData('maxionLogo')} alt="profile-user"
+                                            className="avatar  profile-user  cover-image" style={{ width: '4rem' }} />
                                     </div>
                                 </Navbar.Collapse>
                             </div>
