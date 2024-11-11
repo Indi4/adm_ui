@@ -8,12 +8,16 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import Authlogin from "../firebase/firebaseauth/authlogin";
+import { clearMessage } from "../../store/authentication/authSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 function main() {
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken");
   const [isAuthenticate, setIsAuthenticate] = React.useState(!!accessToken);
+  const { success } = useSelector((state) => state.auth);
+  const dispatch = useDispatch()
 
   const handleCDCTooledirection = () => {
     navigate("/cdc/dashboard", { state: { layout: "CDC_Tool" } });
@@ -24,6 +28,13 @@ function main() {
     navigate("/mdm/customer-details", { state: { layout: "MDM" } });
     // sessionStorage.setItem("layout", "MDM");
   };
+
+  useEffect(() => {
+    if (success && isAuthenticate) {
+      toast.success(success);
+      dispatch(clearMessage());
+    }
+  }, [success,isAuthenticate]);
 
   useEffect(() => {
     if (!accessToken) {
@@ -40,6 +51,8 @@ function main() {
 
   return (
     <>
+      <ToastContainer />
+
       {!isAuthenticate && <Authlogin setIsAuthenticate={setIsAuthenticate} />}
 
       {isAuthenticate && (

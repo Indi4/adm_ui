@@ -26,7 +26,6 @@ import { ToastContainer, toast } from "react-toastify";
 
 function Authlogin({ setIsAuthenticate }) {
   const [err, setError] = useState("");
-  const [loading, setLoader] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,7 +33,7 @@ function Authlogin({ setIsAuthenticate }) {
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { success, error } = useSelector((state) => state.auth);
+  const { success, error, loading } = useSelector((state) => state.auth);
 
   const { email, password } = formData;
 
@@ -48,18 +47,30 @@ function Authlogin({ setIsAuthenticate }) {
     dispatch(login({ email: formData.email, password: formData.password })); // Dispatch login action
   };
 
+  // useEffect(() => {
+  //   if (success) {
+  //     toast.success(success);
+  //     setTimeout(() => {
+  //       dispatch(clearMessage());
+  //       setIsAuthenticate(true);
+  //     }, 1750);
+  //   }
+  //   if (error) {
+  //     toast.error(error);
+  //   }
+  // }, [success, error, dispatch, navigate]);
   useEffect(() => {
     if (success) {
-      toast.success(success);
-      setTimeout(() => {
-        dispatch(clearMessage());
         setIsAuthenticate(true);
-      }, 1000);
     }
+  }, [success]);
+
+  useEffect(() => {
     if (error) {
       toast.error(error);
+      dispatch(clearMessage());
     }
-  }, [success, error, dispatch, navigate]);
+  }, [error]);
 
   return (
     <Fragment>
@@ -152,7 +163,7 @@ function Authlogin({ setIsAuthenticate }) {
                                   onClick={handleSubmit} // Call handleSubmit on click
                                   disabled={loading} // Disable the button while loading
                                 >
-                                  {loading ? "Loading..." : "Login"}
+                                  {loading ? "Signing In..." : "Login"}
                                 </Button>
                               </div>
                               <div className="col-12">
