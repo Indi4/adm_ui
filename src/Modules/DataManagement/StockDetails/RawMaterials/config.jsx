@@ -106,7 +106,7 @@ const generateDynamicColumns = (data) => {
                                 textAlign: "center",
                                 display: "block",
                                 width: "100%",
-                                color: params.value < 0 ? 'green' : 'red',
+                                color: params.value < 0 ? 'red' : 'green',
                             }}
                         >
                             {params.value}
