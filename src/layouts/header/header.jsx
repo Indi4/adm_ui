@@ -14,7 +14,7 @@ import { getMyAccount, PostChangePassword } from '../../store/authentication/aut
 import { jwtDecode } from "jwt-decode";
 import { Appbtn, Outline } from '../../components/bootstrap/buttons/data/buttondata';
 import { Button } from "react-bootstrap";
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function Header() {
 
@@ -379,20 +379,30 @@ function Header() {
                                         </div>
 
                                         <Dropdown className="dropdown d-flex profile-1">
-                                            <Dropdown.Toggle as='a' variant='' className="no-caret nav-link leading-none d-flex">
-                                                <div className="dropdown d-flex position-relative" >
-                                                    <i className="dropdown-icon fe fe-user" style={{ color: "#0d6b91 ", marginBottom: "4px", fontSize: "16px" }}></i>
+                                           
+                                            <Dropdown.Toggle as="a" variant="" className="no-caret nav-link leading-none d-flex">
+                                                <style>
+                                                    {`
+            @keyframes blink {
+                0%, 100% { background-color: #07bc0c; }
+                50% { background-color: transparent; }
+            }
+        `}
+                                                </style>
+                                                <div className="dropdown d-flex position-relative">
+                                                    <AccountCircleIcon fontSize='medium' style={{ marginRight: "8px" }} />
                                                     <span
                                                         style={{
                                                             position: "absolute",
                                                             top: -3,
                                                             left:1,
                                                             right: 0,
-                                                            width: "9px",
-                                                            height: "9px",
+                                                            width: "10px",
+                                                            height: "10px",
                                                             backgroundColor: "#07bc0c",
                                                             borderRadius: "50%",
-                                                            border: "2px solid white" // Optional for better visibility
+                                                            border: "2px solid white",
+                                                            animation: "blink 1s infinite" 
                                                         }}
                                                     ></span>
                                                 </div>
