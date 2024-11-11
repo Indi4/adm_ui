@@ -23,6 +23,7 @@ import { Appbtn, Outline } from "../../../../../components/bootstrap/buttons/dat
 import LoaderComponent from "../../../../../commonComponent/LoaderComponent";
 
 import '../../../../../layouts/styles/Common.css'
+import { refresh } from "aos";
 
 
 function HomeComponent(props) {
@@ -47,22 +48,25 @@ function HomeComponent(props) {
 
 
     useEffect(() => {
-        setLoading(true);
         if (state.demand_year !== "" && state.demand_month !== "") {
+            setLoading(true);
             getweekDemandData(`${CDC_WEEKWISE_DEMANDS}?demand_month=${state.demand_month}&demand_year=${state.demand_year}`)
         } else if (state.demand_year === "" && state.demand_month === "") {
+            setLoading(true);
             getweekDemandData(`${CDC_WEEKWISE_DEMANDS}?demand_month=${currentMonth}&demand_year=${currentYear.demand_year}`)
         }
+        
         //setCurrentYear("")
-        return () => { reset() }
-    }, []);
+        // return () => { reset() }
+    }, [state.demand_month,state.demand_year]);
+    
 
     useEffect(() => {
-        if (weekDemandData && weekDemandData?.data?.length > 0) {
+        if (weekDemandData) {
             setIsSet(1)
             setallDemandList(weekDemandData.data);
             let tempArr = []
-            weekDemandData.data.length > 0 && weekDemandData.data.map((item) => {
+            weekDemandData?.data?.length > 0 && weekDemandData?.data?.map((item) => {
                 tempArr.push({ 'id': item._id, 'fg_stock_qty': item.fg_stock_qty, 'rm_stock_qty': item.rm_stock_qty })
             })
             setFgRmStockList(tempArr)
@@ -91,12 +95,12 @@ function HomeComponent(props) {
     }, [updateWeeklyDemandDetailsData, errorData])
 
     useEffect(() => {
-        if (transformData && allDemandList && allDemandList.length > 0 && isSet) {
+        if (transformData && allDemandList && isSet) {
             setIsSet(0);
             const rowst = transformData(allDemandList);
             setRowss(rowst);
             let tempArr = []
-            allDemandList.length > 0 && allDemandList.map((item) => {
+            allDemandList?.length > 0 && allDemandList?.map((item) => {
                 tempArr.push({ 'id': item._id, 'fg_stock_qty': item.fg_stock_qty, 'rm_stock_qty': item.rm_stock_qty })
             })
             setFgRmStockList(tempArr)
@@ -118,9 +122,7 @@ function HomeComponent(props) {
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setState({ ...state, [name]: value })
-        if (name === "demand_month") {
-            getweekDemandData(`${CDC_WEEKWISE_DEMANDS}?demand_month=${value}&demand_year=${state.demand_year}`)
-        }
+       
     };
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -153,13 +155,14 @@ function HomeComponent(props) {
     };
 
     const handleSearchData = (weekDemandData, data, customerNameorCode) => {
+        setCustomerNameorCode(customerNameorCode)
         if (weekDemandData && Object.keys(weekDemandData).length > 0) {
-            setCustomerNameorCode(customerNameorCode)
             setIsSet(1);
-            refreshProps("allDemandList")
+            // refreshProps("weekDemandData")
             setallDemandList(weekDemandData.data)
-        } else
-            setallDemandList([])
+        } else{
+                setRowss([])
+        }
     }
 
     const handleSave = () => {
@@ -512,6 +515,10 @@ function HomeComponent(props) {
 
         setRowss(updatedData); // Update state with the new data
     }, 1500); // Adjust debounce time (in milliseconds)
+
+    const years = Array.from({ length: 20 }, (_, index) => ({
+        demand_year: currentYear.demand_year + 10 - index,
+      }));
 
     return (
         <Fragment>

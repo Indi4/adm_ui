@@ -807,8 +807,7 @@ const mapDispatchtoprops = (dispatch) => {
   return {
     updateMonthlyDemandDetails: (endPoint, payLoad) =>
       dispatch(callCommonUpdateAPI(endPoint, payLoad, "monthlyDemandDetails")),
-    getallDemandData: (endPoint) =>
-      dispatch(callCommonGetAPI(endPoint, "allDemand")),
+    getallDemandData: (endPoint) =>dispatch(callCommonGetAPI(endPoint, "allDemand")),
     refreshProps: (title) => dispatch(callCommonRefreshProps(title)),
   };
 };
