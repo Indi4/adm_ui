@@ -537,10 +537,12 @@ function HomeComponent(props) {
             <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
 
                   <Card.Title style={{ flexGrow: 1 }}>
+                  <Col xl={6}>
                     <FilterComponent
                       handleSearchData={handleSearchData}
                       callAPI={CDC_AOP}
                     />
+                    </Col>
                     </Card.Title>
                   <Card.Title style={{ marginLeft: "auto" }}>
                     <div
