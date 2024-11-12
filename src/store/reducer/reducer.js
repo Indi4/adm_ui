@@ -56,7 +56,7 @@ const initialstate = {
   planByMonthData:{},
   changesMadeByCustomerCodeData:{},
   changesMadeByProductCodeData:{},
-  weekDemandData:{},
+  weekDemandData:null,
   cardsData:{},
   errorData: {},
 };
