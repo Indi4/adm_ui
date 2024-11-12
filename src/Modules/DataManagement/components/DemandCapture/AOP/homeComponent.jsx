@@ -68,6 +68,8 @@ function HomeComponent(props) {
   } = props;
   const [allDemandList, setallDemandList] = useState([]);
   const [yearList, setYearList] = useState([]);
+  const [selectedYear, setSelectedYear] = useState(null);
+
 
   // const yearOptions = yearList.map((year) => ({ year }));
   useEffect(() => {
@@ -76,18 +78,18 @@ function HomeComponent(props) {
     getallDemandData(`${CDC_AOP}?year=${state.year}`);
     const years = getYearList(10, 5);
     setYearList(years);
-    return () => {
-      reset();
-    };
-  }, []);
+    // return () => {
+    //   reset();
+    // };
+  }, [state.year]);
 
   useEffect(() => {
-    if (allDemandData && Object.keys(allDemandData).length > 0) {
-      if (allDemandData.data && allDemandData.data.length > 0) {
+    if (allDemandData) {
+      if (allDemandData?.data && allDemandData?.data?.length > 0) {
         setallDemandList(allDemandData.data);
         setTotalPage(allDemandData.count || allDemandData.data.length);
+        setLoading(false);
       }
-      setLoading(false);
     }
   }, [allDemandData]);
 
@@ -131,12 +133,14 @@ function HomeComponent(props) {
   };
 
   const handleChangeEvent = (e, i) => {
+    setLoading(true)
     customerNameorCode !== ""
       ? getallDemandData(
           `${CDC_AOP}?year=${e.target.value}&search=${customerNameorCode}`
         )
       : getallDemandData(`${CDC_AOP}?year=${e.target.value}`);
-  };
+      setLoading(true)
+    };
 
   const handlePaginationChange = (newPagination) => {
     setPaginationModel(newPagination);
@@ -258,14 +262,15 @@ function HomeComponent(props) {
   };
 
   const handleSearchData = (allDemandData, data, customerNameCode) => {
+    setLoading(true)
     setCustomerNameorCode(customerNameCode);
     if (allDemandData && Object.keys(allDemandData).length > 0) {
       setallDemandList(allDemandData.data);
       setTotalPage(allDemandData.count);
+      setLoading(false)
     }
   };
 
-  const [selectedYear, setSelectedYear] = useState(null);
 
   const handleSelectYear = (e) => {
     const { name, value } = e.target;

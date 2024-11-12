@@ -62,7 +62,7 @@ function HomeComponent(props) {
     
 
     useEffect(() => {
-        if (weekDemandData) {
+        if (weekDemandData ) {
             setIsSet(1)
             setallDemandList(weekDemandData.data);
             let tempArr = []
@@ -155,11 +155,13 @@ function HomeComponent(props) {
     };
 
     const handleSearchData = (weekDemandData, data, customerNameorCode) => {
-        setCustomerNameorCode(customerNameorCode)
+            setLoading(true)
+            setCustomerNameorCode(customerNameorCode)
         if (weekDemandData && Object.keys(weekDemandData).length > 0) {
             setIsSet(1);
             // refreshProps("weekDemandData")
             setallDemandList(weekDemandData.data)
+            setLoading(false)
         } else{
                 setRowss([])
         }
