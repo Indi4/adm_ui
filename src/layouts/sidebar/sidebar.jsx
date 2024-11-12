@@ -118,9 +118,12 @@ export default function Sidebar({ menuType }) {
                       >
                         <Link
                           to={item.path}
-                          className={`side-menu__item ${
-                            item.selected ? "active" : ""
-                          }`}
+                          // className={`side-menu__item ${
+                          //   item.selected ? "active" : ""
+                          // }`}
+
+                          className={`side-menu__item ${item.selected ? "active" : ""} parent`}
+
                           onClick={() => {
                             setActiveMenuItem(item.path);
                             toggleItem(idx);
@@ -148,12 +151,17 @@ export default function Sidebar({ menuType }) {
                               <li key={childIdx}>
                                 <Link
                                   to={child.path}
-                                  className={`side-menu__item ${
-                                    child.selected ? "active" : ""
-                                  }`}
-                                  onClick={() => setActiveMenuItem(child.path)}
+                                  // className={`side-menu__item ${
+                                  //   child.selected ? "active" : ""
+                                  // }`}
+                                  // onClick={() => setActiveMenuItem(child.path)}
+
+                                  className={`side-menu__item ${child.selected ? "active" : ""
+                                  } child`}
+                                onClick={() => setActiveMenuItem(child.path)}
+
                                 >
-                                  <span style={{ marginRight: "12px" ,marginLeft:"10px",height:"10px"}}>
+                                  <span style={{height:"10px"}}>
                                     {child.icon}
                                   </span>
                                   <span className="side-menu__label">

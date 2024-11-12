@@ -300,14 +300,14 @@ function HomeComponent(props) {
                     />,
                 ] : [
                     <Tooltip title="Edit">
-                    <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Edit"
-                        className="textPrimary"
-                        onClick={handleEditClick(id)}
-                        sx={{ color: "#0479a9" }} 
-                        key="edit"
-                    /> </Tooltip>,
+                        <GridActionsCellItem
+                            icon={<EditIcon />}
+                            label="Edit"
+                            className="textPrimary"
+                            onClick={handleEditClick(id)}
+                            sx={{ color: "#0479a9" }}
+                            key="edit"
+                        /> </Tooltip>,
                     // <GridActionsCellItem
                     //   icon={<DeleteIcon />}
                     //   label="Delete"
@@ -522,12 +522,16 @@ function HomeComponent(props) {
                     <Card>
                         <Card.Header className=" d-flex justify-content-between align-items-center">
                             <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
-                                <Col xl={6}>
-                                    <FilterComponent
-                                        handleSearchData={handleSearchData}
-                                        callAPI={CDC_WEEKWISE_DEMANDS}
-                                    />
-                                </Col>
+                                <Card.Title style={{ flexGrow: 1 }}>
+                                    <Row>
+                                        <Col xl={6}>
+                                            <FilterComponent
+                                                handleSearchData={handleSearchData}
+                                                callAPI={CDC_WEEKWISE_DEMANDS}
+                                            />
+                                        </Col>
+                                    </Row>
+                                </Card.Title>
                                 <Card.Title style={{ marginTop: "10px" }}>
                                     <Grid container alignItems="center" justifyContent="flex-end">
                                         {/* Year Select Autocomplete */}

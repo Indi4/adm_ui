@@ -13941,13 +13941,29 @@ label.control-label {
     color: var(--primary-bg-color);
 }
 
-.side-menu__item.active,
-.side-menu__item:hover,
-.side-menu__item:focus {
+.side-menu__item.parent.active,
+.side-menu__item.parent:hover,
+.side-menu__item.parent:focus {
     text-decoration: none;
     color: white !important;
-    background-color: #0093d0 !important;
+    background-color: #0078a0 !important;
 }
+
+.side-menu__item.child {
+    font-size: 13px;
+    margin: 10px;
+}
+
+.side-menu__item.child.active,
+.side-menu__item.child:hover,
+.side-menu__item.child:focus {
+    color: white !important;
+    background-color: #0093d0 !important;
+    margin: 10px !important;
+
+
+}
+
 
 .side-menu__item.active .side-menu__icon,
 .side-menu__item:hover .side-menu__icon,
@@ -25080,7 +25096,7 @@ dd {
     transition: margin-inline-start 450ms ease;
     overflow: clip;
     /* margin-block-start: 62px; */
-     margin-block-start: 10px;
+    margin-block-start: 10px;
 }
 
 .app-content .side-app {
@@ -38090,11 +38106,12 @@ body.dark-mode {
 .dark-mode .header-brand .header-brand-img.logo-4 {
     display: block;
 }
+
 /* Default light mode */
 .dark-mode {
     --background-color: #181818;
     --text-color: #ffffff;
-  }
+}
 
 @media (max-width: 991.98px) {
     .dark-mode.horizontal .header.hor-header .header-brand-img.darklogo {
