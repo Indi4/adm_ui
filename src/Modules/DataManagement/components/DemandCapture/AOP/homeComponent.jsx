@@ -542,7 +542,7 @@ function HomeComponent(props) {
                       </Col>
                     </Row>
                   </Card.Title>
-                  <Card.Title style={{ marginLeft: "auto" }}>
+                  {/* <Card.Title style={{ marginLeft: "auto" }}> */}
                     <div
                       style={{
                         display: "flex",
@@ -627,7 +627,7 @@ function HomeComponent(props) {
                         Import AOP
                       </Button>
                     </div>
-                  </Card.Title>
+                  {/* </Card.Title> */}
                 </div>
               </Card.Header>
               <Card.Body className="p-0">

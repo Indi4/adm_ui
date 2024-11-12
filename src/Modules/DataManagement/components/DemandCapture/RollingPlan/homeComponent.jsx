@@ -289,7 +289,7 @@ function HomeComponent(props) {
                   display: "flex",
                   justifyContent: "space-between",
                   width: "100%",
-                  padding: "7px 5px 0 0px",
+                  padding: "7px 5px 0 5px",
                 }}
               >
                 <Card.Title style={{ flexGrow: 1 }}>
