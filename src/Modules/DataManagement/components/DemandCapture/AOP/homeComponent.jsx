@@ -99,10 +99,9 @@ function HomeComponent(props) {
       toast.success(updateMonthlyDemandDetailsData.message);
       customerNameorCode !== ""
         ? getallDemandData(
-            `${CDC_AOP}?year=${
-              !!state.year ? state.year : ""
-            }&search=${customerNameorCode}`
-          )
+          `${CDC_AOP}?year=${!!state.year ? state.year : ""
+          }&search=${customerNameorCode}`
+        )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     }
     if (
@@ -122,10 +121,9 @@ function HomeComponent(props) {
       refreshProps("allDemandData");
       customerNameorCode !== ""
         ? getallDemandData(
-            `${CDC_AOP}?year=${
-              !!state.year ? state.year : ""
-            }&search=${customerNameorCode}`
-          )
+          `${CDC_AOP}?year=${!!state.year ? state.year : ""
+          }&search=${customerNameorCode}`
+        )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     } else if (!success && message !== "") {
       toast.error(message);
@@ -136,8 +134,8 @@ function HomeComponent(props) {
     setLoading(true)
     customerNameorCode !== ""
       ? getallDemandData(
-          `${CDC_AOP}?year=${e.target.value}&search=${customerNameorCode}`
-        )
+        `${CDC_AOP}?year=${e.target.value}&search=${customerNameorCode}`
+      )
       : getallDemandData(`${CDC_AOP}?year=${e.target.value}`);
       setLoading(true)
     };
@@ -168,10 +166,9 @@ function HomeComponent(props) {
       refreshProps("allDemandData");
       customerNameorCode !== ""
         ? getallDemandData(
-            `${CDC_AOP}?year=${
-              !!state.year ? state.year : ""
-            }&search=${customerNameorCode}`
-          )
+          `${CDC_AOP}?year=${!!state.year ? state.year : ""
+          }&search=${customerNameorCode}`
+        )
         : getallDemandData(`${CDC_AOP}?year=${!!state.year ? state.year : ""}`);
     } else if (!success && message !== "") {
       toast.error(message);
@@ -538,18 +535,19 @@ function HomeComponent(props) {
         <Row>
           <Col xl={12}>
             <Card>
-            <Card.Header className=" d-flex justify-content-between align-items-center">
-            <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
-
+              <Card.Header className=" d-flex justify-content-between align-items-center">
+                <div style={{ display: "flex", justifyContent: "space-between", width: "100%", padding: "7px 5px 0 5px" }}>
                   <Card.Title style={{ flexGrow: 1 }}>
-                  <Col xl={6}>
-                    <FilterComponent
-                      handleSearchData={handleSearchData}
-                      callAPI={CDC_AOP}
-                    />
-                    </Col>
-                    </Card.Title>
-                  <Card.Title style={{ marginLeft: "auto" }}>
+                    <Row>
+                      <Col xl={6}>
+                        <FilterComponent
+                          handleSearchData={handleSearchData}
+                          callAPI={CDC_AOP}
+                        />
+                      </Col>
+                    </Row>
+                  </Card.Title>
+                  {/* <Card.Title style={{ marginLeft: "auto" }}> */}
                     <div
                       style={{
                         display: "flex",
@@ -557,7 +555,7 @@ function HomeComponent(props) {
                         alignItems: "center",
                       }}
                     >
-                      <Grid item sx={{marginTop:"20px"}}>
+                      <Grid item sx={{ marginTop: "20px" }}>
                         <Autocomplete
                           id="year-select-autocomplete"
                           options={yearList || []}
@@ -583,8 +581,8 @@ function HomeComponent(props) {
                                   textAlign: "start",
                                   paddingBottom: "10px",
                                   color: "#28afd0",
-                                  
-                                  
+
+
                                 },
                               }}
                               InputLabelProps={{
@@ -634,103 +632,103 @@ function HomeComponent(props) {
                         Import AOP
                       </Button>
                     </div>
-                  </Card.Title>
+                  {/* </Card.Title> */}
                 </div>
               </Card.Header>
               <Card.Body className="p-0">
                 <div className="card-area">
-              <Col md="12" style={{marginTop:"10px" ,marginBottom:"10px"}}>
+                  <Col md="12" style={{ marginTop: "10px", marginBottom: "10px" }}>
 
-                  <TotalRecords
-                    color="outline-success"
-                    length={allDemandList && allDemandList.length}
-                  />
+                    <TotalRecords
+                      color="outline-success"
+                      length={allDemandList && allDemandList.length}
+                    />
 
-                  <div
-                    style={{
-                      marginTop: "10px",
-                      display: "grid",
-                      height: 500,
-                      overflowY: "auto",
-                    }}
-                  >
-                    {loading ? (
-                      <LoaderComponent />
-                    ) : allDemandList && allDemandList.length > 0 ? (
-                      <DataGrid
-                        rows={rowsWithFooter}
-                        columns={MonthColumns}
-                        // editMode="row"
-                        disableSelectionOnClick
-                        components={{
-                          Footer: () => (
-                            <CustomFooter total={allDemandList.length} />
-                          ),
-                        }}
-                        hideFooterPagination
-                        sx={{
-                          "& .MuiDataGrid-root": {
-                            border: "none",
-                          },
-                          "& .MuiDataGrid-columnHeaders": {
-                            backgroundColor: "rgba(255, 255, 255, 0.7)",
-                            color: "rgba(0, 0, 0, 0.87)",
-                            fontSize: "15px",
-                            borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
-                            backdropFilter: "blur(10px)",
-                            boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
-                          },
-                          "& .MuiDataGrid-cell": {
-                            borderBottom: "1px solid #e0e0e0",
-                          },
-                          "& .footer-row": {
-                            fontWeight: "bold",
-                            backgroundColor: "#f7f7f7",
-                            borderTop: "2px solid #4a6fa1",
-                          },
-                          "& .MuiDataGrid-row:hover": {
-                            backgroundColor: "#e0f7fa",
-                          },
-                          "& .MuiDataGrid-selectedRowCount": {
-                            color: "#4a6fa1",
-                          },
-                          "& .MuiDataGrid-virtualScroller": {
-                            "&::-webkit-scrollbar": {
-                              width: "10px",
-                              height: "10px",
+                    <div
+                      style={{
+                        marginTop: "10px",
+                        display: "grid",
+                        height: 500,
+                        overflowY: "auto",
+                      }}
+                    >
+                      {loading ? (
+                        <LoaderComponent />
+                      ) : allDemandList && allDemandList.length > 0 ? (
+                        <DataGrid
+                          rows={rowsWithFooter}
+                          columns={MonthColumns}
+                          // editMode="row"
+                          disableSelectionOnClick
+                          components={{
+                            Footer: () => (
+                              <CustomFooter total={allDemandList.length} />
+                            ),
+                          }}
+                          hideFooterPagination
+                          sx={{
+                            "& .MuiDataGrid-root": {
+                              border: "none",
                             },
-                            "&::-webkit-scrollbar-thumb": {
-                              backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                              borderRadius: "10px",
+                            "& .MuiDataGrid-columnHeaders": {
+                              backgroundColor: "rgba(255, 255, 255, 0.7)",
+                              color: "rgba(0, 0, 0, 0.87)",
+                              fontSize: "15px",
+                              borderBottom: "2px solid rgba(60, 90, 120, 0.5)",
+                              backdropFilter: "blur(10px)",
+                              boxShadow: "0 14px 8px rgba(0, 0, 0, 0.1)",
                             },
-                            "&::-webkit-scrollbar-thumb:hover": {
-                              backgroundColor: "#8c8c8c", // Darker grey on hover
+                            "& .MuiDataGrid-cell": {
+                              borderBottom: "1px solid #e0e0e0",
                             },
-                          },
-                          "& .MuiDataGrid-root": {
-                            "&::-webkit-scrollbar": {
-                              height: "10px",
+                            "& .footer-row": {
+                              fontWeight: "bold",
+                              backgroundColor: "#f7f7f7",
+                              borderTop: "2px solid #4a6fa1",
                             },
-                            "&::-webkit-scrollbar-thumb": {
-                              backgroundColor: "darkgrey", // Set scrollbar color to dark grey
-                              borderRadius: "10px",
+                            "& .MuiDataGrid-row:hover": {
+                              backgroundColor: "#e0f7fa",
                             },
-                            "&::-webkit-scrollbar-thumb:hover": {
-                              backgroundColor: "#8c8c8c", // Darker grey on hover
+                            "& .MuiDataGrid-selectedRowCount": {
+                              color: "#4a6fa1",
                             },
-                          },
-                          "& .MuiDataGrid-toolbarContainer": {
-                            backgroundColor: "#f0f0f0",
-                            borderBottom: "1px solid #d3d3d3",
-                          },
-                        }}
-                      />
-                    ) : (
-                      "No Data Found"
-                    )}
-                  </div>
+                            "& .MuiDataGrid-virtualScroller": {
+                              "&::-webkit-scrollbar": {
+                                width: "10px",
+                                height: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                borderRadius: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb:hover": {
+                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                              },
+                            },
+                            "& .MuiDataGrid-root": {
+                              "&::-webkit-scrollbar": {
+                                height: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb": {
+                                backgroundColor: "darkgrey", // Set scrollbar color to dark grey
+                                borderRadius: "10px",
+                              },
+                              "&::-webkit-scrollbar-thumb:hover": {
+                                backgroundColor: "#8c8c8c", // Darker grey on hover
+                              },
+                            },
+                            "& .MuiDataGrid-toolbarContainer": {
+                              backgroundColor: "#f0f0f0",
+                              borderBottom: "1px solid #d3d3d3",
+                            },
+                          }}
+                        />
+                      ) : (
+                        "No Data Found"
+                      )}
+                    </div>
 
-                  {/* {allDemandList && allDemandList.length > 0 && (
+                    {/* {allDemandList && allDemandList.length > 0 && (
                     <div
                       style={{
                         marginTop: "7px",
