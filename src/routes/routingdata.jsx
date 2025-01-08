@@ -1,59 +1,12 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom/client";
+import Purchase from "../Modules/Purchase/Purchase";
 /* MDM Routes */
-const CustomerDetails = React.lazy(() =>
-  import("../Modules/MDM/components/allMaster/customers/customerDetails")
-);
-const BomDetails = React.lazy(() =>
-  import("../Modules/MDM/components/allMaster/BOMMaster/bomDetails")
-);
-const CodeComponent = React.lazy(() =>
-  import("../Modules/MDM/components/allMaster/codeMaster/codeComponent")
-);
-const DepartmentComponent = React.lazy(() =>
-  import("../Modules/MDM/components/allMaster/departments/departmentComponent")
-);
-const UsersComponent = React.lazy(() =>
-  import("../Modules/MDM/components/allMaster/users/usersComponent")
+
+const Dashboard = React.lazy(() =>
+  import("../Modules/Dashboard/Dashboard")
 );
 
-/* Data Management */
-const Dashboard = React.lazy(() =>
-  import("../Modules/DataManagement/dashboard/homeComponent")
-);
-const QuickAction = React.lazy(() =>
-  import("../Modules/DataManagement/components/QuickAction/homeComponent")
-);
-const AOP = React.lazy(() =>
-  import("../Modules/DataManagement/components/DemandCapture/AOP/homeComponent")
-);
-const WeekWiseDemands = React.lazy(() =>
-  import(
-    "../Modules/DataManagement/components/DemandCapture/weekWiseDemand/homeComponent"
-  )
-);
-const ActualSales = React.lazy(() =>
-  import("../Modules/DataManagement/components/ActualSales/homeComponent")
-);
-const ActualDispatch = React.lazy(() =>
-  import("../Modules/DataManagement/components/ActualDispatch/homeComponent")
-);
-const RollingPlan = React.lazy(() =>
-  import(
-    "../Modules/DataManagement/components/DemandCapture/RollingPlan/homeComponent"
-  )
-);
-const TotalStock = React.lazy(() =>
-  import("../Modules/DataManagement/StockDetails/TotalStock/homeComponent")
-);
-const ProcurementPlan = React.lazy(() =>
-  import("../Modules/DataManagement/StockDetails/RawMaterials/homeComponent")
-);
-const DeliveryRequirement = React.lazy(() =>
-  import(
-    "../Modules/DataManagement/StockDetails/DeliveryRequirements/homeComponent"
-  )
-);
 
 const Cardsdesign = React.lazy(() =>
   import("../components/Apps/Cardsdesign/Cardsdesign")
@@ -326,74 +279,17 @@ const Navigation = React.lazy(() =>
 export const Routingdata = [
   /* Firebase Authetication */
 
-  {
-    path: `${import.meta.env.BASE_URL}/mdm/customer-details`,
-    element: <CustomerDetails />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/mdm/bom-details`,
-    element: <BomDetails />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/mdm/plant-code`,
-    element: <CodeComponent />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/mdm/department`,
-    element: <DepartmentComponent />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/mdm/user-details`,
-    element: <UsersComponent />,
-  },
   /* Dashboard page */
 
-  /* App page */
-
-  { path: `${import.meta.env.BASE_URL}/cdc/dashboard`, element: <Dashboard /> },
-
   {
-    path: `${import.meta.env.BASE_URL}/cdc/quickAction`,
-    element: <QuickAction />,
+    path: `${import.meta.env.BASE_URL}/dashboard`,
+    element: <Dashboard />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/annualPlan`,
-    element: <AOP />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/weekWiseSequencing`,
-    element: <WeekWiseDemands />,
+    path: `${import.meta.env.BASE_URL}/purchase`,
+    element: <Purchase />,
   },
 
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/quick-action`,
-    element: <Defaultcalender />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/demandCapture/dispatchPlan`,
-    element: <RollingPlan />,
-  },
-
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/actualSales`,
-    element: <ActualSales />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/actualDispatch`,
-    element: <ActualDispatch />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/report/finishedUnpaintedStock`,
-    element: <TotalStock />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/report/deliveryRequirement`,
-    element: <DeliveryRequirement />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/cdc/report/procurementPlan`,
-    element: <ProcurementPlan />,
-  },
 
   /* Bootstrap page  */
 

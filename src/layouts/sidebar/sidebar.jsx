@@ -2,25 +2,20 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Badge } from "react-bootstrap";
-import MenuItems, { CDNMenuItems } from "./sidebardata";
+import MenuItems from "./sidebardata";
 
 import logo from "../../assets/images/brand/Kizuna.svg";
 import logolight from "../../assets/images/brand/KizunaWhiteLogo.svg";
 import icon1 from "../../assets/images/brand/Kizuna-01.png";
-import { Typography } from "@mui/material";
 
 export default function Sidebar({ menuType }) {
   const location = useLocation();
-  const locationPaths = location?.pathname.split("/");
   const [menuItems, setMenuItems] = useState(
-    locationPaths?.includes("mdm") ? MenuItems : CDNMenuItems
+    MenuItems 
   );
   const [openItems, setOpenItems] = useState({});
 
-  useEffect(() => {
-    setActiveMenuItem(location.pathname);
-    setMenuItems(locationPaths?.includes("mdm") ? MenuItems : CDNMenuItems)
-  }, [location.pathname]);
+ 
 
   function setActiveMenuItem(pathname) {
     setMenuItems((prevItems) => {
@@ -70,9 +65,9 @@ export default function Sidebar({ menuType }) {
             <div className="side-header">
               <Link
                 className="header-brand1"
-                to={`${import.meta.env.BASE_URL}main`}
+                to={`${import.meta.env.BASE_URL}`}
               >
-                <img
+                {/* <img
                   src={logo}
                   className="header-brand-img main-logo"
                   alt="Kizuna logo"
@@ -92,16 +87,12 @@ export default function Sidebar({ menuType }) {
                     marginTop: "43px",
                     marginBottom: "2px",
                   }}
-                />
+                /> */}
 
-                <Typography
-                  variant="h6"
-                  style={{ fontSize: "11px", color: "red" }}
-                >
-                  {locationPaths?.includes("mdm")
-                    ? "Master Data Management"
-                    : "Demand Management"}
-                </Typography>
+                <h2 className="header-brand" style={{color:"red", fontWeight:"bold", marginLeft: "0px",
+                    marginTop: "43px",
+                    marginBottom: "2px", fontSize:"1.8rem"}}>ADM</h2>
+
               </Link>
             </div>
             <div className="main-sidemenu">
