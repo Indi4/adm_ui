@@ -1,6 +1,11 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom/client";
 import Purchase from "../Modules/Purchase/Purchase";
+import Upload from "../Modules/Upload/upload"
+import PPM from "../Modules/Quality/PPM";
+import COPQ from "../Modules/Quality/COPQ";
+import ProcessScrap from "../Modules/Quality/ProcessScrap";
+import DesignScrap from "../Modules/Quality/DesignScrap";
 /* MDM Routes */
 
 const Dashboard = React.lazy(() =>
@@ -288,6 +293,26 @@ export const Routingdata = [
   {
     path: `${import.meta.env.BASE_URL}/purchase`,
     element: <Purchase />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/upload`,
+    element: <Upload />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/quality/ppm`,
+    element: <PPM />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/quality/copq`,
+    element: <COPQ />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}//quality/process_scrap`,
+    element: <ProcessScrap />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/quality/design_scrap`,
+    element: <DesignScrap />,
   },
 
 
