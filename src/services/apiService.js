@@ -24,6 +24,9 @@ axiosInstance.interceptors.request.use(
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`; // Attach the token to Authorization header
     }
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type']; // Let the browser set the Content-Type
+    }
 
     return config;
   },
