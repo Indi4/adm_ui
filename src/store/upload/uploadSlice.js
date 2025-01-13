@@ -104,13 +104,6 @@ export const uploadQualityExcel = createAsyncThunk(
 const uploadSlice = createSlice({
   name: "upload",
   initialState: {
-    safetyData: [],
-    qualityData: [],
-    utilityData: [],
-    financeData: [],
-    hrData: [],
-    salesData: [],
-    productionData: [],
     error: "",
     success: "",
     loading: false,
@@ -131,8 +124,7 @@ const uploadSlice = createSlice({
       })
       builder.addCase(uploadSafetyExcel.fulfilled, (state, action) => {
         state.loading = false;
-        (state.success = "Excel Uploaded Successfully"),
-          (state.safetyData = action.payload);
+        (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadSafetyExcel.rejected, (state, action) => {
         state.loading = false;
@@ -146,8 +138,7 @@ const uploadSlice = createSlice({
       })
       builder.addCase(uploadQualityExcel.fulfilled, (state, action) => {
         state.loading = false;
-        (state.success = "Excel Uploaded Successfully"),
-          (state.qualityData = action.payload);
+        (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadQualityExcel.rejected, (state, action) => {
         state.loading = false;
@@ -161,8 +152,7 @@ const uploadSlice = createSlice({
       })
       builder.addCase(uploadFinanceExcel.fulfilled, (state, action) => {
         state.loading = false;
-        (state.success = "Excel Uploaded Successfully"),
-          (state.financeData = action.payload);
+        (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadFinanceExcel.rejected, (state, action) => {
         state.loading = false;
@@ -176,8 +166,7 @@ const uploadSlice = createSlice({
       })
       builder.addCase(uploadHrExcel.fulfilled, (state, action) => {
         state.loading = false;
-        (state.success = "Excel Uploaded Successfully"),
-          (state.hrData = action.payload);
+        (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadHrExcel.rejected, (state, action) => {
         state.loading = false;
@@ -191,8 +180,7 @@ const uploadSlice = createSlice({
       })
       builder.addCase(uploadProductionExcel.fulfilled, (state, action) => {
         state.loading = false;
-        (state.success = "Excel Uploaded Successfully"),
-          (state.productionData = action.payload);
+        (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadProductionExcel.rejected, (state, action) => {
         state.loading = false;
@@ -206,8 +194,7 @@ const uploadSlice = createSlice({
       })
       builder.addCase(uploadSalesExcel.fulfilled, (state, action) => {
         state.loading = false;
-        (state.success = "Excel Uploaded Successfully"),
-          (state.salesData = action.payload);
+        (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadSalesExcel.rejected, (state, action) => {
         state.loading = false;
@@ -221,8 +208,7 @@ const uploadSlice = createSlice({
       })
       builder.addCase(uploadUtilityExcel.fulfilled, (state, action) => {
         state.loading = false;
-        (state.success = "Excel Uploaded Successfully"),
-          (state.utilityData = action.payload);
+        (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadUtilityExcel.rejected, (state, action) => {
         state.loading = false;
