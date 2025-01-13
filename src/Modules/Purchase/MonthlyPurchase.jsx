@@ -13,7 +13,7 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "April", actual: 161, target: 208 },
+  { name: "April", actual: 0, target: 208 },
   { name: "May", actual: 216, target: 258 },
   { name: "June", actual: 201, target: 268 },
   { name: "July", actual: 246, target: 268 },

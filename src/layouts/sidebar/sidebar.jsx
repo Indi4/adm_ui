@@ -7,6 +7,7 @@ import MenuItems from "./sidebardata";
 import logo from "../../assets/images/brand/Kizuna.svg";
 import logolight from "../../assets/images/brand/KizunaWhiteLogo.svg";
 import icon1 from "../../assets/images/brand/Kizuna-01.png";
+import ADM_logo from '../../assets/images/ADM/ADM_logo.png'
 
 export default function Sidebar({ menuType }) {
   const location = useLocation();
@@ -67,19 +68,19 @@ export default function Sidebar({ menuType }) {
                 className="header-brand1"
                 to={`${import.meta.env.BASE_URL}`}
               >
-                {/* <img
-                  src={logo}
+                <img
+                  src={ADM_logo}
                   className="header-brand-img main-logo"
                   alt="Kizuna logo"
                 />
-                <img
+                {/* <img
                   src={logolight}
                   className="header-brand-img darklogo"
                   alt="Kizuna logo"
-                />
+                /> */}
 
                 <img
-                  src={icon1}
+                  src={ADM_logo}
                   className="header-brand-img icon-logo"
                   alt="Icon 2"
                   style={{
@@ -87,11 +88,11 @@ export default function Sidebar({ menuType }) {
                     marginTop: "43px",
                     marginBottom: "2px",
                   }}
-                /> */}
+                />
 
-                <h2 className="header-brand" style={{color:"red", fontWeight:"bold", marginLeft: "0px",
+                {/* <h2 className="header-brand" style={{color:"red", fontWeight:"bold", marginLeft: "0px",
                     marginTop: "43px",
-                    marginBottom: "2px", fontSize:"1.8rem"}}>ADM</h2>
+                    marginBottom: "2px", fontSize:"1.8rem"}}>ADM</h2> */}
 
               </Link>
             </div>

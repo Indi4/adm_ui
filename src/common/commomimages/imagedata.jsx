@@ -218,6 +218,7 @@ import male31 from '../../assets/images/users/male/31.jpg'
 import male32 from '../../assets/images/users/male/32.jpg'
 import male33 from '../../assets/images/users/male/33.jpg'
 import maxionLogo from '../../assets/images/brand/maxion.png'
+import ADMLogo from '../../assets/images/ADM/ADM_logo.png'
 import firebase from '../../assets/images/buynow/1.png'
 import react from '../../assets/images/buynow/2.png'
 

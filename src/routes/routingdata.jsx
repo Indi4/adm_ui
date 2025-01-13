@@ -2,10 +2,17 @@ import React, { Fragment } from "react";
 import ReactDOM from "react-dom/client";
 import Purchase from "../Modules/Purchase/Purchase";
 import Upload from "../Modules/Upload/upload"
-import PPM from "../Modules/Quality/PPM";
-import COPQ from "../Modules/Quality/COPQ";
-import ProcessScrap from "../Modules/Quality/ProcessScrap";
-import DesignScrap from "../Modules/Quality/DesignScrap";
+import Quality from "../Modules/Quality/homeComponent";
+import Safety from "../Modules/Safety/homeComponent";
+import Production from "../Modules/Production/homeComponent";
+import Sales from "../Modules/Sales/homeComponent";
+import Finance from "../Modules/Finance/homeComponent";
+import HR from "../Modules/HR/homeComponent";
+import Utility from "../Modules/Utility/homeComponent";
+import QuickAction from "../Modules/QuickAction/quickAction";
+
+
+
 /* MDM Routes */
 
 const Dashboard = React.lazy(() =>
@@ -89,7 +96,7 @@ const Ecommerce = React.lazy(() =>
 const Medical = React.lazy(() =>
   import("../components/Dashboard/Medical/Medical")
 );
-const Sales = React.lazy(() => import("../components/Dashboard/Sales/Sales"));
+// const Sales = React.lazy(() => import("../components/Dashboard/Sales/Sales"));
 const Fulcalender = React.lazy(() =>
   import("../components/apps/fullcalender/fullcalender")
 );
@@ -290,31 +297,48 @@ export const Routingdata = [
     path: `${import.meta.env.BASE_URL}/dashboard`,
     element: <Dashboard />,
   },
+
   {
-    path: `${import.meta.env.BASE_URL}/purchase`,
-    element: <Purchase />,
+    path: `${import.meta.env.BASE_URL}/quickAction`,
+    element: <QuickAction />,
   },
+
+  // {
+  //   path: `${import.meta.env.BASE_URL}/purchase`,
+  //   element: <Purchase />,
+  // },
   {
     path: `${import.meta.env.BASE_URL}/upload`,
     element: <Upload />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/quality/ppm`,
-    element: <PPM />,
+    path: `${import.meta.env.BASE_URL}/quality`,
+    element: <Quality />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/quality/copq`,
-    element: <COPQ />,
+    path: `${import.meta.env.BASE_URL}/safety`,
+    element: <Safety />,
   },
   {
-    path: `${import.meta.env.BASE_URL}//quality/process_scrap`,
-    element: <ProcessScrap />,
+    path: `${import.meta.env.BASE_URL}/production`,
+    element: <Production />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/quality/design_scrap`,
-    element: <DesignScrap />,
+    path: `${import.meta.env.BASE_URL}/utility`,
+    element: <Utility />,
   },
-
+  {
+    path: `${import.meta.env.BASE_URL}/sales`,
+    element: <Sales />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/hr`,
+    element: <HR />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/finance`,
+    element: <Finance />,
+  },
 
   /* Bootstrap page  */
 
