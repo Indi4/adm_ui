@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -15,7 +15,8 @@ import {
   Paper,
 } from "@mui/material";
 import { PieChart, Pie, Cell } from "recharts";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
 const COLORS = ["#00C49F", "#FFBB28", "#FF8042"];
 
 function createData(name, calories, fat, carbs, protein) {
@@ -41,6 +42,17 @@ const data = [
 ];
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    {
+      dispatch(getDashboardMainData());
+    }
+  }, [dispatch]);
+  const { dashboardDetail } = useSelector((state) => state.dashboardMain);
+  console.log(
+    "==============dashboardDetail==================: ",
+    dashboardDetail
+  );
   return (
     <Container
       fluid
