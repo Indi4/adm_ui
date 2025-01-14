@@ -3,27 +3,17 @@ import { Container, Grid, Card, Typography, Box } from "@mui/material";
 import {
   ComposedChart,
   Bar,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
+//   defs,
+//   linearGradient,
 } from "recharts";
 
-
-
-const PPM = ({month, data}) => {
-    // if (!qualityGraphsData) {
-    //     return (
-    //       <Container style={{ backgroundColor: "#F4E4FA", minHeight: "100vh", padding: "20px" }}>
-    //         <Typography variant="h5" style={{ textAlign: "center", marginTop: "20px", fontWeight: "bold" }}>
-    //           No data available
-    //         </Typography>
-    //       </Container>
-    //     );
-    //   }
+const PowerUnits = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
 
   let chartData = [];
@@ -39,8 +29,8 @@ const PPM = ({month, data}) => {
     totals = final_totals || { actual: 0, target: 0 };
   } else {
     // Use datasets for monthly data
-    const monthlyTarget = datasets?.find((dataset) => dataset.label === "Avg of monthly target")?.data || [];
-    const monthlyActual = datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")?.data || [];
+    const monthlyTarget = datasets?.find((dataset) => dataset.label === "Max of monthly target")?.data || [];
+    const monthlyActual = datasets?.find((dataset) => dataset.label === "Max of monthly Actual")?.data || [];
     chartData = monthlyTarget.map((item, index) => ({
       name: item.month,
       target: item.target,
@@ -62,7 +52,7 @@ const PPM = ({month, data}) => {
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FFDA44" }}>
+          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FF8080" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Target</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
               {totals.target?.toFixed(2)}
@@ -78,32 +68,29 @@ const PPM = ({month, data}) => {
         </Typography>
       </Box>
 
-      {/* Chart */}
+      {/* Bar Chart */}
       <Card style={{ padding: "20px" }}>
         <ResponsiveContainer width="100%" height={600}>
           <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <defs>
+            <linearGradient id="colorTarget" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="5%" stopColor="#FF5F57" stopOpacity={1} />
+    <stop offset="95%" stopColor="#FF7F70" stopOpacity={0.4} />
+</linearGradient>
+
+<linearGradient id="colorActual" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="5%" stopColor="#006F77" stopOpacity={0.4} />
+    <stop offset="95%" stopColor="#0097A7" stopOpacity={1} />
+</linearGradient>
+
+            </defs>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" label="Days" />
+            <XAxis dataKey="name" label={{ value: month ? "Days" : "Months", position: "insideBottom", offset: -2 }} />
             <YAxis />
             <Tooltip />
             <Legend />
-            {/* <Bar dataKey="actual" fill="#8884d8" name="Actual" /> */}
-            <Line
-              type="monotone"
-              dataKey="target"
-              stroke="#FFDA44"
-              strokeWidth={2}
-              dot={{ r: 5 }}
-              name="Target"
-            />
-            <Line
-              type="monotone"
-              dataKey="actual"
-              stroke="#8884d8"
-              strokeWidth={2}
-              dot={{ r: 5 }}
-              name="Actual"
-            />
+            <Bar dataKey="target" fill="url(#colorTarget)" name="Target" barSize={10} />
+            <Bar dataKey="actual" fill="url(#colorActual)" name="Actual" barSize={20} />
           </ComposedChart>
         </ResponsiveContainer>
       </Card>
@@ -111,4 +98,4 @@ const PPM = ({month, data}) => {
   );
 };
 
-export default PPM;
+export default PowerUnits;

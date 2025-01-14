@@ -14,7 +14,7 @@ import {
 
 
 
-const PPM = ({month, data}) => {
+const PowerCosts = ({month, data}) => {
     // if (!qualityGraphsData) {
     //     return (
     //       <Container style={{ backgroundColor: "#F4E4FA", minHeight: "100vh", padding: "20px" }}>
@@ -39,8 +39,8 @@ const PPM = ({month, data}) => {
     totals = final_totals || { actual: 0, target: 0 };
   } else {
     // Use datasets for monthly data
-    const monthlyTarget = datasets?.find((dataset) => dataset.label === "Avg of monthly target")?.data || [];
-    const monthlyActual = datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")?.data || [];
+    const monthlyTarget = datasets?.find((dataset) => dataset.label === "Max of monthly target")?.data || [];
+    const monthlyActual = datasets?.find((dataset) => dataset.label === "Max of monthly Actual")?.data || [];
     chartData = monthlyTarget.map((item, index) => ({
       name: item.month,
       target: item.target,
@@ -83,7 +83,7 @@ const PPM = ({month, data}) => {
         <ResponsiveContainer width="100%" height={600}>
           <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" label="Days" />
+            <XAxis dataKey="name" label={{ value: month ? "Days" : "Months", position: "insideBottom", offset: -2 }}/>
             <YAxis />
             <Tooltip />
             <Legend />
@@ -111,4 +111,4 @@ const PPM = ({month, data}) => {
   );
 };
 
-export default PPM;
+export default PowerCosts;

@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const COPQ = ({ month, data }) => {
+const Sales = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
 
   let chartData = [];
@@ -27,8 +27,8 @@ const COPQ = ({ month, data }) => {
     totals = final_totals || { actual: 0, target: 0 };
   } else {
     // Use datasets for monthly data
-    const monthlyTarget = datasets?.find((dataset) => dataset.label === "Avg of monthly target")?.data || [];
-    const monthlyActual = datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")?.data || [];
+    const monthlyTarget = datasets?.find((dataset) => dataset.label === "Max of monthly target")?.data || [];
+    const monthlyActual = datasets?.find((dataset) => dataset.label === "Max of monthly Actual")?.data || [];
     chartData = monthlyTarget
       .map((item, index) => ({
         name: item.month,
@@ -159,4 +159,4 @@ const COPQ = ({ month, data }) => {
   );
 };
 
-export default COPQ;
+export default Sales;

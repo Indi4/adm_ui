@@ -32,8 +32,6 @@ const homeComponent = () => {
   const [month, setMonth] = useState("");
   const dispatch = useDispatch()
   const {ppm, copq, design_scrap, process_scrap} = useSelector((state)=> state.quality)
-  console.log(process_scrap,design_scrap)
-  // console.log({qualityGraphsData})
 
   useEffect(()=>{
     if(month){
@@ -76,7 +74,7 @@ const homeComponent = () => {
             className="text-left mb-4"
             style={{ fontSize: "2rem", fontWeight: "bold" }}
           >
-            Quality
+            QUALITY
           </h4>
           <div
             style={{

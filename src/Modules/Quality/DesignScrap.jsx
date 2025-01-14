@@ -13,7 +13,6 @@ import {
 
 const DesignScrap = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
-  console.log(data)
 
   let chartData = [];
   let totals = { actual: 0, target: 0 };
