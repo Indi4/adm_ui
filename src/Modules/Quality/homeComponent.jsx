@@ -7,6 +7,9 @@ import PPM from "./PPM";
 import COPQ from "./COPQ";
 import { useDispatch, useSelector } from "react-redux";
 import { qualityGraphs } from "../../store/quality/qualitySlice";
+import DesignScrap from "./DesignScrap";
+import ProcessScrap from "./ProcessScrap";
+import TodoList from "../../commonComponents/TodoList";
 
 const homeComponent = () => {
   const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
@@ -28,15 +31,23 @@ const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch()
-  const {qualityGraphsData} = useSelector((state)=> state.quality)
-  console.log({qualityGraphsData})
+  const {ppm, copq, design_scrap, process_scrap} = useSelector((state)=> state.quality)
+  console.log(process_scrap,design_scrap)
+  // console.log({qualityGraphsData})
 
   useEffect(()=>{
     if(month){
       dispatch(qualityGraphs({type:"ppm",year:year,month:month}))
+      dispatch(qualityGraphs({type:"copq", year:year, month: month}))
+      dispatch(qualityGraphs({type:"process_scrap", year:year, month: month}))
+      dispatch(qualityGraphs({type:"design_scrap", year:year, month: month}))
+      
     }
     else{
       dispatch(qualityGraphs({type:"ppm",year:year}))
+      dispatch(qualityGraphs({type:"copq",year:year}))
+      dispatch(qualityGraphs({type:"process_scrap", year:year,}))
+      dispatch(qualityGraphs({type:"design_scrap", year:year,}))
     }
   },[dispatch, month,year])
 
@@ -116,10 +127,10 @@ const homeComponent = () => {
       </Card>
       <Row className="row-sm">
         <Col
-          lg={month ? 12 : 6}
+          lg={month ? 6 : 6}
           md={12}
           sm={12}
-          xl={month ? 12 : 6}
+          xl={month ? 6 : 6}
           data-aos="fade-up"
         >
           <Card className=" overflow-hidden">
@@ -129,15 +140,15 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <PPM data={qualityGraphsData} month={month} type="ppm" />
+              <PPM data={ppm} month={month} />
             </Card.Body>
           </Card>
         </Col>
         <Col
-          lg={month ? 12 : 6}
+          lg={month ? 6 : 6}
           md={12}
           sm={12}
-          xl={month ? 12 : 6}
+          xl={month ? 6 : 6}
           data-aos="fade-up"
         >
           <Card className=" overflow-hidden">
@@ -147,7 +158,64 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <COPQ data={open} month={month} type="copq" />
+              <COPQ data={copq} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col
+          lg={month ? 6 : 6}
+          md={12}
+          sm={12}
+          xl={month ? 6 : 6}
+          data-aos="fade-up"
+        >
+          <Card className=" overflow-hidden">
+            <Card.Header className="border-bottom">
+              <Card.Title className=" mb-0">
+                Design Scrap
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <DesignScrap data={design_scrap} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col
+          lg={month ? 6 : 6}
+          md={12}
+          sm={12}
+          xl={month ? 6 : 6}
+          data-aos="fade-up"
+        >
+          <Card className=" overflow-hidden">
+            <Card.Header className="border-bottom">
+              <Card.Title className=" mb-0">
+                Process Scrap
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <ProcessScrap data={process_scrap} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col
+          lg={6}
+          md={12}
+          sm={12}
+          xl={6}
+          data-aos="fade-up"
+        >
+          <Card className=" overflow-hidden">
+            <Card.Header className="border-bottom">
+              <Card.Title className=" mb-0">
+                Todo List
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <TodoList />
             </Card.Body>
           </Card>
         </Col>
