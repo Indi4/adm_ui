@@ -13,7 +13,6 @@ import {
 
 const ProcessScrap = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
-  console.log(data);
 
   let chartData = [];
   let totals = { actual: 0, target: 0 };
@@ -73,6 +72,16 @@ const ProcessScrap = ({ month, data }) => {
       <Card style={{ padding: "20px" }}>
         <ResponsiveContainer width="100%" height={600}>
           <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <defs>
+    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+    </linearGradient>
+    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#FFD966" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#FFD966" stopOpacity={0}/>
+    </linearGradient>
+  </defs>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" label={{ value: "Days", position: "insideBottom", dy: 10 }} />
             <YAxis />
@@ -82,7 +91,7 @@ const ProcessScrap = ({ month, data }) => {
               type="monotone"
               dataKey="target"
               stroke="#88B04B"
-              fill="#88B04B"
+              fillOpacity={1} fill="url(#colorUv)" 
               strokeWidth={2}
               name="Target"
             />
@@ -90,7 +99,7 @@ const ProcessScrap = ({ month, data }) => {
               type="monotone"
               dataKey="actual"
               stroke="#FFD966"
-              fill="#FFD966"
+              fillOpacity={1} fill="url(#colorPv)"
               strokeWidth={2}
               name="Actual"
             />
