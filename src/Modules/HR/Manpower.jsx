@@ -14,7 +14,7 @@ import {
 
 
 
-const PPM = ({month, data}) => {
+const Manpower = ({month, data}) => {
     // if (!qualityGraphsData) {
     //     return (
     //       <Container style={{ backgroundColor: "#F4E4FA", minHeight: "100vh", padding: "20px" }}>
@@ -111,4 +111,4 @@ const PPM = ({month, data}) => {
   );
 };
 
-export default PPM;
+export default Manpower;

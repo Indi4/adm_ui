@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const COPQ = ({ month, data }) => {
+const InDirectManpower = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
 
   let chartData = [];
@@ -159,4 +159,4 @@ const COPQ = ({ month, data }) => {
   );
 };
 
-export default COPQ;
+export default InDirectManpower;
