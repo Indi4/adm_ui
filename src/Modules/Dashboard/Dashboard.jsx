@@ -17,6 +17,7 @@ import {
 import { PieChart, Pie, Cell } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
 import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
+
 const COLORS = ["#00C49F", "#FFBB28", "#FF8042"];
 
 function createData(name, calories, fat, carbs, protein) {
@@ -31,28 +32,120 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-const data1 = [
-  { name: "Completed", value: 40.8 },
-  { name: "Remaining", value: 59.2 },
-];
 
-const data = [
-  { name: "Used", value: 70 },
-  { name: "Remaining", value: 30 },
-];
-
-const Dashboard = () => {
+const Dashboard = ({ manpower }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    {
-      dispatch(getDashboardMainData());
-    }
+    dispatch(getDashboardMainData());
   }, [dispatch]);
+
   const { dashboardDetail } = useSelector((state) => state.dashboardMain);
-  console.log(
-    "==============dashboardDetail==================: ",
-    dashboardDetail
-  );
+
+  const salesData = [
+    {
+      name: "Monthly Actual",
+      value: dashboardDetail?.sales?.month_actual || 0,
+    },
+    {
+      name: "Monthly Target",
+      value: dashboardDetail?.sales?.month_target || 0,
+    },
+  ];
+  const planVsActualData = [
+    {
+      name: "Monthly Actual",
+      value: dashboardDetail?.plan_vs_act?.month_actual || 0,
+    },
+    {
+      name: "Monthly Target",
+      value: dashboardDetail?.plan_vs_act?.month_target || 0,
+    },
+  ];
+  const purchaseData = [
+    {
+      name: "Monthly Actual",
+      value: dashboardDetail?.purchase?.month_actual || 0,
+    },
+    {
+      name: "Monthly Target",
+      value: dashboardDetail?.purchase?.month_target || 0,
+    },
+  ];
+  const powerUnitData = [
+    {
+      name: "Monthly Actual",
+      value: dashboardDetail?.power_unit?.month_actual || 0,
+    },
+    {
+      name: "Monthly Target",
+      value: dashboardDetail?.power_unit?.month_target || 0,
+    },
+  ]; 
+
+  // ------------------------------------------------- manpower Avialable logic ---------------------------------------------
+  const dataAvailable = dashboardDetail?.manpower?.actual_manpower_availability
+  const unavailablePercentage = 100 - dataAvailable;
+  const availablePercentage = dashboardDetail?.manpower?.actual_manpower_availability;
+
+  // Needdle Value
+
+  const data = [
+    { name: "A", value: 80, color: "#ff0000" },
+    { name: "B", value: 45, color: "#00ff00" },
+    { name: "C", value: 25, color: "#0000ff" },
+  ];
+  const cx = 150;
+  const cy = 100;
+  const iR = 50;
+  const oR = 100;
+  const value = 50;
+  const RADIAN = Math.PI / 180;
+
+  const needle = (value, data, cx, cy, iR, oR, color) => {
+    let total = 0;
+    data.forEach((v) => {
+      total += v.value;
+    });
+    const ang = 180.0 * (1 - value / total);
+    const length = (iR + 2 * oR) / 3;
+    const sin = Math.sin(-RADIAN * ang);
+    const cos = Math.cos(-RADIAN * ang);
+    const r = 5;
+    const x0 = cx + 5;
+    const y0 = cy + 5;
+    const xba = x0 + r * sin;
+    const yba = y0 - r * cos;
+    const xbb = x0 - r * sin;
+    const ybb = y0 + r * cos;
+    const xp = x0 + length * cos;
+    const yp = y0 + length * sin;
+
+    return [
+      <circle cx={x0} cy={y0} r={r} fill={color} stroke="none" />,
+      <path
+        d={`M${xba} ${yba}L${xbb} ${ybb} L${xp} ${yp} L${xba} ${yba}`}
+        stroke="#none"
+        fill={color}
+      />,
+    ];
+  };
+
+  const Needle = ({ cx, cy, radius, angle }) => {
+    const radianAngle = (180 - angle) * (Math.PI / 180); // Convert to radians
+    const x2 = cx + radius * Math.cos(radianAngle);
+    const y2 = cy - radius * Math.sin(radianAngle); // Subtract to account for SVG coordinate system
+
+    return (
+      <g>
+        <line x1={cx} y1={cy} x2={x2} y2={y2} stroke="red" strokeWidth={2} />
+        <circle cx={cx} cy={cy} r={4} fill="black" />
+      </g>
+    );
+  };
+
+  const angle = 20; // Adjust needle angle based on value
+
   return (
     <Container
       fluid
@@ -62,8 +155,7 @@ const Dashboard = () => {
         padding: "20px",
       }}
     >
-      {/* Leaderboard Header */}
-      <Row>
+      {/* <Row>
         <Col xs={12} md={3}>
           <Typography
             variant="h4"
@@ -72,17 +164,16 @@ const Dashboard = () => {
             LEADER BOARD
           </Typography>
         </Col>
-      </Row>
+      </Row> */}
 
-      {/* Dashboard Cards */}
       <Row className="mb-3">
-        <Col xs={12} md={4}>
+        <Col xs={12} md={3}>
           <Card
             style={{
               backgroundColor: "#FFD966",
               borderRadius: "10px",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-              height: "220px",
+              height: "170px",
             }}
           >
             <CardContent>
@@ -94,9 +185,9 @@ const Dashboard = () => {
               </Typography>
               <Typography
                 variant="body1"
-                style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                style={{ fontWeight: "bold", fontSize: "1rem" }}
               >
-                Injury Free Days In A Row
+                Major Injury Free Days
               </Typography>
               <Typography
                 variant="h4"
@@ -106,19 +197,54 @@ const Dashboard = () => {
                   marginTop: "20px",
                 }}
               >
-                115
+                {dashboardDetail?.safety?.major.days_since_last_accident}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Col>
+        <Col xs={12} md={3}>
+          <Card
+            style={{
+              backgroundColor: "#FFD966",
+              borderRadius: "10px",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+              height: "170px",
+            }}
+          >
+            <CardContent>
+              <Typography
+                variant="h6"
+                style={{ fontWeight: "bold", marginBottom: "10px" }}
+              >
+                Safety
+              </Typography>
+              <Typography
+                variant="body1"
+                style={{ fontWeight: "bold", fontSize: "1rem" }}
+              >
+                Minor Injury Free Days
+              </Typography>
+              <Typography
+                variant="h4"
+                style={{
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  marginTop: "20px",
+                }}
+              >
+                {dashboardDetail?.safety?.minor.days_since_last_accident}
               </Typography>
             </CardContent>
           </Card>
         </Col>
 
-        <Col xs={12} md={4}>
+        <Col xs={12} md={3}>
           <Card
             style={{
               backgroundColor: "#B4EBEB",
               borderRadius: "10px",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-              height: "220px",
+              height: "170px",
             }}
           >
             <CardContent>
@@ -130,7 +256,7 @@ const Dashboard = () => {
               </Typography>
               <Typography
                 variant="body1"
-                style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+                style={{ fontWeight: "bold", fontSize: "1rem" }}
               >
                 Quality Incidents This Week
               </Typography>
@@ -142,17 +268,18 @@ const Dashboard = () => {
                   marginTop: "20px",
                 }}
               >
-                0
+                {dashboardDetail?.quality?.month_target}
               </Typography>
             </CardContent>
           </Card>
         </Col>
 
-        <Col xs={12} md={4}>
+        <Col xs={12} md={3}>
           <Card
             style={{
               borderRadius: "10px",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+              height: "170px",
             }}
           >
             <CardContent style={{ height: "220px" }}>
@@ -163,9 +290,9 @@ const Dashboard = () => {
                 Manpower Availability
               </Typography>
               <Box>
-                <Typography variant="body2" style={{ marginBottom: "5px" }}>
-                  95% Available
-                </Typography>
+              <Typography variant="body2" style={{ marginBottom: "5px" }}>
+              {availablePercentage}% Available
+            </Typography>
                 <Box
                   style={{
                     height: "40px",
@@ -179,7 +306,7 @@ const Dashboard = () => {
                   <Box
                     style={{
                       height: "100%",
-                      width: "90%",
+                      width: `${availablePercentage}%`,
                       backgroundColor: "#4eeddb",
                       position: "absolute",
                     }}
@@ -187,7 +314,7 @@ const Dashboard = () => {
                   <Box
                     style={{
                       height: "100%",
-                      width: "10%",
+                      width: `${unavailablePercentage}%`,
                       backgroundColor: "#D1D1D1",
                       position: "absolute",
                       right: 0,
@@ -200,132 +327,199 @@ const Dashboard = () => {
         </Col>
       </Row>
 
-      {/* Progress Charts Section */}
       <Row className="mb-3">
-        <Col xs={12} md={6} lg={6}>
-          <Col>
-            {/* Card for Purchase */}
-            <Card>
-              <CardContent>
-                <Grid container alignItems="center">
-                  {/* Sales */}
-                  <Grid item xs={6}>
-                    <Typography variant="h6">Sales</Typography>
-                    <PieChart width={100} height={100}>
-                      <Pie
-                        data={data1}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={30}
-                        outerRadius={40}
-                        dataKey="value"
-                        startAngle={90}
-                        endAngle={-270}
-                      >
-                        {data1.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="h6">Actual: 1003.4</Typography>
-                    <Typography variant="h6">Target: 5467.2</Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-
-            {/* Card for Power Unit */}
-            <Card style={{ marginTop: "16px" }}>
-              <CardContent>
-                <Grid container alignItems="center">
-                  {/* Plan vs Actual */}
-                  <Grid item xs={6}>
-                    <Typography variant="h6">Plan Vs Actual</Typography>
-                    <PieChart width={100} height={100}>
-                      <Pie
-                        data={data1}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={30}
-                        outerRadius={40}
-                        dataKey="value"
-                        startAngle={90}
-                        endAngle={-270}
-                      >
-                        {data1.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography variant="h6">Actual: 4025.6</Typography>
-                    <Typography variant="h6">Target: 5467.2</Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Col>
-        </Col>
-
-        <Col>
-          {/* Card for Purchase */}
-          <Card>
+        {/* Sales Card */}
+        <Col xs={12} md={3}>
+          <Card style={{ marginBottom: "10px", height: "250px" }}>
             <CardContent>
-              <Grid container alignItems="center">
-                {/* Sales */}
-                <Grid item xs={6}>
-                  <Typography variant="h6">Purchase</Typography>
-                  <PieChart width={150} height={100}>
+              <Typography
+                variant="h6"
+                style={{ marginBottom: "10px", fontWeight: "bold" }}
+              >
+                Sales
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Box>
+                  <PieChart width={150} height={200}>
                     <Pie
-                      data={data}
-                      cx={75}
-                      cy={75}
-                      startAngle={180}
-                      endAngle={0}
-                      innerRadius={30}
-                      outerRadius={60}
-                      paddingAngle={0}
+                      data={salesData}
+                      cx={70}
+                      cy={70}
+                      innerRadius={50}
+                      outerRadius={70}
+                      // fill="#8884d8"
+                      paddingAngle={5}
                       dataKey="value"
                     >
-                      {data.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                      {salesData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
                       ))}
                     </Pie>
-                    {/* Needle */}
-                    <g>
-                      <line
-                        x1={75}
-                        y1={75}
-                        x2={75 + 60 * Math.cos(Math.PI / 180)}
-                        y2={75 + 60 * Math.sin(Math.PI / 180)}
-                        stroke="red"
-                        strokeWidth={5}
-                      />
-                      <circle cx={75} cy={75} r={4} fill="black" />
-                    </g>
                   </PieChart>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="h6">Actual: 1003.4</Typography>
-                  <Typography variant="h6">Target: 5467.2</Typography>
-                </Grid>
-              </Grid>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: "1.5rem",
+                  }}
+                >
+                  <Typography variant="body1">
+                    Actual: {dashboardDetail?.sales?.month_actual}
+                  </Typography>
+                  <Typography variant="body1">
+                    Target: {dashboardDetail?.sales?.month_target}
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
+        </Col>
 
-          {/* Card for Power Unit */}
-          <Card style={{ marginTop: "16px" }}>
+        {/* Plan Vs Actual Card */}
+        <Col xs={12} md={3}>
+          <Card style={{ marginBottom: "10px", height: "250px" }}>
             <CardContent>
-              <Grid container alignItems="center">
-                {/* Plan vs Actual */}
-                <Grid item xs={6}>
-                  <Typography variant="h6">Power Unit</Typography>
-                  <PieChart width={150} height={100}>
+              <Typography
+                variant="h6"
+                style={{ marginBottom: "10px", fontWeight: "bold" }}
+              >
+                Plan Vs Actual
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Box>
+                  <PieChart width={150} height={200}>
                     <Pie
-                      data={data}
+                      data={planVsActualData}
+                      cx={70}
+                      cy={70}
+                      innerRadius={50}
+                      outerRadius={70}
+                      fill="#8884d8"
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {planVsActualData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                  </PieChart>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: "1.5rem",
+                  }}
+                >
+                  <Typography variant="body1">
+                    Actual: {dashboardDetail?.plan_vs_act?.month_actual}
+                  </Typography>
+                  <Typography variant="body1">
+                    Target: {dashboardDetail?.plan_vs_act?.month_target}
+                  </Typography>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        </Col>
+
+        {/* Purchase Card */}
+        <Col xs={12} md={3}>
+          <Card style={{ marginBottom: "10px", height: "250px" }}>
+            <CardContent>
+              <Typography
+                variant="h6"
+                style={{ marginBottom: "10px", fontWeight: "bold" }}
+              >
+                Purchase
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Box>
+                  <PieChart width={250} height={150}>
+                    <Pie
+                      dataKey="value"
+                      startAngle={180}
+                      endAngle={0}
+                      data={purchaseData}
+                      cx={cx}
+                      cy={cy}
+                      innerRadius={iR}
+                      outerRadius={oR}
+                      fill="#8884d8"
+                      stroke="none"
+                    >
+                      {data.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    {needle(value, data, cx, cy, iR, oR, "#d0d000")}
+                  </PieChart>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: "1.5rem",
+                  }}
+                >
+                  <Typography variant="body1">
+                    Actual: {dashboardDetail?.purchase?.month_actual}
+                  </Typography>
+                  <Typography variant="body1">
+                    Target: {dashboardDetail?.purchase?.month_target}
+                  </Typography>
+                </Box>
+              </Box>
+            </CardContent>
+          </Card>
+        </Col>
+
+        {/* Power Unit Card */}
+        <Col xs={12} md={3}>
+          <Card style={{ marginBottom: "10px", height: "250px" }}>
+            <CardContent>
+              <Typography
+                variant="h6"
+                style={{ marginBottom: "10px", fontWeight: "bold" }}
+              >
+                Power Unit
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Box>
+                  <PieChart width={150} height={150}>
+                    <Pie
+                      data={powerUnitData}
                       cx={75}
                       cy={75}
                       startAngle={180}
@@ -335,29 +529,28 @@ const Dashboard = () => {
                       paddingAngle={0}
                       dataKey="value"
                     >
-                      {data.map((entry, index) => (
+                      {powerUnitData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index]} />
                       ))}
                     </Pie>
-                    {/* Needle */}
-                    <g>
-                      <line
-                        x1={75}
-                        y1={75}
-                        x2={75 + 60 * Math.cos(Math.PI / 180)}
-                        y2={75 + 60 * Math.sin(Math.PI / 180)}
-                        stroke="red"
-                        strokeWidth={5}
-                      />
-                      <circle cx={75} cy={75} r={4} fill="black" />
-                    </g>
+                    <Needle cx={75} cy={75} radius={60} angle={angle} />
                   </PieChart>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="h6">Actual: 4025.6</Typography>
-                  <Typography variant="h6">Target: 5467.2</Typography>
-                </Grid>
-              </Grid>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    paddingBottom: "1.5rem",
+                  }}
+                >
+                  <Typography variant="body1">
+                    Actual: {dashboardDetail?.power_unit?.month_actual}
+                  </Typography>
+                  <Typography variant="body1">
+                    Target: {dashboardDetail?.power_unit?.month_target}
+                  </Typography>
+                </Box>
+              </Box>
             </CardContent>
           </Card>
         </Col>

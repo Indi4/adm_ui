@@ -25,7 +25,7 @@ export const getDashboardMainData = createAsyncThunk(
 const dashboardDetailSlice = createSlice({
   name: "dashboardMain",
   initialState: {
-    dashboardDetail: [],
+    dashboardDetail: {},
     loading: false,
     error: null,
   },
@@ -42,7 +42,7 @@ const dashboardDetailSlice = createSlice({
     });
     builder.addCase(getDashboardMainData.fulfilled, (state, action) => {
       state.loading = false;
-      state.dashboardDetail = action.payload;
+      state.dashboardDetail = action.payload.data;
     });
     builder.addCase(getDashboardMainData.rejected, (state, action) => {
       state.loading = false;
