@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Grid, Card, Typography, Box } from "@mui/material";
 import {
-  ComposedChart,
-  Bar,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -14,19 +13,8 @@ import {
 import Loader from '../../commonComponents/Loader'
 
 
-
-const PPM = ({month, data}) => {
-    // if (!qualityGraphsData) {
-    //     return (
-    //       <Container style={{ backgroundColor: "#F4E4FA", minHeight: "100vh", padding: "20px" }}>
-    //         <Typography variant="h5" style={{ textAlign: "center", marginTop: "20px", fontWeight: "bold" }}>
-    //           No data available
-    //         </Typography>
-    //       </Container>
-    //     );
-    //   }
+const ConsumableCost = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
-
   const [isLoading, setIsLoading] = useState(true); // State to track loading
 
   useEffect(() => {
@@ -57,8 +45,10 @@ const PPM = ({month, data}) => {
     totals = final_totals || { actual: 0, target: 0 };
   } else {
     // Use datasets for monthly data
-    const monthlyTarget = datasets?.find((dataset) => dataset.label === "Avg of monthly target")?.data || [];
-    const monthlyActual = datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")?.data || [];
+    const monthlyTarget =
+      datasets?.find((dataset) => dataset.label === "Max of monthly target")?.data || [];
+    const monthlyActual =
+      datasets?.find((dataset) => dataset.label === "Max of monthly Actual")?.data || [];
     chartData = monthlyTarget.map((item, index) => ({
       name: item.month,
       target: item.target,
@@ -69,9 +59,8 @@ const PPM = ({month, data}) => {
 
   return (
     <Container style={{ padding: "20px",
-      marginTop: "20px", }}>
-
-       {isLoading?(
+        marginTop: "20px",}}>
+            {isLoading?(
          <Box mt={4}
          style={{   padding: "20px",
           height: "650px", // Ensure consistent card height
@@ -84,10 +73,11 @@ const PPM = ({month, data}) => {
        </Box>
        ):(
         <>
+      
       {/* Totals */}
       <Grid container spacing={2} justifyContent="space-between">
         <Grid item xs={12} md={3}>
-          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#8884d8" }}>
+          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FFD966" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Actual</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
               {totals.actual?.toFixed(2)}
@@ -95,7 +85,7 @@ const PPM = ({month, data}) => {
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FFDA44" }}>
+          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#88B04B" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Target</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
               {totals.target?.toFixed(2)}
@@ -111,44 +101,53 @@ const PPM = ({month, data}) => {
         </Typography>
       </Box>
 
-      {/* Chart */}
-      <Card style={{   padding: "20px",
+      {/* Area Chart */}
+      <Card style={{  padding: "20px",
           height: "650px", // Ensure consistent card height
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           marginTop: "20px", }}>
         <ResponsiveContainer width="100%" height={600}>
-          <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <AreaChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <defs>
+    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+    </linearGradient>
+    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor="#FFD966" stopOpacity={0.8}/>
+      <stop offset="95%" stopColor="#FFD966" stopOpacity={0}/>
+    </linearGradient>
+  </defs>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" label="Days" />
+            <XAxis dataKey="name" label={{ value: "Days", position: "insideBottom", dy: 10 }} />
             <YAxis />
             <Tooltip />
             <Legend />
-            {/* <Bar dataKey="actual" fill="#8884d8" name="Actual" /> */}
-            <Line
+            <Area
               type="monotone"
               dataKey="target"
-              stroke="#FFDA44"
+              stroke="#8884d8"
+              fillOpacity={1} fill="url(#colorUv)" 
               strokeWidth={2}
-              dot={{ r: 5 }}
               name="Target"
-            />
-            <Line
+              />
+            <Area
               type="monotone"
               dataKey="actual"
-              stroke="#8884d8"
+              stroke="#FFD966"
+              fillOpacity={1} fill="url(#colorPv)"
               strokeWidth={2}
-              dot={{ r: 5 }}
               name="Actual"
-            />
-          </ComposedChart>
+              />
+          </AreaChart>
         </ResponsiveContainer>
       </Card>
       </>
-       )} 
+    )}
     </Container>
   );
 };
 
-export default PPM;
+export default ConsumableCost;

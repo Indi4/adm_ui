@@ -5,8 +5,6 @@ import apiService from "../../services/apiService";
 export const uploadQualityExcel = createAsyncThunk(
     "upload/uploadQualityExcel",
     async (formData, { rejectWithValue }) => {
-      console.log("FormData:", formData.get("file")); // Log the file from FormData
-      console.log({formData})
       try {
         const response = await apiService.post("dashboard/dept_quality/", formData,);
         return response.data;
@@ -19,8 +17,6 @@ export const uploadQualityExcel = createAsyncThunk(
   export const uploadUtilityExcel = createAsyncThunk(
     "upload/uploadUtilityExcel",
     async (formData, { rejectWithValue }) => {
-      console.log("FormData:", formData.get("file")); // Log the file from FormData
-      console.log({formData})
       try {
         const response = await apiService.post("dashboard/dept_utility/", formData,);
         return response.data;
@@ -33,8 +29,6 @@ export const uploadQualityExcel = createAsyncThunk(
   export const uploadFinanceExcel = createAsyncThunk(
     "upload/uploadFinanceExcel",
     async (formData, { rejectWithValue }) => {
-      console.log("FormData:", formData.get("file")); // Log the file from FormData
-      console.log({formData})
       try {
         const response = await apiService.post("dashboard/dept_finance/", formData,);
         return response.data;
@@ -47,8 +41,6 @@ export const uploadQualityExcel = createAsyncThunk(
   export const uploadHrExcel = createAsyncThunk(
     "upload/uploadHrExcel",
     async (formData, { rejectWithValue }) => {
-      console.log("FormData:", formData.get("file")); // Log the file from FormData
-      console.log({formData})
       try {
         const response = await apiService.post("dashboard/dept_hr/", formData,);
         return response.data;
@@ -61,8 +53,6 @@ export const uploadQualityExcel = createAsyncThunk(
   export const uploadSalesExcel = createAsyncThunk(
     "upload/uploadSalesExcel",
     async (formData, { rejectWithValue }) => {
-      console.log("FormData:", formData.get("file")); // Log the file from FormData
-      console.log({formData})
       try {
         const response = await apiService.post("dashboard/dept_sales/", formData,);
         return response.data;
@@ -75,8 +65,6 @@ export const uploadQualityExcel = createAsyncThunk(
   export const uploadProductionExcel = createAsyncThunk(
     "upload/uploadProductionExcel",
     async (formData, { rejectWithValue }) => {
-      console.log("FormData:", formData.get("file")); // Log the file from FormData
-      console.log({formData})
       try {
         const response = await apiService.post("dashboard/dept_production/", formData,);
         return response.data;
@@ -89,8 +77,6 @@ export const uploadQualityExcel = createAsyncThunk(
   export const uploadSafetyExcel = createAsyncThunk(
     "upload/uploadSafetyExcel",
     async (formData, { rejectWithValue }) => {
-      console.log("FormData:", formData.get("file")); // Log the file from FormData
-      console.log({formData})
       try {
         const response = await apiService.post("dashboard/dept_safety/", formData,);
         return response.data;

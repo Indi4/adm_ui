@@ -11,10 +11,8 @@ import {
   uploadSalesExcel,
   uploadUtilityExcel,
 } from "../store/upload/uploadSlice";
-// import { uploadOtherExcel } from "../store/upload/otherUploadSlice"; // Example for another slice
 
 const UploadComponent = ({ label }) => {
-  console.log(label);
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.upload);
@@ -22,14 +20,15 @@ const UploadComponent = ({ label }) => {
   const handleFileUpload = (e) => {
     setFile(e.target.files[0]);
   };
-
   const handleSubmit = () => {
     if (file) {
+      if(file.name.split('.')[0] !== label.slice(7)){
+        toast.error(`Please Upload proper ${label.slice(7)} file` )
+        return
+      }
       const formData = new FormData();
       formData.append("file", file);
 
-      console.log("File to upload:", file); // Debug log
-      console.log("FormData content:", formData.get("file")); // Debug log
 
       // Dispatch different APIs based on the label value
       let action;
@@ -67,7 +66,6 @@ const UploadComponent = ({ label }) => {
           setFile(null); // Clear file input
         })
         .catch((err) => {
-          console.error("Error response:", err); // Debug log
           toast.error(`Error uploading file: ${err}`);
         });
     } else {
@@ -105,6 +103,7 @@ const UploadComponent = ({ label }) => {
               type="file"
               accept=".xls,.xlsx"
               onChange={handleFileUpload}
+              disabled={loading}
             />
           </Form.Group>
           <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>

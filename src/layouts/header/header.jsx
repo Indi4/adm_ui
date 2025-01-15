@@ -1,8 +1,8 @@
 
 import React, { Fragment, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import logo from '../../assets/images/brand/logo.png'
-import logolight from '../../assets/images/brand/logo-light.png'
+import logo from '../../assets/images/ADM/ADM_logo.png'
+import logolight from '../../assets/images/ADM/ADM_logo.png'
 import { Button, Container, Dropdown, Form, FormControl, InputGroup, ListGroup, Nav, Navbar } from 'react-bootstrap'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { imagesData } from "../../common/commomimages/imagedata"
