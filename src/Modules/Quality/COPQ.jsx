@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Grid, Card, Typography, Box } from "@mui/material";
 import {
   PieChart,
@@ -8,9 +8,27 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import Loader from '../../commonComponents/Loader'
 
 const COPQ = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
+
+  const [isLoading, setIsLoading] = useState(true); // State to track loading
+
+  useEffect(() => {
+    if(data){
+      // Simulate a loading delay (replace with real data fetching logic)
+      const timer = setTimeout(() => {
+        setIsLoading(false); // Set loading to false after data is fetched
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
+    else{
+      setIsLoading(true)
+    }
+    
+  }, []);
 
   let chartData = [];
   let totals = { actual: 0, target: 0 };
@@ -70,7 +88,23 @@ const COPQ = ({ month, data }) => {
   ];
 
   return (
-    <Container style={{ backgroundColor: "rgb(248, 249, 250", minHeight: "100vh", padding: "20px" }}>
+    <Container style={{ padding: "20px",
+      marginTop: "20px",}}>
+
+{isLoading?(
+         <Box mt={4}
+         style={{   padding: "20px",
+          height: "650px", // Ensure consistent card height
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          marginTop: "20px", }}
+         >
+         <Loader />
+       </Box>
+):(
+<>
+
       {/* Totals */}
       <Grid container spacing={2} justifyContent="space-between">
         <Grid item xs={12} md={3}>
@@ -100,7 +134,12 @@ const COPQ = ({ month, data }) => {
 
       {/* Pie Chart */}
       {chartData.length > 0 ? (
-        <Card style={{ padding: "20px" }}>
+        <Card style={{   padding: "20px",
+          height: "650px", // Ensure consistent card height
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          marginTop: "20px", }}>
           <ResponsiveContainer width="100%" height={600}>
             <PieChart>
               <Pie
@@ -115,7 +154,7 @@ const COPQ = ({ month, data }) => {
                 strokeWidth={3} 
                 label={({ name }) => `${name}`}
                 name="Monthly Target"
-              >
+                >
                 {chartData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={INNER_COLORS[index % INNER_COLORS.length]} />
                 ))}
@@ -134,7 +173,7 @@ const COPQ = ({ month, data }) => {
                 strokeWidth={2} 
                 label={({ name }) => `${name}`}
                 name="Monthly Actual"
-              >
+                >
                 {chartData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={OUTER_COLORS[index % OUTER_COLORS.length]} />
                 ))}
@@ -146,15 +185,22 @@ const COPQ = ({ month, data }) => {
                   { value: "Outer Circle: Monthly Actual", type: "circle", color:"#82ca9d"},
                   { value: "Inner Circle: Monthly Target", type: "circle", color:"#8884d8"},
                 ]}
-              />
+                />
             </PieChart>
           </ResponsiveContainer>
         </Card>
       ) : (
-        <Typography variant="h6" style={{ textAlign: "center", marginTop: "50px", color: "#757575" }}>
+        <Typography variant="h6" style={{ textAlign: "center", marginTop: "50px", color: "#757575",   padding: "20px",
+          height: "650px", // Ensure consistent card height
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          marginTop: "20px", }}>
           No data available for the selected period.
         </Typography>
       )}
+          </>
+          )}
     </Container>
   );
 };

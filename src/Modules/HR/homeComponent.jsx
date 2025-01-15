@@ -69,7 +69,7 @@ const homeComponent = () => {
             className="text-left mb-4"
             style={{ fontSize: "2rem", fontWeight: "bold" }}
           >
-            SALES
+            HR
           </h4>
           <div
             style={{

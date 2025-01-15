@@ -64,7 +64,8 @@ export default function TodoList() {
   };
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: "20px",
+        marginTop: "20px",}}>
       <h2>To Do List</h2>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
         <Box>
@@ -78,7 +79,12 @@ export default function TodoList() {
           Add
         </Button>
       </Box>
-      <Paper sx={{ height: 400, width: '100%' }}>
+      <Paper sx={{   padding: "20px",
+          height: "680px", // Ensure consistent card height
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          marginTop: "40px", }}>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -86,6 +92,7 @@ export default function TodoList() {
           initialState={{ pagination: { paginationModel: { page: 0, pageSize: 5 } } }}
           sx={{
             border: 0,
+           
             '& .MuiDataGrid-columnHeader': { fontWeight: 'bold' },
           }}
         />
