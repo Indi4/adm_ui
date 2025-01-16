@@ -1,9 +1,182 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import MonthlyPurchase from "../Purchase/MonthlyPurchase";
+import DailyPurchase from "../Purchase/DailyPurchase";
+import { Card, Row, Col } from "react-bootstrap";
+import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {safetyGraphs } from "../../store/quality/qualitySlice";
+import TodoList from "../../commonComponents/TodoList";
+import Minor from "./Minor";
+import Major from "./Major";
 
 const homeComponent = () => {
-  return (
-    <div>homeComponent</div>
-  )
-}
+  const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
+  const monthList = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
-export default homeComponent
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState("");
+  const dispatch = useDispatch()
+  const {minor,major} = useSelector((state)=> state.quality)
+
+  useEffect(()=>{
+    if(month){
+      dispatch(safetyGraphs({type:"major",year:year,month:month}))
+      dispatch(safetyGraphs({type:"minor", year:year, month: month}))
+      
+    }
+    else{
+      dispatch(safetyGraphs({type:"major",year:year}))
+      dispatch(safetyGraphs({type:"minor", year:year}))
+    }
+  },[dispatch, month,year])
+
+  const handleYearInputChange = (event, value, reason) => {
+    if (reason === "selectOption") {
+      setYear(value);
+    } else {
+      setYear(new Date().getFullYear());
+    }
+  };
+
+  const handleMonthInputChange = (event, value, reason) => {
+    if (reason === "selectOption") {
+      setMonth(value);
+    } else {
+      setMonth();
+    }
+  };
+
+  return (
+    <div className="container-fluid" style={{ backgroundColor: "#f8f9fa" }}>
+      {/* <ToastContainer /> */}
+      <Card style={{ backgroundColor: "rgb(53 128 174 / 18%)", padding: 8 }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <h4
+            className="text-left mb-4"
+            style={{ fontSize: "2rem", fontWeight: "bold" }}
+          >
+            SAFETY
+          </h4>
+          <div
+            style={{
+              display: "flex",
+              gap: 20,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+          </div>
+        </div>
+        <div className="row mb-4">
+          <div className="col-md-3">
+            <Grid item xs={6}>
+              <Autocomplete
+                options={yearList || []}
+                getOptionLabel={(option) => option.toString() || ""}
+                value={year}
+                onChange={(event, value, reason) =>
+                  handleYearInputChange(event, value, reason, "year")
+                }
+                renderInput={(params) => <TextField {...params} label="Year" />}
+                fullWidth
+                disableClearable={false}
+              />
+            </Grid>
+          </div>
+            <div className="col-md-3">
+              <Grid item xs={6}>
+                <Autocomplete
+                  options={monthList || []}
+                  getOptionLabel={(option) => option.toString() || ""}
+                  value={month}
+                  onChange={(event, value, reason) =>
+                    handleMonthInputChange(event, value, reason, "month")
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} label="Select Months" />
+                  )}
+                  fullWidth
+                  disableClearable={false}
+                />
+              </Grid>
+            </div>
+        
+
+        </div>
+      </Card>
+      <Row className="row-sm">
+        <Col
+          lg={month ? 6 : 6}
+          md={12}
+          sm={12}
+          xl={month ? 6 : 6}
+          data-aos="fade-up"
+        >
+          <Card className=" overflow-hidden">
+            <Card.Header className="border-bottom">
+              <Card.Title className=" mb-0">
+                Major
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <Major data={major} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col
+          lg={month ? 6 : 6}
+          md={12}
+          sm={12}
+          xl={month ? 6 : 6}
+          data-aos="fade-up"
+        >
+          <Card className=" overflow-hidden">
+            <Card.Header className="border-bottom">
+              <Card.Title className=" mb-0">
+                Minor
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <Minor data={minor} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+
+
+        <Col
+          lg={6}
+          md={12}
+          sm={12}
+          xl={6}
+          data-aos="fade-up"
+        >
+          <Card className=" overflow-hidden">
+            <Card.Header className="border-bottom">
+              <Card.Title className=" mb-0">
+                Todo List
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <TodoList type="safety"/>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+};
+
+export default homeComponent;

@@ -166,7 +166,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <TodoList />
+              <TodoList type="utility"/>
             </Card.Body>
           </Card>
         </Col>
