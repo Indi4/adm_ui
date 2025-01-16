@@ -17,6 +17,7 @@ import {
 import { PieChart, Pie, Cell } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
 import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
+import PurchasePieChart from "./PurchasePiechart";
 
 const COLORS = ["#00C49F", "#FFBB28", "#FF8042"];
 
@@ -31,7 +32,6 @@ const rows = [
   createData("Cupcake", 305, 3.7, 67, 4.3),
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
-
 
 const Dashboard = ({ manpower }) => {
   const dispatch = useDispatch();
@@ -62,16 +62,12 @@ const Dashboard = ({ manpower }) => {
       value: dashboardDetail?.plan_vs_act?.month_target || 0,
     },
   ];
-  const purchaseData = [
-    {
-      name: "Monthly Actual",
-      value: dashboardDetail?.purchase?.month_actual || 0,
+  const dashboard = {
+    purchase: {
+      month_actual: 260.48,
+      month_target: 310.0,
     },
-    {
-      name: "Monthly Target",
-      value: dashboardDetail?.purchase?.month_target || 0,
-    },
-  ];
+  };
   const powerUnitData = [
     {
       name: "Monthly Actual",
@@ -81,12 +77,13 @@ const Dashboard = ({ manpower }) => {
       name: "Monthly Target",
       value: dashboardDetail?.power_unit?.month_target || 0,
     },
-  ]; 
+  ];
 
   // ------------------------------------------------- manpower Avialable logic ---------------------------------------------
-  const dataAvailable = dashboardDetail?.manpower?.actual_manpower_availability
+  const dataAvailable = dashboardDetail?.manpower?.actual_manpower_availability;
   const unavailablePercentage = 100 - dataAvailable;
-  const availablePercentage = dashboardDetail?.manpower?.actual_manpower_availability;
+  const availablePercentage =
+    dashboardDetail?.manpower?.actual_manpower_availability;
 
   // Needdle Value
 
@@ -170,7 +167,7 @@ const Dashboard = ({ manpower }) => {
         <Col xs={12} md={3}>
           <Card
             style={{
-              backgroundColor: "#FFD966",
+              backgroundColor: "#f05656",
               borderRadius: "10px",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
               height: "170px",
@@ -290,9 +287,9 @@ const Dashboard = ({ manpower }) => {
                 Manpower Availability
               </Typography>
               <Box>
-              <Typography variant="body2" style={{ marginBottom: "5px" }}>
-              {availablePercentage}% Available
-            </Typography>
+                <Typography variant="body2" style={{ marginBottom: "5px" }}>
+                  {availablePercentage}% Available
+                </Typography>
                 <Box
                   style={{
                     height: "40px",
@@ -334,19 +331,26 @@ const Dashboard = ({ manpower }) => {
             <CardContent>
               <Typography
                 variant="h6"
-                style={{ marginBottom: "10px", fontWeight: "bold" }}
+                style={{fontWeight: "bold" }}
               >
                 Sales
               </Typography>
               <Box
                 sx={{
                   display: "flex",
+                  flexDirection:"column",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
+
+<Box sx={{marginTop:2, marginBottom:1}}>
+                  <Typography variant="body1">
+                  Actual: {dashboardDetail?.sales?.month_actual} | Target: {dashboardDetail?.sales?.month_target}
+                  </Typography>
+                </Box>
                 <Box>
-                  <PieChart width={150} height={200}>
+                  <PieChart width={150} height={150}>
                     <Pie
                       data={salesData}
                       cx={70}
@@ -366,20 +370,7 @@ const Dashboard = ({ manpower }) => {
                     </Pie>
                   </PieChart>
                 </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    paddingBottom: "1.5rem",
-                  }}
-                >
-                  <Typography variant="body1">
-                    Actual: {dashboardDetail?.sales?.month_actual}
-                  </Typography>
-                  <Typography variant="body1">
-                    Target: {dashboardDetail?.sales?.month_target}
-                  </Typography>
-                </Box>
+                  
               </Box>
             </CardContent>
           </Card>
@@ -391,19 +382,25 @@ const Dashboard = ({ manpower }) => {
             <CardContent>
               <Typography
                 variant="h6"
-                style={{ marginBottom: "10px", fontWeight: "bold" }}
+                style={{ fontWeight: "bold" }}
               >
                 Plan Vs Actual
               </Typography>
               <Box
                 sx={{
                   display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
+                <Box sx={{marginTop:2, marginBottom:1}}>
+                  <Typography variant="body1">
+                    Actual: {dashboardDetail?.plan_vs_act?.month_actual} | Target: {dashboardDetail?.plan_vs_act?.month_target}
+                  </Typography>
+                </Box>
                 <Box>
-                  <PieChart width={150} height={200}>
+                  <PieChart width={150} height={150}>
                     <Pie
                       data={planVsActualData}
                       cx={70}
@@ -423,26 +420,14 @@ const Dashboard = ({ manpower }) => {
                     </Pie>
                   </PieChart>
                 </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    paddingBottom: "1.5rem",
-                  }}
-                >
-                  <Typography variant="body1">
-                    Actual: {dashboardDetail?.plan_vs_act?.month_actual}
-                  </Typography>
-                  <Typography variant="body1">
-                    Target: {dashboardDetail?.plan_vs_act?.month_target}
-                  </Typography>
-                </Box>
+                
               </Box>
             </CardContent>
           </Card>
         </Col>
 
         {/* Purchase Card */}
+
         <Col xs={12} md={3}>
           <Card style={{ marginBottom: "10px", height: "250px" }}>
             <CardContent>
@@ -460,7 +445,11 @@ const Dashboard = ({ manpower }) => {
                 }}
               >
                 <Box>
-                  <PieChart width={250} height={150}>
+                  <PurchasePieChart
+                    purchase={dashboardDetail?.purchase}
+                    type="purchase"
+                  />
+                  {/* <PieChart width={250} height={150}>
                     <Pie
                       dataKey="value"
                       startAngle={180}
@@ -478,9 +467,9 @@ const Dashboard = ({ manpower }) => {
                       ))}
                     </Pie>
                     {needle(value, data, cx, cy, iR, oR, "#d0d000")}
-                  </PieChart>
+                  </PieChart> */}
                 </Box>
-                <Box
+                {/* <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -493,7 +482,7 @@ const Dashboard = ({ manpower }) => {
                   <Typography variant="body1">
                     Target: {dashboardDetail?.purchase?.month_target}
                   </Typography>
-                </Box>
+                </Box> */}
               </Box>
             </CardContent>
           </Card>
@@ -517,7 +506,11 @@ const Dashboard = ({ manpower }) => {
                 }}
               >
                 <Box>
-                  <PieChart width={150} height={150}>
+                <PurchasePieChart
+                    purchase={dashboardDetail?.power_unit}
+                    type="powerunit"
+                  />
+                  {/* <PieChart width={150} height={150}>
                     <Pie
                       data={powerUnitData}
                       cx={75}
@@ -534,21 +527,7 @@ const Dashboard = ({ manpower }) => {
                       ))}
                     </Pie>
                     <Needle cx={75} cy={75} radius={60} angle={angle} />
-                  </PieChart>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    paddingBottom: "1.5rem",
-                  }}
-                >
-                  <Typography variant="body1">
-                    Actual: {dashboardDetail?.power_unit?.month_actual}
-                  </Typography>
-                  <Typography variant="body1">
-                    Target: {dashboardDetail?.power_unit?.month_target}
-                  </Typography>
+                  </PieChart> */}
                 </Box>
               </Box>
             </CardContent>
