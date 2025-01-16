@@ -13,7 +13,7 @@ export const getDashboardMainData = createAsyncThunk(
       )
         throw new Error(response.error);
       else {
-        return response;
+        return response.data;
       }
     } catch (error) {
       console.log("Error while Sending Mail", error);
@@ -25,7 +25,7 @@ export const getDashboardMainData = createAsyncThunk(
 const dashboardDetailSlice = createSlice({
   name: "dashboardMain",
   initialState: {
-    dashboardDetail: {},
+    dashboardDetail: null,
     loading: false,
     error: null,
   },
@@ -42,7 +42,7 @@ const dashboardDetailSlice = createSlice({
     });
     builder.addCase(getDashboardMainData.fulfilled, (state, action) => {
       state.loading = false;
-      state.dashboardDetail = action.payload.data;
+      state.dashboardDetail = action.payload;
     });
     builder.addCase(getDashboardMainData.rejected, (state, action) => {
       state.loading = false;
