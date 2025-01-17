@@ -240,7 +240,7 @@ export default function TodoList({ type }) {
       >
         <Fab
           size="small"
-          color="primary"
+          color="secondary"
           aria-label="add"
           sx={{
             position: "absolute",
