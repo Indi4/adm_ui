@@ -68,7 +68,7 @@ const PPM = ({ month, data }) => {
   }
 
   return (
-    <Container style={{ padding: "20px", marginTop: "20px" }}>
+    <Container>
       {isLoading ? (
         <Box
           mt={4}
@@ -85,6 +85,19 @@ const PPM = ({ month, data }) => {
         </Box>
       ) : (
         <>
+         {/* Chart Header */}
+         <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            my={3}
+          >
+            <Typography variant="h6" style={{ fontWeight: "bold" }}>
+              {month
+                ? `Daily Target vs Daily Actual`
+                : "Monthly Target vs Monthly Actual"}
+            </Typography>
+          </Box>
           {/* Totals */}
           <Grid container spacing={2} justifyContent="space-between">
             <Grid item xs={12} md={6}>
@@ -124,19 +137,7 @@ const PPM = ({ month, data }) => {
             </Grid>
           </Grid>
 
-          {/* Chart Header */}
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            my={3}
-          >
-            <Typography variant="h5" style={{ fontWeight: "bold" }}>
-              {month
-                ? `Daily Target vs Daily Actual`
-                : "Monthly Target vs Monthly Actual"}
-            </Typography>
-          </Box>
+         
 
           {/* Chart */}
           <Card

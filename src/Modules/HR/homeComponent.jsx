@@ -167,7 +167,7 @@ const homeComponent = () => {
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
               <Card.Title className=" mb-0">
-              InDirect Manpower
+              Indirect Manpower
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">

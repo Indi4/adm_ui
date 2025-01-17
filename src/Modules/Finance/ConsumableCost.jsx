@@ -58,8 +58,7 @@ const ConsumableCost = ({ month, data }) => {
   }
 
   return (
-    <Container style={{ padding: "20px",
-        marginTop: "20px",}}>
+    <Container>
             {isLoading?(
          <Box mt={4}
          style={{   padding: "20px",
@@ -73,6 +72,12 @@ const ConsumableCost = ({ month, data }) => {
        </Box>
        ):(
         <>
+          {/* Chart Header */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" my={3}>
+        <Typography variant="h6" style={{ fontWeight: "bold"}}>
+          {month ? `Daily Target vs Daily Actual` : "Monthly Target vs Monthly Actual"}
+        </Typography>
+      </Box>
       
       {/* Totals */}
       <Grid container spacing={2} justifyContent="space-between">
@@ -94,12 +99,7 @@ const ConsumableCost = ({ month, data }) => {
         </Grid>
       </Grid>
 
-      {/* Chart Header */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" my={3}>
-        <Typography variant="h5" style={{ fontWeight: "bold" }}>
-          {month ? `Daily Target vs Daily Actual` : "Monthly Target vs Monthly Actual"}
-        </Typography>
-      </Box>
+    
 
       {/* Area Chart */}
       <Card style={{  padding: "20px",
