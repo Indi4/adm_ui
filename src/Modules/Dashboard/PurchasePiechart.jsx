@@ -72,7 +72,7 @@ const PurchasePieChart = ({ purchase, type }) => {
           data={data}
           dataKey="value"
           cx="50%"
-          cy="50%"
+          cy="43%"
           startAngle={180}
           endAngle={0}
           
