@@ -5,7 +5,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -261,7 +260,7 @@ const Dashboard = () => {
                 }}
               >
                 <CardContent>
-                  <Typography
+                  {/* <Typography
                     variant="h6"
                     style={{
                       fontWeight: "bold",
@@ -270,7 +269,7 @@ const Dashboard = () => {
                     }}
                   >
                     Quality
-                  </Typography>
+                  </Typography> */}
                   <Typography
                     variant="body1"
                     style={{ fontWeight: "bold", fontSize: "1rem" }}
@@ -573,9 +572,9 @@ const Dashboard = () => {
                   component={Paper}
                   style={{ maxHeight: 400, overflow: "auto" }}
                 >
-                  <Table sx={{ minWidth: 550 }} stickyHeader>
+                  <Table sx={{ minWidth: 450 }} stickyHeader>
                     <TableHead>
-                      <TableRow align="left">
+                      <TableRow align="center">
                         {headers?.map((item) => {
                           return <TableCell key={item}>{item}</TableCell>;
                         })}

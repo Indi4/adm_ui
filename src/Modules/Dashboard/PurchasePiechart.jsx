@@ -55,17 +55,21 @@ const PurchasePieChart = ({ purchase, type }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "auto"
+        marginTop: "auto",
       }}
     >
       <Typography variant="body1" style={{fontSize: "0.8rem"}}>
         Actual: {month_actual?.toFixed(2)} | Target: {month_target?.toFixed(2)}
-        {month_actual > month_target && (
+      </Typography>
+      {month_actual > month_target ? (
           <Typography variant="caption" color="error" display="block">
             Actual exceeds target by {(month_actual - month_target).toFixed(2)}
           </Typography>
+        ): (
+          <Typography variant="caption" color="error" visibility={"hidden"}>
+            Actual exceeds target by {(month_actual - month_target).toFixed(2)}
+          </Typography>
         )}
-      </Typography>
       <PieChart width={200} height={250}>
         {/* Pie Chart */}
         <Pie

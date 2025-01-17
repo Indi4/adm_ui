@@ -277,7 +277,7 @@ export default function TodoList({ type }) {
                     <TableCell>{row.person_responsible}</TableCell>
                     <TableCell>{row.activity_date}</TableCell>
                     <TableCell>{row.completion_date}</TableCell>
-                    <TableCell style={{ textAlign: "center" }}>
+                    <TableCell style={{ textAlign: "center", display:"flex" }}>
                       <button
                         style={getStatusButtonStyle(row.status)}
                         onClick={() => handleStatusDialogOpen(row)}
