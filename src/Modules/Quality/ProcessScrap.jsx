@@ -123,7 +123,7 @@ const ProcessScrap = ({ month, data }) => {
     </linearGradient>
   </defs>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" label={{ value: "Days", position: "insideBottom", dy: 10 }} />
+            <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />

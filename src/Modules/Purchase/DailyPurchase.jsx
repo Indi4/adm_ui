@@ -1,5 +1,14 @@
 import React from "react";
-import { Container, Grid, Card, Typography, Box, Button, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Card,
+  Typography,
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 import {
   ComposedChart,
   Bar,
@@ -16,21 +25,21 @@ import {
 const dailyData = [
   { day: 1, actual: 10, target: 0 },
   { day: 2, actual: 14, target: 0 },
-  { day: 3, actual:0, target: 14 },
+  { day: 3, actual: 0, target: 14 },
   { day: 4, actual: 13, target: 13 },
   { day: 5, actual: 15, target: 16 },
   { day: 6, actual: 16, target: 16 },
-  { day: 7, actual:0, target: 15 },
+  { day: 7, actual: 0, target: 15 },
   { day: 8, actual: 0, target: 2 },
   { day: 9, actual: 5, target: 8 },
-  { day: 10, actual:0, target: 17 },
+  { day: 10, actual: 0, target: 17 },
   { day: 11, actual: 15, target: 16 },
   { day: 12, actual: 14, target: 15 },
   { day: 13, actual: 13, target: 14 },
   { day: 14, actual: 1, target: 3 },
-  { day: 15, actual:0, target: 12 },
+  { day: 15, actual: 0, target: 12 },
   { day: 16, actual: 10, target: 12 },
-  { day: 17, actual:0, target: 15 },
+  { day: 17, actual: 0, target: 15 },
   { day: 18, actual: 15, target: 16 },
   { day: 19, actual: 16, target: 18 },
   { day: 20, actual: 17, target: 19 },
@@ -49,12 +58,23 @@ const dailyData = [
 
 const Dashboard = () => {
   return (
-    <Container style={{ backgroundColor: "#F4E4FA", minHeight: "100vh", padding: "20px" }}>
-
+    <Container
+      style={{
+        backgroundColor: "#F4E4FA",
+        minHeight: "100vh",
+        padding: "20px",
+      }}
+    >
       {/* Filters */}
       <Grid container spacing={2} justifyContent="space-between">
         <Grid item xs={12} md={3}>
-          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FFD966" }}>
+          <Card
+            style={{
+              textAlign: "center",
+              padding: "10px",
+              backgroundColor: "#FFD966",
+            }}
+          >
             <Typography variant="subtitle1">Total Month Actual</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
               268.48
@@ -62,7 +82,13 @@ const Dashboard = () => {
           </Card>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FF8080" }}>
+          <Card
+            style={{
+              textAlign: "center",
+              padding: "10px",
+              backgroundColor: "#FF8080",
+            }}
+          >
             <Typography variant="subtitle1">Total Month Target</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
               335
@@ -72,7 +98,12 @@ const Dashboard = () => {
       </Grid>
 
       {/* Chart Header */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" my={3}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        my={3}
+      >
         <Typography variant="h5" style={{ fontWeight: "bold" }}>
           Daily Target vs Daily Actual
         </Typography>
@@ -81,14 +112,15 @@ const Dashboard = () => {
       {/* Chart */}
       <Card style={{ padding: "20px" }}>
         <ResponsiveContainer width="100%" height={400}>
-          <ComposedChart data={dailyData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <ComposedChart
+            data={dailyData}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" label={{ value: "Days", position: "insideBottom", offset: -2 }} />
+            <XAxis dataKey="day" />
             <YAxis />
             <Tooltip />
-            <Legend
-                wrapperStyle={{ paddingTop: 5 }}
-            />
+            <Legend wrapperStyle={{ paddingTop: 5 }} />
             <Bar dataKey="actual" fill="#8884d8" name="Max of Daily Actual" />
             <Line
               type="monotone"
