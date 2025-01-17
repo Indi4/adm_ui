@@ -81,7 +81,7 @@ const Purchase = ({ month, data }) => {
       
       {/* Totals */}
       <Grid container spacing={2} justifyContent="space-between">
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card
             style={{
                 textAlign: "center",
@@ -95,7 +95,7 @@ const Purchase = ({ month, data }) => {
             </Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card
             style={{
                 textAlign: "center",
@@ -147,11 +147,11 @@ const Purchase = ({ month, data }) => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="name"
-              label={{
-                  value: month ? "Days" : "Months",
-                  position: "insideBottom",
-                  offset: -2,
-                }}
+              // label={{
+              //     value: month ? "Days" : "Months",
+              //     position: "insideBottom",
+              //     offset: -2,
+              //   }}
                 />
             <YAxis />
             <Tooltip />
