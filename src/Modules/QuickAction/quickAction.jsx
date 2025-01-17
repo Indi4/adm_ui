@@ -4,7 +4,7 @@ import { Grid, Typography, Box, Card, CardContent, CardActions, Button } from '@
 const pages = [
   { name: 'Quality', path: '/quality' },
   { name: 'Safety', path: '/safety' },
-  { name: 'Production', path: '/production' },
+  // { name: 'Production', path: '/production' },
   { name: 'Utility', path: '/utility' },
   { name: 'Sales', path: '/sales' },
   { name: 'HR', path: '/hr' },
