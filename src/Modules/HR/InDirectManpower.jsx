@@ -91,7 +91,7 @@ const InDirectManpower = ({ month, data }) => {
     <Container style={{ padding: "20px",
         marginTop: "20px", }}>
             {isLoading?(
-         <Box mt={4}
+         <Box
          style={{   padding: "20px",
           height: "650px", // Ensure consistent card height
           display: "flex",

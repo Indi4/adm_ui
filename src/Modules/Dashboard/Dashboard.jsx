@@ -14,7 +14,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, Legend } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
 import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
 import PurchasePieChart from "./PurchasePiechart";
@@ -128,24 +128,39 @@ const Dashboard = () => {
     <Container
       fluid
       style={{
-        backgroundColor: "#F4E4FA",
+        backgroundColor: "white",
         minHeight: "100vh",
         padding: "20px",
       }}
     >
       {isLoading ? (
         <Box
-          mt={4}
-          style={{
-            padding: "20px",
-            height: "650px", // Ensure consistent card height
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
             display: "flex",
-            flexDirection: "column",
+            flexDirection: "column", // Stack loader and text
+            alignItems: "center",
             justifyContent: "center",
-            marginTop: "20px",
+            zIndex: 2,
           }}
         >
           <Loader />
+          <Box
+            sx={{
+              mt: 2, // Margin-top for spacing
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+              color: "#333", // Dark text color
+              textAlign: "center",
+            }}
+          >
+            Loading your Data... Please wait.
+          </Box>
         </Box>
       ) : (
         <>
@@ -313,7 +328,7 @@ const Dashboard = () => {
           <Row className="mb-3">
             {/* Sales Card */}
             <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "250px" }}>
+              <Card style={{ marginBottom: "10px", height: "280px" }}>
                 <CardContent>
                   <Typography variant="h6" style={{ fontWeight: "bold" }}>
                     Sales
@@ -333,7 +348,7 @@ const Dashboard = () => {
                       </Typography>
                     </Box>
                     <Box>
-                      <PieChart width={150} height={150}>
+                      <PieChart width={150} height={175}>
                         <Pie
                           data={salesData}
                           cx={70}
@@ -351,6 +366,20 @@ const Dashboard = () => {
                             />
                           ))}
                         </Pie>
+                        <Legend
+                          payload={[
+                            {
+                              value: "Actual",
+                              type: "circle",
+                              color: "#00C49F",
+                            },
+                            {
+                              value: "Target",
+                              type: "circle",
+                              color: "#FFBB28",
+                            },
+                          ]}
+                        />
                       </PieChart>
                     </Box>
                   </Box>
@@ -360,7 +389,7 @@ const Dashboard = () => {
 
             {/* Plan Vs Actual Card */}
             <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "250px" }}>
+              <Card style={{ marginBottom: "10px", height: "280px" }}>
                 <CardContent>
                   <Typography variant="h6" style={{ fontWeight: "bold" }}>
                     Plan Vs Actual
@@ -380,7 +409,7 @@ const Dashboard = () => {
                       </Typography>
                     </Box>
                     <Box>
-                      <PieChart width={150} height={150}>
+                      <PieChart width={150} height={175}>
                         <Pie
                           data={planVsActualData}
                           cx={70}
@@ -398,6 +427,20 @@ const Dashboard = () => {
                             />
                           ))}
                         </Pie>
+                        <Legend
+                          payload={[
+                            {
+                              value: "Actual",
+                              type: "circle",
+                              color: "#00C49F",
+                            },
+                            {
+                              value: "Target",
+                              type: "circle",
+                              color: "#FFBB28",
+                            },
+                          ]}
+                        />
                       </PieChart>
                     </Box>
                   </Box>
@@ -408,11 +451,11 @@ const Dashboard = () => {
             {/* Purchase Card */}
 
             <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "250px" }}>
+              <Card style={{ marginBottom: "10px", height: "280px" }}>
                 <CardContent>
                   <Typography
                     variant="h6"
-                    style={{ marginBottom: "10px", fontWeight: "bold" }}
+                    style={{ marginBottom: "5px", fontWeight: "bold" }}
                   >
                     Purchase
                   </Typography>
@@ -437,7 +480,7 @@ const Dashboard = () => {
             </Col>
             {/* Power Unit Card */}
             <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "250px" }}>
+              <Card style={{ marginBottom: "10px", height: "280px" }}>
                 <CardContent>
                   <Typography
                     variant="h6"
@@ -477,9 +520,9 @@ const Dashboard = () => {
                   component={Paper}
                   style={{ maxHeight: 400, overflow: "auto" }}
                 >
-                  <Table sx={{ minWidth: 550 }} stickyHeader >
+                  <Table sx={{ minWidth: 550 }} stickyHeader>
                     <TableHead>
-                      <TableRow align="left" >
+                      <TableRow align="left">
                         {headers?.map((item) => {
                           return <TableCell key={item}>{item}</TableCell>;
                         })}
@@ -489,12 +532,16 @@ const Dashboard = () => {
                     <TableBody>
                       {parameters?.map((key, rowIndex) => (
                         <TableRow key={rowIndex}>
-                          <TableCell component="th" scope="row" sx={{ backgroundColor: "#9ff5f5" }}>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            sx={{ backgroundColor: "#9ff5f5" }}
+                          >
                             {key}
                           </TableCell>
                           {headers?.slice(1).map((header, colIndex) => {
                             return (
-                              <TableCell key={colIndex} >
+                              <TableCell key={colIndex}>
                                 {tableData[header]
                                   ? tableData[header][key]
                                   : "-"}

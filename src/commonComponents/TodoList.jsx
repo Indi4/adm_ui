@@ -1,48 +1,42 @@
-import * as React from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import Box from "@mui/material/Box";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import {
+  Paper,
+  Button,
+  Select,
+  MenuItem,
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrorMessage,
   clearSuccessMessage,
-  // getFinanceTodo,
-  // getHRTodo,
-  // getQualityTodo,
-  // getSafetyTodo,
   getTodo,
-  // getUtilityTodo,
   postTodo,
+  updateTodo,
 } from "../store/Todo/todoSlice";
-import { getTabId } from "@mui/lab";
 import { ToastContainer, toast } from "react-toastify";
 
-const columns = [
-  { field: "id", headerName: "Sr. No.", width: 90 },
-  { field: "activity", headerName: "Activity", width: 150 },
-  { field: "person_responsible", headerName: "Person Responsible", width: 200 },
-  { field: "activity_date", headerName: "Activity Date", width: 150 },
-  { field: "completion_date", headerName: "Completion Date", width: 150 },
-  { field: "status", headerName: "Status", width: 120 },
-];
-
 export default function TodoList({ type }) {
-  console.log(type)
   const dispatch = useDispatch();
   const todoData = useSelector((state) => state.todo.todos[type]);
   const successMessage = useSelector((state) => state.todo.success);
   const errorMessage = useSelector((state) => state.todo.error);
-  // console.log()
+
   const [open, setOpen] = useState(false);
+  const [statusDialogOpen, setStatusDialogOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [newStatus, setNewStatus] = useState("");
   const [formData, setFormData] = useState({
     activity: "",
     person_responsible: "",
@@ -50,39 +44,28 @@ export default function TodoList({ type }) {
     completion_date: "",
     status: "",
   });
+
+  const [formErrors, setFormErrors] = useState({
+    activity: "",
+    person_responsible: "",
+    activity_date: "",
+    completion_date: "",
+    status: "",
+  });
+
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage, { autoClose: 2000 });
-      dispatch(clearSuccessMessage)
+      dispatch(clearSuccessMessage());
     }
     if (errorMessage) {
       toast.error(errorMessage, { autoClose: 2000 });
-      dispatch(clearErrorMessage)
+      dispatch(clearErrorMessage());
     }
-  }, [successMessage, errorMessage]);
+  }, [successMessage, errorMessage, dispatch]);
+
   useEffect(() => {
-    dispatch(getTodo({type}));
-    // let action;
-    // switch (type) {
-    //   case "safety":
-    //     action = getSafetyTodo;
-    //     break;
-    //   case "quality":
-    //     action = getQualityTodo;
-    //     break;
-    //   case "hr":
-    //     action = getHRTodo;
-    //     break;
-    //   case "finance":
-    //     action = getFinanceTodo;
-    //     break;
-    //   case "utility":
-    //     action = getUtilityTodo;
-    //     break;
-    //   default:
-    //     console.error("Invalid type. Cannot determine Todo Page.");
-    //     return;
-    
+    dispatch(getTodo({ type }));
   }, [dispatch, type]);
 
   const handleOpen = () => setOpen(true);
@@ -91,11 +74,33 @@ export default function TodoList({ type }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.activity) errors.activity = "Activity is required.";
+    if (!formData.person_responsible)
+      errors.person_responsible = "Person responsible is required.";
+    if (!formData.activity_date)
+      errors.activity_date = "Activity date is required.";
+    if (!formData.completion_date)
+      errors.completion_date = "Completion date is required.";
+    if (!formData.status) errors.status = "Status is required.";
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0; // Returns true if no errors
   };
 
   const handleAdd = () => {
+    if (!validateForm()) {
+      return; // Stop if the form is invalid
+    }
+
+    // Dispatch actions to add todo
     dispatch(postTodo({ formData, type }));
-    dispatch(getTodo({type}))
+    dispatch(getTodo({ type }));
+
+    // Reset form and errors
     setFormData({
       activity: "",
       person_responsible: "",
@@ -103,13 +108,92 @@ export default function TodoList({ type }) {
       completion_date: "",
       status: "",
     });
+    setFormErrors({});
     handleClose();
+  };
+
+  const getStatusButtonStyle = (status) => {
+    const baseStyle = {
+      border: "2px solid",
+      fontSize: "12px",
+      padding: "10px 20px",
+      cursor: "pointer",
+      borderRadius: "10px",
+      fontWeight: "bold",
+      animation: 'blink 3s infinite alternate',
+      transition: 'all 0.3s ease',
+    };
+  
+    const colors = {
+      PENDING: { borderColor: "#FFA500", backgroundColor: "#FFF8E1", color: "#FF8C00" },
+      IN_PROGRESS: { borderColor: "#2196F3", backgroundColor: "#E3F2FD", color: "#0D47A1" },
+      COMPLETED: { borderColor: "#4CAF50", backgroundColor: "#E8F5E9", color: "#2E7D32" },
+      ON_HOLD: { borderColor: "#FF5722", backgroundColor: "#FFEBEE", color: "#BF360C" },
+      DELAYED: { borderColor: "#E91E63", backgroundColor: "#FCE4EC", color: "#880E4F" },
+      "WAITING FOR INPUT": { borderColor: "#9C27B0", backgroundColor: "#F3E5F5", color: "#6A1B9A" },
+      REOPENED: { borderColor: "#FFC107", backgroundColor: "#FFFDE7", color: "#FF6F00" },
+      UNDER_REVIEW: { borderColor: "#3F51B5", backgroundColor: "#E8EAF6", color: "#1A237E" },
+      CANCELLED: { borderColor: "#F44336", backgroundColor: "#FFEBEE", color: "#B71C1C" },
+    };
+  
+    return { ...baseStyle, ...colors[status] };
+  };
+  
+
+  const buttonStyle = {
+    border: "2px solid #04c0f2",
+    backgroundColor: "rgb(4 192 242 / 12%)",
+    color: "#1b51a9",
+    fontSize: "12px",
+    padding: "10px 20px",
+    cursor: "pointer",
+    borderRadius: "10px",
+    fontWeight: "bold",
+    animation: "blink 3s infinite alternate",
+    transition: "all 0.3s ease",
+  };
+
+  const blink = `
+    @keyframes blink {
+      0% { opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+  `;
+
+  const handleStatusDialogOpen = (row) => {
+    setSelectedRow(row);
+    setNewStatus(row.status);
+    setStatusDialogOpen(true);
+  };
+
+  const handleStatusDialogClose = () => {
+    setStatusDialogOpen(false);
+    setSelectedRow(null);
+    setNewStatus("");
+  };
+
+  const handleStatusUpdate = () => {
+    if (selectedRow) {
+      console.log(selectedRow);
+      dispatch(
+        updateTodo({
+          id: selectedRow.id,
+          status: newStatus,
+          person_responsible: selectedRow.person_responsible,
+          type,
+          activity: selectedRow.activity,
+        })
+      );
+      setStatusDialogOpen(false);
+      setSelectedRow(null);
+      dispatch(getTodo({ type })); // Refresh the list
+    }
   };
 
   return (
     <Box sx={{ padding: "20px", marginTop: "20px" }}>
-      <ToastContainer/>
-      {/* <h2>To Do List</h2> */}
+      <ToastContainer />
       <Box
         sx={{
           display: "flex",
@@ -119,7 +203,11 @@ export default function TodoList({ type }) {
         }}
       >
         <Box>
-          <Select defaultValue="Year" size="small" sx={{ width: 100, marginRight: 2 }}>
+          <Select
+            defaultValue="Year"
+            size="small"
+            sx={{ width: 100, marginRight: 2 }}
+          >
             <MenuItem value="Year">Year</MenuItem>
             <MenuItem value="Month">Month</MenuItem>
             <MenuItem value="Daily">Daily</MenuItem>
@@ -132,26 +220,86 @@ export default function TodoList({ type }) {
       <Paper
         sx={{
           padding: "20px",
-          height: "700px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          marginTop: "40px",
+          marginTop: "20px",
         }}
       >
-        <DataGrid
-          rows={todoData || []}
-          columns={columns}
-          pageSizeOptions={10}
-          initialState={{
-            pagination: { paginationModel: { page: 0, pageSize: 10 } },
-          }}
+        <TableContainer
           sx={{
-            border: 0,
-            "& .MuiDataGrid-columnHeader": { fontWeight: "bold" },
+            maxHeight: 650,
+            overflowY: "auto",
           }}
-        />
+        >
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Sr. No.</TableCell>
+                <TableCell>Activity</TableCell>
+                <TableCell>Person Responsible</TableCell>
+                <TableCell>Activity Date</TableCell>
+                <TableCell>Completion Date</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {todoData &&
+                todoData.map((row, index) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{row.activity}</TableCell>
+                    <TableCell>{row.person_responsible}</TableCell>
+                    <TableCell>{row.activity_date}</TableCell>
+                    <TableCell>{row.completion_date}</TableCell>
+                    <TableCell style={{ textAlign: "center" }}>
+                      <button
+                        style={getStatusButtonStyle(row.status)}
+                        onClick={() => handleStatusDialogOpen(row)}
+                      >
+                        {row.status}
+                      </button>
+                      <style>{blink}</style>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Paper>
+
+      <Dialog
+        open={statusDialogOpen}
+        onClose={handleStatusDialogClose}
+        fullWidth
+      >
+        <DialogTitle>Update Status</DialogTitle>
+        <DialogContent>
+          <Select
+            fullWidth
+            value={newStatus}
+            onChange={(e) => setNewStatus(e.target.value)}
+          >
+            <MenuItem value="PENDING">Pending</MenuItem>
+            <MenuItem value="IN_PROGRESS">In Progress</MenuItem>
+            <MenuItem value="COMPLETED">Completed</MenuItem>
+            <MenuItem value="ON_HOLD">On Hold</MenuItem>
+            <MenuItem value="DELAYED">Delayed</MenuItem>
+            <MenuItem value="WAITING FOR INPUT">Waiting For Input</MenuItem>
+            <MenuItem value="REOPENED">Reopened</MenuItem>
+            <MenuItem value="UNDER_REVIEW">Under Review</MenuItem>
+            <MenuItem value="CANCELLED">Cancelled</MenuItem>
+          </Select>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleStatusDialogClose}>Cancel</Button>
+          <Button
+            onClick={handleStatusUpdate}
+            variant="contained"
+            color="primary"
+          >
+            Update
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add New Task</DialogTitle>
         <DialogContent>
@@ -164,6 +312,8 @@ export default function TodoList({ type }) {
             fullWidth
             value={formData.activity}
             onChange={handleChange}
+            error={!!formErrors.activity}
+            helperText={formErrors.activity}
           />
           <TextField
             margin="dense"
@@ -173,6 +323,8 @@ export default function TodoList({ type }) {
             fullWidth
             value={formData.person_responsible}
             onChange={handleChange}
+            error={!!formErrors.person_responsible}
+            helperText={formErrors.person_responsible}
           />
           <TextField
             margin="dense"
@@ -183,6 +335,8 @@ export default function TodoList({ type }) {
             InputLabelProps={{ shrink: true }}
             value={formData.activity_date}
             onChange={handleChange}
+            error={!!formErrors.activity_date}
+            helperText={formErrors.activity_date}
           />
           <TextField
             margin="dense"
@@ -193,6 +347,8 @@ export default function TodoList({ type }) {
             InputLabelProps={{ shrink: true }}
             value={formData.completion_date}
             onChange={handleChange}
+            error={!!formErrors.completion_date}
+            helperText={formErrors.completion_date}
           />
           <Select
             name="status"
@@ -201,6 +357,7 @@ export default function TodoList({ type }) {
             displayEmpty
             fullWidth
             margin="dense"
+            error={!!formErrors.status}
           >
             <MenuItem value="" disabled>
               Select Status
@@ -210,11 +367,16 @@ export default function TodoList({ type }) {
             <MenuItem value="COMPLETED">Completed</MenuItem>
             <MenuItem value="ON_HOLD">On Hold</MenuItem>
             <MenuItem value="DELAYED">Delayed</MenuItem>
-            <MenuItem value="WAITING_FOR_INPUT">Waiting For Input</MenuItem>
+            <MenuItem value="WAITING FOR INPUT">Waiting For Input</MenuItem>
             <MenuItem value="REOPENED">Reopened</MenuItem>
             <MenuItem value="UNDER_REVIEW">Under Review</MenuItem>
             <MenuItem value="CANCELLED">Cancelled</MenuItem>
           </Select>
+          {formErrors.status && (
+            <p style={{ color: "red", fontSize: "0.8rem" }}>
+              {formErrors.status}
+            </p>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

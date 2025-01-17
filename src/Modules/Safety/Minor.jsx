@@ -191,7 +191,7 @@ const Minor = ({ month, data }) => {
           </ResponsiveContainer>
         </Card>
       ) : (
-        <Typography variant="h6" style={{ textAlign: "center", marginTop: "50px", color: "#757575",   padding: "20px",
+        <Typography variant="h6" style={{ textAlign: "center", color: "#757575",   padding: "20px",
           height: "650px", // Ensure consistent card height
           display: "flex",
           flexDirection: "column",
