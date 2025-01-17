@@ -66,7 +66,7 @@ const Purchase = ({ month, data }) => {
       }}
     >
         {isLoading?(
-         <Box mt={4}
+         <Box
          style={{   padding: "20px",
           height: "650px", // Ensure consistent card height
           display: "flex",

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PieChart, Pie, Cell } from "recharts";
+import { PieChart, Pie, Cell, Legend } from "recharts";
 import { Box, Typography } from "@mui/material";
 
 const PurchasePieChart = ({ purchase, type }) => {
@@ -82,6 +82,31 @@ const PurchasePieChart = ({ purchase, type }) => {
             <Cell key={`cell-${index}`} fill={COLORS[index]} />
           ))}
         </Pie>
+        <Legend
+         layout="horizontal"
+         align="center"
+         verticalAlign="bottom"
+         wrapperStyle={{
+          position: "absolute",
+          width: "194px",
+          height: "17px",
+          left: "5px",
+          bottom: "101px",
+          marginTop: "3px"
+         }}
+          payload={[
+            {
+              value: "Actual",
+              type: "circle",
+              color: "#0af548",
+            },
+            {
+              value: "Target",
+              type: "circle",
+              color: "#9ef0b4",
+            },
+          ]}
+        />
         {/* Render the Needle */}
         {renderNeedle(cappedPercentage, 95, 100, 70)}
       </PieChart>

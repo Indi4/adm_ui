@@ -24,15 +24,26 @@ export const getTodo = createAsyncThunk("todo/getTodo", async ({type}) => {
 });
 
 // Async thunk to update a todo
-export const updateTodo = createAsyncThunk("todo/updateTodo", async ({ id, formData, type }) => {
-  try {
-    const response = await apiService.patch(`dashboard/${type}_tasks/${id}/`, formData);
-    return { id, data: response.data, type };
-  } catch (error) {
-    console.error("Error updating Todo:", error);
-    throw error;
+export const updateTodo = createAsyncThunk(
+  "todo/updateTodo",
+  async ({ id, status, person_responsible, type, activity }) => {
+    try {
+      // Combine the data into a single object for the PUT request
+      const data = {
+        status,
+        person_responsible,
+        activity,
+      };
+
+      const response = await apiService.put(`dashboard/${type}_tasks/${id}/`, data);
+      return { id, data: response.data, type };
+    } catch (error) {
+      console.error("Error updating Todo:", error);
+      throw error;
+    }
   }
-});
+);
+
 
 const todoSlice = createSlice({
   name: "todo",
@@ -65,9 +76,7 @@ const todoSlice = createSlice({
         state.error = null;
       })
       .addCase(getTodo.fulfilled, (state, action) => {
-        console.log(action.payload)
         const { type, data } = action.payload;
-        console.log(data)
         state.todos[type] = data; // Update specific type list
         state.loading = false;
       })
