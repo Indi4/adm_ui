@@ -78,7 +78,7 @@ const Major = ({ month, data }) => {
 
       {/* Totals */}
       <Grid container spacing={2} justifyContent="space-between">
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#8884d8" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Actual</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
@@ -86,7 +86,7 @@ const Major = ({ month, data }) => {
             </Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FF8080" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Target</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
@@ -123,7 +123,7 @@ const Major = ({ month, data }) => {
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" label={{ value: month ? "Days" : "Months", position: "insideBottom", offset: -2 }} />
+            <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />

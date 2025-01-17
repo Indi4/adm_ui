@@ -48,27 +48,42 @@ const Dashboard = () => {
   const [headers, setHeaders] = useState([""]);
   const [rowKeys, setRowKeys] = useState([]);
   const parameters = [
-    "MajorAccidents",
-    "MinorAccidents",
+    "Major Accidents",
+    "Minor Accidents",
     "PPM",
     "COPQ",
     "Sales",
-    "PlanVsAct",
+    "Plan Vs Act",
     "Purchase",
-    "ManpowerAvailability",
-    "DirectManpower",
-    "IndirectManpower",
-    "ProcessScrap",
-    "DesignScrap",
-    "PowerUnits",
-    "PowerCost",
-    "ConsumableCost",
+    "Manpower Availability",
+    "Direct Manpower",
+    "Indirect Manpower",
+    "Process Scrap",
+    "Design Scrap",
+    "Power Units",
+    "Power Cost",
+    "Consumable Cost",
   ];
+  // function transformData(input) {
+  //   const result = { Target: input.monthly_targets };
+
+  //   input.weekly_kpis.daily_kpis.forEach((dailyKpi) => {
+  //     result[dailyKpi.date] = dailyKpi;
+  //   });
+
+  //   return result;
+  // }
   function transformData(input) {
     const result = { Target: input.monthly_targets };
 
     input.weekly_kpis.daily_kpis.forEach((dailyKpi) => {
-      result[dailyKpi.date] = dailyKpi;
+      const date = new Date(dailyKpi.date);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = date.toLocaleString("en-US", { month: "short" });
+
+      const formattedDate = `${day}-${month}`;
+
+      result[formattedDate] = dailyKpi;
     });
 
     return result;
@@ -168,19 +183,19 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  backgroundColor: "#f05656",
+                  backgroundColor: "#00C49F",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                   height: "170px",
                 }}
               >
                 <CardContent>
-                  <Typography
+                  {/* <Typography
                     variant="h6"
                     style={{ fontWeight: "bold", marginBottom: "10px" }}
                   >
                     Safety
-                  </Typography>
+                  </Typography> */}
                   <Typography
                     variant="body1"
                     style={{ fontWeight: "bold", fontSize: "1rem" }}
@@ -203,19 +218,19 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  backgroundColor: "#FFD966",
+                  backgroundColor: "#FFBB28",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                   height: "170px",
                 }}
               >
                 <CardContent>
-                  <Typography
+                  {/* <Typography
                     variant="h6"
                     style={{ fontWeight: "bold", marginBottom: "10px" }}
                   >
                     Safety
-                  </Typography>
+                  </Typography> */}
                   <Typography
                     variant="body1"
                     style={{ fontWeight: "bold", fontSize: "1rem" }}
@@ -239,7 +254,7 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  backgroundColor: "#B4EBEB",
+                  backgroundColor: "#00C49F",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                   height: "170px",
@@ -248,7 +263,11 @@ const Dashboard = () => {
                 <CardContent>
                   <Typography
                     variant="h6"
-                    style={{ fontWeight: "bold", marginBottom: "10px" }}
+                    style={{
+                      fontWeight: "bold",
+                      marginBottom: "10px",
+                      fontSize: "1rem",
+                    }}
                   >
                     Quality
                   </Typography>
@@ -283,13 +302,23 @@ const Dashboard = () => {
                 <CardContent style={{ height: "220px" }}>
                   <Typography
                     variant="h6"
-                    style={{ fontWeight: "bold", marginBottom: "10px" }}
+                    style={{
+                      fontWeight: "bold",
+                      marginBottom: "10px",
+                      fontSize: "1rem",
+                    }}
                   >
                     Manpower Availability
                   </Typography>
                   <Box>
                     <Typography variant="body2" style={{ marginBottom: "5px" }}>
-                      {availablePercentage}% Available
+                      <span style={{ color: "#00C49F" }}>
+                        {availablePercentage}% Available
+                      </span>{" "}
+                      and{" "}
+                      <span style={{ color: "#FFBB28" }}>
+                        {unavailablePercentage}% Unavailable
+                      </span>{" "}
                     </Typography>
                     <Box
                       style={{
@@ -305,7 +334,7 @@ const Dashboard = () => {
                         style={{
                           height: "100%",
                           width: `${availablePercentage}%`,
-                          backgroundColor: "#4eeddb",
+                          backgroundColor: "#00C49F",
                           position: "absolute",
                         }}
                       />
@@ -313,7 +342,7 @@ const Dashboard = () => {
                         style={{
                           height: "100%",
                           width: `${unavailablePercentage}%`,
-                          backgroundColor: "#D1D1D1",
+                          backgroundColor: "#FFBB28",
                           position: "absolute",
                           right: 0,
                         }}
@@ -330,7 +359,10 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card style={{ marginBottom: "10px", height: "280px" }}>
                 <CardContent>
-                  <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                  <Typography
+                    variant="h6"
+                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                  >
                     Sales
                   </Typography>
                   <Box
@@ -342,8 +374,11 @@ const Dashboard = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="body1">
-                        Actual: {dashboardDetail?.sales?.month_actual} | Target:{" "}
+                      <Typography
+                        variant="body1"
+                        style={{ fontSize: "0.8rem" }}
+                      >
+                        Actual: {dashboardDetail?.sales?.month_actual} | Target:
                         {dashboardDetail?.sales?.month_target}
                       </Typography>
                     </Box>
@@ -391,7 +426,10 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card style={{ marginBottom: "10px", height: "280px" }}>
                 <CardContent>
-                  <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                  <Typography
+                    variant="h6"
+                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
+                  >
                     Plan Vs Actual
                   </Typography>
                   <Box
@@ -403,9 +441,12 @@ const Dashboard = () => {
                     }}
                   >
                     <Box>
-                      <Typography variant="body1">
-                        Actual: {dashboardDetail?.plan_vs_act?.month_actual} |
-                        Target: {dashboardDetail?.plan_vs_act?.month_target}
+                      <Typography
+                        variant="body1"
+                        style={{ fontSize: "0.8rem" }}
+                      >
+                        Actual:{dashboardDetail?.plan_vs_act?.month_actual} |
+                        Target:{dashboardDetail?.plan_vs_act?.month_target}
                       </Typography>
                     </Box>
                     <Box>
@@ -455,7 +496,7 @@ const Dashboard = () => {
                 <CardContent>
                   <Typography
                     variant="h6"
-                    style={{ marginBottom: "5px", fontWeight: "bold" }}
+                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
                   >
                     Purchase
                   </Typography>
@@ -467,7 +508,13 @@ const Dashboard = () => {
                     }}
                   >
                     {dashboardDetail?.purchase ? (
-                      <Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "left",
+                          justifyContent: "left",
+                        }}
+                      >
                         <PurchasePieChart
                           purchase={dashboardDetail?.purchase}
                           type="purchase"
@@ -484,7 +531,7 @@ const Dashboard = () => {
                 <CardContent>
                   <Typography
                     variant="h6"
-                    style={{ marginBottom: "10px", fontWeight: "bold" }}
+                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
                   >
                     Power Unit
                   </Typography>
@@ -496,7 +543,13 @@ const Dashboard = () => {
                     }}
                   >
                     {dashboardDetail?.power_unit ? (
-                      <Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "left",
+                          justifyContent: "left",
+                        }}
+                      >
                         <PurchasePieChart
                           purchase={dashboardDetail?.power_unit}
                           type="purchase"
@@ -535,7 +588,7 @@ const Dashboard = () => {
                           <TableCell
                             component="th"
                             scope="row"
-                            sx={{ backgroundColor: "#9ff5f5" }}
+                            sx={{ backgroundColor: "#00C49F" }}
                           >
                             {key}
                           </TableCell>

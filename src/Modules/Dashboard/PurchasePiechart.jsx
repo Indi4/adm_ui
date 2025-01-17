@@ -15,7 +15,7 @@ const PurchasePieChart = ({ purchase, type }) => {
     { name: "Remaining", value: Math.max(0, month_target - month_actual) },
   ];
 
-  const COLORS = ["#0af548", "#9ef0b4"]; // Colors for actual and remaining
+  const COLORS = ["#00C49F", "#FFBB28"]; // Colors for actual and remaining
 
   // Function to render the needle
   const renderNeedle = (percentage, cx, cy, radius) => {
@@ -55,9 +55,10 @@ const PurchasePieChart = ({ purchase, type }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: "auto"
       }}
     >
-      <Typography variant="body1">
+      <Typography variant="body1" style={{fontSize: "0.8rem"}}>
         Actual: {month_actual?.toFixed(2)} | Target: {month_target?.toFixed(2)}
         {month_actual > month_target && (
           <Typography variant="caption" color="error" display="block">
@@ -71,9 +72,10 @@ const PurchasePieChart = ({ purchase, type }) => {
           data={data}
           dataKey="value"
           cx="50%"
-          cy="40%"
+          cy="50%"
           startAngle={180}
           endAngle={0}
+          
           innerRadius="70%"
           outerRadius="100%"
           paddingAngle={2}
@@ -91,19 +93,19 @@ const PurchasePieChart = ({ purchase, type }) => {
           width: "194px",
           height: "17px",
           left: "5px",
-          bottom: "101px",
-          marginTop: "3px"
+          bottom: "106px",
+          marginTop: "5px"
          }}
           payload={[
             {
               value: "Actual",
               type: "circle",
-              color: "#0af548",
+              color: "#00C49F",
             },
             {
               value: "Target",
               type: "circle",
-              color: "#9ef0b4",
+              color: "#FFBB28",
             },
           ]}
         />

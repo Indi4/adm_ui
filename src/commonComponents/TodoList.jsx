@@ -16,6 +16,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Fab,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -120,25 +121,60 @@ export default function TodoList({ type }) {
       cursor: "pointer",
       borderRadius: "10px",
       fontWeight: "bold",
-      animation: 'blink 3s infinite alternate',
-      transition: 'all 0.3s ease',
+      animation: "blink 3s infinite alternate",
+      transition: "all 0.3s ease",
     };
-  
+
     const colors = {
-      PENDING: { borderColor: "#FFA500", backgroundColor: "#FFF8E1", color: "#FF8C00" },
-      IN_PROGRESS: { borderColor: "#2196F3", backgroundColor: "#E3F2FD", color: "#0D47A1" },
-      COMPLETED: { borderColor: "#4CAF50", backgroundColor: "#E8F5E9", color: "#2E7D32" },
-      ON_HOLD: { borderColor: "#FF5722", backgroundColor: "#FFEBEE", color: "#BF360C" },
-      DELAYED: { borderColor: "#E91E63", backgroundColor: "#FCE4EC", color: "#880E4F" },
-      "WAITING FOR INPUT": { borderColor: "#9C27B0", backgroundColor: "#F3E5F5", color: "#6A1B9A" },
-      REOPENED: { borderColor: "#FFC107", backgroundColor: "#FFFDE7", color: "#FF6F00" },
-      UNDER_REVIEW: { borderColor: "#3F51B5", backgroundColor: "#E8EAF6", color: "#1A237E" },
-      CANCELLED: { borderColor: "#F44336", backgroundColor: "#FFEBEE", color: "#B71C1C" },
+      PENDING: {
+        borderColor: "#FFA500",
+        backgroundColor: "#FFF8E1",
+        color: "#FF8C00",
+      },
+      IN_PROGRESS: {
+        borderColor: "#2196F3",
+        backgroundColor: "#E3F2FD",
+        color: "#0D47A1",
+      },
+      COMPLETED: {
+        borderColor: "#4CAF50",
+        backgroundColor: "#E8F5E9",
+        color: "#2E7D32",
+      },
+      ON_HOLD: {
+        borderColor: "#FF5722",
+        backgroundColor: "#FFEBEE",
+        color: "#BF360C",
+      },
+      DELAYED: {
+        borderColor: "#E91E63",
+        backgroundColor: "#FCE4EC",
+        color: "#880E4F",
+      },
+      "WAITING FOR INPUT": {
+        borderColor: "#9C27B0",
+        backgroundColor: "#F3E5F5",
+        color: "#6A1B9A",
+      },
+      REOPENED: {
+        borderColor: "#FFC107",
+        backgroundColor: "#FFFDE7",
+        color: "#FF6F00",
+      },
+      UNDER_REVIEW: {
+        borderColor: "#3F51B5",
+        backgroundColor: "#E8EAF6",
+        color: "#1A237E",
+      },
+      CANCELLED: {
+        borderColor: "#F44336",
+        backgroundColor: "#FFEBEE",
+        color: "#B71C1C",
+      },
     };
-  
+
     return { ...baseStyle, ...colors[status] };
   };
-  
 
   const buttonStyle = {
     border: "2px solid #04c0f2",
@@ -192,37 +228,29 @@ export default function TodoList({ type }) {
   };
 
   return (
-    <Box sx={{ padding: "20px", marginTop: "20px" }}>
+    <Box sx={{ padding: "20px", marginTop: "5px" }}>
       <ToastContainer />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: 2,
-        }}
-      >
-        <Box>
-          <Select
-            defaultValue="Year"
-            size="small"
-            sx={{ width: 100, marginRight: 2 }}
-          >
-            <MenuItem value="Year">Year</MenuItem>
-            <MenuItem value="Month">Month</MenuItem>
-            <MenuItem value="Daily">Daily</MenuItem>
-          </Select>
-        </Box>
-        <Button variant="contained" color="primary" onClick={handleOpen}>
-          Add
-        </Button>
-      </Box>
+      
       <Paper
         sx={{
-          padding: "20px",
-          marginTop: "20px",
+          // padding: "20px",
+          // marginTop: "20px",
+          position: "relative",
         }}
       >
+        <Fab
+          size="small"
+          color="secondary"
+          aria-label="add"
+          sx={{
+            position: "absolute",
+            top: -30,
+            right: 16,
+          }}
+          onClick={handleOpen}
+        >
+          +
+        </Fab>
         <TableContainer
           sx={{
             maxHeight: 650,

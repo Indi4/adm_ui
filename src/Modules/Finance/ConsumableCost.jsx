@@ -76,7 +76,7 @@ const ConsumableCost = ({ month, data }) => {
       
       {/* Totals */}
       <Grid container spacing={2} justifyContent="space-between">
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FFD966" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Actual</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
@@ -84,7 +84,7 @@ const ConsumableCost = ({ month, data }) => {
             </Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#88B04B" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Target</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
@@ -121,7 +121,7 @@ const ConsumableCost = ({ month, data }) => {
     </linearGradient>
   </defs>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" label={{ value: "Days", position: "insideBottom", dy: 10 }} />
+            <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />

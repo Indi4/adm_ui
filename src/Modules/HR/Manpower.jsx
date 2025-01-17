@@ -84,7 +84,7 @@ const Manpower = ({month, data}) => {
 <>
       {/* Totals */}
       <Grid container spacing={2} justifyContent="space-between">
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#8884d8" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Actual</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
@@ -92,7 +92,7 @@ const Manpower = ({month, data}) => {
             </Typography>
           </Card>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FFDA44" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Target</Typography>
             <Typography variant="h5" style={{ fontWeight: "bold" }}>
@@ -119,7 +119,7 @@ const Manpower = ({month, data}) => {
         <ResponsiveContainer width="100%" height={600}>
           <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" label="Days" />
+            <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />

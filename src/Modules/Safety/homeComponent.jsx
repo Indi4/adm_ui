@@ -157,10 +157,10 @@ const homeComponent = () => {
 
 
         <Col
-          lg={6}
+          lg={12}
           md={12}
           sm={12}
-          xl={6}
+          xl={12}
           data-aos="fade-up"
         >
           <Card className=" overflow-hidden">
