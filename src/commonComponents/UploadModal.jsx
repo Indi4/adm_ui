@@ -79,7 +79,7 @@ const UploadComponent = ({ label }) => {
       <div
         className="upload-container"
         style={{
-          marginTop: '13rem',
+          marginTop: '200px',
           // display: "flex",
           justifyContent: "center",
           alignItems: "center",
