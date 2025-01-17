@@ -163,7 +163,7 @@ const homeComponent = () => {
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
               <Card.Title className=" mb-0">
-                Todo List
+                To-do List
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
