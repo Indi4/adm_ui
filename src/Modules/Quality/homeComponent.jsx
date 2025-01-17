@@ -200,16 +200,16 @@ const homeComponent = () => {
         </Col>
 
         <Col
-          lg={6}
-          md={12}
+          lg={12}
+          md={6}
           sm={12}
-          xl={6}
+          xl={12}
           data-aos="fade-up"
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
               <Card.Title className=" mb-0">
-                Todo List
+                To-do List
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
