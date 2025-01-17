@@ -319,10 +319,10 @@ export const Routingdata = [
     path: `${import.meta.env.BASE_URL}/safety`,
     element: <Safety />,
   },
-  {
-    path: `${import.meta.env.BASE_URL}/production`,
-    element: <Production />,
-  },
+  // {
+  //   path: `${import.meta.env.BASE_URL}/production`,
+  //   element: <Production />,
+  // },
   {
     path: `${import.meta.env.BASE_URL}/utility`,
     element: <Utility />,
