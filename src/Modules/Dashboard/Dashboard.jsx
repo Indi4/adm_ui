@@ -626,7 +626,7 @@ const Dashboard = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <Box>
+                    {/* <Box>
                       <Typography
                         variant="body1"
                         style={{ fontSize: "0.8rem" }}
@@ -634,11 +634,11 @@ const Dashboard = () => {
                         Actual:{dashboardDetail?.power_unit?.month_actual} |
                         Target:{dashboardDetail?.power_unit?.month_target}
                       </Typography>
-                    </Box>
+                    </Box> */}
                     <Box>
-                    <DashboardPowerunit data={power_units} month={month} />
+                    {/* <DashboardPowerunit data={power_units} month={month} /> */}
                     </Box>
-                    {/* {dashboardDetail?.power_unit ? (
+                    {dashboardDetail?.power_unit ? (
                       <Box
                         sx={{
                           display: "flex",
@@ -652,7 +652,7 @@ const Dashboard = () => {
                           type="purchase"
                         />
                       </Box>
-                    ) : null} */}
+                    ) : null}
                   </Box>
                 </CardContent>
               </Card>

@@ -15,7 +15,7 @@ const PurchasePieChart = ({ purchase, type }) => {
     { name: "Remaining", value: Math.max(0, month_target - month_actual) },
   ];
 
-  const COLORS = ["#00C49F", "#FFBB28"]; // Colors for actual and remaining
+  const COLORS = ["#008cc4", "#8fbccf"]; // Colors for actual and remaining
 
   // Function to render the needle
   const renderNeedle = (percentage, cx, cy, radius) => {
@@ -104,12 +104,12 @@ const PurchasePieChart = ({ purchase, type }) => {
             {
               value: "Actual",
               type: "circle",
-              color: "#00C49F",
+              color: "#008cc4",
             },
             {
               value: "Target",
               type: "circle",
-              color: "#FFBB28",
+              color: "#8fbccf",
             },
           ]}
         />
