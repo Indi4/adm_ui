@@ -71,149 +71,113 @@ const homeComponent = () => {
 
   return (
     <div className="container-fluid" style={{ backgroundColor: "#f8f9fa" }}>
-      {/* <ToastContainer /> */}
-      <Card style={{ backgroundColor: "rgb(53 128 174 / 18%)", padding: 8 }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          {/* <h4
-            className="text-left mb-4"
-            style={{ fontSize: "2rem", fontWeight: "bold" }}
-          >
-            QUALITY
-          </h4> */}
-          {/* <div
-            style={{
-              display: "flex",
-              // gap: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          ></div> */}
+    {/* <ToastContainer /> */}
+    <Card style={{ backgroundColor: "rgb(53 128 174 / 18%)", padding: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {/* <h4
+          className="text-left mb-4"
+          style={{ fontSize: "2rem", fontWeight: "bold" }}
+        >
+          QUALITY
+        </h4> */}
+        {/* <div
+          style={{
+            display: "flex",
+            // gap: 20,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        ></div> */}
+      </div>
+      <div className="row mb-4">
+        <div className="col-md-3">
+          <Grid item xs={6}>
+            <Autocomplete
+              options={yearList || []}
+              getOptionLabel={(option) => option.toString() || ""}
+              value={year}
+              onChange={(event, value, reason) =>
+                handleYearInputChange(event, value, reason, "year")
+              }
+              renderInput={(params) => <TextField {...params} label="Year" />}
+              fullWidth
+              disableClearable={false}
+            />
+          </Grid>
         </div>
-        <div className="row mb-4">
-          <div className="col-md-3">
-            <Grid item xs={6}>
-              <Autocomplete
-                options={yearList || []}
-                getOptionLabel={(option) => option.toString() || ""}
-                value={year}
-                onChange={(event, value, reason) =>
-                  handleYearInputChange(event, value, reason, "year")
-                }
-                renderInput={(params) => <TextField {...params} label="Year" />}
-                fullWidth
-                disableClearable={false}
-              />
-            </Grid>
-          </div>
-          <div className="col-md-3">
-            <Grid item xs={6}>
-              <Autocomplete
-                options={monthList || []}
-                getOptionLabel={(option) => option.toString() || ""}
-                value={month}
-                onChange={(event, value, reason) =>
-                  handleMonthInputChange(event, value, reason, "month")
-                }
-                renderInput={(params) => (
-                  <TextField {...params} label="Select Months" />
-                )}
-                fullWidth
-                disableClearable={false}
-              />
-            </Grid>
-          </div>
+        <div className="col-md-3">
+          <Grid item xs={6}>
+            <Autocomplete
+              options={monthList || []}
+              getOptionLabel={(option) => option.toString() || ""}
+              value={month}
+              onChange={(event, value, reason) =>
+                handleMonthInputChange(event, value, reason, "month")
+              }
+              renderInput={(params) => (
+                <TextField {...params} label="Select Months" />
+              )}
+              fullWidth
+              disableClearable={false}
+            />
+          </Grid>
         </div>
-      </Card>
-      <Row className="row-sm">
-        <Col
-          lg={month ? 6 : 6}
-          md={12}
-          sm={12}
-          xl={month ? 6 : 6}
-          data-aos="fade-up"
-        >
-          {/* <Card className=" overflow-hidden">
-            <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
-                PPM
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <PPM data={ppm} month={month} />
-            </Card.Body>
-          </Card> */}
-          <Card className="overflow-hidden" style={{ height: "540px" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title className="mb-0">PPM</Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <PPM data={ppm} month={month} />
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col
-          lg={month ? 6 : 6}
-          md={12}
-          sm={12}
-          xl={month ? 6 : 6}
-          data-aos="fade-up"
-        >
-          <Card className=" overflow-hidden"  style={{ height: "540px" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">COPQ</Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <COPQ data={copq} month={month} />
-            </Card.Body>
-          </Card>
-        </Col>
-
-        <Col
-          lg={month ? 6 : 6}
-          md={12}
-          sm={12}
-          xl={month ? 6 : 6}
-          data-aos="fade-up"
-        >
-          <Card className=" overflow-hidden">
-            <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">Design Scrap</Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <DesignScrap data={design_scrap} month={month} />
-            </Card.Body>
-          </Card>
-        </Col>
-
-        <Col
-          lg={month ? 6 : 6}
-          md={12}
-          sm={12}
-          xl={month ? 6 : 6}
-          data-aos="fade-up"
-        >
-          <Card className=" overflow-hidden">
-            <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">Process Scrap</Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <ProcessScrap data={process_scrap} month={month} />
-            </Card.Body>
-          </Card>
-        </Col>
-
-        <Col lg={12} md={6} sm={12} xl={12} data-aos="fade-up">
-          <Card className=" overflow-hidden">
-            <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">To-do List</Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <TodoList type="quality" />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </div>
+      </div>
+    </Card>
+    <Row className="row-sm">
+      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+        <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
+          <Card.Header className="border-bottom">
+            <Card.Title className="mb-0">PPM</Card.Title>
+          </Card.Header>
+          <Card.Body className="p-3">
+            <PPM data={ppm} month={month} />
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+        <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
+          <Card.Header className="border-bottom">
+            <Card.Title className="mb-0">COPQ</Card.Title>
+          </Card.Header>
+          <Card.Body className="p-3">
+            <COPQ data={copq} month={month} />
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+        <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
+          <Card.Header className="border-bottom">
+            <Card.Title className="mb-0">Design Scrap</Card.Title>
+          </Card.Header>
+          <Card.Body className="p-3">
+            <DesignScrap data={design_scrap} month={month} />
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+        <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
+          <Card.Header className="border-bottom">
+            <Card.Title className="mb-0">Process Scrap</Card.Title>
+          </Card.Header>
+          <Card.Body className="p-3">
+            <ProcessScrap data={process_scrap} month={month} />
+          </Card.Body>
+        </Card>
+      </Col>
+      <Col lg={4} md={6} sm={12} xl={12} data-aos="fade-up">
+        <Card className="overflow-hidden" style={{ height: "540px", width: "100%" }}>
+          <Card.Header className="border-bottom">
+            <Card.Title className="mb-0">To-do List</Card.Title>
+          </Card.Header>
+          <Card.Body className="p-3">
+            <TodoList type="quality" />
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
+  </div>
+  
   );
 };
 
