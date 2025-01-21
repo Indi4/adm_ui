@@ -58,33 +58,37 @@ const COPQ = ({ month, data }) => {
   }
 
   const INNER_COLORS = [
-    "#A8DADC",
-    "#457B9D",
-    "#F4A261",
-    "#2A9D8F",
-    "#E9C46A",
-    "#A7C4D3",
-    "#D4A5A5",
-    "#84A98C",
-    "#B3B3E6",
-    "#F6BD60",
-    "#6D6875",
-    "#C9ADA7",
+    // "#A8DADC",
+    // "#457B9D",
+    // "#F4A261",
+    // "#2A9D8F",
+    // "#E9C46A",
+    // "#A7C4D3",
+    // "#D4A5A5",
+    // "#84A98C",
+    // "#B3B3E6",
+    // "#F6BD60",
+    // "#6D6875",
+    // "#C9ADA7",
+    "#82ca9d",
+   ' #8884d8'
   ];
 
   const OUTER_COLORS = [
-    "#FF6F61",
-    "#6B5B95",
-    "#88B04B",
-    "#F7CAC9",
-    "#92A8D1",
-    "#034732",
-    "#F5E6CC",
-    "#ED6A5A",
-    "#05668D",
-    "#028090",
-    "#00A896",
-    "#02C39A",
+    // "#FF6F61",
+    // "#6B5B95",
+    // "#88B04B",
+    // "#F7CAC9",
+    // "#92A8D1",
+    // "#034732",
+    // "#F5E6CC",
+    // "#ED6A5A",
+    // "#05668D",
+    // "#028090",
+    // "#00A896",
+    // "#02C39A",
+     "#82ca9d",
+   ' #8884d8'
   ];
 
   return (
@@ -104,13 +108,13 @@ const COPQ = ({ month, data }) => {
 ):(
 <>
   {/* Chart Header */}
-  <Box display="flex" justifyContent="space-between" alignItems="center" my={3}>
+  <Box display="flex" justifyContent="space-between" alignItems="center" my={1}>
         <Typography variant="h6" style={{ fontWeight: "bold" }}>
           {month ? `Daily Target vs Daily Actual` : "Monthly Target vs Monthly Actual"}
         </Typography>
       </Box>
       {/* Totals */}
-      <Grid container spacing={2} justifyContent="space-between">
+      <Grid container spacing={1} justifyContent="space-between">
         <Grid item xs={12} md={6}>
           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#82ca9d" }}>
             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Actual</Typography>
@@ -134,12 +138,12 @@ const COPQ = ({ month, data }) => {
       {/* Pie Chart */}
       {chartData.length > 0 ? (
         <Card style={{   padding: "20px",
-          height: "650px", // Ensure consistent card height
+          height: "300px", // Ensure consistent card height
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           marginTop: "20px", }}>
-          <ResponsiveContainer width="100%" height={600}>
+          <ResponsiveContainer width="100%" height={270}>
             <PieChart>
               <Pie
                 data={chartData}
@@ -147,10 +151,10 @@ const COPQ = ({ month, data }) => {
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                outerRadius={110}
+                outerRadius={30}
                 fill="#8884d8"
                 stroke="#8884d8"
-                strokeWidth={3} 
+                strokeWidth={2} 
                 label={({ name }) => `${name}`}
                 name="Monthly Target"
                 >
@@ -165,8 +169,8 @@ const COPQ = ({ month, data }) => {
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                innerRadius={170}
-                outerRadius={220}
+                innerRadius={80}
+                outerRadius={90}
                 fill="#82ca9d"
                 stroke="#82ca9d"
                 strokeWidth={2} 
@@ -190,7 +194,7 @@ const COPQ = ({ month, data }) => {
         </Card>
       ) : (
         <Typography variant="h6" style={{ textAlign: "center", color: "#757575",   padding: "20px",
-          height: "650px", // Ensure consistent card height
+          height: "350px", // Ensure consistent card height
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",

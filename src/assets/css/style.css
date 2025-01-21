@@ -13946,7 +13946,7 @@ label.control-label {
 .side-menu__item.parent:focus {
     text-decoration: none;
     color: white !important;
-    background-color: #0078a0 !important;
+    background-color: #8884d8 !important;
 }
 
 .side-menu__item.child {
@@ -25387,7 +25387,7 @@ dd {
 }
 
 .side-menu .side-menu__icon {
-    color: #656e81;
+    color: #424e79;
     font-size: 19px;
     line-height: 30px;
     text-align: center;
@@ -25409,6 +25409,7 @@ dd {
     flex: 1 1 auto;
     margin-block-start: 2px;
     padding: 5px;
+    color: black;
 }
 
 .slide.is-expanded .slide-menu {

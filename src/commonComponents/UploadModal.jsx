@@ -22,13 +22,12 @@ const UploadComponent = ({ label }) => {
   };
   const handleSubmit = () => {
     if (file) {
-      if(file.name.split('.')[0] !== label.slice(7)){
-        toast.error(`Please Upload proper ${label.slice(7)} file` )
-        return
+      if (file.name.split(".")[0] !== label.slice(7)) {
+        toast.error(`Please Upload proper ${label.slice(7)} file`);
+        return;
       }
       const formData = new FormData();
       formData.append("file", file);
-
 
       // Dispatch different APIs based on the label value
       let action;
@@ -40,19 +39,19 @@ const UploadComponent = ({ label }) => {
           action = uploadUtilityExcel;
           break;
         case "Upload Safety":
-          action = uploadSafetyExcel; 
+          action = uploadSafetyExcel;
           break;
         case "Upload Finance":
-          action = uploadFinanceExcel; 
+          action = uploadFinanceExcel;
           break;
         case "Upload Production":
           action = uploadProductionExcel;
           break;
         case "Upload Sales":
-          action = uploadSalesExcel; 
+          action = uploadSalesExcel;
           break;
         case "Upload HR":
-          action = uploadHrExcel; 
+          action = uploadHrExcel;
           break;
         default:
           toast.error("Invalid label. Cannot determine upload action.");
@@ -85,6 +84,8 @@ const UploadComponent = ({ label }) => {
           boxShadow: "2px 2px 2px black",
           backgroundColor: "#2b7fe230",
           borderRadius: "10px",
+          justifyContent: "center",
+          marginTop: "8rem",
         }}
       >
         <h5

@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import {
+  Grid,
   Table,
   TableBody,
   TableCell,
@@ -185,7 +186,7 @@ const Dashboard = () => {
                   backgroundColor: "#00C49F",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-                  height: "170px",
+                  height: "140px",
                 }}
               >
                 <CardContent>
@@ -220,7 +221,7 @@ const Dashboard = () => {
                   backgroundColor: "#FFBB28",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-                  height: "170px",
+                  height: "140px",
                 }}
               >
                 <CardContent>
@@ -256,7 +257,7 @@ const Dashboard = () => {
                   backgroundColor: "#00C49F",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-                  height: "170px",
+                  height: "140px",
                 }}
               >
                 <CardContent>
@@ -295,7 +296,7 @@ const Dashboard = () => {
                 style={{
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-                  height: "170px",
+                  height: "140px",
                 }}
               >
                 <CardContent style={{ height: "220px" }}>
@@ -547,6 +548,7 @@ const Dashboard = () => {
                           display: "flex",
                           alignItems: "left",
                           justifyContent: "left",
+                          marginTop:"10px"
                         }}
                       >
                         <PurchasePieChart
@@ -572,9 +574,9 @@ const Dashboard = () => {
                   component={Paper}
                   style={{ maxHeight: 400, overflow: "auto" }}
                 >
-                  <Table sx={{ minWidth: 450 }} stickyHeader>
+                  <Table sx={{ minWidth: 550 }} stickyHeader>
                     <TableHead>
-                      <TableRow align="center">
+                      <TableRow align="left">
                         {headers?.map((item) => {
                           return <TableCell key={item}>{item}</TableCell>;
                         })}
