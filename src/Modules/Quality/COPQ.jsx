@@ -459,7 +459,7 @@ const COPQ = ({ month, data }) => {
                 marginTop: "20px",
               }}
             >
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%"  height={250}>
                 <BarChart
                   data={chartData}
                   margin={{ top: 10, right: 30, left: 20, bottom: 20 }}

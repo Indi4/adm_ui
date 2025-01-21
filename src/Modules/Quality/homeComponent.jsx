@@ -125,7 +125,7 @@ const homeComponent = () => {
       </div>
     </Card>
     <Row className="row-sm">
-      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">PPM</Card.Title>
@@ -135,7 +135,7 @@ const homeComponent = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">COPQ</Card.Title>
@@ -145,7 +145,7 @@ const homeComponent = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">Design Scrap</Card.Title>
@@ -155,7 +155,7 @@ const homeComponent = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col lg={2} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">Process Scrap</Card.Title>
@@ -165,8 +165,8 @@ const homeComponent = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col lg={4} md={6} sm={12} xl={12} data-aos="fade-up">
-        <Card className="overflow-hidden" style={{ height: "540px", width: "100%" }}>
+      <Col lg={12} md={6} sm={12} xl={12} data-aos="fade-up">
+        <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">To-do List</Card.Title>
           </Card.Header>
