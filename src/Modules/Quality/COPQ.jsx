@@ -452,14 +452,14 @@ const COPQ = ({ month, data }) => {
             <Card
               style={{
                 width: "100%",
-                height: 220,
+                height: 200,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
                 marginTop: "20px",
               }}
             >
-              <ResponsiveContainer width="100%"  height={250}>
+              <ResponsiveContainer width="100%"  height={230}>
                 <BarChart
                   data={chartData}
                   margin={{ top: 10, right: 30, left: 20, bottom: 20 }}
@@ -480,12 +480,12 @@ const COPQ = ({ month, data }) => {
               style={{
                 textAlign: "center",
                 color: "#757575",
-                padding: "20px",
-                height: "350px", // Ensure consistent card height
+                // padding: "20px",
+                height: "250px", // Ensure consistent card height
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                marginTop: "20px",
+                // marginTop: "20px",
               }}
             >
               No data available for the selected period.

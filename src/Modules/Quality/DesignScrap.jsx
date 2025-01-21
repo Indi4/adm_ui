@@ -391,14 +391,14 @@ const DesignScrap = ({ data }) => {
           <Card
             style={{
               width: "100%",
-              height: 250,
+              height: 220,
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               // marginTop: "5px",
             }}
           >
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={230}>
               <ComposedChart
                 data={chartData}
                 margin={{ top: 20, right: 50, left: 0, bottom: 0 }}

@@ -70,9 +70,10 @@ const homeComponent = () => {
   };
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "#f8f9fa" }}>
+    <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
     {/* <ToastContainer /> */}
-    <Card style={{ backgroundColor: "rgb(53 128 174 / 18%)", padding: 8 }}>
+    <Card style={{ backgroundColor: "white", padding: 8,    height:75,
+ }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         {/* <h4
           className="text-left mb-4"
@@ -89,7 +90,7 @@ const homeComponent = () => {
           }}
         ></div> */}
       </div>
-      <div className="row mb-4">
+      <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
         <div className="col-md-3">
           <Grid item xs={6}>
             <Autocomplete
@@ -125,7 +126,7 @@ const homeComponent = () => {
       </div>
     </Card>
     <Row className="row-sm">
-      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={3} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">PPM</Card.Title>
@@ -135,7 +136,7 @@ const homeComponent = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={3} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">COPQ</Card.Title>
@@ -145,7 +146,7 @@ const homeComponent = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={3} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">Design Scrap</Card.Title>
@@ -155,7 +156,7 @@ const homeComponent = () => {
           </Card.Body>
         </Card>
       </Col>
-      <Col lg={6} md={6} sm={12} xl={6} data-aos="fade-up">
+      <Col lg={6} md={6} sm={12} xl={3} data-aos="fade-up">
         <Card className="overflow-hidden" style={{ height: "340px", width: "100%" }}>
           <Card.Header className="border-bottom">
             <Card.Title className="mb-0">Process Scrap</Card.Title>

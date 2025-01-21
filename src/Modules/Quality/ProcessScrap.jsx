@@ -410,7 +410,7 @@ const ProcessScrap = ({ month, data }) => {
           <Card
             style={{
               width: "100%",
-              height: 200,
+              height: 190,
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
