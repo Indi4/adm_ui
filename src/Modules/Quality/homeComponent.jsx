@@ -293,7 +293,7 @@ const HomeComponent = () => {
         <Col lg={3} md={6} sm={12}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0">PPM</Card.Title>
+              <Card.Title className="mb-0" style={{fontSize:"0.9rem"}}>PPM</Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <PPM data={ppm} month={month} />
@@ -303,7 +303,7 @@ const HomeComponent = () => {
         <Col lg={3} md={6} sm={12}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0">COPQ</Card.Title>
+              <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>COPQ</Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <COPQ data={copq} month={month} />
@@ -313,7 +313,7 @@ const HomeComponent = () => {
         <Col lg={3} md={6} sm={12}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0">Design Scrap</Card.Title>
+              <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>Design Scrap</Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <DesignScrap data={design_scrap} month={month} />
@@ -323,7 +323,7 @@ const HomeComponent = () => {
         <Col lg={3} md={6} sm={12}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0">Process Scrap</Card.Title>
+              <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>Process Scrap</Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <ProcessScrap data={process_scrap} month={month} />
