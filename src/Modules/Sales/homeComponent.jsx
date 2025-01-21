@@ -6,7 +6,6 @@ import { qualityGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
 import PlanVsAct from "./PlanVsAct";
 import Sales from "./Sales";
-import { Height } from "@mui/icons-material";
 
 const homeComponent = () => {
   const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
