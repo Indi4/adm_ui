@@ -26,6 +26,7 @@ const PPM = ({ month, data }) => {
   const { datasets, day_wise_data, final_totals } = data;
 
   const [isLoading, setIsLoading] = useState(true); // State to track loading
+  
 
   useEffect(() => {
     if (data) {
@@ -90,7 +91,7 @@ const PPM = ({ month, data }) => {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-            my={3}
+            my={1}
           >
             <Typography variant="h6" style={{ fontWeight: "bold" }}>
               {month
@@ -99,7 +100,7 @@ const PPM = ({ month, data }) => {
             </Typography>
           </Box>
           {/* Totals */}
-          <Grid container spacing={2} justifyContent="space-between">
+          <Grid container spacing={1} justifyContent="space-between">
             <Grid item xs={12} md={6}>
               <Card
                 style={{
@@ -110,7 +111,7 @@ const PPM = ({ month, data }) => {
               >
                 <Typography
                   variant="subtitle1"
-                  style={{fontSize: "0.8rem" }}
+                  // style={{fontSize: "0.8rem" }}
                 >
                   Total {month ? "Day" : "Month"} Actual
                 </Typography>
@@ -143,17 +144,17 @@ const PPM = ({ month, data }) => {
           <Card
             style={{
               padding: "20px",
-              height: "650px", // Ensure consistent card height
+              // height: "550px", // Ensure consistent card height
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
               marginTop: "20px",
             }}
           >
-            <ResponsiveContainer width="100%" height={600}>
+            <ResponsiveContainer width="100%" height={240}>
               <ComposedChart
                 data={chartData}
-                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                margin={{ top: 10, right: 50, left: 0, bottom: 0 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
@@ -166,7 +167,7 @@ const PPM = ({ month, data }) => {
                   dataKey="target"
                   stroke="#FFDA44"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 4 }}
                   name="Target"
                 />
                 <Line
