@@ -4,8 +4,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
+
 import {
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -19,6 +20,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
 import PurchasePieChart from "./PurchasePiechart";
 import Loader from "../../commonComponents/Loader";
+import { qualityGraphs } from "../../store/quality/qualitySlice";
+import Sales from "../Sales/Sales";
+import DashboardSales from "./DashboardSales";
+import DashboardPlanvsAcutal from "./DAshboardPlanvsAcutal";
+import DashboardPurchase from "./DashboardPurchase";
+import DashboardPowerunit from "./DashboardPowerunit";
 
 const COLORS = ["#00C49F", "#FFBB28", "#FF8042"];
 
@@ -35,6 +42,24 @@ const rows = [
 ];
 
 const Dashboard = () => {
+    const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
+    const monthList = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+  
+    const [year, setYear] = useState(new Date().getFullYear());
+    const [month, setMonth] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,6 +98,44 @@ const Dashboard = () => {
 
   //   return result;
   // }
+
+  const {sales, plan_vs_act, purchase, power_units} = useSelector((state)=> state.quality)
+
+  useEffect(()=>{
+    if(month){
+      dispatch(qualityGraphs({type:"sales",year:year,month:month}))
+      dispatch(qualityGraphs({type:"plan_vs_act", year:year, month: month}))      
+      dispatch(qualityGraphs({type:"purchase",year:year,month:month}))
+      dispatch(qualityGraphs({type:"power_units", year:year, month: month}))      
+
+      
+    }
+    else{
+      dispatch(qualityGraphs({type:"sales",year:year}))
+      dispatch(qualityGraphs({type:"plan_vs_act",year:year}))
+      dispatch(qualityGraphs({type:"purchase",year:year}))
+      dispatch(qualityGraphs({type:"power_units",year:year}))
+
+    }
+  },[dispatch, month,year])
+
+  const handleYearInputChange = (event, value, reason) => {
+    if (reason === "selectOption") {
+      setYear(value);
+    } else {
+      setYear(new Date().getFullYear());
+    }
+  };
+
+  const handleMonthInputChange = (event, value, reason) => {
+    if (reason === "selectOption") {
+      setMonth(value);
+    } else {
+      setMonth();
+    }
+  };
+
+
   function transformData(input) {
     const result = { Target: input.monthly_targets };
 
@@ -180,12 +243,50 @@ const Dashboard = () => {
       ) : (
         <>
           <Row className="mb-3">
+          {/* <Card style={{ backgroundColor: "white", padding: 8 }}> */}
+        <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
+          <div className="col-md-3">
+            <Grid item xs={6}>
+              <Autocomplete
+                options={yearList || []}
+                getOptionLabel={(option) => option.toString() || ""}
+                value={year}
+                onChange={(event, value, reason) =>
+                  handleYearInputChange(event, value, reason, "year")
+                }
+                renderInput={(params) => <TextField {...params} label="Year" />}
+                fullWidth
+                disableClearable={false}
+              />
+            </Grid>
+          </div>
+            <div className="col-md-3">
+              <Grid item xs={6}>
+                <Autocomplete
+                  options={monthList || []}
+                  getOptionLabel={(option) => option.toString() || ""}
+                  value={month}
+                  onChange={(event, value, reason) =>
+                    handleMonthInputChange(event, value, reason, "month")
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} label="Select Months" />
+                  )}
+                  fullWidth
+                  disableClearable={false}
+                />
+              </Grid>
+            </div>
+        
+
+        </div>
+      {/* </Card> */}
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  backgroundColor: "#00C49F",
+                  // backgroundColor: "#00C49F",
                   borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                   height: "140px",
                 }}
               >
@@ -218,9 +319,9 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  backgroundColor: "#FFBB28",
+                  // backgroundColor: "#FFBB28",
                   borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                   height: "140px",
                 }}
               >
@@ -254,9 +355,9 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  backgroundColor: "#00C49F",
+                  // backgroundColor: "#00C49F",
                   borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                   height: "140px",
                 }}
               >
@@ -295,7 +396,7 @@ const Dashboard = () => {
               <Card
                 style={{
                   borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                   height: "140px",
                 }}
               >
@@ -383,7 +484,8 @@ const Dashboard = () => {
                       </Typography>
                     </Box>
                     <Box>
-                      <PieChart width={150} height={175}>
+              <DashboardSales data={sales} month={month} />
+                      {/* <PieChart width={150} height={175}>
                         <Pie
                           data={salesData}
                           cx={70}
@@ -415,7 +517,7 @@ const Dashboard = () => {
                             },
                           ]}
                         />
-                      </PieChart>
+                      </PieChart> */}
                     </Box>
                   </Box>
                 </CardContent>
@@ -450,39 +552,7 @@ const Dashboard = () => {
                       </Typography>
                     </Box>
                     <Box>
-                      <PieChart width={150} height={175}>
-                        <Pie
-                          data={planVsActualData}
-                          cx={70}
-                          cy={70}
-                          innerRadius={50}
-                          outerRadius={70}
-                          fill="#8884d8"
-                          paddingAngle={5}
-                          dataKey="value"
-                        >
-                          {planVsActualData.map((entry, index) => (
-                            <Cell
-                              key={`cell-${index}`}
-                              fill={COLORS[index % COLORS.length]}
-                            />
-                          ))}
-                        </Pie>
-                        <Legend
-                          payload={[
-                            {
-                              value: "Actual",
-                              type: "circle",
-                              color: "#00C49F",
-                            },
-                            {
-                              value: "Target",
-                              type: "circle",
-                              color: "#FFBB28",
-                            },
-                          ]}
-                        />
-                      </PieChart>
+                      <DashboardPlanvsAcutal data={plan_vs_act} month={month}/>
                     </Box>
                   </Box>
                 </CardContent>
@@ -500,14 +570,27 @@ const Dashboard = () => {
                   >
                     Purchase
                   </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
+                  <Box 
+                   sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
                   >
-                    {dashboardDetail?.purchase ? (
+                  <Box>
+                      <Typography
+                        variant="body1"
+                        style={{ fontSize: "0.8rem" }}
+                      >
+                        Actual:{dashboardDetail?.purchase?.month_actual} |
+                        Target:{dashboardDetail?.purchase?.month_target}
+                      </Typography>
+                    </Box>
+                    <Box>
+                    <DashboardPurchase data={purchase} month={month} />
+                    </Box>
+                    {/* {dashboardDetail?.purchase ? (
                       <Box
                         sx={{
                           display: "flex",
@@ -520,7 +603,7 @@ const Dashboard = () => {
                           type="purchase"
                         />
                       </Box>
-                    ) : null}
+                    ) : null} */}
                   </Box>
                 </CardContent>
               </Card>
@@ -538,11 +621,24 @@ const Dashboard = () => {
                   <Box
                     sx={{
                       display: "flex",
+                      flexDirection: "column",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
                   >
-                    {dashboardDetail?.power_unit ? (
+                    <Box>
+                      <Typography
+                        variant="body1"
+                        style={{ fontSize: "0.8rem" }}
+                      >
+                        Actual:{dashboardDetail?.power_unit?.month_actual} |
+                        Target:{dashboardDetail?.power_unit?.month_target}
+                      </Typography>
+                    </Box>
+                    <Box>
+                    <DashboardPowerunit data={power_units} month={month} />
+                    </Box>
+                    {/* {dashboardDetail?.power_unit ? (
                       <Box
                         sx={{
                           display: "flex",
@@ -556,7 +652,7 @@ const Dashboard = () => {
                           type="purchase"
                         />
                       </Box>
-                    ) : null}
+                    ) : null} */}
                   </Box>
                 </CardContent>
               </Card>
