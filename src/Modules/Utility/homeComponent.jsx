@@ -57,27 +57,11 @@ const homeComponent = () => {
   };
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "#f8f9fa" }}>
+    <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
       {/* <ToastContainer /> */}
-      <Card style={{ backgroundColor: "rgb(53 128 174 / 18%)", padding: 8 }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h4
-            className="text-left mb-4"
-            style={{ fontSize: "2rem", fontWeight: "bold" }}
-          >
-            UTILITY
-          </h4>
-          <div
-            style={{
-              display: "flex",
-              gap: 20,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-          </div>
-        </div>
-        <div className="row mb-4">
+                  <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
+  
+                  <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
           <div className="col-md-3">
             <Grid item xs={6}>
               <Autocomplete
