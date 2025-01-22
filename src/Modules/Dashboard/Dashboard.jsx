@@ -284,7 +284,7 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  // backgroundColor: "#00C49F",
+                  backgroundColor: "#a2eafc",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                   height: "140px",
@@ -355,7 +355,7 @@ const Dashboard = () => {
             <Col xs={12} md={3}>
               <Card
                 style={{
-                  // backgroundColor: "#00C49F",
+                  backgroundColor: "#a2eafc",
                   borderRadius: "10px",
                   boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                   height: "140px",
@@ -417,7 +417,7 @@ const Dashboard = () => {
                         {availablePercentage}% Available
                       </span>{" "}
                       and{" "}
-                      <span style={{ color: "#FFBB28" }}>
+                      <span style={{ color: "#a86403" }}>
                         {unavailablePercentage}% Unavailable
                       </span>{" "}
                     </Typography>
@@ -435,7 +435,7 @@ const Dashboard = () => {
                         style={{
                           height: "100%",
                           width: `${availablePercentage}%`,
-                          backgroundColor: "#00C49F",
+                          backgroundColor: "#3ec266",
                           position: "absolute",
                         }}
                       />
@@ -443,7 +443,7 @@ const Dashboard = () => {
                         style={{
                           height: "100%",
                           width: `${unavailablePercentage}%`,
-                          backgroundColor: "#FFBB28",
+                          backgroundColor: "#8cfaad",
                           position: "absolute",
                           right: 0,
                         }}
@@ -662,13 +662,13 @@ const Dashboard = () => {
           {/* Data Table Section */}
           <Row>
             <Col xs={12}>
-              <Paper style={{ padding: "20px" }}>
-                <Typography variant="h6" style={{ marginBottom: "10px" }}>
+              <Paper>
+                <Typography variant="h6" style={{fontSize:"1rem",fontWeight:"bold" }}>
                   Weekly KPIs
                 </Typography>
                 <TableContainer
                   component={Paper}
-                  style={{ maxHeight: 400, overflow: "auto" }}
+                  style={{ maxHeight: 290, overflow: "auto" }}
                 >
                   <Table sx={{ minWidth: 550 }} stickyHeader>
                     <TableHead>
@@ -685,7 +685,7 @@ const Dashboard = () => {
                           <TableCell
                             component="th"
                             scope="row"
-                            sx={{ backgroundColor: "#00C49F" }}
+                            sx={{ backgroundColor: "#a2eafc" }}
                           >
                             {key}
                           </TableCell>
