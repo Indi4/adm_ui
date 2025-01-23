@@ -468,7 +468,7 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                    <Typography variant="body1" style={{ fontSize: "0.8rem" ,fontWeight:"bold" }}>
                       Actual: {dashboardDetail?.sales?.month_actual} | Target:
                       {dashboardDetail?.sales?.month_target}
                     </Typography>
@@ -536,7 +536,7 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                    <Typography variant="body1" style={{ fontSize: "0.8rem",fontWeight:"bold"  }}>
                       Actual:{dashboardDetail?.plan_vs_act?.month_actual} |
                       Target:{dashboardDetail?.plan_vs_act?.month_target}
                     </Typography>
@@ -573,7 +573,7 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                    <Typography variant="body1" style={{ fontSize: "0.8rem",fontWeight:"bold"  }}>
                       Actual:{dashboardDetail?.purchase?.month_actual} | Target:
                       {dashboardDetail?.purchase?.month_target}
                     </Typography>
@@ -621,7 +621,7 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                    <Typography variant="body1" style={{ fontSize: "0.8rem",fontWeight:"bold" }}>
                       Actual:{power_units?.final_totals?.actual} | Target:
                       {power_units?.final_totals?.target}
                     </Typography>

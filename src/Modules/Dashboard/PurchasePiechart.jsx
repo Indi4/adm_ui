@@ -58,7 +58,8 @@ const PurchasePieChart = ({ purchase, type }) => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "20px",
+        marginTop: "40px",
+        border:"none",
       }}
     >
       <PieChart width={300} height={280}>
