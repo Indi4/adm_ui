@@ -171,7 +171,7 @@ const SideMenuIcon = () => {
                                 alt="Sparic logo" />
                         </Link>
                        
-                        <div className="main-header-center ms-3 d-none d-lg-block">
+                        {/* <div className="main-header-center ms-3 d-none d-lg-block">
                             <Form.Control type="text" defaultValue ={InputValue} id="typehead" placeholder="Search for results..." 
                                 autoComplete="off" onChange={(ele => { myfunction(ele.target.value); setInputValue(ele.target.value) })} />
                             <Button variant='' className="btn px-2 "><i className="fe fe-search" aria-hidden="true"></i></Button>
@@ -192,7 +192,7 @@ const SideMenuIcon = () => {
 
 							</div>
 							: ""}
-                        </div>
+                        </div> */}
                         <Navbar className="d-flex order-lg-2 ms-auto header-right-icons px-0" expand="lg">
                             <Dropdown className="d-none">
                                 <Dropdown.Toggle as="a" href="#" variant='light' className="no-caret nav-link icon " >
@@ -235,7 +235,7 @@ const SideMenuIcon = () => {
                 
                 
                                      
-                                           <Dropdown className="dropdown d-flex country">
+                                           {/* <Dropdown className="dropdown d-flex country">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
                                                 <i className="ri-global-line"></i>
                                             </Dropdown.Toggle>
@@ -252,7 +252,7 @@ const SideMenuIcon = () => {
                                                 <Dropdown.Item className="d-flex align-items-center" to="#">
                                                     <img src={imagesData('flagimage2')} alt="img" className=" me-2 country language-img" /> <span className="fs-13 text-wrap text-dark fw-semibold"> Canada</span> </Dropdown.Item>
                                             </Dropdown.Menu>
-                                        </Dropdown>
+                                        </Dropdown> */}
                                      
                                         <div className="d-flex country"  onClick={() => Darkmode()}>
                                             <Link to='#' className="nav-link icon theme-layout nav-link-bg layout-setting">
@@ -263,7 +263,7 @@ const SideMenuIcon = () => {
                                       
                                        
 
-                                        <Dropdown className=" d-flex shopping-cart">
+                                        {/* <Dropdown className=" d-flex shopping-cart">
                                             <Dropdown.Toggle as='a'  className="no-caret nav-link icon text-center">
                                                 <i className="ri-shopping-bag-line"></i><span
                                                     className="badge bg-secondary header-badge">4</span>
@@ -375,7 +375,7 @@ const SideMenuIcon = () => {
                                                     <span className="float-end fs-17 fw-semibold text-dark"><span className="text-muted-dark">Total:</span> $4206</span>
                                                 </div>
                                             </Dropdown.Menu>
-                                        </Dropdown>
+                                        </Dropdown> */}
                                         
                                         <div className="dropdown d-flex">
                                             <Link className="nav-link icon full-screen-link" id="fullscreen-button" onClick={Fullscreen}>
@@ -384,7 +384,7 @@ const SideMenuIcon = () => {
                                         </div>
                              
                                       
-                                         <Dropdown className="dropdown d-flex notifications">
+                                         {/* <Dropdown className="dropdown d-flex notifications">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
                                                 <i className="ri-notification-line"></i><span className=" pulse"></span>
                                             </Dropdown.Toggle>
@@ -459,10 +459,10 @@ const SideMenuIcon = () => {
                                                     <Link className="btn btn-primary btn-sm btn-block text-center" to={`${import.meta.env.BASE_URL}pages/notificationslist`}>VIEW ALL NOTIFICATIONS</Link>
                                                 </div>
                                             </Dropdown.Menu>
-                                        </Dropdown>
+                                        </Dropdown> */}
                                     
                                      
-                                        <Dropdown className="dropdown d-flex message">
+                                        {/* <Dropdown className="dropdown d-flex message">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
                                             <i className="ri-chat-1-line"></i><span className="pulse-danger"></span>
                                             </Dropdown.Toggle>
@@ -547,14 +547,14 @@ const SideMenuIcon = () => {
                                                     <Link className="btn btn-primary btn-sm btn-block text-center" to={`${import.meta.env.BASE_URL}apps/chat`}>MARK ALL AS READ</Link>
                                                 </div>
                                             </Dropdown.Menu>
-                                        </Dropdown>
+                                        </Dropdown> */}
                                         
                                         
-                                        <div className="dropdown d-flex header-settings" onClick={() => OPenfunction ()}>
+                                        {/* <div className="dropdown d-flex header-settings" onClick={() => OPenfunction ()}>
                                             <Link  className=" nav-link icon siderbar-link">
                                                 <i className="ri-menu-fold-fill"></i>
                                             </Link>
-                                            </div>
+                                            </div> */}
 
                                        
                                         
