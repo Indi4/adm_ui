@@ -1,5 +1,5 @@
 import React from "react";
-import { PieChart, Pie, Cell, Legend } from "recharts";
+import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 import { Card } from "react-bootstrap";
 
 const PurchasePieChart = ({ purchase, type }) => {
@@ -50,60 +50,135 @@ const PurchasePieChart = ({ purchase, type }) => {
   };
 
   return (
+    // <Card
+    //   style={{
+    //     height: 230, 
+    //     width: "100%",
+    //     display: "flex",
+    //     flexDirection: "column",
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //     marginTop: "40px",
+    //     border:"none",
+    //   }}
+    // >
+    //   <PieChart width={300} height={280}>
+    //     {/* Pie Chart */}
+    //     <Pie
+    //       data={data}
+    //       dataKey="value"
+    //       cx="50%"
+    //       cy="73%"
+    //       startAngle={180}
+    //       endAngle={0}
+    //       innerRadius="70%"
+    //       outerRadius="100%"
+    //       paddingAngle={2}
+    //     >
+    //       {data.map((entry, index) => (
+    //         <Cell key={`cell-${index}`} fill={COLORS[index]} />
+    //       ))}
+    //     </Pie>
+    //     <Legend
+    //       layout="horizontal"
+    //       align="center"
+    //       verticalAlign="bottom"
+    //       wrapperStyle={{
+    //         position: "absolute",
+    //         width: "194px",
+    //         height: "17px",
+    //         left: "65px",
+    //         bottom: "56px",
+    //         marginTop: "5px",
+    //       }}
+    //       payload={
+    //         isEmptyData
+    //           ? [{ value: "No Data", type: "circle", color: "#d3d3d3" }]
+    //           : [
+    //               { value: "Actual", type: "circle", color: "#008cc4" },
+    //               { value: "Target", type: "circle", color: "#8fbccf" },
+    //             ]
+    //       }
+    //     />
+    //     {/* Render the Needle if Data is Available */}
+    //     {!isEmptyData && renderNeedle(cappedPercentage, 152, 190, 90)}
+    //   </PieChart>
+    // </Card>
     <Card
-      style={{
-        height: 230, 
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: "40px",
-        border:"none",
-      }}
+  style={{
+    height: 230,
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "40px",
+    border: "none",
+  }}
+>
+  <PieChart width={300} height={280}>
+    {/* Pie Chart */}
+    <Pie
+      data={data}
+      dataKey="value"
+      cx="50%"
+      cy="73%"
+      startAngle={180}
+      endAngle={0}
+      innerRadius="70%"
+      outerRadius="100%"
+      paddingAngle={2}
     >
-      <PieChart width={300} height={280}>
-        {/* Pie Chart */}
-        <Pie
-          data={data}
-          dataKey="value"
-          cx="50%"
-          cy="73%"
-          startAngle={180}
-          endAngle={0}
-          innerRadius="70%"
-          outerRadius="100%"
-          paddingAngle={2}
-        >
-          {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index]} />
-          ))}
-        </Pie>
-        <Legend
-          layout="horizontal"
-          align="center"
-          verticalAlign="bottom"
-          wrapperStyle={{
-            position: "absolute",
-            width: "194px",
-            height: "17px",
-            left: "65px",
-            bottom: "56px",
-            marginTop: "5px",
-          }}
-          payload={
-            isEmptyData
-              ? [{ value: "No Data", type: "circle", color: "#d3d3d3" }]
-              : [
-                  { value: "Actual", type: "circle", color: "#008cc4" },
-                  { value: "Target", type: "circle", color: "#8fbccf" },
-                ]
-          }
-        />
-        {/* Render the Needle if Data is Available */}
-        {!isEmptyData && renderNeedle(cappedPercentage, 152, 190, 90)}
-      </PieChart>
-    </Card>
+      {data.map((entry, index) => (
+        <Cell key={`cell-${index}`} fill={COLORS[index]} />
+      ))}
+    </Pie>
+    <Tooltip
+      content={({ active, payload }) => {
+        if (active && payload && payload.length) {
+          return (
+            <div
+              style={{
+                background: "white",
+                // border: "1px solid #ccc",
+                padding: "5px",
+                borderRadius: "5px",
+                fontWeight: "bold",
+              }}
+            >
+          <p>{`${payload[0].name}: ${parseFloat(payload[0].value).toFixed(2)}`}</p>
+          </div>
+          );
+        }
+        return null;
+      }}
+    />
+    <Legend
+      layout="horizontal"
+      align="center"
+      verticalAlign="bottom"
+      wrapperStyle={{
+        position: "absolute",
+        width: "194px",
+        height: "17px",
+        left: "65px",
+        bottom: "56px",
+        marginTop: "5px",
+      }}
+      payload={
+        isEmptyData
+          ? [{ value: "No Data", type: "circle", color: "#d3d3d3" }]
+          : [
+              { value: "Actual", type: "circle", color: "#008cc4" },
+              { value: "Target", type: "circle", color: "#8fbccf" },
+            ]
+      }
+    />
+    {/* Render the Needle if Data is Available */}
+    {!isEmptyData && renderNeedle(cappedPercentage, 152, 190, 90)}
+  </PieChart>
+</Card>
+
   );
 };
 
