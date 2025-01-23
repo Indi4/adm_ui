@@ -243,7 +243,7 @@ const Purchase = ({ month, data }) => {
           mt={4}
           style={{
             padding: "20px",
-            height: "650px", // Ensure consistent card height
+            height: "250px", // Ensure consistent card height
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -328,7 +328,7 @@ const Purchase = ({ month, data }) => {
                     variant="subtitle1"
                     style={{ fontSize: "0.7rem", fontWeight: "bold" }}
                   >
-                    Total Actual
+                     Actual
                   </Typography>
                   <Typography variant="h6" style={{ fontSize: "0.7rem" }}>
                     {totals.actual?.toFixed(2)}
@@ -347,7 +347,7 @@ const Purchase = ({ month, data }) => {
                     variant="subtitle1"
                     style={{ fontSize: "0.7rem", fontWeight: "bold" }}
                   >
-                    Total Target
+                     Target
                   </Typography>
                   <Typography variant="h6" style={{ fontSize: "0.7rem" }}>
                     {totals.target?.toFixed(2)}
