@@ -211,7 +211,6 @@ export default function TodoList({ type }) {
 
   const handleStatusUpdate = () => {
     if (selectedRow) {
-      console.log(selectedRow);
       dispatch(
         updateTodo({
           id: selectedRow.id,
@@ -253,7 +252,7 @@ export default function TodoList({ type }) {
         </Fab>
         <TableContainer
           sx={{
-            maxHeight: 650,
+            maxHeight: 300,
             overflowY: "auto",
           }}
         >

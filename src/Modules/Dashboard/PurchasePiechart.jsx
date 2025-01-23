@@ -1,31 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { PieChart, Pie, Cell, Legend } from "recharts";
-import { Box, Typography } from "@mui/material";
+import { Card } from "react-bootstrap";
 
 const PurchasePieChart = ({ purchase, type }) => {
-  console.log(purchase);
-  const { month_actual, month_target } = purchase;
+  const { actual, target } = purchase;
 
   // Ensure values do not exceed 100% for the chart
-  const cappedPercentage = Math.min((month_actual / month_target) * 100, 100);
+  const cappedPercentage = target > 0 ? Math.min((actual / target) * 100, 100) : 0;
 
-  // Pie chart data: Actual value and Remaining target (even if overflow happens)
-  const data = [
-    { name: "Actual", value: Math.min(month_actual, month_target) },
-    { name: "Remaining", value: Math.max(0, month_target - month_actual) },
-  ];
+  // Handle the case where both actual and target are 0
+  const isEmptyData = actual === 0 && target === 0;
+  const data = isEmptyData
+    ? [{ name: "No Data", value: 1 }]
+    : [
+        { name: "Actual", value: Math.min(actual, target) },
+        { name: "Remaining", value: Math.max(0, target - actual) },
+      ];
 
-  const COLORS = ["#008cc4", "#8fbccf"]; // Colors for actual and remaining
+  const COLORS = isEmptyData ? ["#d3d3d3"] : ["#008cc4", "#8fbccf"]; // Use grey for placeholder data
 
   // Function to render the needle
   const renderNeedle = (percentage, cx, cy, radius) => {
-    const angle = 180 + (percentage / 100) * 180; // Map percentage to angle (180° to 360°)
-    const needleLength = radius + 10; // Extend needle slightly beyond the chart
+    const angle = 180 + (percentage / 100) * 180; 
+    const needleLength = radius + 10; 
     const x = cx + needleLength * Math.cos((Math.PI * angle) / 180);
     const y = cy + needleLength * Math.sin((Math.PI * angle) / 180);
 
-    const needleBaseWidth = 6; // Width of the needle base
-    const needleColor = "#ff5722"; // Needle color
+    const needleBaseWidth = 6; 
+    const needleColor = "#ff5722"; 
 
     // Calculate points for a triangular needle
     const baseLeftX = cx - needleBaseWidth * Math.sin((Math.PI * angle) / 180);
@@ -48,38 +50,26 @@ const PurchasePieChart = ({ purchase, type }) => {
   };
 
   return (
-    <Box
-      sx={{
-        textAlign: "center",
+    <Card
+      style={{
+        height: 230, 
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "auto",
+        marginTop: "20px",
       }}
     >
-      <Typography variant="body1" style={{fontSize: "0.8rem"}}>
-        Actual: {month_actual?.toFixed(2)} | Target: {month_target?.toFixed(2)}
-      </Typography>
-      {month_actual > month_target ? (
-          <Typography variant="caption" color="error" display="block">
-            Actual exceeds target by {(month_actual - month_target).toFixed(2)}
-          </Typography>
-        ): (
-          <Typography variant="caption" color="error" visibility={"hidden"}>
-            Actual exceeds target by {(month_actual - month_target).toFixed(2)}
-          </Typography>
-        )}
-      <PieChart width={200} height={250}>
+      <PieChart width={300} height={280}>
         {/* Pie Chart */}
         <Pie
           data={data}
           dataKey="value"
           cx="50%"
-          cy="43%"
+          cy="73%"
           startAngle={180}
           endAngle={0}
-          
           innerRadius="70%"
           outerRadius="100%"
           paddingAngle={2}
@@ -89,34 +79,31 @@ const PurchasePieChart = ({ purchase, type }) => {
           ))}
         </Pie>
         <Legend
-         layout="horizontal"
-         align="center"
-         verticalAlign="bottom"
-         wrapperStyle={{
-          position: "absolute",
-          width: "194px",
-          height: "17px",
-          left: "5px",
-          bottom: "106px",
-          marginTop: "5px"
-         }}
-          payload={[
-            {
-              value: "Actual",
-              type: "circle",
-              color: "#008cc4",
-            },
-            {
-              value: "Target",
-              type: "circle",
-              color: "#8fbccf",
-            },
-          ]}
+          layout="horizontal"
+          align="center"
+          verticalAlign="bottom"
+          wrapperStyle={{
+            position: "absolute",
+            width: "194px",
+            height: "17px",
+            left: "65px",
+            bottom: "56px",
+            marginTop: "5px",
+          }}
+          payload={
+            isEmptyData
+              ? [{ value: "No Data", type: "circle", color: "#d3d3d3" }]
+              : [
+                  { value: "Actual", type: "circle", color: "#008cc4" },
+                  { value: "Target", type: "circle", color: "#8fbccf" },
+                ]
+          }
         />
-        {/* Render the Needle */}
-        {renderNeedle(cappedPercentage, 95, 100, 70)}
+        {/* Render the Needle if Data is Available */}
+        {!isEmptyData && renderNeedle(cappedPercentage, 152, 190, 90)}
       </PieChart>
-    </Box>
+    </Card>
   );
 };
+
 export default PurchasePieChart;

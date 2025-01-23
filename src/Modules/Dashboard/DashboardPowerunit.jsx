@@ -64,7 +64,7 @@ const DashboardPowerunit = ({ month, data }) => {
           mt={4}
           style={{
             padding: "20px",
-            height: "650px", // Ensure consistent card height
+            height: "250px", // Ensure consistent card height
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",

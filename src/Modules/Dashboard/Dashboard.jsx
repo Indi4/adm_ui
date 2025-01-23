@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Card from "@mui/material/Card";
+import { Container, Row, Col, Card } from "react-bootstrap";
+// import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -42,24 +42,24 @@ const rows = [
 ];
 
 const Dashboard = () => {
-    const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
-    const monthList = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-  
-    const [year, setYear] = useState(new Date().getFullYear());
-    const [month, setMonth] = useState("");
+  const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
+  const monthList = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const [year, setYear] = useState(new Date().getFullYear());
+  const [month, setMonth] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -99,25 +99,27 @@ const Dashboard = () => {
   //   return result;
   // }
 
-  const {sales, plan_vs_act, purchase, power_units} = useSelector((state)=> state.quality)
+  const { sales, plan_vs_act, purchase, power_units } = useSelector(
+    (state) => state.quality
+  );
 
-  useEffect(()=>{
-    if(month){
-      dispatch(qualityGraphs({type:"sales",year:year,month:month}))
-      dispatch(qualityGraphs({type:"plan_vs_act", year:year, month: month}))      
-      dispatch(qualityGraphs({type:"purchase",year:year,month:month}))
-      dispatch(qualityGraphs({type:"power_units", year:year, month: month}))      
-
-      
+  useEffect(() => {
+    if (month) {
+      dispatch(qualityGraphs({ type: "sales", year: year, month: month }));
+      dispatch(
+        qualityGraphs({ type: "plan_vs_act", year: year, month: month })
+      );
+      dispatch(qualityGraphs({ type: "purchase", year: year, month: month }));
+      dispatch(
+        qualityGraphs({ type: "power_units", year: year, month: month })
+      );
+    } else {
+      dispatch(qualityGraphs({ type: "sales", year: year }));
+      dispatch(qualityGraphs({ type: "plan_vs_act", year: year }));
+      dispatch(qualityGraphs({ type: "purchase", year: year }));
+      dispatch(qualityGraphs({ type: "power_units", year: year }));
     }
-    else{
-      dispatch(qualityGraphs({type:"sales",year:year}))
-      dispatch(qualityGraphs({type:"plan_vs_act",year:year}))
-      dispatch(qualityGraphs({type:"purchase",year:year}))
-      dispatch(qualityGraphs({type:"power_units",year:year}))
-
-    }
-  },[dispatch, month,year])
+  }, [dispatch, month, year]);
 
   const handleYearInputChange = (event, value, reason) => {
     if (reason === "selectOption") {
@@ -134,7 +136,6 @@ const Dashboard = () => {
       setMonth();
     }
   };
-
 
   function transformData(input) {
     const result = { Target: input.monthly_targets };
@@ -165,9 +166,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (dashboardDetail) {
-      // Simulate a loading delay (replace with real data fetching logic)
       const timer = setTimeout(() => {
-        setIsLoading(false); // Set loading to false after data is fetched
+        setIsLoading(false); 
       }, 2000);
 
       return () => clearTimeout(timer);
@@ -211,56 +211,45 @@ const Dashboard = () => {
         padding: "20px",
       }}
     >
-      {isLoading ? (
-        <Box
-          sx={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(255, 255, 255, 0.7)",
-            display: "flex",
-            flexDirection: "column", // Stack loader and text
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 2,
-          }}
-        >
-          <Loader />
-          <Box
-            sx={{
-              mt: 2, // Margin-top for spacing
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-              color: "#333", // Dark text color
-              textAlign: "center",
+      <>
+        <Row className="mb-3">
+          {/* <Card style={{ backgroundColor: "white", padding: 8 }}> */}
+          <div
+            className="row mb-4"
+            style={{
+              display: "flex",
+              justifyContent: "flex-end", 
+              gap: "10px", 
             }}
           >
-            Loading your Data... Please wait.
-          </Box>
-        </Box>
-      ) : (
-        <>
-          <Row className="mb-3">
-          {/* <Card style={{ backgroundColor: "white", padding: 8 }}> */}
-        <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
-          <div className="col-md-3">
-            <Grid item xs={6}>
-              <Autocomplete
-                options={yearList || []}
-                getOptionLabel={(option) => option.toString() || ""}
-                value={year}
-                onChange={(event, value, reason) =>
-                  handleYearInputChange(event, value, reason, "year")
-                }
-                renderInput={(params) => <TextField {...params} label="Year" />}
-                fullWidth
-                disableClearable={false}
-              />
-            </Grid>
-          </div>
-            <div className="col-md-3">
+            <div
+              className="col-md-3"
+              style={{
+                maxWidth: "200px",
+              }}
+            >
+              <Grid item xs={6}>
+                <Autocomplete
+                  options={yearList || []}
+                  getOptionLabel={(option) => option.toString() || ""}
+                  value={year}
+                  onChange={(event, value, reason) =>
+                    handleYearInputChange(event, value, reason, "year")
+                  }
+                  renderInput={(params) => (
+                    <TextField {...params} label="Year" />
+                  )}
+                  fullWidth
+                  disableClearable={false}
+                />
+              </Grid>
+            </div>
+            <div
+              className="col-md-3"
+              style={{
+                maxWidth: "200px", 
+              }}
+            >
               <Grid item xs={6}>
                 <Autocomplete
                   options={monthList || []}
@@ -277,92 +266,91 @@ const Dashboard = () => {
                 />
               </Grid>
             </div>
-        
+          </div>
 
-        </div>
-      {/* </Card> */}
-            <Col xs={12} md={3}>
-              <Card
-                style={{
-                  backgroundColor: "#a2eafc",
-                  borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
-                  height: "140px",
-                }}
-              >
-                <CardContent>
-                  {/* <Typography
+          {/* </Card> */}
+          <Col xs={12} md={4} lg={4} xl={3}>
+            <Card
+              style={{
+                // backgroundColor: "#00C49F",
+                borderRadius: "10px",
+                boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
+                height: "140px",
+              }}
+            >
+              <CardContent>
+                {/* <Typography
                     variant="h6"
                     style={{ fontWeight: "bold", marginBottom: "10px" }}
                   >
                     Safety
                   </Typography> */}
-                  <Typography
-                    variant="body1"
-                    style={{ fontWeight: "bold", fontSize: "1rem" }}
-                  >
-                    Major Injury Free Days
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    style={{
-                      fontWeight: "bold",
-                      textAlign: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    {dashboardDetail?.major_accidents.days_since_last_accident}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Col>
-            <Col xs={12} md={3}>
-              <Card
-                style={{
-                  // backgroundColor: "#FFBB28",
-                  borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
-                  height: "140px",
-                }}
-              >
-                <CardContent>
-                  {/* <Typography
+                <Typography
+                  variant="body1"
+                  style={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  Major Injury Free Days
+                </Typography>
+                <Typography
+                  variant="h4"
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: "20px",
+                  }}
+                >
+                  {dashboardDetail?.major_accidents.days_since_last_accident}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Col>
+          <Col xs={12} md={4} lg={4} xl={3}>
+            <Card
+              style={{
+                // backgroundColor: "#FFBB28",
+                borderRadius: "10px",
+                boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
+                height: "140px",
+              }}
+            >
+              <CardContent>
+                {/* <Typography
                     variant="h6"
                     style={{ fontWeight: "bold", marginBottom: "10px" }}
                   >
                     Safety
                   </Typography> */}
-                  <Typography
-                    variant="body1"
-                    style={{ fontWeight: "bold", fontSize: "1rem" }}
-                  >
-                    Minor Injury Free Days
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    style={{
-                      fontWeight: "bold",
-                      textAlign: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    {dashboardDetail?.minor_accidents.days_since_last_accident}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Col>
+                <Typography
+                  variant="body1"
+                  style={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  Minor Injury Free Days
+                </Typography>
+                <Typography
+                  variant="h4"
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: "20px",
+                  }}
+                >
+                  {dashboardDetail?.minor_accidents.days_since_last_accident}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Col>
 
-            <Col xs={12} md={3}>
-              <Card
-                style={{
-                  backgroundColor: "#a2eafc",
-                  borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
-                  height: "140px",
-                }}
-              >
-                <CardContent>
-                  {/* <Typography
+          <Col xs={12} md={4} lg={4} xl={3}>
+            <Card
+              style={{
+                // backgroundColor: "#00C49F",
+                borderRadius: "10px",
+                boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
+                height: "140px",
+              }}
+            >
+              <CardContent>
+                {/* <Typography
                     variant="h6"
                     style={{
                       fontWeight: "bold",
@@ -372,120 +360,122 @@ const Dashboard = () => {
                   >
                     Quality
                   </Typography> */}
-                  <Typography
-                    variant="body1"
-                    style={{ fontWeight: "bold", fontSize: "1rem" }}
-                  >
-                    Quality Incidents This Week
-                  </Typography>
-                  <Typography
-                    variant="h4"
-                    style={{
-                      fontWeight: "bold",
-                      textAlign: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    {dashboardDetail?.quality?.month_target}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Col>
+                <Typography
+                  variant="body1"
+                  style={{ fontWeight: "bold", fontSize: "1rem" }}
+                >
+                  Quality Incidents This Week
+                </Typography>
+                <Typography
+                  variant="h4"
+                  style={{
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    marginTop: "20px",
+                  }}
+                >
+                  {dashboardDetail?.quality?.month_target}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Col>
 
-            <Col xs={12} md={3}>
-              <Card
-                style={{
-                  borderRadius: "10px",
-                  boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
-                  height: "140px",
-                }}
-              >
-                <CardContent style={{ height: "220px" }}>
-                  <Typography
-                    variant="h6"
-                    style={{
-                      fontWeight: "bold",
-                      marginBottom: "10px",
-                      fontSize: "1rem",
-                    }}
-                  >
-                    Manpower Availability
-                  </Typography>
-                  <Box>
-                    <Typography variant="body2" style={{ marginBottom: "5px" }}>
-                      <span style={{ color: "#00C49F" }}>
-                        {availablePercentage}% Available
-                      </span>{" "}
-                      and{" "}
-                      <span style={{ color: "#a86403" }}>
-                        {unavailablePercentage}% Unavailable
-                      </span>{" "}
-                    </Typography>
-                    <Box
-                      style={{
-                        height: "40px",
-                        width: "100%",
-                        backgroundColor: "#C8E6C9",
-                        borderRadius: "5px",
-                        overflow: "hidden",
-                        position: "relative",
-                      }}
-                    >
-                      <Box
-                        style={{
-                          height: "100%",
-                          width: `${availablePercentage}%`,
-                          backgroundColor: "#3ec266",
-                          position: "absolute",
-                        }}
-                      />
-                      <Box
-                        style={{
-                          height: "100%",
-                          width: `${unavailablePercentage}%`,
-                          backgroundColor: "#8cfaad",
-                          position: "absolute",
-                          right: 0,
-                        }}
-                      />
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Col>
-          </Row>
-
-          <Row className="mb-3">
-            {/* Sales Card */}
-            <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "280px" }}>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                  >
-                    Sales
+          <Col xs={12} md={4} lg={4} xl={3}>
+            <Card
+              style={{
+                borderRadius: "10px",
+                boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
+                height: "140px",
+              }}
+            >
+              <CardContent style={{ height: "220px" }}>
+                <Typography
+                  variant="h6"
+                  style={{
+                    fontWeight: "bold",
+                    marginBottom: "10px",
+                    fontSize: "1rem",
+                  }}
+                >
+                  Manpower Availability
+                </Typography>
+                <Box>
+                  <Typography variant="body2" style={{ marginBottom: "5px" }}>
+                    <span style={{ color: "#00C49F" }}>
+                      {availablePercentage}% Available
+                    </span>{" "}
+                    and{" "}
+                    <span style={{ color: "#FFBB28" }}>
+                      {unavailablePercentage}% Unavailable
+                    </span>{" "}
                   </Typography>
                   <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
+                    style={{
+                      height: "40px",
+                      width: "100%",
+                      backgroundColor: "#C8E6C9",
+                      borderRadius: "5px",
+                      overflow: "hidden",
+                      position: "relative",
                     }}
                   >
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        style={{ fontSize: "0.8rem" }}
-                      >
-                        Actual: {dashboardDetail?.sales?.month_actual} | Target:
-                        {dashboardDetail?.sales?.month_target}
-                      </Typography>
-                    </Box>
-                    <Box>
-              <DashboardSales data={sales} month={month} />
-                      {/* <PieChart width={150} height={175}>
+                    <Box
+                      style={{
+                        height: "100%",
+                        width: `${availablePercentage}%`,
+                        backgroundColor: "#00C49F",
+                        position: "absolute",
+                      }}
+                    />
+                    <Box
+                      style={{
+                        height: "100%",
+                        width: `${unavailablePercentage}%`,
+                        backgroundColor: "#FFBB28",
+                        position: "absolute",
+                        right: 0,
+                      }}
+                    />
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+          </Col>
+        </Row>
+
+        <Row className="mb-3">
+          {/* Sales Card */}
+          <Col xs={12} md={6} lg={4} xl={3}>
+            <Card
+              style={{ marginBottom: "10px", height: "100%" }}
+              className="overflow-hidden"
+            >
+              <Card.Header className="border-bottom">
+                <Card.Title
+                  className="mb-0"
+                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                >
+                  Sales
+                </Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box>
+                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                      Actual: {dashboardDetail?.sales?.month_actual} | Target:
+                      {dashboardDetail?.sales?.month_target}
+                    </Typography>
+                  </Box>
+                </Box>
+                <DashboardSales data={sales} month={month} />
+                {/* <PieChart width={150} height={175}>
                         <Pie
                           data={salesData}
                           cx={70}
@@ -518,79 +508,79 @@ const Dashboard = () => {
                           ]}
                         />
                       </PieChart> */}
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Col>
+              </Card.Body>
+            </Card>
+          </Col>
 
-            {/* Plan Vs Actual Card */}
-            <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "280px" }}>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                  >
-                    Plan Vs Actual
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        style={{ fontSize: "0.8rem" }}
-                      >
-                        Actual:{dashboardDetail?.plan_vs_act?.month_actual} |
-                        Target:{dashboardDetail?.plan_vs_act?.month_target}
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <DashboardPlanvsAcutal data={plan_vs_act} month={month}/>
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Col>
-
-            {/* Purchase Card */}
-
-            <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "280px" }}>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                  >
-                    Purchase
-                  </Typography>
-                  <Box 
-                   sx={{
+          {/* Plan Vs Actual Card */}
+          <Col xs={12} md={6} lg={4} xl={3}>
+            <Card
+              style={{ marginBottom: "10px", height: "100%" }}
+              className="overflow-hidden"
+            >
+              <Card.Header className="border-bottom">
+                <Card.Title
+                  className="mb-0"
+                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                >
+                  Plan Vs Actual
+                </Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Box
+                  sx={{
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  >
+                >
                   <Box>
-                      <Typography
-                        variant="body1"
-                        style={{ fontSize: "0.8rem" }}
-                      >
-                        Actual:{dashboardDetail?.purchase?.month_actual} |
-                        Target:{dashboardDetail?.purchase?.month_target}
-                      </Typography>
-                    </Box>
-                    <Box>
-                    <DashboardPurchase data={purchase} month={month} />
-                    </Box>
-                    {/* {dashboardDetail?.purchase ? (
+                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                      Actual:{dashboardDetail?.plan_vs_act?.month_actual} |
+                      Target:{dashboardDetail?.plan_vs_act?.month_target}
+                    </Typography>
+                  </Box>
+                </Box>
+                <DashboardPlanvsAcutal data={plan_vs_act} month={month} />
+              </Card.Body>
+            </Card>
+          </Col>
+
+          {/* Purchase Card */}
+
+          <Col xs={12} md={6} lg={4} xl={3}>
+            <Card
+              style={{ marginBottom: "10px", height: "100%" }}
+              className="overflow-hidden"
+            >
+              <Card.Header className="border-bottom">
+                <Card.Title
+                  className="mb-0"
+                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                >
+                  Purchase
+                </Card.Title>
+              </Card.Header>
+
+              <Card.Body>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box>
+                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                      Actual:{dashboardDetail?.purchase?.month_actual} | Target:
+                      {dashboardDetail?.purchase?.month_target}
+                    </Typography>
+                  </Box>
+                </Box>
+                <DashboardPurchase data={purchase} month={month} />
+                {/* {dashboardDetail?.purchase ? (
                       <Box
                         sx={{
                           display: "flex",
@@ -604,110 +594,108 @@ const Dashboard = () => {
                         />
                       </Box>
                     ) : null} */}
-                  </Box>
-                </CardContent>
-              </Card>
-            </Col>
-            {/* Power Unit Card */}
-            <Col xs={12} md={3}>
-              <Card style={{ marginBottom: "10px", height: "280px" }}>
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    style={{ fontWeight: "bold", fontSize: "1.1rem" }}
-                  >
-                    Power Unit
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {/* <Box>
-                      <Typography
-                        variant="body1"
-                        style={{ fontSize: "0.8rem" }}
-                      >
-                        Actual:{dashboardDetail?.power_unit?.month_actual} |
-                        Target:{dashboardDetail?.power_unit?.month_target}
-                      </Typography>
-                    </Box> */}
-                    <Box>
-                    {/* <DashboardPowerunit data={power_units} month={month} /> */}
-                    </Box>
-                    {dashboardDetail?.power_unit ? (
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "left",
-                          justifyContent: "left",
-                          marginTop:"10px"
-                        }}
-                      >
-                        <PurchasePieChart
-                          purchase={dashboardDetail?.power_unit}
-                          type="purchase"
-                        />
-                      </Box>
-                    ) : null}
-                  </Box>
-                </CardContent>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Data Table Section */}
-          <Row>
-            <Col xs={12}>
-              <Paper>
-                <Typography variant="h6" style={{fontSize:"1rem",fontWeight:"bold" }}>
-                  Weekly KPIs
-                </Typography>
-                <TableContainer
-                  component={Paper}
-                  style={{ maxHeight: 290, overflow: "auto" }}
+              </Card.Body>
+            </Card>
+          </Col>
+          {/* Power Unit Card */}
+          <Col xs={12} md={6} lg={4} xl={3}>
+            <Card
+              style={{ marginBottom: "10px", height: "100%" }}
+              className="overflow-hidden"
+            >
+              <Card.Header className="border-bottom">
+                <Card.Title
+                  className="mb-0"
+                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
                 >
-                  <Table sx={{ minWidth: 550 }} stickyHeader>
-                    <TableHead>
-                      <TableRow align="left">
-                        {headers?.map((item) => {
-                          return <TableCell key={item}>{item}</TableCell>;
+                  Power Unit
+                </Card.Title>
+              </Card.Header>
+              <Card.Body>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box>
+                    <Typography variant="body1" style={{ fontSize: "0.8rem" }}>
+                      Actual:{power_units?.final_totals?.actual} | Target:
+                      {power_units?.final_totals?.target}
+                    </Typography>
+                  </Box>
+                  {/* <Box> */}
+                  {/* <DashboardPowerunit data={power_units} month={month} /> */}
+                  {/* </Box> */}
+                </Box>
+                {power_units?.final_totals ? (
+                  // <Box
+                  //   sx={{
+                  //     display: "flex",
+                  //     alignItems: "left",
+                  //     justifyContent: "left",
+                  //     marginTop: "10px",
+                  //   }}
+                  // >
+                  <PurchasePieChart
+                    purchase={power_units?.final_totals}
+                    type="purchase"
+                  />
+                ) : // </Box>
+                null}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        {/* Data Table Section */}
+        <Row>
+          <Col xs={12}>
+            <Paper style={{ padding: "20px" }}>
+              <Typography variant="h6" style={{ marginBottom: "10px" }}>
+                Weekly KPIs
+              </Typography>
+              <TableContainer
+                component={Paper}
+                style={{ maxHeight: 400, overflow: "auto" }}
+              >
+                <Table sx={{ minWidth: 550 }} stickyHeader>
+                  <TableHead>
+                    <TableRow align="left">
+                      {headers?.map((item) => {
+                        return <TableCell key={item}>{item}</TableCell>;
+                      })}
+                    </TableRow>
+                  </TableHead>
+                  {/* Body */}
+                  <TableBody>
+                    {parameters?.map((key, rowIndex) => (
+                      <TableRow key={rowIndex}>
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          sx={{ backgroundColor: "#00C49F" }}
+                        >
+                          {key}
+                        </TableCell>
+                        {headers?.slice(1).map((header, colIndex) => {
+                          return (
+                            <TableCell key={colIndex}>
+                              {tableData[header] ? tableData[header][key] : "-"}
+                            </TableCell>
+                          );
                         })}
                       </TableRow>
-                    </TableHead>
-                    {/* Body */}
-                    <TableBody>
-                      {parameters?.map((key, rowIndex) => (
-                        <TableRow key={rowIndex}>
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            sx={{ backgroundColor: "#a2eafc" }}
-                          >
-                            {key}
-                          </TableCell>
-                          {headers?.slice(1).map((header, colIndex) => {
-                            return (
-                              <TableCell key={colIndex}>
-                                {tableData[header]
-                                  ? tableData[header][key]
-                                  : "-"}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Paper>
-            </Col>
-          </Row>
-        </>
-      )}
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          </Col>
+        </Row>
+      </>
     </Container>
   );
 };
