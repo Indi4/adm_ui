@@ -290,7 +290,7 @@ const HomeComponent = () => {
         </div>
       </Card>
       <Row className="g-3">
-        <Col lg={4} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={4}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title className="mb-0" style={{fontSize:"0.9rem"}}>PPM</Card.Title>
@@ -300,7 +300,7 @@ const HomeComponent = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={4} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={4}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>COPQ</Card.Title>
@@ -310,7 +310,7 @@ const HomeComponent = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={4} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={4}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>Design Scrap</Card.Title>

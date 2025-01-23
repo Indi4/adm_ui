@@ -167,7 +167,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (dashboardDetail) {
       const timer = setTimeout(() => {
-        setIsLoading(false); 
+        setIsLoading(false);
       }, 2000);
 
       return () => clearTimeout(timer);
@@ -218,8 +218,8 @@ const Dashboard = () => {
             className="row mb-4"
             style={{
               display: "flex",
-              justifyContent: "flex-end", 
-              gap: "10px", 
+              justifyContent: "flex-end",
+              gap: "10px",
             }}
           >
             <div
@@ -247,7 +247,7 @@ const Dashboard = () => {
             <div
               className="col-md-3"
               style={{
-                maxWidth: "200px", 
+                maxWidth: "200px",
               }}
             >
               <Grid item xs={6}>
@@ -272,7 +272,7 @@ const Dashboard = () => {
           <Col xs={12} md={4} lg={4} xl={3}>
             <Card
               style={{
-                // backgroundColor: "#00C49F",
+                backgroundColor: "#A2EAFC",
                 borderRadius: "10px",
                 boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                 height: "140px",
@@ -343,7 +343,7 @@ const Dashboard = () => {
           <Col xs={12} md={4} lg={4} xl={3}>
             <Card
               style={{
-                // backgroundColor: "#00C49F",
+                backgroundColor: "#A2EAFC",
                 borderRadius: "10px",
                 boxShadow: "0px 4px 8px rgba(82, 116, 142, 0.4)",
                 height: "140px",
@@ -380,7 +380,7 @@ const Dashboard = () => {
             </Card>
           </Col>
 
-          <Col xs={12} md={4} lg={4} xl={3}>
+          <Col xs={12} md={3}>
             <Card
               style={{
                 borderRadius: "10px",
@@ -405,7 +405,7 @@ const Dashboard = () => {
                       {availablePercentage}% Available
                     </span>{" "}
                     and{" "}
-                    <span style={{ color: "#FFBB28" }}>
+                    <span style={{ color: "#a86403" }}>
                       {unavailablePercentage}% Unavailable
                     </span>{" "}
                   </Typography>
@@ -423,7 +423,7 @@ const Dashboard = () => {
                       style={{
                         height: "100%",
                         width: `${availablePercentage}%`,
-                        backgroundColor: "#00C49F",
+                        backgroundColor: "#3ec266",
                         position: "absolute",
                       }}
                     />
@@ -431,7 +431,7 @@ const Dashboard = () => {
                       style={{
                         height: "100%",
                         width: `${unavailablePercentage}%`,
-                        backgroundColor: "#FFBB28",
+                        backgroundColor: "#8cfaad",
                         position: "absolute",
                         right: 0,
                       }}
@@ -676,7 +676,7 @@ const Dashboard = () => {
                         <TableCell
                           component="th"
                           scope="row"
-                          sx={{ backgroundColor: "#00C49F" }}
+                          sx={{ backgroundColor: "#A2EAFC" }}
                         >
                           {key}
                         </TableCell>
