@@ -23,7 +23,7 @@ import Loader from "../../commonComponents/Loader";
 import { qualityGraphs } from "../../store/quality/qualitySlice";
 import Sales from "../Sales/Sales";
 import DashboardSales from "./DashboardSales";
-import DashboardPlanvsAcutal from "./DAshboardPlanvsAcutal";
+import DashboardPlanvsAcutal from "./DashboardPlanvsAcutal";
 import DashboardPurchase from "./DashboardPurchase";
 import DashboardPowerunit from "./DashboardPowerunit";
 
