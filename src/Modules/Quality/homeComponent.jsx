@@ -195,24 +195,9 @@ import { qualityGraphs } from "../../store/quality/qualitySlice";
 import DesignScrap from "./DesignScrap";
 import ProcessScrap from "./ProcessScrap";
 import TodoList from "../../commonComponents/TodoList";
+import Filter from "../../commonComponents/Filter";
 
 const HomeComponent = () => {
-  const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
-  const monthList = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
@@ -238,56 +223,15 @@ const HomeComponent = () => {
     }
   }, [dispatch, month, year]);
 
-  const handleYearInputChange = (event, value, reason) => {
-    if (reason === "selectOption") {
-      setYear(value);
-    } else {
-      setYear(new Date().getFullYear());
-    }
-  };
-
-  const handleMonthInputChange = (event, value, reason) => {
-    if (reason === "selectOption") {
-      setMonth(value);
-    } else {
-      setMonth("");
-    }
-  };
+  const getData = (selectedYear, selectedMonth)=>{
+    setYear(selectedYear)
+    setMonth(selectedMonth)
+  }
 
   return (
     <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)"}}>
       <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
-      <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
-        
-          <div className="col-md-3">
-            <Autocomplete
-              options={yearList || []}
-              getOptionLabel={(option) => option.toString() || ""}
-              value={year}
-              onChange={(event, value, reason) =>
-                handleYearInputChange(event, value, reason, "year")
-              }
-              renderInput={(params) => <TextField {...params} label="Year" />}
-              fullWidth
-              disableClearable={false}
-            />
-          </div>
-          <div className="col-md-3">
-            <Autocomplete
-              options={monthList || []}
-              getOptionLabel={(option) => option.toString() || ""}
-              value={month}
-              onChange={(event, value, reason) =>
-                handleMonthInputChange(event, value, reason, "month")
-              }
-              renderInput={(params) => (
-                <TextField {...params} label="Select Month" />
-              )}
-              fullWidth
-              disableClearable={false}
-            />
-          </div>
-        </div>
+      <Filter change={getData} />
       </Card>
       <Row className="g-3">
         <Col lg={6} md={6} sm={12} xl={4}>

@@ -7,25 +7,10 @@ import TodoList from "../../commonComponents/TodoList";
 import ManPower from "./Manpower";
 import InDirectManpower from "./InDirectManpower";
 import DirectManpower from "./DirectManpower";
+import Filter from "../../commonComponents/Filter";
 
 
 const homeComponent = () => {
-  const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
-  const monthList = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch()
@@ -44,28 +29,17 @@ const homeComponent = () => {
     }
   },[dispatch, month,year])
 
-  const handleYearInputChange = (event, value, reason) => {
-    if (reason === "selectOption") {
-      setYear(value);
-    } else {
-      setYear(new Date().getFullYear());
-    }
-  };
-
-  const handleMonthInputChange = (event, value, reason) => {
-    if (reason === "selectOption") {
-      setMonth(value);
-    } else {
-      setMonth();
-    }
-  };
+  const getData = (selectedYear, selectedMonth)=>{
+    setYear(selectedYear)
+    setMonth(selectedMonth)
+  }
 
   return (
     <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
       {/* <ToastContainer /> */}
       <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
-        
-      <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
+      <Filter change={getData} />
+      {/* <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
           <div className="col-md-3">
             <Grid item xs={6}>
               <Autocomplete
@@ -100,7 +74,7 @@ const homeComponent = () => {
             </div>
         
 
-        </div>
+        </div> */}
       </Card>
       <Row className="row-sm">
         <Col
