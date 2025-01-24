@@ -26,6 +26,7 @@ import DashboardSales from "./DashboardSales";
 import DashboardPlanvsAcutal from "./DashboardPlanvsAcutal";
 import DashboardPurchase from "./DashboardPurchase";
 import DashboardPowerunit from "./DashboardPowerunit";
+import Filter from "../../commonComponents/Filter";
 
 const COLORS = ["#00C49F", "#FFBB28", "#FF8042"];
 
@@ -42,22 +43,6 @@ const rows = [
 ];
 
 const Dashboard = () => {
-  const yearList = ["2025", "2024", "2023", "2022", "2021", "2020"];
-  const monthList = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
@@ -121,21 +106,10 @@ const Dashboard = () => {
     }
   }, [dispatch, month, year]);
 
-  const handleYearInputChange = (event, value, reason) => {
-    if (reason === "selectOption") {
-      setYear(value);
-    } else {
-      setYear(new Date().getFullYear());
-    }
-  };
-
-  const handleMonthInputChange = (event, value, reason) => {
-    if (reason === "selectOption") {
-      setMonth(value);
-    } else {
-      setMonth();
-    }
-  };
+  const getData = (selectedYear, selectedMonth)=>{
+    setYear(selectedYear)
+    setMonth(selectedMonth)
+  }
 
   function transformData(input) {
     const result = { Target: input.monthly_targets };
@@ -214,59 +188,7 @@ const Dashboard = () => {
       <>
         <Row className="mb-3">
           {/* <Card style={{ backgroundColor: "white", padding: 8 }}> */}
-          <div
-            className="row mb-4"
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              // gap: "10px",
-            }}
-          >
-            <div
-              className="col-md-3"
-              style={{
-                maxWidth: "100%",
-              }}
-            >
-              <Grid item xs={6}>
-                <Autocomplete
-                  options={yearList || []}
-                  getOptionLabel={(option) => option.toString() || ""}
-                  value={year}
-                  onChange={(event, value, reason) =>
-                    handleYearInputChange(event, value, reason, "year")
-                  }
-                  renderInput={(params) => (
-                    <TextField {...params} label="Year" />
-                  )}
-                  fullWidth
-                  disableClearable={false}
-                />
-              </Grid>
-            </div>
-            <div
-              className="col-md-3"
-              style={{
-                maxWidth: "100%",
-              }}
-            >
-              <Grid item xs={6}>
-                <Autocomplete
-                  options={monthList || []}
-                  getOptionLabel={(option) => option.toString() || ""}
-                  value={month}
-                  onChange={(event, value, reason) =>
-                    handleMonthInputChange(event, value, reason, "month")
-                  }
-                  renderInput={(params) => (
-                    <TextField {...params} label="Select Months" />
-                  )}
-                  fullWidth
-                  disableClearable={false}
-                />
-              </Grid>
-            </div>
-          </div>
+          <Filter change={getData} />
 
           {/* </Card> */}
           <Col xs={12} md={6} lg={4} xl={3}>
