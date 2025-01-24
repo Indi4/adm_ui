@@ -1,4 +1,9 @@
 import React from "react";
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 const MenuItems = [
   {
@@ -41,7 +46,7 @@ const MenuItems = [
         title: "Quality",
         path: "/quality",
         type: "link",
-        icon: <i className="fe fe-home"></i>, 
+        icon: <AssignmentTurnedInIcon/>, 
         active: false,
         selected: false,
       },
@@ -49,7 +54,8 @@ const MenuItems = [
         title: "Safety",
         path: "/safety",
         type: "link",
-        icon: <i className="fe fe-home"></i>, 
+        icon: <HealthAndSafetyIcon/>
+        , 
         active: false,
         selected: false,
       },
@@ -73,7 +79,7 @@ const MenuItems = [
         title: "Sales",
         path: "/sales",
         type: "link",
-        icon: <i class="bi bi-cart-check"></i>, 
+        icon: <TrendingUpIcon/>, 
         active: false,
         selected: false,
       },
@@ -81,7 +87,7 @@ const MenuItems = [
         title: "HR",
         path: "/hr",
         type: "link",
-        icon: <i class="bi bi-hr"></i>, 
+        icon: <Diversity3Icon/>, 
         active: false,
         selected: false,
       },
@@ -89,7 +95,7 @@ const MenuItems = [
         title: "Finance",
         path: "/finance",
         type: "link",
-        icon: <i class="bi bi-currency-euro"></i>, 
+        icon: <AccountBalanceIcon/>, 
         active: false,
         selected: false,
       },
