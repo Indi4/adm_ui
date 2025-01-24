@@ -23,7 +23,7 @@ import Loader from "../../commonComponents/Loader";
 import { qualityGraphs } from "../../store/quality/qualitySlice";
 import Sales from "../Sales/Sales";
 import DashboardSales from "./DashboardSales";
-import DashboardPlanvsAcutal from "./DAshboardPlanvsAcutal";
+import DashboardPlanvsAcutal from "./DashboardPlanvsAcutal";
 import DashboardPurchase from "./DashboardPurchase";
 import DashboardPowerunit from "./DashboardPowerunit";
 import Filter from "../../commonComponents/Filter";
@@ -182,7 +182,7 @@ const Dashboard = () => {
       style={{
         backgroundColor: "white",
         minHeight: "100vh",
-        padding: "20px",
+        padding: "1vh",
       }}
     >
       <>
@@ -191,7 +191,7 @@ const Dashboard = () => {
           <Filter change={getData} />
 
           {/* </Card> */}
-          <Col xs={12} md={4} lg={4} xl={3}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card
               style={{
                 backgroundColor: "#A2EAFC",
@@ -226,7 +226,7 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </Col>
-          <Col xs={12} md={4} lg={4} xl={3}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card
               style={{
                 // backgroundColor: "#FFBB28",
@@ -262,7 +262,7 @@ const Dashboard = () => {
             </Card>
           </Col>
 
-          <Col xs={12} md={4} lg={4} xl={3}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card
               style={{
                 backgroundColor: "#A2EAFC",
@@ -302,7 +302,7 @@ const Dashboard = () => {
             </Card>
           </Col>
 
-          <Col xs={12} md={3}>
+          <Col xs={12} md={6} lg={4} xl={3}>
             <Card
               style={{
                 borderRadius: "10px",
@@ -364,7 +364,6 @@ const Dashboard = () => {
             </Card>
           </Col>
         </Row>
-
         <Row className="mb-3">
           {/* Sales Card */}
           <Col xs={12} md={6} lg={4} xl={3}>
@@ -522,7 +521,7 @@ const Dashboard = () => {
           {/* Power Unit Card */}
           <Col xs={12} md={6} lg={4} xl={3}>
             <Card
-              style={{ marginBottom: "10px", height: "100%" }}
+              style={{ height: "100%" }}
               className="overflow-hidden"
             >
               <Card.Header className="border-bottom">
@@ -575,13 +574,13 @@ const Dashboard = () => {
         {/* Data Table Section */}
         <Row>
           <Col xs={12}>
-            <Paper style={{ padding: "20px" }}>
-              <Typography variant="h6" style={{ marginBottom: "10px" }}>
+            <Paper>
+              <Typography variant="h6">
                 Weekly KPIs
               </Typography>
               <TableContainer
                 component={Paper}
-                style={{ maxHeight: 400, overflow: "auto" }}
+                style={{ maxHeight: 300, overflow: "auto" }}
               >
                 <Table sx={{ minWidth: 550 }} stickyHeader>
                   <TableHead>
@@ -598,7 +597,7 @@ const Dashboard = () => {
                         <TableCell
                           component="th"
                           scope="row"
-                          sx={{ backgroundColor: "#A2EAFC" }}
+                          // sx={{ backgroundColor: "#A2EAFC" }}
                         >
                           {key}
                         </TableCell>
