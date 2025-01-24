@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
 import PurchasePieChart from "./PurchasePiechart";
 import Loader from "../../commonComponents/Loader";
-import { qualityGraphs } from "../../store/quality/qualitySlice";
+import { qualityGraphs, safetyGraphs } from "../../store/quality/qualitySlice";
 import Sales from "../Sales/Sales";
 import DashboardSales from "./DashboardSales";
 import DashboardPlanvsAcutal from "./DashboardPlanvsAcutal";
@@ -84,25 +84,25 @@ const Dashboard = () => {
   //   return result;
   // }
 
-  const { sales, plan_vs_act, purchase, power_units } = useSelector(
+  const { sales, plan_vs_act, purchase, power_units, minor, major } = useSelector(
     (state) => state.quality
   );
 
   useEffect(() => {
     if (month) {
       dispatch(qualityGraphs({ type: "sales", year: year, month: month }));
-      dispatch(
-        qualityGraphs({ type: "plan_vs_act", year: year, month: month })
-      );
+      dispatch(qualityGraphs({ type: "plan_vs_act", year: year, month: month }));
       dispatch(qualityGraphs({ type: "purchase", year: year, month: month }));
-      dispatch(
-        qualityGraphs({ type: "power_units", year: year, month: month })
-      );
+      dispatch(qualityGraphs({ type: "power_units", year: year, month: month }));
+      dispatch(safetyGraphs({type:"major",year:year,month:month}))
+      dispatch(safetyGraphs({type:"minor", year:year, month: month}))
     } else {
       dispatch(qualityGraphs({ type: "sales", year: year }));
       dispatch(qualityGraphs({ type: "plan_vs_act", year: year }));
       dispatch(qualityGraphs({ type: "purchase", year: year }));
       dispatch(qualityGraphs({ type: "power_units", year: year }));
+      dispatch(safetyGraphs({type:"major",year:year,}))
+      dispatch(safetyGraphs({type:"minor", year:year,}))
     }
   }, [dispatch, month, year]);
 

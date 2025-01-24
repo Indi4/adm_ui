@@ -1,177 +1,184 @@
+import React, { Fragment, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../../assets/images/ADM/ADM_logo.png";
+import logolight from "../../assets/images/ADM/ADM_logo.png";
+import logoSmall from "../../assets/images/ADM/ADM_small.png";
+import {
+  Button,
+  Container,
+  Dropdown,
+  Form,
+  FormControl,
+  InputGroup,
+  ListGroup,
+  Nav,
+  Navbar,
+} from "react-bootstrap";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { imagesData } from "../../common/commomimages/imagedata";
+import MenuItems from "../sidebar/sidebardata";
 
-import React, { Fragment, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import logo from '../../assets/images/ADM/ADM_logo.png'
-import logolight from '../../assets/images/ADM/ADM_logo.png'
-import { Button, Container, Dropdown, Form, FormControl, InputGroup, ListGroup, Nav, Navbar } from 'react-bootstrap'
-import PerfectScrollbar from 'react-perfect-scrollbar'
-import { imagesData } from "../../common/commomimages/imagedata"
-import MenuItems from '../sidebar/sidebardata'
+function Header() {
+  //Search functionality
+  const [show1, setShow1] = useState(false);
+  const [InputValue, setInputValue] = useState("");
+  const [show2, setShow2] = useState(false);
+  const [searchcolor, setsearchcolor] = useState("text-dark");
+  const [searchval, setsearchval] = useState("Type something");
+  const [NavData, setNavData] = useState([]);
 
+  document.addEventListener("click", function () {
+    document.querySelector(".search-result")?.classList.add("d-none");
+  });
+  let myfunction = (inputvalue) => {
+    document.querySelector(".search-result")?.classList.remove("d-none");
 
+    let i = [];
+    let allElement2 = [];
 
-
-function Header () {
-
-
-    
-    //Search functionality
-    const [show1, setShow1] = useState(false);
-	const [InputValue, setInputValue] = useState("");
-	const [show2, setShow2] = useState(false);
-	const [searchcolor, setsearchcolor] = useState("text-dark");
-	const [searchval, setsearchval] = useState("Type something");
-	const [NavData, setNavData] = useState([]);
-
-    document.addEventListener("click", function(){
-        document.querySelector(".search-result")?.classList.add("d-none")
+    MenuItems.map((mainlevel) => {
+      if (mainlevel.Items) {
+        setShow1(true);
+        mainlevel.Items.map((sublevel) => {
+          if (sublevel.children) {
+            sublevel.children.map((sublevel1) => {
+              i.push(sublevel1);
+              if (sublevel1.children) {
+                sublevel1.children.map((sublevel2) => {
+                  i.push(sublevel2);
+                  return sublevel2;
+                });
+              }
+              return sublevel1;
+            });
+          }
+          return sublevel;
+        });
+      }
+      return mainlevel;
     });
-	let myfunction = (inputvalue) => {
-        
-        document.querySelector(".search-result")?.classList.remove("d-none")
-        
-		let i = []
-		let allElement2 = [];
-
-		MenuItems.map(mainlevel => {
-			if (mainlevel.Items) {
-				setShow1(true)
-				mainlevel.Items.map(sublevel => {
-					
-					if (sublevel.children) {
-						sublevel.children.map(sublevel1 => {
-							
-							i.push(sublevel1)
-							if (sublevel1.children) {
-								sublevel1.children.map(sublevel2 => {
-								
-									i.push(sublevel2)
-									return sublevel2;
-								})
-							}
-							return sublevel1;
-						})
-					}
-					return sublevel;
-				})
-			}
-			return mainlevel;
-		}
-		)
-		for (let allElement of i) {
-			if (allElement.title.toLowerCase().includes(inputvalue.toLowerCase())) {
-				if (allElement.title.toLowerCase().startsWith(inputvalue.toLowerCase())) {
-					setShow2(true)
-					allElement2.push(allElement)
-				}
-			}
-		}
-		if (!allElement2.length || inputvalue === "") {
-			if (inputvalue === "") {
-				setShow2(false);
-				setsearchval("Type something")
-				setsearchcolor('text-dark')
-			}
-			if (!allElement2.length) {
-				setShow2(false);
-				setsearchcolor('text-danger')
-				setsearchval("There is no component with this name")
-			}
-		}
-		setNavData(allElement2)
-
-	}
+    for (let allElement of i) {
+      if (allElement.title.toLowerCase().includes(inputvalue.toLowerCase())) {
+        if (
+          allElement.title.toLowerCase().startsWith(inputvalue.toLowerCase())
+        ) {
+          setShow2(true);
+          allElement2.push(allElement);
+        }
+      }
+    }
+    if (!allElement2.length || inputvalue === "") {
+      if (inputvalue === "") {
+        setShow2(false);
+        setsearchval("Type something");
+        setsearchcolor("text-dark");
+      }
+      if (!allElement2.length) {
+        setShow2(false);
+        setsearchcolor("text-danger");
+        setsearchval("There is no component with this name");
+      }
+    }
+    setNavData(allElement2);
+  };
 
   const Darkmode = () => {
-  
-    if(document.querySelector(".app").classList.contains('dark-mode')){
-        document.querySelector(".app").classList.remove('dark-mode');
-        let DarkMenu1 = document.querySelector("#myonoffswitch1") //light theme
-        DarkMenu1.checked = true;
-        let DarkMenu2 = document.querySelector("#myonoffswitch6")  // light header
-        DarkMenu2.checked = true;
-        let DarkMenu3 = document.querySelector("#myonoffswitch3")  //light menu
-        DarkMenu3.checked = true;
-      }
-      else{
-        document.querySelector(".app").classList.add('dark-mode');
-        let DarkMenu1 = document.querySelector("#myonoffswitch2") //dark theme
-        DarkMenu1.checked = true;
-        let DarkMenu2 = document.querySelector("#myonoffswitch8") //dark header
-        DarkMenu2.checked = true;
-        let DarkMenu3 = document.querySelector("#myonoffswitch5") //dark menu
-        DarkMenu3.checked = true;
-      }
-  }
+    if (document.querySelector(".app").classList.contains("dark-mode")) {
+      document.querySelector(".app").classList.remove("dark-mode");
+      let DarkMenu1 = document.querySelector("#myonoffswitch1"); //light theme
+      DarkMenu1.checked = true;
+      let DarkMenu2 = document.querySelector("#myonoffswitch6"); // light header
+      DarkMenu2.checked = true;
+      let DarkMenu3 = document.querySelector("#myonoffswitch3"); //light menu
+      DarkMenu3.checked = true;
+    } else {
+      document.querySelector(".app").classList.add("dark-mode");
+      let DarkMenu1 = document.querySelector("#myonoffswitch2"); //dark theme
+      DarkMenu1.checked = true;
+      let DarkMenu2 = document.querySelector("#myonoffswitch8"); //dark header
+      DarkMenu2.checked = true;
+      let DarkMenu3 = document.querySelector("#myonoffswitch5"); //dark menu
+      DarkMenu3.checked = true;
+    }
+  };
 
   // FuScreen-start
-function Fullscreen () {
+  function Fullscreen() {
     if (
       (document.fullScreenElement && document.fullScreenElement === null) ||
-          (!document.mozFullScreen && !document.webkitIsFullScreen)
+      (!document.mozFullScreen && !document.webkitIsFullScreen)
     ) {
       if (document.documentElement.requestFullScreen) {
-        document.documentElement.requestFullScreen()
+        document.documentElement.requestFullScreen();
       } else if (document.documentElement.mozRequestFullScreen) {
-        document.documentElement.mozRequestFullScreen()
+        document.documentElement.mozRequestFullScreen();
       } else if (document.documentElement.webkitRequestFullScreen) {
         document.documentElement.webkitRequestFullScreen(
           Element.ALLOW_KEYBOARD_INPUT
-        )
+        );
       }
     } else {
       if (document.cancelFullScreen) {
-        document.cancelFullScreen()
+        document.cancelFullScreen();
       } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen()
+        document.mozCancelFullScreen();
       } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen()
+        document.webkitCancelFullScreen();
       }
     }
   }
   // FullScreen-end
- 
+
   // rightsiderbar
   const OPenfunction = () => {
-    document.querySelector('.sidebar-right').classList.toggle('sidebar-open');
-  }
+    document.querySelector(".sidebar-right").classList.toggle("sidebar-open");
+  };
   //
-  // SwitcherMenu	
-const SwitcherIcon = () => {
-	document.querySelector(".demo_changer").classList.toggle("active");
-	document.querySelector(".demo_changer").style.right = "0px";
+  // SwitcherMenu
+  const SwitcherIcon = () => {
+    document.querySelector(".demo_changer").classList.toggle("active");
+    document.querySelector(".demo_changer").style.right = "0px";
+  };
 
-}
-
-//
-const SideMenuIcon = () => {
+  //
+  const SideMenuIcon = () => {
     //leftsidemenu
-        document.querySelector(".app").classList.toggle("sidenav-toggled");
-  }
-
-
+    document.querySelector(".app").classList.toggle("sidenav-toggled");
+  };
 
   return (
-        <Fragment>
+    <Fragment>
+      <div
+        className="app-header header sticky"
+        style={{ marginBottom: "-70.7812px" }}
+      >
+        <Container fluid className=" main-container">
+          <div className="d-flex">
+            <Link
+              aria-label="Hide Sidebar"
+              className="app-sidebar__toggle"
+              data-bs-toggle="sidebar"
+              onClick={() => SideMenuIcon()}
+              to="#"
+            ></Link>
 
-           
-            <div className="app-header header sticky" style={{ marginBottom: '-70.7812px' }}>
-                <Container fluid className=" main-container">
-                    <div className="d-flex">
-                        <Link aria-label="Hide Sidebar" className="app-sidebar__toggle" data-bs-toggle="sidebar"
-                       
-                        onClick={() => SideMenuIcon()}
+            <Link
+              className="logo-horizontal"
+              to={`${import.meta.env.BASE_URL}dashboard`}
+            >
+              <img
+                src={logo}
+                className="header-brand-img main-logo"
+                alt="Sparic logo"
+              />
+              <img
+                src={logolight}
+                className="header-brand-img darklogo"
+                alt="Sparic logo"
+              />
+            </Link>
 
-                            to="#"></Link>
-                  
-                        <Link className="logo-horizontal" to={`${import.meta.env.BASE_URL}dashboard/sales`}>
-                            <img src={logo} className="header-brand-img main-logo"
-                                alt="Sparic logo" />
-                            <img src={logolight} className="header-brand-img darklogo"
-                                alt="Sparic logo" />
-                        </Link>
-                       
-                        {/* <div className="main-header-center ms-3 d-none d-lg-block">
+            {/* <div className="main-header-center ms-3 d-none d-lg-block">
                             <Form.Control type="text" defaultValue ={InputValue} id="typehead" placeholder="Search for results..." 
                                 autoComplete="off" onChange={(ele => { myfunction(ele.target.value); setInputValue(ele.target.value) })} />
                             <Button variant='' className="btn px-2 "><i className="fe fe-search" aria-hidden="true"></i></Button>
@@ -193,8 +200,24 @@ const SideMenuIcon = () => {
 							</div>
 							: ""}
                         </div> */}
-                        <Navbar className="d-flex order-lg-2 ms-auto header-right-icons px-0" expand="lg">
-                            <Dropdown className="d-none">
+            <Navbar
+              className="d-flex order-lg-2 ms-auto header-right-icons px-0"
+              expand="lg"
+            >
+              <div className="d-none d-lg-flex country">
+                <span>
+                  {/* <Link className="logo-horizontal" to={`${import.meta.env.BASE_URL}dashboard`}> */}
+                  <img
+                    src={logoSmall}
+                    className="header-brand-img main-logo"
+                    alt="ADM logo"
+                  />
+                  {/* <img src={logoSmall} className="header-brand-img darklogo"
+                                    alt="ADM logo" /> */}
+                  {/* </Link> */}
+                </span>
+              </div>
+              {/* <Dropdown className="d-none">
                                 <Dropdown.Toggle as="a" href="#" variant='light' className="no-caret nav-link icon " >
                                     <i className="fe fe-search"></i>
                                 </Dropdown.Toggle>
@@ -206,18 +229,23 @@ const SideMenuIcon = () => {
                                         </InputGroup.Text>
                                     </InputGroup>
                                 </Dropdown.Menu>
-                            </Dropdown>
-                          
-                            <Navbar.Toggle className="navbar-toggler navresponsive-toggler d-lg-none ms-auto" type="button"
-								data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
-								aria-controls="navbarSupportedContent-4" aria-expanded="false"
-								aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon fe fe-more-vertical"></span>
-                            </Navbar.Toggle>
-                            <div className="responsive-navbar p-0">
-                                <Navbar.Collapse className="" id="navbarSupportedContent-4">
-                                    <div className="d-flex order-lg-2">
-                                        <Dropdown className=" d-lg-none d-flex">
+                            </Dropdown> */}
+
+              <Navbar.Toggle
+                className="navbar-toggler navresponsive-toggler d-lg-none ms-auto"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent-4"
+                aria-controls="navbarSupportedContent-4"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon fe fe-more-vertical"></span>
+              </Navbar.Toggle>
+              <div className="responsive-navbar p-0">
+                <Navbar.Collapse className="" id="navbarSupportedContent-4">
+                  <div className="d-flex order-lg-2">
+                    {/* <Dropdown className=" d-lg-none d-flex">
                                             <Dropdown.Toggle as='a' to="#" className=" no-caret nav-link icon"
                                                 data-bs-toggle="dropdown">
                                                 <i className="fe fe-search"></i>
@@ -230,12 +258,9 @@ const SideMenuIcon = () => {
                                                     </InputGroup.Text>
                                                 </InputGroup>
                                             </Dropdown.Menu>
-                                        </Dropdown>
-                                           
-                
-                
-                                     
-                                           {/* <Dropdown className="dropdown d-flex country">
+                                        </Dropdown> */}
+
+                    {/* <Dropdown className="dropdown d-flex country">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
                                                 <i className="ri-global-line"></i>
                                             </Dropdown.Toggle>
@@ -253,17 +278,22 @@ const SideMenuIcon = () => {
                                                     <img src={imagesData('flagimage2')} alt="img" className=" me-2 country language-img" /> <span className="fs-13 text-wrap text-dark fw-semibold"> Canada</span> </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown> */}
-                                     
-                                        <div className="d-flex country"  onClick={() => Darkmode()}>
-                                            <Link to='#' className="nav-link icon theme-layout nav-link-bg layout-setting">
-                                                <span className="dark-layout mt-1"><i className="ri-moon-clear-line"></i></span>
-                                                <span className="light-layout mt-1"><i className="ri-sun-line"></i></span>
-                                            </Link>
-                                        </div>
-                                      
-                                       
 
-                                        {/* <Dropdown className=" d-flex shopping-cart">
+                    <div className="d-flex country" onClick={() => Darkmode()}>
+                      <Link
+                        to="#"
+                        className="nav-link icon theme-layout nav-link-bg layout-setting"
+                      >
+                        <span className="dark-layout mt-1">
+                          <i className="ri-moon-clear-line"></i>
+                        </span>
+                        <span className="light-layout mt-1">
+                          <i className="ri-sun-line"></i>
+                        </span>
+                      </Link>
+                    </div>
+
+                    {/* <Dropdown className=" d-flex shopping-cart">
                                             <Dropdown.Toggle as='a'  className="no-caret nav-link icon text-center">
                                                 <i className="ri-shopping-bag-line"></i><span
                                                     className="badge bg-secondary header-badge">4</span>
@@ -376,15 +406,18 @@ const SideMenuIcon = () => {
                                                 </div>
                                             </Dropdown.Menu>
                                         </Dropdown> */}
-                                        
-                                        <div className="dropdown d-flex">
-                                            <Link className="nav-link icon full-screen-link" id="fullscreen-button" onClick={Fullscreen}>
-                                                <i className="ri-fullscreen-exit-line fullscreen-button"></i>
-                                            </Link>
-                                        </div>
-                             
-                                      
-                                         {/* <Dropdown className="dropdown d-flex notifications">
+
+                    <div className="dropdown d-flex">
+                      <Link
+                        className="nav-link icon full-screen-link"
+                        id="fullscreen-button"
+                        onClick={Fullscreen}
+                      >
+                        <i className="ri-fullscreen-exit-line fullscreen-button"></i>
+                      </Link>
+                    </div>
+
+                    {/* <Dropdown className="dropdown d-flex notifications">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
                                                 <i className="ri-notification-line"></i><span className=" pulse"></span>
                                             </Dropdown.Toggle>
@@ -460,9 +493,8 @@ const SideMenuIcon = () => {
                                                 </div>
                                             </Dropdown.Menu>
                                         </Dropdown> */}
-                                    
-                                     
-                                        {/* <Dropdown className="dropdown d-flex message">
+
+                    {/* <Dropdown className="dropdown d-flex message">
                                             <Dropdown.Toggle as='a' variant='' className="no-caret nav-link icon text-center">
                                             <i className="ri-chat-1-line"></i><span className="pulse-danger"></span>
                                             </Dropdown.Toggle>
@@ -548,61 +580,96 @@ const SideMenuIcon = () => {
                                                 </div>
                                             </Dropdown.Menu>
                                         </Dropdown> */}
-                                        
-                                        
-                                        {/* <div className="dropdown d-flex header-settings" onClick={() => OPenfunction ()}>
+
+                    {/* <div className="dropdown d-flex header-settings" onClick={() => OPenfunction ()}>
                                             <Link  className=" nav-link icon siderbar-link">
                                                 <i className="ri-menu-fold-fill"></i>
                                             </Link>
                                             </div> */}
 
-                                       
-                                        
-                                        <Dropdown className="dropdown d-flex profile-1">
-                                            <Dropdown.Toggle as='a' variant='' className="no-caret nav-link leading-none d-flex">
-                                            <img src={imagesData('male15')} alt="profile-user"
-                                                    className="avatar  profile-user brround cover-image" />
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu className="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
-                                                data-bs-popper="none">
-                                                <div className="drop-heading">
-                                                    <div className="text-center">
-                                                        <h5 className="text-dark mb-0 fw-semibold">Alison</h5>
-                                                        <span className="text-muted fs-12">Administrator</span>
-                                                    </div>
-                                                </div>
-                                                <Dropdown.Item className="text-dark fw-semibold border-top" href={`${import.meta.env.BASE_URL}pages/profile`}>
-                                                    <i className="dropdown-icon fe fe-user"></i> Profile
-                                                </Dropdown.Item>
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/mailinbox`}>
-                                                    <i className="dropdown-icon fe fe-mail"></i> Inbox
-                                                    <span className="badge bg-success float-end">3</span>
-                                                </Dropdown.Item>
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/settings`}>
-                                                    <i className="dropdown-icon fe fe-settings"></i> Settings
-                                                </Dropdown.Item>
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}pages/extension/faqs`} >
-                                                    <i className="dropdown-icon fe fe-alert-triangle"></i>
-                                                    Support ?
-                                                </Dropdown.Item>
-                                                <Dropdown.Item className="text-dark fw-semibold" href={`${import.meta.env.BASE_URL}firebaseauth/authlogin`}>
-                                                    <i className="dropdown-icon fe fe-log-out"></i> Sign
-                                                    out
-                                                </Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </div>
-                                </Navbar.Collapse>
-                            </div>
-                            <div className="demo-icon nav-link icon" onClick={()=>SwitcherIcon()}>
-                                <i className="fe fe-settings fa-spin text_primary"></i>
-                            </div>
-                        </Navbar>
-                    </div>
-                </Container>
-            </div>
-            <div className="jumps-prevent" style={{ paddingTop: '70.7812px' }}></div>
-            
-        </Fragment>)
+                    <Dropdown className="dropdown d-flex profile-1">
+                      <Dropdown.Toggle
+                        as="a"
+                        variant=""
+                        className="no-caret nav-link leading-none d-flex"
+                      >
+                        <img
+                          src={imagesData("male15")}
+                          alt="profile-user"
+                          className="avatar  profile-user brround cover-image"
+                        />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu
+                        className="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                        data-bs-popper="none"
+                      >
+                        <div className="drop-heading">
+                          <div className="text-center">
+                            <h5 className="text-dark mb-0 fw-semibold">
+                              Alison
+                            </h5>
+                            <span className="text-muted fs-12">
+                              Administrator
+                            </span>
+                          </div>
+                        </div>
+                        <Dropdown.Item
+                          className="text-dark fw-semibold border-top"
+                          href={`${import.meta.env.BASE_URL}pages/profile`}
+                        >
+                          <i className="dropdown-icon fe fe-user"></i> Profile
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          className="text-dark fw-semibold"
+                          href={`${import.meta.env.BASE_URL}pages/mailinbox`}
+                        >
+                          <i className="dropdown-icon fe fe-mail"></i> Inbox
+                          <span className="badge bg-success float-end">3</span>
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          className="text-dark fw-semibold"
+                          href={`${
+                            import.meta.env.BASE_URL
+                          }pages/extension/settings`}
+                        >
+                          <i className="dropdown-icon fe fe-settings"></i>{" "}
+                          Settings
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          className="text-dark fw-semibold"
+                          href={`${
+                            import.meta.env.BASE_URL
+                          }pages/extension/faqs`}
+                        >
+                          <i className="dropdown-icon fe fe-alert-triangle"></i>
+                          Support ?
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          className="text-dark fw-semibold"
+                          href={`${
+                            import.meta.env.BASE_URL
+                          }firebaseauth/authlogin`}
+                        >
+                          <i className="dropdown-icon fe fe-log-out"></i> Sign
+                          out
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                </Navbar.Collapse>
+              </div>
+              <div
+                className="demo-icon nav-link icon"
+                onClick={() => SwitcherIcon()}
+              >
+                <i className="fe fe-settings fa-spin text_primary"></i>
+              </div>
+            </Navbar>
+          </div>
+        </Container>
+      </div>
+      <div className="jumps-prevent" style={{ paddingTop: "70.7812px" }}></div>
+    </Fragment>
+  );
 }
-export default Header
+export default Header;
