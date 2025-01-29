@@ -188,7 +188,7 @@ const Dashboard = () => {
       <>
         <Row className="mb-3">
           {/* <Card style={{ backgroundColor: "white", padding: 8 }}> */}
-          <Filter change={getData} />
+          <Filter getData={getData} />
 
           {/* </Card> */}
           <Col xs={12} md={6} lg={4} xl={3}>
