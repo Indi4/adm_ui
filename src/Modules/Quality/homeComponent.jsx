@@ -231,7 +231,7 @@ const HomeComponent = () => {
   return (
     <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)"}}>
       <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
-      <Filter change={getData} />
+      <Filter getData={getData} />
       </Card>
       <Row className="g-3">
         <Col lg={6} md={6} sm={12} xl={4}>

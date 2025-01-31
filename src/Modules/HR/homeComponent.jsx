@@ -38,7 +38,7 @@ const homeComponent = () => {
     <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
       {/* <ToastContainer /> */}
       <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
-      <Filter change={getData} />
+      <Filter getData={getData} />
       {/* <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
           <div className="col-md-3">
             <Grid item xs={6}>
