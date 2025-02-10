@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/ADM/ADM_logo.png";
 import logolight from "../../assets/images/ADM/ADM_logo.png";
 import logoSmall from "../../assets/images/ADM/ADM_small.png";
@@ -17,10 +17,15 @@ import {
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { imagesData } from "../../common/commomimages/imagedata";
 import MenuItems from "../sidebar/sidebardata";
+import { removeRole } from "../../store/authentication/authSlice";
+import { useDispatch } from "react-redux";
 
 function Header() {
   //Search functionality
   const [show1, setShow1] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [InputValue, setInputValue] = useState("");
   const [show2, setShow2] = useState(false);
   const [searchcolor, setsearchcolor] = useState("text-dark");
@@ -81,6 +86,19 @@ function Header() {
     }
     setNavData(allElement2);
   };
+
+  const handleLogout = () => {
+    dispatch(removeRole()); 
+    localStorage.removeItem("token");
+  
+    setTimeout(() => {
+      navigate("/", { replace: true });
+    }, 100);  // Add a slight delay to ensure React processes the state change
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 100); 
+  };
+  
 
   const Darkmode = () => {
     if (document.querySelector(".app").classList.contains("dark-mode")) {
@@ -646,9 +664,7 @@ function Header() {
                         </Dropdown.Item>
                         <Dropdown.Item
                           className="text-dark fw-semibold"
-                          href={`${
-                            import.meta.env.BASE_URL
-                          }firebaseauth/authlogin`}
+                          onClick={handleLogout}
                         >
                           <i className="dropdown-icon fe fe-log-out"></i> Sign
                           out

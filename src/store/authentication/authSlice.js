@@ -3,18 +3,53 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiService from "../../services/apiService";
 
 
-export const login = createAsyncThunk("auth/login", async ({ password, username, pu_id, div_id}) => {
+export const login = createAsyncThunk("auth/login", async ({email,password}) => {
   try {
-		const response = await apiService.post('/auth/login/', {  password, username, pu_id, div_id });
-    if (!response.ok) {
-      const errorData = await response.json();
-      const errorMessage = errorData.non_field_errors ? errorData.non_field_errors[0] : 'Unknown error';
-      throw new Error(`${errorMessage}`);
-    }
-    const data = await response.json();
-    return {...data, div_id, username};
+		const response = await apiService.post('/dashboard/login/', {email, password});
+    const respData = response.data
+    // debugger
+    if (
+      response.status === 400 ||
+      response.status === 500 ||
+      response.status === 404
+    )
+      throw new Error(respData.error);
+    else return respData;
 	  } catch (error) {
-		  // console.log("Fetch error while getting user details", error);
+		  throw error;
+	  }
+})
+
+export const signup = createAsyncThunk("auth/signup", async ({email,password}) => {
+  try {
+		const response = await apiService.post('/dashboard/register/', {email, password});
+    const respData = response.data
+    // debugger
+    if (
+      response.status === 400 ||
+      response.status === 500 ||
+      response.status === 404
+    )
+      throw new Error(respData.error);
+    else return respData;
+	  } catch (error) {
+		  throw error;
+	  }
+})
+
+export const forgotPassword = createAsyncThunk("auth/forgotPassword", async ({email}) => {
+  try {
+		const response = await apiService.post('/dashboard/change_password/', {email});
+    const respData = response.data
+    // debugger
+    if (
+      response.status === 400 ||
+      response.status === 500 ||
+      response.status === 404
+    )
+      throw new Error(respData.error);
+    else return respData;
+	  } catch (error) {
 		  throw error;
 	  }
 })
@@ -62,14 +97,41 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state,action) => {
         state.loading = false;
         state.success = "User logged in successfully"
-        state.accessToken = action.payload.key;
+        state.accessToken = action.payload;
         // let ciphertext = CryptoJS.AES.encrypt(action.payload.key, 'indi4').toString();
-        state.division = action.payload.div_id;
-        localStorage.setItem("token",action.payload.key)
-        localStorage.setItem("division",action.payload.div_id)
-        localStorage.setItem("username", action.payload.username)
+        // state.division = action.payload.div_id;
+        localStorage.setItem("token",action.payload.token)
       })
       .addCase(login.rejected, (state, action)=>{
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(forgotPassword.pending, (state,action)=>{
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state,action) => {
+        state.loading = false;
+        state.success = "Email Sent successfully"
+      })
+      .addCase(forgotPassword.rejected, (state, action)=>{
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(signup.pending, (state,action)=>{
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(signup.fulfilled, (state,action) => {
+        state.loading = false;
+        state.success = "User Register successfully"
+        // state.accessToken = action.payload;
+        // let ciphertext = CryptoJS.AES.encrypt(action.payload.key, 'indi4').toString();
+
+      })
+      .addCase(signup.rejected, (state, action)=>{
         state.loading = false;
         state.error = action.error.message;
       })

@@ -3,16 +3,15 @@ import logo from '../../../assets/images/brand/Kizuna.svg'
 import logolight from '../../../assets/images/brand/KizunaWhiteLogo.svg'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { Button, Card, Col, InputGroup, Row } from 'react-bootstrap'
-import { postForgotPassword ,clearSuccessMessage} from '../../../store/authentication/forgotpasswordSlice'
+// import { postForgotPassword ,clearSuccessMessage} from '../../../store/authentication/forgotpasswordSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast, ToastContainer } from 'react-toastify'
+import { forgotPassword } from '../../../store/authentication/authSlice'
 
 
 export default function ForgotPassword() {
   const dispatch = useDispatch();
-  const { success, error, forgotPasswordfunc, loading } = useSelector(
-    (state) => state.forgotpassword
-  );
+  const { success, error, loading } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -20,14 +19,16 @@ export default function ForgotPassword() {
 
   const navigate= useNavigate()
 
-  useEffect(() => {
-    if (success) {
-      toast.success(success);
-      setTimeout(() => {
-        dispatch(clearSuccessMessage());
-      }, 1750);
-    }
-  }, [success]);
+  // useEffect(() => {
+  //   if (success) {
+  //     console.log('Success:', success); // Add this line
+  //     toast.success(success);
+  //     setTimeout(() => {
+  //       dispatch(clearSuccessMessage());
+  //     }, 1750);
+  //   }
+  // }, [success]);
+  
 
   useEffect(() => {
     if (error) {
@@ -37,8 +38,8 @@ export default function ForgotPassword() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { email: formData.email };
-    dispatch(postForgotPassword(data));
+    // const data = { email: formData.email };
+    dispatch(forgotPassword({email: formData.email}));
   };
 
 
