@@ -15,46 +15,63 @@ import logo from "../../assets/images/brand/Kizuna.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import toast styles
-import { login } from "../../store/authentication/authSlice";
+import { login, signup } from "../../store/authentication/authSlice";
 import Login_bg from "../../common/commomimages/login_bg.jpg";
 import ADM_logo from '../../assets/images/ADM/ADM_logo.png'
+
 import { Token } from "@mui/icons-material";
+import { Autocomplete, TextField } from "@mui/material";
+// import { getAllPlantData } from "../../store/masterData/masters/andonPlantDetailsSlice";
 
 function Authlogin({ setIsAuthenticate }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    confirmPassword:""
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { accessToken, loading, error } = useSelector((state) => state.auth); // Include error from state
-  const currentUser = localStorage.getItem("token");
+  const { accessToken, loading, error, success } = useSelector((state) => state.auth); // Include error from state
+//    const { data: plantData } = useSelector(
+//       (state) => state.andonPlantMasterDetails
+//     );
+  const [plantName, setPlantName] = useState("");
+
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent default form submission
-    dispatch(
-      login({
-        email: formData.email,
-        password: formData.password,
-      })
-    );
+    if(formData.password !== formData.confirmPassword){
+        toast.error("Password and Confirmed Password is not same")
+    }else{
+        e.preventDefault(); // Prevent default form submission
+        dispatch(
+          signup({
+            email: formData.email,
+            password: formData.password,
+          })
+        );
+    }
   };
 
+//    useEffect(() => {  
+//       dispatch(getAllPlantData({ type: "plant" }));
+//     }, [dispatch]);
+
+
   useEffect(() => {
-    if (currentUser) {
-      toast.success("Login successful! Redirecting...", { autoClose: 2000 });
-      setTimeout(() => navigate("/dashboard"), 2000);
+    if (success) {
+      toast.success("Signup successful! Redirecting...", { autoClose: 2000 });
+      setTimeout(() => navigate("/"), 2000);
       // navigate('/dashboard')
     }
 
     if (error) {
       toast.error(error, { autoClose: 3000 });
     }
-  }, [accessToken, error]);
+  }, [error, success]);
 
   return (
     <Fragment>
@@ -128,15 +145,15 @@ function Authlogin({ setIsAuthenticate }) {
                                   className="header-brand-img main-logo"
                                   alt="Sparic logo"
                                   style={{ display: "flex" }}
-                                /> 
-                        {/* <h2 style={{display:"flex"}}>Andon</h2>
+                                />
+                        {/* <h2 style={{display:"flex"}}>Andon</h2> */}
                         {/* Andon */}
                       </center>
                     </div>
                     <h3 style={{ color: "black", fontWeight: "bolder", marginTop:"10px" }}>
-                      Login
+                      SIGNUP
                     </h3>
-                    <p className="text-muted">Sign In to your account</p>
+                    <p className="text-muted">Create A New Account</p>
 
                     <InputGroup className="input-group mb-3">
                       <span className="input-group-addon bg-white">
@@ -174,6 +191,46 @@ function Authlogin({ setIsAuthenticate }) {
                         required
                       />
                     </InputGroup>
+                    <InputGroup className="input-group mb-4">
+                      <span className="input-group-addon bg-white">
+                        <i className="fa fa-unlock-alt text-dark"></i>
+                      </span>
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        autoComplete="current-password"
+                        value={formData.confirmPassword}
+                        onChange={changeHandler}
+                        required
+                      />
+                    </InputGroup>
+                    {/* <InputGroup className="mb-4" style={{display:"flex"}}>
+                      <span className="input-group-addon bg-white">
+                      <i class="fa fa-industry" aria-hidden="true"></i>
+                      </span>
+                      <Autocomplete
+                                      options={plantData || []}
+                                      getOptionLabel={(option) => option.plant_name || ""}
+                                      value={
+                                        plantData.find(
+                                          (plant) => plant.plant_name === plantName
+                                        ) || null
+                                      }
+                                      onChange={(event, value, reason) =>
+                                        handleInputChange(event, value, reason)
+                                      }
+                                      renderInput={(params) => (
+                                        <TextField {...params} label="Plant Name" />
+                                      )}
+                                    sx={{
+                                        width:"91%"
+                                    }}
+                                      disableClearable={false}
+                                    />
+                    </InputGroup> */}
                     <Row>
                       <div>
                         <Button
@@ -183,48 +240,12 @@ function Authlogin({ setIsAuthenticate }) {
                           onClick={handleSubmit}
                           disabled={loading}
                         >
-                          {loading ? "Signing In..." : "Login"}
+                          {loading ? "Signing Up..." : "Signup"}
                         </Button>
                       </div>
-                      <div className="col-12" >
-                        <Link
-                          to={`${
-                            import.meta.env.BASE_URL
-                          }signup`}
-                          className="btn btn-link box-shadow-0 px-0"
-                        >
-                          New to ADM?
-                        </Link>
-                        <span className="btn btn-link box-shadow-0">|</span>
-                        <Link
-                          to={`${
-                            import.meta.env.BASE_URL
-                          }forgotpassword`}
-                          className="btn btn-link box-shadow-0 px-0"
-                        >
-                          Forgot password?
-                        </Link>
-                      </div>
-                      {/* <div className="col-12">
-                      <Link
-                          to={`${
-                            import.meta.env.BASE_URL
-                          }signup`}
-                          className="btn btn-link box-shadow-0 px-0"
-                        >
-                          New To Andon?
-                        </Link>
-                      </div> */}
                     </Row>
                   </div>
                 </Col>
-                    {/* <Link
-                       to="/landingpage"
-                      className="btn btn-link box-shadow-0 px-0"
-                      style={{fontSize:"12px",position:"relative", top:"20px", textDecoration:"none"}}
-                    >
-                      Want To Know More...
-                    </Link> */}
               </div>
             </Col>
           </Row>
