@@ -9,37 +9,47 @@ import InDirectManpower from "./InDirectManpower";
 import DirectManpower from "./DirectManpower";
 import Filter from "../../commonComponents/Filter";
 
-
 const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
-  const dispatch = useDispatch()
-  const {manpower, indirect_manpower, direct_manpower} = useSelector((state)=> state.quality)
+  const dispatch = useDispatch();
+  const { manpower, indirect_manpower, direct_manpower } = useSelector(
+    (state) => state.quality
+  );
 
-  useEffect(()=>{
-    if(month){
-      dispatch(qualityGraphs({type:"manpower",year:year,month:month}))
-      dispatch(qualityGraphs({type:"direct_manpower", year:year, month: month}))      
-      dispatch(qualityGraphs({type:"indirect_manpower", year:year, month: month}))      
+  useEffect(() => {
+    if (month) {
+      dispatch(qualityGraphs({ type: "manpower", year: year, month: month }));
+      dispatch(
+        qualityGraphs({ type: "direct_manpower", year: year, month: month })
+      );
+      dispatch(
+        qualityGraphs({ type: "indirect_manpower", year: year, month: month })
+      );
+    } else {
+      dispatch(qualityGraphs({ type: "manpower", year: year }));
+      dispatch(qualityGraphs({ type: "direct_manpower", year: year }));
+      dispatch(qualityGraphs({ type: "indirect_manpower", year: year }));
     }
-    else{
-      dispatch(qualityGraphs({type:"manpower",year:year}))
-      dispatch(qualityGraphs({type:"direct_manpower", year:year}))      
-      dispatch(qualityGraphs({type:"indirect_manpower", year:year}))    
-    }
-  },[dispatch, month,year])
+  }, [dispatch, month, year]);
 
-  const getData = (selectedYear, selectedMonth)=>{
-    setYear(selectedYear)
-    setMonth(selectedMonth)
-  }
+  const getData = (selectedYear, selectedMonth) => {
+    setYear(selectedYear);
+    setMonth(selectedMonth);
+  };
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
+    <div
+      className="container-fluid"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+    >
       {/* <ToastContainer /> */}
-      <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
-      <Filter getData={getData} />
-      {/* <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
+      <Card
+        className="mb-3 p-3"
+        style={{ backgroundColor: "white", height: 75 }}
+      >
+        <Filter getData={getData} />
+        {/* <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
           <div className="col-md-3">
             <Grid item xs={6}>
               <Autocomplete
@@ -77,16 +87,13 @@ const homeComponent = () => {
         </div> */}
       </Card>
       <Row className="row-sm">
-        <Col
-          lg={4}
-          md={12}
-          sm={12}
-          xl={4}
-          data-aos="fade-up"
-        >
+        <Col lg={4} md={12} sm={12} xl={4} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
                 Manpower
               </Card.Title>
             </Card.Header>
@@ -96,17 +103,14 @@ const homeComponent = () => {
           </Card>
         </Col>
 
-        <Col
-          lg={4}
-          md={12}
-          sm={12}
-          xl={4}
-          data-aos="fade-up"
-        >
+        <Col lg={4} md={12} sm={12} xl={4} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
-              Direct Manpower
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Direct Manpower
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
@@ -115,17 +119,14 @@ const homeComponent = () => {
           </Card>
         </Col>
 
-        <Col
-          lg={4}
-          md={12}
-          sm={12}
-          xl={4}
-          data-aos="fade-up"
-        >
+        <Col lg={4} md={12} sm={12} xl={4} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
-              Indirect Manpower
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Indirect Manpower
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
@@ -134,21 +135,18 @@ const homeComponent = () => {
           </Card>
         </Col>
 
-        <Col
-          lg={6}
-          md={12}
-          sm={12}
-          xl={12}
-          data-aos="fade-up"
-        >
+        <Col lg={6} md={12} sm={12} xl={12} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
                 To-do List
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <TodoList type="hr"/>
+              <TodoList type="hr" />
             </Card.Body>
           </Card>
         </Col>

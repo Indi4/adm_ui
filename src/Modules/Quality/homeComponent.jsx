@@ -178,7 +178,7 @@
 //       </Col>
 //     </Row>
 //   </div>
-  
+
 //   );
 // };
 
@@ -223,21 +223,32 @@ const HomeComponent = () => {
     }
   }, [dispatch, month, year]);
 
-  const getData = (selectedYear, selectedMonth)=>{
-    setYear(selectedYear)
-    setMonth(selectedMonth)
-  }
+  const getData = (selectedYear, selectedMonth) => {
+    setYear(selectedYear);
+    setMonth(selectedMonth);
+  };
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)"}}>
-      <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
-      <Filter getData={getData} />
+    <div
+      className="container-fluid"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+    >
+      <Card
+        className="mb-3 p-3"
+        style={{ backgroundColor: "white", height: 75 }}
+      >
+        <Filter getData={getData} />
       </Card>
       <Row className="g-3">
         <Col lg={6} md={6} sm={12} xl={4}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0" style={{fontSize:"0.9rem"}}>PPM</Card.Title>
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                PPM
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <PPM data={ppm} month={month} />
@@ -247,7 +258,12 @@ const HomeComponent = () => {
         <Col lg={6} md={6} sm={12} xl={4}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>COPQ</Card.Title>
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                COPQ
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <COPQ data={copq} month={month} />
@@ -257,7 +273,12 @@ const HomeComponent = () => {
         <Col lg={6} md={6} sm={12} xl={4}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>Design Scrap</Card.Title>
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Design Scrap
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <DesignScrap data={design_scrap} month={month} />
@@ -267,7 +288,12 @@ const HomeComponent = () => {
         <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0"  style={{fontSize:"0.9rem"}}>Process Scrap</Card.Title>
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Process Scrap
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <ProcessScrap data={process_scrap} month={month} />
@@ -277,7 +303,12 @@ const HomeComponent = () => {
         <Col lg={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
-              <Card.Title className="mb-0">To-do List</Card.Title>
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                To-do List
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <TodoList type="quality" />
@@ -290,4 +321,3 @@ const HomeComponent = () => {
 };
 
 export default HomeComponent;
-
