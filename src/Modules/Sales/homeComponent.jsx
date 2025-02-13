@@ -53,7 +53,12 @@ const homeComponent = () => {
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">Plan Vs Act</Card.Title>
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Plan Vs Act
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <PlanVsAct data={plan_vs_act} month={month} />
@@ -69,7 +74,12 @@ const homeComponent = () => {
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">Sales</Card.Title>
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Sales
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <Sales data={sales} month={month} />
@@ -80,7 +90,12 @@ const homeComponent = () => {
         <Col lg={6} md={12} sm={12} xl={12} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">To-do List</Card.Title>
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                To-do List
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <TodoList type="sales" />

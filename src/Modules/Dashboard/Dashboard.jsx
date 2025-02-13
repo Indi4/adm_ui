@@ -374,7 +374,7 @@ const Dashboard = () => {
               <Card.Header className="border-bottom">
                 <Card.Title
                   className="mb-0"
-                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                  style={{ fontWeight: "bold", fontSize: "1.3rem" }}
                 >
                   Sales
                 </Card.Title>
@@ -442,7 +442,7 @@ const Dashboard = () => {
               <Card.Header className="border-bottom">
                 <Card.Title
                   className="mb-0"
-                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                  style={{ fontWeight: "bold", fontSize: "1.3rem" }}
                 >
                   Plan Vs Actual
                 </Card.Title>
@@ -478,7 +478,7 @@ const Dashboard = () => {
               <Card.Header className="border-bottom">
                 <Card.Title
                   className="mb-0"
-                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                  style={{ fontWeight: "bold", fontSize: "1.3rem" }}
                 >
                   Purchase
                 </Card.Title>
@@ -527,7 +527,7 @@ const Dashboard = () => {
               <Card.Header className="border-bottom">
                 <Card.Title
                   className="mb-0"
-                  style={{ fontSize: "0.9rem", fontWeight: "bold" }}
+                  style={{ fontWeight: "bold", fontSize: "1.3rem" }}
                 >
                   Power Unit
                 </Card.Title>

@@ -4,7 +4,7 @@ import DailyPurchase from "../Purchase/DailyPurchase";
 import { Card, Row, Col } from "react-bootstrap";
 import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import {safetyGraphs } from "../../store/quality/qualitySlice";
+import { safetyGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
 import Minor from "./Minor";
 import Major from "./Major";
@@ -13,31 +13,35 @@ import Filter from "../../commonComponents/Filter";
 const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
-  const dispatch = useDispatch()
-  const {minor,major} = useSelector((state)=> state.quality)
+  const dispatch = useDispatch();
+  const { minor, major } = useSelector((state) => state.quality);
 
-  useEffect(()=>{
-    if(month){
-      dispatch(safetyGraphs({type:"major",year:year,month:month}))
-      dispatch(safetyGraphs({type:"minor", year:year, month: month}))
-      
+  useEffect(() => {
+    if (month) {
+      dispatch(safetyGraphs({ type: "major", year: year, month: month }));
+      dispatch(safetyGraphs({ type: "minor", year: year, month: month }));
+    } else {
+      dispatch(safetyGraphs({ type: "major", year: year }));
+      dispatch(safetyGraphs({ type: "minor", year: year }));
     }
-    else{
-      dispatch(safetyGraphs({type:"major",year:year}))
-      dispatch(safetyGraphs({type:"minor", year:year}))
-    }
-  },[dispatch, month,year])
+  }, [dispatch, month, year]);
 
-  const getData = (selectedYear, selectedMonth)=>{
-    setYear(selectedYear)
-    setMonth(selectedMonth)
-  }
+  const getData = (selectedYear, selectedMonth) => {
+    setYear(selectedYear);
+    setMonth(selectedMonth);
+  };
 
   return (
-    <div className="container-fluid" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
+    <div
+      className="container-fluid"
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+    >
       {/* <ToastContainer /> */}
-            <Card className="mb-3 p-3" style={{ backgroundColor: "white",height:75}}>
-            <Filter getData={getData} />
+      <Card
+        className="mb-3 p-3"
+        style={{ backgroundColor: "white", height: 75 }}
+      >
+        <Filter getData={getData} />
       </Card>
       <Row className="row-sm">
         <Col
@@ -47,29 +51,25 @@ const homeComponent = () => {
           sm={12}
           xl={6}
           data-aos="fade-up"
-          style={{width:"100%"}}
+          style={{ width: "100%" }}
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
-                Major
-              </Card.Title>
+              <Card.Title className=" mb-0"                   style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >Major</Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <Major data={major} month={month} />
             </Card.Body>
           </Card>
         </Col>
-        <Col
-          lg={6}
-          md={12}
-          sm={12}
-          xl={6}
-          data-aos="fade-up"
-        >
+        <Col lg={6} md={12} sm={12} xl={6} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
                 Minor
               </Card.Title>
             </Card.Header>
@@ -79,22 +79,18 @@ const homeComponent = () => {
           </Card>
         </Col>
 
-
-        <Col
-          lg={12}
-          md={12}
-          sm={12}
-          xl={12}
-          data-aos="fade-up"
-        >
+        <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
+              <Card.Title
+                className=" mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
                 To-do List
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <TodoList type="safety"/>
+              <TodoList type="safety" />
             </Card.Body>
           </Card>
         </Col>

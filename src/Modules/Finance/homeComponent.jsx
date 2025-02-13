@@ -83,7 +83,7 @@ const getData = (selectedYear, selectedMonth)=>{
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
+              <Card.Title className=" mb-0"  style={{ fontWeight: "bold", fontSize: "1.3rem" }}>
                 Purchase
               </Card.Title>
             </Card.Header>
@@ -102,7 +102,7 @@ const getData = (selectedYear, selectedMonth)=>{
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
+              <Card.Title className=" mb-0" style={{ fontWeight: "bold", fontSize: "1.3rem" }}>
               Consumable Cost
               </Card.Title>
             </Card.Header>
@@ -121,7 +121,7 @@ const getData = (selectedYear, selectedMonth)=>{
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0">
+              <Card.Title className=" mb-0"  style={{ fontWeight: "bold", fontSize: "1.3rem" }}>
                 To-do List
               </Card.Title>
             </Card.Header>
