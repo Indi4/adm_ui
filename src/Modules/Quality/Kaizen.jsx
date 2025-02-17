@@ -17,7 +17,7 @@ const data = [
   { name: "COPQ", plan: 30, actual: 20 }, // Adjust values as needed
 ];
 
-const COPQChart = () => {
+const Kaizen = () => {
     const [isLoading, setIsLoading] = useState(true);
 useEffect(() => {
     if (data) {
@@ -61,4 +61,4 @@ useEffect(() => {
   );
 };
 
-export default COPQChart;
+export default Kaizen;
