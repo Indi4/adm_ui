@@ -192,10 +192,13 @@ import PPM from "./PPM";
 import COPQ from "./COPQ";
 import { useDispatch, useSelector } from "react-redux";
 import { qualityGraphs } from "../../store/quality/qualitySlice";
-import DesignScrap from "./DesignScrap";
-import ProcessScrap from "./ProcessScrap";
 import TodoList from "../../commonComponents/TodoList";
 import Filter from "../../commonComponents/Filter";
+import CustomerComplaints from "./CustomerComplaints";
+import SupplierPPMChart from "./SupplierPPM";
+import LineGenerationComplaints from "./LineComplaints";
+import PlantRework from "./PlantRework";
+import Kaizen from "./Kaizen";
 
 const HomeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -255,7 +258,56 @@ const HomeComponent = () => {
             </Card.Body>
           </Card>
         </Col>
+
         <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "100%" }}>
+            <Card.Header className="border-bottom">
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Customer Complaints
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <CustomerComplaints data={copq} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "100%" }}>
+            <Card.Header className="border-bottom">
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Supplier PPM
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <SupplierPPMChart data={copq} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col lg={6} md={6} sm={12} xl={3}>
+          <Card className="overflow-hidden" style={{ height: "100%" }}>
+            <Card.Header className="border-bottom">
+              <Card.Title
+                className="mb-0"
+                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              >
+                Line/Generation Complaints
+              </Card.Title>
+            </Card.Header>
+            <Card.Body className="p-3">
+              <LineGenerationComplaints data={copq} month={month} />
+            </Card.Body>
+          </Card>
+        </Col>
+
+        <Col lg={6} md={6} sm={12} xl={3}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -270,36 +322,40 @@ const HomeComponent = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={6} md={6} sm={12} xl={4}>
+
+        <Col lg={6} md={6} sm={12} xl={3}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Design Scrap
+                Plant Rework
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <DesignScrap data={design_scrap} month={month} />
+              <PlantRework data={ppm} month={month} />
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={6} md={6} sm={12} xl={6}>
+
+
+        <Col lg={6} md={6} sm={12} xl={3}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Process Scrap
+                Kaizen
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <ProcessScrap data={process_scrap} month={month} />
+              <Kaizen data={design_scrap} month={month} />
             </Card.Body>
           </Card>
         </Col>
+    
         <Col lg={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">

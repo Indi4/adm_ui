@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MonthlyPurchase from "../Purchase/MonthlyPurchase";
-import DailyPurchase from "../Purchase/DailyPurchase";
 import { Card, Row, Col } from "react-bootstrap";
-import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { safetyGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
@@ -55,8 +52,9 @@ const homeComponent = () => {
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0"                   style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >Major</Card.Title>
+              <Card.Title className=" mb-0" style={{ fontWeight:"bolder", fontSize: "1.3rem", color:"black" }}>
+                Major
+              </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
               <Major data={major} month={month} />
@@ -68,7 +66,7 @@ const homeComponent = () => {
             <Card.Header className="border-bottom">
               <Card.Title
                 className=" mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                style={{ fontWeight: "bolder", fontSize: "1.3rem", color:"black" }}
               >
                 Minor
               </Card.Title>
