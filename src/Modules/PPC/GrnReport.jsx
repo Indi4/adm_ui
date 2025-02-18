@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, CardTitle } from "react-bootstrap";
 import {
-  ComposedChart,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
   Legend,
-  Bar,
-  Line,
 } from "recharts";
-import dayjs from "dayjs"
 import Loader from "../../commonComponents/Loader";
+import DataNotFound from "./DataNotFound";
 
-const AHF = ({ month, data }) => {
+const GrnReport = ({ month, data }) => {
   const { datasets, day_wise_data } = data;
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,26 +31,24 @@ const AHF = ({ month, data }) => {
   let chartData = [];
 
   if (month) {
-    // When 'month' is provided, assume 'day' is numeric
     chartData = day_wise_data?.map((day) => ({
-      name: Number(day.day), // Ensure numeric value for the X-axis
-      target: day.target,
-      actual: day.actual,
+      name: `${day?.day}`,
+      plan: day?.target,
+      actual: day?.actual,
     }));
   } else {
     const monthlyTarget =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
+      datasets?.find((dataset) => dataset?.label === "Minor Accident Target")?.data || [];
     const monthlyActual =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Actual")?.data || [];
+      datasets?.find((dataset) => dataset?.label === "Minor Accident Actual")?.data || [];
 
-    chartData = monthlyTarget.map((item, index) => ({
+    chartData = monthlyTarget?.map((item, index) => ({
         month: item?.month,
         date: item?.date ? dayjs(item.date).format("DD") : item?.date,
-      target: item.target,
+        plan: item.target,
       actual: monthlyActual[index]?.actual || 0,
     }));
   }
-  const xTicks = Array.from({ length: 11 }, (_, i) => i);
   return (
     <Container>
       {isLoading ? (
@@ -62,23 +59,38 @@ const AHF = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none",}}>
-          <ResponsiveContainer width="100%" height={250}>
-            <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <Card style={{ border: "none", }}>
+          {chartData?.length>0?   <ResponsiveContainer width="100%" height={250}>
+         <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
-              {/* Setting type="number" and domain for XAxis */}
               <XAxis dataKey={chartData[0]?.date ? "date" : "month"}  />
               <YAxis domain={[0, 100]} />
               <Tooltip />
               <Legend />
-              <Line dataKey="target" stroke="#5CDFFB" strokeWidth={2} name="Target" dot={{ r: 3 }} />
-              <Line dataKey="actual" stroke="#4268FB" strokeWidth={2} name="Actual" dot={{ r: 3 }} />
-            </ComposedChart>
+              {/* <Bar dataKey="target" fill="#008CFF" barSize={30} name="Target" />
+              <Bar dataKey="actual" fill="#FF5733" barSize={30} name="Actual" /> */}
+                  <Bar
+                dataKey="plan"
+                 fill="#5CDFFB"
+               
+                barSize={30}
+                name="Plan"
+                stackId="stacked" // Stack the target bar
+              />
+              <Bar
+                dataKey="actual"
+                fill="#4268FB"
+                barSize={30}
+                name="Actual"
+                stackId="stacked" // Stack the actual bar
+              />
+            </BarChart>
           </ResponsiveContainer>
+          :<DataNotFound/>}
         </Card>
       )}
     </Container>
   );
 };
 
-export default AHF;
+export default GrnReport;

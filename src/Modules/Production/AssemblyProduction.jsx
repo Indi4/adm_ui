@@ -59,10 +59,8 @@ const AssemblyProduction = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none", padding: "5px", borderRadius: "10px" }}>
-          <CardTitle style={{ fontSize: "14px", fontWeight: "bold", color: "black" }}>
-            Assembly Production plan (quality clear)
-          </CardTitle>
+        <Card style={{ border: "none", }}>
+         
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />

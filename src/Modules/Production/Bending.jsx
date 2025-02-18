@@ -38,8 +38,6 @@ const Bending = ({ month, data }) => {
       actual: day.actual,
     }));
   } else {
-    // If no month is provided, you might need to adjust the data structure.
-    // Here, we assume that 'item.month' can be converted to a number (e.g., month index)
     const monthlyTarget =
       datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
     const monthlyActual =
@@ -62,8 +60,8 @@ const Bending = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none", padding: "5px", borderRadius: "10px" }}>
-          <CardTitle style={{ fontSize: "14px", fontWeight: "bold" ,color:"black"}}>Bending Production</CardTitle>
+        <Card style={{ border: "none", }}>
+         
           <ResponsiveContainer width="100%" height={250}>
             <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -72,8 +70,7 @@ const Bending = ({ month, data }) => {
               <YAxis domain={[0, 100]} />
               <Tooltip />
               <Legend />
-              {/* <Line dataKey="target" fill="#FF7754" barSize={30} name="Target" />
-              <Line dataKey="actual" fill="#4268FB" barSize={30} name="Actual" /> */}
+             
 
               <Line dataKey="target" stroke="#FF7754" strokeWidth={2} name="Target" dot={{ r: 3 }} />
                           <Line dataKey="actual" stroke="#4268FB" strokeWidth={2} name="Actual" dot={{ r: 3 }} />
