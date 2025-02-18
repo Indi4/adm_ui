@@ -4,6 +4,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import PPCIcon from '@mui/icons-material/Event'
 
 const MenuItems = [
   {
@@ -47,6 +48,14 @@ const MenuItems = [
         path: "/quality",
         type: "link",
         icon: <AssignmentTurnedInIcon/>, 
+        active: false,
+        selected: false,
+      },
+      {
+        title: "PPC",
+        path: "/ppc",
+        type: "link",
+        icon: <PPCIcon/>, 
         active: false,
         selected: false,
       },

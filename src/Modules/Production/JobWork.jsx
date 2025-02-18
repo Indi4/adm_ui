@@ -30,27 +30,26 @@ const JobWork = ({ month, data }) => {
   let chartData = [];
 
   if (month) {
-    // When 'month' is provided, assume 'day' is numeric
     chartData = day_wise_data?.map((day) => ({
       name: Number(day.day), // Ensure numeric value for the X-axis
       target: day.target,
       actual: day.actual,
     }));
   } else {
-    // If no month is provided, adjust the data structure accordingly.
     const monthlyTarget =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
+      datasets?.find((dataset) => dataset.label === "Minor Accident Target")
+        ?.data || [];
     const monthlyActual =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Actual")?.data || [];
+      datasets?.find((dataset) => dataset.label === "Minor Accident Actual")
+        ?.data || [];
 
     chartData = monthlyTarget.map((item, index) => ({
-      name: Number(item.month), // Convert month to a number if possible
+      name: Number(item.month),
       target: item.target,
       actual: monthlyActual[index]?.actual || 0,
     }));
   }
 
-  // Define ticks for XAxis (if needed)
   const xTicks = Array.from({ length: 11 }, (_, i) => i);
 
   return (
@@ -63,17 +62,24 @@ const JobWork = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none", padding: "5px", borderRadius: "10px" }}>
-          <CardTitle style={{ fontSize: "14px", fontWeight: "bold" ,color:"black"}}>Job Work</CardTitle>
+        <Card style={{ border: "none" }}>
           <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <BarChart
+              data={chartData}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" type="number" domain={[0, 10]} ticks={xTicks} />
+              <XAxis
+                dataKey="name"
+                type="number"
+                domain={[0, 10]}
+                ticks={xTicks}
+              />
               <YAxis domain={[0, 100]} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="target" fill="#008CFF" barSize={30} name="Target" />
-              <Bar dataKey="actual" fill="#FF5733" barSize={30} name="Actual" />
+              <Bar dataKey="target" fill="#5CDFFB" barSize={30} name="Target" />
+              <Bar dataKey="actual" fill="#4268FB" barSize={30} name="Actual" />
             </BarChart>
           </ResponsiveContainer>
         </Card>

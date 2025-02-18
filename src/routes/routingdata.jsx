@@ -10,7 +10,7 @@ import Finance from "../Modules/Finance/homeComponent";
 import HR from "../Modules/HR/homeComponent";
 import Utility from "../Modules/Utility/homeComponent";
 import QuickAction from "../Modules/QuickAction/quickAction";
-
+import PPC from "../Modules/PPC/HomeComponent";
 
 
 /* MDM Routes */
@@ -314,6 +314,10 @@ export const Routingdata = [
   {
     path: `${import.meta.env.BASE_URL}/quality`,
     element: <Quality />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/ppc`,
+    element: <PPC />,
   },
   {
     path: `${import.meta.env.BASE_URL}/safety`,

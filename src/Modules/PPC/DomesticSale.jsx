@@ -9,8 +9,9 @@ import {
   Cell,
 } from "recharts";
 import Loader from "../../commonComponents/Loader";
+import DataNotFound from "./DataNotFound";
 
-const AHFOEE = ({ month, data }) => {
+const DomesticSale = ({ month, data }) => {
   const { datasets, day_wise_data } = data;
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,30 +31,29 @@ const AHFOEE = ({ month, data }) => {
   if (month) {
     chartData = day_wise_data?.map((day) => ({
       name: Number(day.day),
-      target: day.target,
+      plan: day.target,
       actual: day.actual,
     }));
   } else {
     const monthlyTarget =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
+      datasets?.find((dataset) => dataset?.label === "Minor Accident Target")?.data || [];
     const monthlyActual =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Actual")?.data || [];
+      datasets?.find((dataset) => dataset?.label === "Minor Accident Actual")?.data || [];
 
     chartData = monthlyTarget.map((item, index) => ({
       name: Number(item.month),
-      target: item.target,
+      plan: item.target,
       actual: monthlyActual[index]?.actual || 0,
     }));
   }
 
-  // Sum up the total values for target and actual
-  const totalTarget = chartData.reduce((sum, curr) => sum + 120, 0);
-  const totalActual = chartData.reduce((sum, curr) => sum + curr.actual, 0);
+  const totalTarget = chartData?.reduce((sum, curr) => sum + 20, 0);
+  const totalActual = chartData?.reduce((sum, curr) => sum + 30, 0);
   const overallTotal = totalTarget + totalActual;
 
   // Data for the donut chart
   const donutData = [
-    { name: "Target", value: totalTarget },
+    { name: "plan", value: totalTarget },
     { name: "Actual", value: totalActual },
   ];
 
@@ -74,8 +74,8 @@ const AHFOEE = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none", }}>
-          <ResponsiveContainer width="100%" height={250}>
+        <Card style={{ border: "none",  }}>
+        {chartData?.length>0?  <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
                 data={donutData}
@@ -88,7 +88,7 @@ const AHFOEE = ({ month, data }) => {
                 paddingAngle={4}
               
               >
-                {donutData.map((entry, index) => (
+                {donutData?.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
@@ -103,14 +103,14 @@ const AHFOEE = ({ month, data }) => {
                 className="donut-center-label"
                 style={{ fontSize: "16px", fontWeight: "bold" }}
               >
-                {formatNumber(overallTotal)}
+                {formatNumber(overallTotal)?formatNumber(overallTotal):0}
               </text>
             </PieChart>
-          </ResponsiveContainer>
+          </ResponsiveContainer>:<DataNotFound/>}
         </Card>
       )}
     </Container>
   );
 };
 
-export default AHFOEE;
+export default DomesticSale;
