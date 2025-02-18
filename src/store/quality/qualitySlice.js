@@ -2,6 +2,23 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import apiService from "../../services/apiService";
 
+
+export const HRGraphs = createAsyncThunk(
+  "quality/HRGraphs",
+  async ({ type, year, month }) => {
+    try {
+      const query = month
+        ? `report_type=${type}&month=${month}&year=${year}`
+        : `report_type=${type}&year=${year}`;
+      const response = await apiService.get(`metrics/graph_hr/?${query}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching Graph data:", error);
+      throw error;
+    }
+  }
+);
+
 export const qualityGraphs = createAsyncThunk(
   "quality/qualityGraphs",
   async ({ type, year, month }) => {
@@ -52,9 +69,14 @@ const qualitySlice = createSlice({
     plan_vs_act: [],
     minor: [],
     major: [],
+    HRGraphsData:{
+      headcount: null,
+      mpcost: null,
+    },
     error: "",
     success: "",
     loading: false,
+
   },
   reducers: {
     clearSuccessMessage: (state) => {
@@ -140,6 +162,21 @@ const qualitySlice = createSlice({
         }
       })
       .addCase(safetyGraphs.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+
+      builder
+      .addCase(HRGraphs.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(HRGraphs.fulfilled, (state, action) => {
+        state.loading = false;
+        const {type} = action.meta.arg;
+        state.HRGraphsData[type] = action.payload
+      })
+      .addCase(HRGraphs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
