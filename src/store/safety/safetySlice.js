@@ -2,15 +2,33 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import apiService from "../../services/apiService";
 
-
-export const safetyGraphs = createAsyncThunk(
-  "safety/safetyGraphs",
-  async ({ type, year, month }) => {
+export const majorsafetyGraphs = createAsyncThunk(
+  "safety/majorsafetyGraphs",
+  async ({ accident_type, year, month }) => {
     try {
       const query = month
-        ? `type=${type}&month=${month}&year=${year}`
-        : `type=${type}&year=${year}`;
-      const response = await apiService.get(`dashboard/filter_safety/?${query}`);
+        ? `accident_type=${accident_type}&month=${month}&year=${year}`
+        : `accident_type=${accident_type}&year=${year}`;
+      const response = await apiService.get(
+        `metrics/graph_safety?${query}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching Graph data:", error);
+      throw error;
+    }
+  }
+);
+export const minorsafetyGraph = createAsyncThunk(
+  "safety/minorsafetyGraph",
+  async ({ accident_type, year, month }) => {
+    try {
+      const query = month
+      ? `accident_type=${accident_type}&month=${month}&year=${year}`
+      : `accident_type=${accident_type}&year=${year}`;
+      const response = await apiService.get(
+        `metrics/graph_safety?${query}`
+      );
       return response.data;
     } catch (error) {
       console.error("Error fetching Graph data:", error);
@@ -22,9 +40,8 @@ export const safetyGraphs = createAsyncThunk(
 const safetySlice = createSlice({
   name: "safety",
   initialState: {
-   
-    minor: [],
-    major: [],
+    minorData: [],
+    majorData: [],
     error: "",
     success: "",
     loading: false,
@@ -38,29 +55,30 @@ const safetySlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-
-      builder
-      .addCase(safetyGraphs.pending, (state, action) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(safetyGraphs.fulfilled, (state, action) => {
-        state.loading = false;
-        switch (action.payload.type) {
-          case "minor":
-            state.minor = action.payload;
-            break;
-          case "major":
-            state.major = action.payload;
-            break;
-          default:
-            state.error = action.error("Getting data of invalid type")
-        }
-      })
-      .addCase(safetyGraphs.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      });
+    builder.addCase(majorsafetyGraphs.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(majorsafetyGraphs.fulfilled, (state, action) => {
+      state.loading = false;
+      state.majorData = action.payload;
+    });
+    builder.addCase(majorsafetyGraphs.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error;
+    });
+    builder.addCase(minorsafetyGraph.pending, (state, action) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(minorsafetyGraph.fulfilled, (state, action) => {
+      state.loading = false;
+      state.minorData = action.payload;
+    });
+    builder.addCase(minorsafetyGraph.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error;
+    });
   },
 });
 

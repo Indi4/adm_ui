@@ -1,25 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { safetyGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
 import Minor from "./Minor";
 import Major from "./Major";
 import Filter from "../../commonComponents/Filter";
+import {
+  majorsafetyGraphs,
+  minorsafetyGraph,
+} from "./../../store/safety/safetySlice";
 
 const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-  const { minor, major } = useSelector((state) => state.quality);
+  const { minorData, majorData } = useSelector((state) => state.safety);
 
   useEffect(() => {
     if (month) {
-      dispatch(safetyGraphs({ type: "major", year: year, month: month }));
-      dispatch(safetyGraphs({ type: "minor", year: year, month: month }));
+      dispatch(
+        majorsafetyGraphs({ accident_type: "major", year: year, month: month })
+      );
+      dispatch(
+        minorsafetyGraph({ accident_type: "minor", year: year, month: month })
+      );
+     
     } else {
-      dispatch(safetyGraphs({ type: "major", year: year }));
-      dispatch(safetyGraphs({ type: "minor", year: year }));
+      dispatch(
+        minorsafetyGraph({ accident_type: "minor", year: year })
+      );
+
+      dispatch(
+        majorsafetyGraphs({ accident_type: "major", year: year })
+      );
     }
   }, [dispatch, month, year]);
 
@@ -52,12 +65,19 @@ const homeComponent = () => {
         >
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
-              <Card.Title className=" mb-0" style={{ fontWeight:"bolder", fontSize: "1.3rem", color:"black" }}>
+              <Card.Title
+                className=" mb-0"
+                style={{
+                  fontWeight: "bolder",
+                  fontSize: "1.3rem",
+                  color: "black",
+                }}
+              >
                 Major
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <Major data={major} month={month} />
+              <Major data={majorData} month={month} />
             </Card.Body>
           </Card>
         </Col>
@@ -66,13 +86,17 @@ const homeComponent = () => {
             <Card.Header className="border-bottom">
               <Card.Title
                 className=" mb-0"
-                style={{ fontWeight: "bolder", fontSize: "1.3rem", color:"black" }}
+                style={{
+                  fontWeight: "bolder",
+                  fontSize: "1.3rem",
+                  color: "black",
+                }}
               >
                 Minor
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <Minor data={minor} month={month} />
+              <Minor data={minorData} month={month} />
             </Card.Body>
           </Card>
         </Col>
