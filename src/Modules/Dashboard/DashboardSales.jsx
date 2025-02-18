@@ -13,8 +13,6 @@ import {
 } from "recharts";
 import Loader from '../../commonComponents/Loader'
 
-
-
 const DashboardSales = ({month, data}) => {
     // if (!qualityGraphsData) {
     //     return (

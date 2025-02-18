@@ -4,10 +4,12 @@ import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { qualityGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
-import ManPower from "./Manpower";
+import ManPower from "./Headcount";
 import InDirectManpower from "./InDirectManpower";
-import DirectManpower from "./DirectManpower";
+import DirectManpower from "./MPCost";
 import Filter from "../../commonComponents/Filter";
+import Headcount from "./Headcount";
+import MPCost from "./MPCost";
 
 const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -87,39 +89,39 @@ const homeComponent = () => {
         </div> */}
       </Card>
       <Row className="row-sm">
-        <Col lg={4} md={12} sm={12} xl={4} data-aos="fade-up">
+        <Col lg={6} md={12} sm={12} xl={6} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
               <Card.Title
                 className=" mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Manpower
+                Headcount Report
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <ManPower data={manpower} month={month} />
+              <Headcount data={manpower} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={4} md={12} sm={12} xl={4} data-aos="fade-up">
+        <Col lg={6} md={12} sm={12} xl={6} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
               <Card.Title
                 className=" mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Direct Manpower
+                MP Cost Report
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <DirectManpower data={direct_manpower} month={month} />
+              <MPCost data={direct_manpower} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={4} md={12} sm={12} xl={4} data-aos="fade-up">
+        {/* <Col lg={4} md={12} sm={12} xl={4} data-aos="fade-up">
           <Card className=" overflow-hidden">
             <Card.Header className="border-bottom">
               <Card.Title
@@ -133,7 +135,7 @@ const homeComponent = () => {
               <InDirectManpower data={indirect_manpower} month={month} />
             </Card.Body>
           </Card>
-        </Col>
+        </Col> */}
 
         <Col lg={6} md={12} sm={12} xl={12} data-aos="fade-up">
           <Card className=" overflow-hidden">

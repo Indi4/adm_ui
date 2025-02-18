@@ -59,14 +59,14 @@ const MenuItems = [
         active: false,
         selected: false,
       },
-      // {
-      //   title: "Production",
-      //   path: "/production",
-      //   type: "link",
-      //   icon: <i class="fa fa-product-hunt" aria-hidden="true"></i>, 
-      //   active: false,
-      //   selected: false,
-      // },
+      {
+        title: "Production",
+        path: "/production",
+        type: "link",
+        icon: <i class="fa fa-product-hunt" aria-hidden="true"></i>, 
+        active: false,
+        selected: false,
+      },
       {
         title: "Utility",
         path: "/utility",
