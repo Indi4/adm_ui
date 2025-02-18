@@ -13,7 +13,6 @@ import {
 import Loader from "../../commonComponents/Loader";
 
 const Headcount = ({ month, data }) => {
-  const { datasets, day_wise_data } = data;
   console.log(data)
 
   const [isLoading, setIsLoading] = useState(true);
@@ -47,25 +46,37 @@ const Headcount = ({ month, data }) => {
   //   }));
 
   let chartData = [];
-    let totals = { actual: 0, target: 0 };
+  if(month){
+    chartData = data?.map((D,index)=>({
+      name: D?.date?.slice(-2),
+      direct_actual : D.direct_actual_sum,
+      indirect_actual : D.indirect_actual_sum,
+    }))
+  }else{
+    chartData = data?.map((D,index)=>({
+      name: D.month,
+      direct_actual : D.direct_actual_sum,
+      indirect_actual : D.indirect_actual_sum,
+    }))
+  }
   
-    if (month) {
-      // Filter data for the selected month from day_wise_data
-      chartData = day_wise_data?.map((day) => ({
-        name: `${day.day}`,
-        target: day.target,
-        actual: day.actual,
-      }));
-    } else {
-      // Use datasets for monthly data
-      const monthlyTarget = datasets?.find((dataset) => dataset.label === "Avg of monthly target")?.data || [];
-      const monthlyActual = datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")?.data || [];
-      chartData = monthlyTarget.map((item, index) => ({
-        name: item.month,
-        target: item.target,
-        actual: monthlyActual[index]?.actual || 0,
-      }));
-    }
+    // if (month) {
+    //   // Filter data for the selected month from day_wise_data
+    //   chartData = day_wise_data?.map((day) => ({
+    //     name: `${day.day}`,
+    //     target: day.target,
+    //     actual: day.actual,
+    //   }));
+    // } else {
+    //   // Use datasets for monthly data
+    //   const monthlyTarget = datasets?.find((dataset) => dataset.label === "Avg of monthly target")?.data || [];
+    //   const monthlyActual = datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")?.data || [];
+    //   chartData = monthlyTarget.map((item, index) => ({
+    //     name: item.month,
+    //     target: item.target,
+    //     actual: monthlyActual[index]?.actual || 0,
+    //   }));
+    // }
     console.log(chartData)
 
 
@@ -111,8 +122,8 @@ const Headcount = ({ month, data }) => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="actual" stroke="#FF8632" strokeWidth={2} dot={{ r: 5 }} name="Actual" />
-                <Line type="monotone" dataKey="target" stroke="#135C75" strokeWidth={2} dot={{ r: 5 }} name="Target" />
+                <Line type="monotone" dataKey="direct_actual" stroke="#FF8632" strokeWidth={2} dot={{ r: 5 }} name="Direct Actual" />
+                <Line type="monotone" dataKey="indirect_actual" stroke="#135C75" strokeWidth={2} dot={{ r: 5 }} name="In Direct Actual" />
                 <Legend/>
               </ComposedChart>
             </ResponsiveContainer>

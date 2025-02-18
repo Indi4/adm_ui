@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { qualityGraphs } from "../../store/quality/qualitySlice";
+import { HRGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
-import ManPower from "./Headcount";
-import InDirectManpower from "./InDirectManpower";
-import DirectManpower from "./MPCost";
 import Filter from "../../commonComponents/Filter";
 import Headcount from "./Headcount";
 import MPCost from "./MPCost";
@@ -15,23 +11,24 @@ const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-  const { manpower, indirect_manpower, direct_manpower } = useSelector(
-    (state) => state.quality
+  const headcount = useSelector(
+    (state) => state.quality.HRGraphsData.headcount
   );
+  const mpcost = useSelector(
+    (state) => state.quality.HRGraphsData.mpcost
+  );
+
+  console.log(headcount,mpcost)
 
   useEffect(() => {
     if (month) {
-      dispatch(qualityGraphs({ type: "manpower", year: year, month: month }));
+      dispatch(HRGraphs({ type: "mpcost", year: year, month: month }));
       dispatch(
-        qualityGraphs({ type: "direct_manpower", year: year, month: month })
-      );
-      dispatch(
-        qualityGraphs({ type: "indirect_manpower", year: year, month: month })
+        HRGraphs({ type: "headcount", year: year, month: month })
       );
     } else {
-      dispatch(qualityGraphs({ type: "manpower", year: year }));
-      dispatch(qualityGraphs({ type: "direct_manpower", year: year }));
-      dispatch(qualityGraphs({ type: "indirect_manpower", year: year }));
+      dispatch(HRGraphs({ type: "mpcost", year: year }));
+      dispatch(HRGraphs({ type: "headcount", year: year }));
     }
   }, [dispatch, month, year]);
 
@@ -100,7 +97,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <Headcount data={manpower} month={month} />
+              <Headcount data={headcount} month={month} />
             </Card.Body>
           </Card>
         </Col>
@@ -116,7 +113,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <MPCost data={direct_manpower} month={month} />
+              <MPCost data={mpcost} month={month} />
             </Card.Body>
           </Card>
         </Col>
