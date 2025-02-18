@@ -13,11 +13,9 @@ import {
 import Loader from "../../commonComponents/Loader";
 
 
-const data = [
-  { name: "COPQ", plan: 30, actual: 20 }, // Adjust values as needed
-];
 
-const Kaizen = () => {
+
+const KaizenComp = ({data, month}) => {
     const [isLoading, setIsLoading] = useState(true);
 useEffect(() => {
     if (data) {
@@ -29,6 +27,23 @@ useEffect(() => {
       setIsLoading(true);
     }
   }, [data]);
+  let chartData = [];
+  
+  if (month) {
+    // Filter data for the selected month from day_wise_data
+    chartData = data?.map((D) => ({
+      name: D.Date.slice(-2),
+      target: D.Target,
+      actual: D.Actual,
+    }));
+  } else {
+    chartData = data?.map((D, index) => ({
+      name: D.Month,
+      target: D.Target,
+      actual: D.Actual,
+    }));
+  }
+
   return (
     <Container >
           {isLoading ? (
@@ -38,20 +53,18 @@ useEffect(() => {
           ) : (
             <>
       <Card style={{ border: "none"}} >
-        <ResponsiveContainer width="100%" height={350}>
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart
-            layout="vertical" // Ensures horizontal bars
-            data={data}
+            data={chartData}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-            barSize={70}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" /> {/* X-axis shows numerical values */}
-            <YAxis type="category" dataKey="name" /> {/* Y-axis as category */}
+            <YAxis /> 
+            <XAxis dataKey="name" /> 
             <Tooltip />
             <Legend />
-            <Bar dataKey="plan" stackId="a" fill="#5EDFF8" name="Plan" />
-            <Bar dataKey="actual" stackId="a" fill="#254EDB" name="Actual" />
+            <Bar dataKey="target" fill="#5EDFF8" name="Plan" />
+            <Bar dataKey="actual" fill="#254EDB" name="Actual" />
           </BarChart>
         </ResponsiveContainer>
       </Card>
@@ -61,4 +74,4 @@ useEffect(() => {
   );
 };
 
-export default Kaizen;
+export default KaizenComp;
