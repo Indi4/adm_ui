@@ -1,152 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { Container, Grid, Card, Typography, Box } from "@mui/material";
-// import {
-//   ComposedChart,
-//   Bar,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   Legend,
-//   ResponsiveContainer,
-// } from "recharts";
-// import Loader from '../../commonComponents/Loader'
-
-
-// const Major = ({ month, data }) => {
-//   const { datasets, day_wise_data, final_totals } = data;
-//   console.log(data)
-//   const [isLoading, setIsLoading] = useState(true); // State to track loading
-
-//   useEffect(() => {
-//     if(data){
-//       // Simulate a loading delay (replace with real data fetching logic)
-//       const timer = setTimeout(() => {
-//         setIsLoading(false); // Set loading to false after data is fetched
-//       }, 2000);
-      
-//       return () => clearTimeout(timer);
-//     }
-//     else{
-//       setIsLoading(true)
-//     }
-    
-//   }, []);
-
-//   let chartData = [];
-//   let totals = { actual: 0, target: 0 };
-
-//   if (month) {
-//     // Filter data for the selected month from day_wise_data
-//     chartData = day_wise_data?.map((day) => ({
-//       name: `${day.day}`,
-//       target: day.target,
-//       actual: day.actual,
-//     }));
-//     totals = final_totals || { actual: 0, target: 0 };
-//   } else {
-//     // Use datasets for monthly data
-//     const monthlyTarget = datasets?.find((dataset) => dataset.label === "Major Accident Target")?.data || [];
-//     const monthlyActual = datasets?.find((dataset) => dataset.label === "Major Accident Actual")?.data || [];
-//     chartData = monthlyTarget.map((item, index) => ({
-//       name: item.month,
-//       target: item.target,
-//       actual: monthlyActual[index]?.actual || 0,
-//     }));
-//     totals = final_totals || { actual: 0, target: 0 };
-//   }
-
-//   return (
-//     <Container>
-
-// {isLoading?(
-//          <Box mt={4}
-//          style={{   padding: "20px",
-//           height: "650px", // Ensure consistent card height
-//           display: "flex",
-//           flexDirection: "column",
-//           justifyContent: "center",
-//           marginTop: "20px", }}
-//          >
-//          <Loader />
-//        </Box>
-//        ):(
-//          <>
-      
-//  {/* Chart Header */}
-//  <Box display="flex" justifyContent="space-between" alignItems="center" my={3}>
-//         <Typography variant="h6" style={{ fontWeight: "bold" }}>
-//           {month ? `Daily Target vs Daily Actual` : "Monthly Target vs Monthly Actual"}
-//         </Typography>
-//       </Box>
-//       {/* Totals */}
-//       <Grid container spacing={2} justifyContent="space-between">
-//         <Grid item xs={12} md={6}>
-//           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#8884d8" }}>
-//             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Actual</Typography>
-//             <Typography variant="h5" style={{ fontWeight: "bold" }}>
-//               {totals.actual?.toFixed(2)}
-//             </Typography>
-//           </Card>
-//         </Grid>
-//         <Grid item xs={12} md={6}>
-//           <Card style={{ textAlign: "center", padding: "10px", backgroundColor: "#FF8080" }}>
-//             <Typography variant="subtitle1">Total {month ? "Day" : "Month"} Target</Typography>
-//             <Typography variant="h5" style={{ fontWeight: "bold" }}>
-//               {totals.target?.toFixed(2)}
-//             </Typography>
-//           </Card>
-//         </Grid>
-//       </Grid>
-
-     
-
-//       {/* Bar and Line Chart */}
-//       <Card style={{   padding: "20px",
-//           height: "650px", // Ensure consistent card height
-//           display: "flex",
-//           flexDirection: "column",
-//           justifyContent: "space-between",
-//           marginTop: "20px", }}>
-//         <ResponsiveContainer width="100%" height={600}>
-//           <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-//             <defs>
-//               <linearGradient id="colorTarget" x1="0" y1="0" x2="0" y2="1">
-//                 <stop offset="5%" stopColor="#FF5F57" stopOpacity={1} />
-//                 <stop offset="95%" stopColor="#FF7F70" stopOpacity={0.4} />
-//               </linearGradient>
-//               <linearGradient id="colorActual" x1="0" y1="0" x2="0" y2="1">
-//                 <stop offset="5%" stopColor="#006F77" stopOpacity={0.4} />
-//                 <stop offset="95%" stopColor="#0097A7" stopOpacity={1} />
-//               </linearGradient>
-//             </defs>
-//             <CartesianGrid strokeDasharray="3 3" />
-//             <XAxis dataKey="name" />
-//             <YAxis />
-//             <Tooltip />
-//             <Legend />
-//             <Bar dataKey="target" fill="url(#colorTarget)" name="Target" barSize={10} />
-//             <Line
-//               type="monotone"
-//               dataKey="actual"
-//               stroke="#0097A7"
-//               strokeWidth={2}
-//               dot={{ stroke: "#0097A7", strokeWidth: 2, fill: "#0097A7" }}
-//               name="Actual"
-//               />
-//           </ComposedChart>
-//         </ResponsiveContainer>
-//       </Card>
-//       </>
-//     )}
-//     </Container>
-//   );
-// };
-
-// export default Major;
-
-
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import {
@@ -162,10 +13,7 @@ import {
 import Loader from "../../commonComponents/Loader";
 
 const Major = ({ month, data }) => {
-  const { datasets, day_wise_data, final_totals } = data;
-
   const [isLoading, setIsLoading] = useState(true);
-  // const [showFirstHalf, setShowFirstHalf] = useState(true);
 
   useEffect(() => {
     if (data) {
@@ -177,92 +25,59 @@ const Major = ({ month, data }) => {
       setIsLoading(true);
     }
   }, [data]);
-
-  // const monthlyTarget =
-  //   datasets?.find((dataset) => dataset.label === "Major Accident Target")
-  //     ?.data || [];
-  // const monthlyActual =
-  //   datasets?.find((dataset) => dataset.label === "Major Accident Actual")
-  //     ?.data || [];
-
-  // const chartData = monthlyTarget
-  //   .slice(showFirstHalf ? 0 : 6, showFirstHalf ? 6 : 12)
-  //   .map((item, index) => ({
-  //     name: item.month,
-  //     target: item.target,
-  //     actual: monthlyActual[showFirstHalf ? index : index + 6]?.actual || 0,
-   
-  //   }));
-
   let chartData = [];
-    let totals = { actual: 0, target: 0 };
-  
-    if (month) {
-      // Filter data for the selected month from day_wise_data
-      chartData = day_wise_data?.map((day) => ({
-        name: `${day.day}`,
-        target: day.target,
-        actual: day.actual,
-      }));
-      totals = final_totals || { actual: 0, target: 0 };
-    } else {
-      // Use datasets for monthly data
-      const monthlyTarget = datasets?.find((dataset) => dataset.label === "Major Accident Target")?.data || [];
-      const monthlyActual = datasets?.find((dataset) => dataset.label === "Major Accident Actual")?.data || [];
-      chartData = monthlyTarget.map((item, index) => ({
-        name: item.month,
-        target: item.target,
-        actual: monthlyActual[index]?.actual || 0,
-      }));
-      totals = final_totals || { actual: 0, target: 0 };
-    }
-
+  if (month) {
+    chartData = data.map((D) => ({
+      name: D?.date?.slice(-2),
+      target: D.target,
+      actual: D.actual,
+    }));
+  } else {
+    chartData = data?.map((D) => ({
+      name: D.month,
+      target: D.target,
+      actual: D.actual,
+    }));
+  }
 
   return (
-    <Container >
+    <Container>
       {isLoading ? (
-        <div className="d-flex justify-content-center align-items-center mt-4" style={{ height: "250px" }}>
+        <div
+          className="d-flex justify-content-center align-items-center mt-4"
+          style={{ height: "250px" }}
+        >
           <Loader />
         </div>
       ) : (
         <>
-          {/* <Row className="justify-content-center my-3">
-            <Col xs={6} md={4} className="text-center">
-              <Card className="p-2 bg-primary text-white">
-                <Card.Title style={{ fontSize: "0.9rem" }}>Actual</Card.Title>
-                <Card.Text style={{ fontSize: "0.9rem" }}>{totals.actual?.toFixed(2)}</Card.Text>
-              </Card>
-            </Col>
-            <Col xs={6} md={4} className="text-center">
-              <Card className="p-2 bg-warning text-dark">
-                <Card.Title style={{ fontSize: "0.9rem" }}>Target</Card.Title>
-                <Card.Text style={{ fontSize: "0.9rem" }}>{totals.target?.toFixed(2)}</Card.Text>
-              </Card>
-            </Col>
-          </Row> */}
-
-          {/* <Row className="justify-content-center mb-3">
-            <Col xs={12} className="text-center">
-              <Button variant="secondary" onClick={() => setShowFirstHalf((prev) => !prev)}>
-                {showFirstHalf ? "Next 6 Months" : "First 6 Months"}
-              </Button>
-            </Col>
-          </Row> */}
-
-          <Card style={{border:"none"}}>
+          <Card style={{ border: "none" }}>
             <ResponsiveContainer width="100%" height={250}>
               <ComposedChart
                 data={chartData}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="target" stroke="#135C75" strokeWidth={2} dot={{ r: 5 }} name="Target" />
-                <Line type="monotone" dataKey="actual" stroke="#26B5DD" strokeWidth={2} dot={{ r: 5 }} name="Actual" />
-                <Legend/>
+                <Line
+                  type="monotone"
+                  dataKey="target"
+                  stroke="#135C75"
+                  strokeWidth={2}
+                  dot={{ r: 5 }}
+                  name="Target"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="actual"
+                  stroke="#26B5DD"
+                  strokeWidth={2}
+                  dot={{ r: 5 }}
+                  name="Actual"
+                />
+                <Legend />
               </ComposedChart>
             </ResponsiveContainer>
           </Card>
