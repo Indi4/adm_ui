@@ -36,7 +36,7 @@
     "browser-sync": "^2.29.3",
     "chart.js": "^4.4.1",
     "date-fns": "^2.30.0",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.13",
     "echarts": "^5.4.3",
     "filepond": "^4.30.4",
     "filepond-plugin-image-exif-orientation": "^1.0.11",
