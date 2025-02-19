@@ -5,7 +5,7 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import PPCIcon from '@mui/icons-material/Event'
-
+import Maintenance from "../../assets/images/pngs/13.png"
 const MenuItems = [
   {
     Items: [
@@ -89,6 +89,14 @@ const MenuItems = [
         path: "/sales",
         type: "link",
         icon: <TrendingUpIcon/>, 
+        active: false,
+        selected: false,
+      },
+      {
+        title: "Maintenance",
+        path: "/maintenance",
+        icon: <img src={Maintenance} alt="Maintenance" style={{ width: "24px", height: "24px" }} />, 
+        type: "link",
         active: false,
         selected: false,
       },
