@@ -32,8 +32,8 @@ const MTTR = ({ data }) => {
               <ComposedChart
                 data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                barGap={5} // Space between bars in the same group
-                barCategoryGap={20} // Space between groups of bars
+                barGap={5} 
+                barCategoryGap={20}
 
               >
                 <CartesianGrid strokeDasharray="3 3" />
