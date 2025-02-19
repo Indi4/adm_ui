@@ -47,7 +47,6 @@ const ComplinityReport = ({ data }) => {
                 </Pie>
                 <Tooltip />
                 <Legend />
-                {/* Centered total value */}
                 <text
                   x="50%"
                   y="50%"
