@@ -11,6 +11,7 @@ import {
   uploadSalesExcel,
   uploadUtilityExcel,
   uploadToolExcel,
+  uploadStoreExcel
 } from "../store/upload/uploadSlice";
 
 const UploadComponent = ({ label }) => {
@@ -59,6 +60,10 @@ const UploadComponent = ({ label }) => {
         case "Upload Toolroom":
           action = uploadToolExcel;
           break;
+          case "Upload store":
+            action = uploadStoreExcel;
+            break;
+  
         default:
           toast.error("Invalid label. Cannot determine upload action.");
           return;

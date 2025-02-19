@@ -80,6 +80,8 @@ export default function Upload() {
               <Tab label="Upload Sales" value="6" />
               <Tab label="Upload HR" value="7" />
               <Tab label="Upload Toolroom" value="8" />
+              <Tab label="Upload Store" value="9" />
+
 
             </TabList>
           </Box>
@@ -111,6 +113,9 @@ export default function Upload() {
             <UploadModal label={label} />
           </TabPanel>
           <TabPanel value="8">
+            <UploadModal label={label} />
+          </TabPanel>
+          <TabPanel value="9">
             <UploadModal label={label} />
           </TabPanel>
         </TabContext>
