@@ -5,6 +5,7 @@ import qualitySlice from "./quality/qualitySlice";
 import dashboardDetailSlice from "./dashboard/dashboardMainSlice";
 import todoSlice from "./Todo/todoSlice";
 import safetySlice from "./safety/safetySlice";
+import maintenanceSlice from "./Maintenance/maintenanceSlice"
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     dashboardMain: dashboardDetailSlice,
     todo: todoSlice,
     safety: safetySlice,
+    maintenance:maintenanceSlice
   },
 });
 
