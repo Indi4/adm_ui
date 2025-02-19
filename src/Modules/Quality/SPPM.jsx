@@ -73,8 +73,8 @@ const SPPM = ({data, month}) => {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="target" fill="#00C782" name="Target" />
-              <Bar dataKey="actual" fill="#008CFF" name="Actual" />
+              <Bar dataKey="target" fill="#26B5DD" name="Target" />
+              <Bar dataKey="actual" fill="#FF8632" name="Actual" />
             </BarChart>
           </ResponsiveContainer>
       </Card>

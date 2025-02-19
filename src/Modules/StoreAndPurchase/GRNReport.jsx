@@ -15,7 +15,6 @@ import dayjs from "dayjs"
 import Loader from "../../commonComponents/Loader";
 
 const GRNReport = ({ month, data }) => {
-  const { datasets, day_wise_data } = data;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -32,22 +31,18 @@ const GRNReport = ({ month, data }) => {
   let chartData = [];
 
   if (month) {
-    chartData = day_wise_data?.map((day) => ({
-      name:`${day.day}`,
-      plan: day.target,
-      actual: day.actual,
+    chartData = data?.map((D) => ({
+      name: D.Date.slice(-2),
+      target: D.target,
+      // pending: D.pending,
+      actual: D.actual,
     }));
   } else {
-    const monthlyTarget =
-      datasets?.find((dataset) => dataset?.label === "Minor Accident Target")?.data || [];
-    const monthlyActual =
-      datasets?.find((dataset) => dataset?.label === "Minor Accident Actual")?.data || [];
-
-    chartData = monthlyTarget?.map((item, index) => ({
-        month: item?.month,
-        date: item?.date ? dayjs(item?.date).format("DD") : item?.date,
-        plan: item.target,
-      actual: monthlyActual[index]?.actual || 0,
+    chartData = data?.map((item, index) => ({
+        name: item?.Month,
+        target: item.target,
+      // pending: item.pending,
+      actual: item.actual,
     }));
   }
   return (
@@ -62,14 +57,14 @@ const GRNReport = ({ month, data }) => {
       ) : (
         <Card style={{ border: "none"}}>
          
-          { chartData?.length>0 ?  <ResponsiveContainer width="100%" height={250}>
+          { chartData?.length>0 ?  <ResponsiveContainer width="100%" height={300}>
           <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis domain={[0, 100]} />
+              <YAxis domain={[0, 10000]}/>
               <Tooltip />
               <Legend />
-              <Line dataKey="plan" stroke="#5CDFFB" strokeWidth={2} name="Plan" dot={{ r: 3 }} />
+              <Line dataKey="target" stroke="#5CDFFB" strokeWidth={2} name="Target" dot={{ r: 3 }} />
               <Line dataKey="actual" stroke="#4268FB" strokeWidth={2} name="Actual" dot={{ r: 3 }} />             
             </ComposedChart>
           </ResponsiveContainer>

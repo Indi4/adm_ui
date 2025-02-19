@@ -63,8 +63,8 @@ useEffect(() => {
             <XAxis dataKey="name" /> 
             <Tooltip />
             <Legend />
-            <Bar dataKey="target" fill="#5EDFF8" name="Plan" />
-            <Bar dataKey="actual" fill="#254EDB" name="Actual" />
+            <Bar dataKey="target" fill="#135C75" name="Target" />
+            <Bar dataKey="actual" fill="#26B5DD" name="Actual" />
           </BarChart>
         </ResponsiveContainer>
       </Card>

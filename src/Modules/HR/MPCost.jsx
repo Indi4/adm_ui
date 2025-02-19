@@ -54,8 +54,8 @@ const MPCost = ({ month, data }) => {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="direct_actual" stroke="#f8cd0e" fill="#f8cd0e" name="Direct Actual" />
-              <Bar dataKey="indirect_actual" stroke="#26B5DD" fill="#26B5DD" name="In Direct Actual" />
+              <Bar dataKey="direct_actual" stroke="#26B5DD" fill="#26B5DD" name="Direct Actual" />
+              <Bar dataKey="indirect_actual" stroke="#FF8632" fill="#FF8632" name="In Direct Actual" />
               <Legend />
             </ComposedChart>
           </ResponsiveContainer>

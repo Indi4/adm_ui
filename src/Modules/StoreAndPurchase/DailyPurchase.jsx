@@ -13,7 +13,6 @@ import {
 import Loader from "../../commonComponents/Loader";
 
 const DailyPurchase = ({ month, data }) => {
-  const { datasets, day_wise_data } = data;
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -31,21 +30,16 @@ const DailyPurchase = ({ month, data }) => {
 
   if (month) {
     // When 'month' is provided, assume 'day' is numeric
-    chartData = day_wise_data?.map((day) => ({
-      name: `${day.day}`, // Convert to string if necessary to treat as a category
-      target: day.target,
-      actual: day.actual,
+    chartData = data?.map((D) => ({
+      name: D.Date.slice(-2), // Convert to string if necessary to treat as a category
+      target: D.target,
+      actual: D.actual,
     }));
   } else {
-    const monthlyTarget =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
-    const monthlyActual =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Actual")?.data || [];
-
-    chartData = monthlyTarget.map((item, index) => ({
-      name: `${item.month}`, // Convert to string to be treated as category
+       chartData = data?.map((item, index) => ({
+      name: item.Month, // Convert to string to be treated as category
       target: item.target,
-      actual: monthlyActual[index]?.actual || 0,
+      actual: item?.actual || 0,
     }));
   }
 
@@ -61,16 +55,16 @@ const DailyPurchase = ({ month, data }) => {
       ) : (
         <Card style={{ border: "none", }}>
          
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }} barGap={10} barCategoryGap={20}>
               <CartesianGrid strokeDasharray="3 3" />
             
               <XAxis dataKey="name" type="category" />
-              <YAxis domain={[0, 100]} />
+              <YAxis domain={[0, 1000]} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="actual" fill="#26B5DD" barSize={30} name="Acutal" />
-              <Bar dataKey="target" fill="#FF8632" barSize={30} name="Target" />
+              <Bar dataKey="actual" fill="#26B5DD" barSize={20} name="Acutal" />
+              <Bar dataKey="target" fill="#FF8632" barSize={20} name="Target" />
             </BarChart>
           </ResponsiveContainer>
         </Card>

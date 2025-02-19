@@ -66,6 +66,7 @@ const homeComponent = () => {
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
   const { grnreport, storeinventory, dailypurchasereport } = useSelector((state) => state.quality.storeData);
+  console.log(grnreport)
 
   useEffect(() => {
     if (month) {
@@ -114,7 +115,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <GRNReport data={dummyData} month={month} />
+              <GRNReport data={grnreport} month={month} />
             </Card.Body>
           </Card>
         </Col>
@@ -135,7 +136,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <StoreInv data={dummyData} month={month} />
+              <StoreInv data={storeinventory} month={month} />
             </Card.Body>
           </Card>
         </Col>
@@ -157,7 +158,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <DailyPurchase data={dummyData} month={month} />
+              <DailyPurchase data={dailypurchasereport} month={month} />
             </Card.Body>
           </Card>
         </Col>
