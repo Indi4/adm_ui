@@ -96,6 +96,30 @@ export const uploadQualityExcel = createAsyncThunk(
       }
     }
   );
+  export const UploadMaintenance = createAsyncThunk(
+    "upload/UploadMaintenance",
+    async (formData, { rejectWithValue }) => {
+      try {
+        const response = await apiService.post("metrics/maintainces_upload/", formData,);
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "An error occurred during upload.");
+      }
+    }
+  );
+  export const UploadPPC = createAsyncThunk(
+    "upload/UploadPPC",
+    async (formData, { rejectWithValue }) => {
+      try {
+        const response = await apiService.post("metrics/upload_ppc/", formData,);
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "An error occurred during upload.");
+      }
+    }
+  );
+
+
   export const uploadStoreExcel = createAsyncThunk(
     "upload/uploadStoreExcel",
     async (formData, { rejectWithValue }) => {
@@ -245,7 +269,31 @@ const uploadSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       });
-
+      builder.addCase(UploadMaintenance.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      builder.addCase(UploadMaintenance.fulfilled, (state, action) => {
+        state.loading = false;
+        (state.success = "Excel Uploaded Successfully")
+      })
+      builder.addCase(UploadMaintenance.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+      builder.addCase(UploadPPC.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      builder.addCase(UploadPPC.fulfilled, (state, action) => {
+        state.loading = false;
+        (state.success = "Excel Uploaded Successfully")
+      })
+      builder.addCase(UploadPPC.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+      
   },
 });
 
