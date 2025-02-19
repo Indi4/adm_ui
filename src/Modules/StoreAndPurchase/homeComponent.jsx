@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { qualityGraphs } from "../../store/quality/qualitySlice";
+import { qualityGraphs, storeGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
 import PlanVsAct from "./StoreInv";
 import Sales from "./DailyPurchase";
@@ -65,17 +65,17 @@ const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-  const { sales, plan_vs_act } = useSelector((state) => state.quality);
+  const { grnreport, storeinventory, dailypurchasereport } = useSelector((state) => state.quality.storeData);
 
   useEffect(() => {
     if (month) {
-      dispatch(qualityGraphs({ type: "sales", year: year, month: month }));
-      dispatch(
-        qualityGraphs({ type: "plan_vs_act", year: year, month: month })
-      );
+      dispatch(storeGraphs({ type: "grnreport", year: year, month: month }));
+      dispatch(storeGraphs({ type: "storeinventory", year: year, month: month }));
+      dispatch(storeGraphs({ type: "dailypurchasereport", year: year, month: month }));
     } else {
-      dispatch(qualityGraphs({ type: "sales", year: year }));
-      dispatch(qualityGraphs({ type: "plan_vs_act", year: year }));
+      dispatch(storeGraphs({ type: "grnreport", year: year, }));
+      dispatch(storeGraphs({ type: "storeinventory", year: year, }));
+      dispatch(storeGraphs({ type: "dailypurchasereport", year: year }));
     }
   }, [dispatch, month, year]);
 

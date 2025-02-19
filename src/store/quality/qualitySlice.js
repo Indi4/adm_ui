@@ -51,6 +51,23 @@ export const safetyGraphs = createAsyncThunk(
   }
 );
 
+
+export const storeGraphs = createAsyncThunk(
+  "quality/storeGraphs",
+  async ({ type, year, month }) => {
+    try {
+      const query = month
+        ? `report_type=${type}&month=${month}&year=${year}`
+        : `report_type=${type}&year=${year}`;
+      const response = await apiService.get(`metrics/graph_store/?${query}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching Graph data:", error);
+      throw error;
+    }
+  }
+);
+
 const qualitySlice = createSlice({
   name: "quality",
   initialState: {
@@ -68,6 +85,11 @@ const qualitySlice = createSlice({
     HRGraphsData:{
       headcount: null,
       mpcost: null,
+    },
+    storeData:{
+      grnreport: null,
+      storeinventory: null,
+      dailypurchasereport: null
     },
     error: "",
     success: "",
@@ -94,6 +116,21 @@ const qualitySlice = createSlice({
         state.qualityData[type] = action.payload
       })
       .addCase(qualityGraphs.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(storeGraphs.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(storeGraphs.fulfilled, (state, action) => {
+        state.loading = false;
+        const {type} = action.meta.arg
+        state.storeData[type] = action.payload
+      })
+      .addCase(storeGraphs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
