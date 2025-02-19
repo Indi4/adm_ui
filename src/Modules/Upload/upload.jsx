@@ -74,8 +74,8 @@ export default function Upload() {
             >
               <Tab label="Upload Quality" value="1" />
               <Tab label="Upload Safety" value="2" />
-              <Tab label="Upload Utility" value="3" />
-              <Tab label="Upload Finance" value="4" />
+              <Tab label="Upload PPC" value="3" />
+              <Tab label="Upload Maintenance" value="4" />
               <Tab label="Upload Production" value="5" />
               <Tab label="Upload Sales" value="6" />
               <Tab label="Upload HR" value="7" />
