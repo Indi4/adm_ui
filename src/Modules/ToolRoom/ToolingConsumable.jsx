@@ -1,0 +1,87 @@
+import React, { useEffect, useState } from "react";
+import { Container, Card } from "react-bootstrap";
+import {
+  ComposedChart,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
+import Loader from "../../commonComponents/Loader";
+const ToolingConsumable = ({ month, data }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (data) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    } else {
+      setIsLoading(true);
+    }
+  }, [data]);
+  let chartData = [];
+  if (month) {
+    chartData = data.map((D) => ({
+      name: D?.date?.slice(-2),
+      target: D.target.toFixed("2"),
+      actual: D.actual,
+    }));
+  } else {
+    chartData = data?.map((D) => ({
+      name: D.month,
+      target: D.target.toFixed("2"),
+      actual: D.actual,
+    }));
+  }
+  return (
+    <Container>
+      {isLoading ? (
+        <div
+          className="d-flex justify-content-center align-items-center mt-4"
+          style={{ height: "250px" }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <Card style={{ border: "none" }}>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart
+                data={chartData}
+                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                barGap={5} // Space between bars in the same group
+                barCategoryGap={20} // Space between groups of bars
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" type="category" />
+                <YAxis domain={[0, 100]} />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  dataKey="target"
+                  fill="#26B5DD"
+                  barSize={20}
+                  name="Target"
+                />
+                <Bar
+                  dataKey="actual"
+                  fill="#FF8632"
+                  barSize={20}
+                  name="Actual"
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </Card>
+        </>
+      )}
+    </Container>
+  );
+};
+
+export default ToolingConsumable;
