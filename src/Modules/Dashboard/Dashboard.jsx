@@ -21,7 +21,7 @@ import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
 import PurchasePieChart from "./PurchasePiechart";
 import Loader from "../../commonComponents/Loader";
 import { qualityGraphs, safetyGraphs } from "../../store/quality/qualitySlice";
-import Sales from "../Sales/Sales";
+import Sales from "../StoreAndPurchase/Sales";
 import DashboardSales from "./DashboardSales";
 import DashboardPlanvsAcutal from "./DashboardPlanvsAcutal";
 import DashboardPurchase from "./DashboardPurchase";
@@ -84,32 +84,35 @@ const Dashboard = () => {
   //   return result;
   // }
 
-  const { sales, plan_vs_act, purchase, power_units, minor, major } = useSelector(
-    (state) => state.quality
-  );
+  const { sales, plan_vs_act, purchase, power_units, minor, major } =
+    useSelector((state) => state.quality);
 
   useEffect(() => {
     if (month) {
       dispatch(qualityGraphs({ type: "sales", year: year, month: month }));
-      dispatch(qualityGraphs({ type: "plan_vs_act", year: year, month: month }));
+      dispatch(
+        qualityGraphs({ type: "plan_vs_act", year: year, month: month })
+      );
       dispatch(qualityGraphs({ type: "purchase", year: year, month: month }));
-      dispatch(qualityGraphs({ type: "power_units", year: year, month: month }));
-      dispatch(safetyGraphs({type:"major",year:year,month:month}))
-      dispatch(safetyGraphs({type:"minor", year:year, month: month}))
+      dispatch(
+        qualityGraphs({ type: "power_units", year: year, month: month })
+      );
+      dispatch(safetyGraphs({ type: "major", year: year, month: month }));
+      dispatch(safetyGraphs({ type: "minor", year: year, month: month }));
     } else {
       dispatch(qualityGraphs({ type: "sales", year: year }));
       dispatch(qualityGraphs({ type: "plan_vs_act", year: year }));
       dispatch(qualityGraphs({ type: "purchase", year: year }));
       dispatch(qualityGraphs({ type: "power_units", year: year }));
-      dispatch(safetyGraphs({type:"major",year:year,}))
-      dispatch(safetyGraphs({type:"minor", year:year,}))
+      dispatch(safetyGraphs({ type: "major", year: year }));
+      dispatch(safetyGraphs({ type: "minor", year: year }));
     }
   }, [dispatch, month, year]);
 
-  const getData = (selectedYear, selectedMonth)=>{
-    setYear(selectedYear)
-    setMonth(selectedMonth)
-  }
+  const getData = (selectedYear, selectedMonth) => {
+    setYear(selectedYear);
+    setMonth(selectedMonth);
+  };
 
   function transformData(input) {
     const result = { Target: input.monthly_targets };
@@ -389,7 +392,10 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem" ,fontWeight:"bold" }}>
+                    <Typography
+                      variant="body1"
+                      style={{ fontSize: "0.8rem", fontWeight: "bold" }}
+                    >
                       Actual: {dashboardDetail?.sales?.month_actual} | Target:
                       {dashboardDetail?.sales?.month_target}
                     </Typography>
@@ -457,7 +463,10 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem",fontWeight:"bold"  }}>
+                    <Typography
+                      variant="body1"
+                      style={{ fontSize: "0.8rem", fontWeight: "bold" }}
+                    >
                       Actual:{dashboardDetail?.plan_vs_act?.month_actual} |
                       Target:{dashboardDetail?.plan_vs_act?.month_target}
                     </Typography>
@@ -494,7 +503,10 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem",fontWeight:"bold"  }}>
+                    <Typography
+                      variant="body1"
+                      style={{ fontSize: "0.8rem", fontWeight: "bold" }}
+                    >
                       Actual:{dashboardDetail?.purchase?.month_actual} | Target:
                       {dashboardDetail?.purchase?.month_target}
                     </Typography>
@@ -520,10 +532,7 @@ const Dashboard = () => {
           </Col>
           {/* Power Unit Card */}
           <Col xs={12} md={6} lg={4} xl={3}>
-            <Card
-              style={{ height: "100%" }}
-              className="overflow-hidden"
-            >
+            <Card style={{ height: "100%" }} className="overflow-hidden">
               <Card.Header className="border-bottom">
                 <Card.Title
                   className="mb-0"
@@ -542,7 +551,10 @@ const Dashboard = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant="body1" style={{ fontSize: "0.8rem",fontWeight:"bold" }}>
+                    <Typography
+                      variant="body1"
+                      style={{ fontSize: "0.8rem", fontWeight: "bold" }}
+                    >
                       Actual:{power_units?.final_totals?.actual} | Target:
                       {power_units?.final_totals?.target}
                     </Typography>
@@ -575,9 +587,7 @@ const Dashboard = () => {
         <Row>
           <Col xs={12}>
             <Paper>
-              <Typography variant="h6">
-                Weekly KPIs
-              </Typography>
+              <Typography variant="h6">Weekly KPIs</Typography>
               <TableContainer
                 component={Paper}
                 style={{ maxHeight: 300, overflow: "auto" }}
