@@ -11,7 +11,7 @@ export const fetchMaintenanceData = createAsyncThunk(
       const response = await apiService.get(
         `metrics/graph_maintainces/?${query}`
       );
-      return response.data;
+      return { report_type, data: response.data };
     } catch (error) {
       console.error("Error fetching Maintenance data:", error);
       throw error;
@@ -22,12 +22,11 @@ export const fetchMaintenanceData = createAsyncThunk(
 const maintenanceSlice = createSlice({
   name: "maintenance",
   initialState: {
-    pmState: [],
-    MTTR: [],
-    MTRF: [],
-    BreakDown: [],
     ComplinityReport: [],
-    ElectricityConsumption: [],
+    BreakdownIncidentVsCloser: [],
+    MTBFHrs: [],
+    MTTRInHrs: [],
+    PMPlanVSActual: [],
     error: "",
     success: "",
     loading: false,
@@ -47,12 +46,14 @@ const maintenanceSlice = createSlice({
     });
     builder.addCase(fetchMaintenanceData.fulfilled, (state, action) => {
       state.loading = false;
-      const { report_type } = action.meta.arg;
-      state[report_type] = action.payload;
+      const { report_type, data } = action.payload;
+      if (state.hasOwnProperty(report_type)) {
+        state[report_type] = data;
+      }
     });
     builder.addCase(fetchMaintenanceData.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error;
+      state.error = action.error.message;
     });
   },
 });

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Container, Card, CardTitle } from "react-bootstrap";
+import React from "react";
+import { Container, Card } from "react-bootstrap";
 import {
   BarChart,
   Bar,
@@ -11,44 +11,11 @@ import {
   Legend,
 } from "recharts";
 import Loader from "../../commonComponents/Loader";
+import DataNotFound from "../PPC/DataNotFound";
+import { useLoading } from "./helperData";
 
-const ElectricityConsumption = ({ month, data }) => {
-  const { datasets, day_wise_data } = data;
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    if (data) {
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 2000);
-      return () => clearTimeout(timer);
-    } else {
-      setIsLoading(true);
-    }
-  }, [data]);
-
-  let chartData = [];
-
-  if (month) {
-    // When 'month' is provided, assume 'day' is numeric
-    chartData = day_wise_data?.map((day) => ({
-      name: `${day.day}`, // Convert to string if necessary to treat as a category
-      target: day.target,
-      actual: day.actual,
-    }));
-  } else {
-    const monthlyTarget =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
-    const monthlyActual =
-      datasets?.find((dataset) => dataset.label === "Minor Accident Actual")?.data || [];
-
-    chartData = monthlyTarget.map((item, index) => ({
-      name: `${item.month}`, // Convert to string to be treated as category
-      target: item.target,
-      actual: monthlyActual[index]?.actual || 0,
-    }));
-  }
-
+const ElectricityConsumption = ({data }) => {
+const isLoading = useLoading(data);
   return (
     <Container>
       {isLoading ? (
@@ -61,18 +28,19 @@ const ElectricityConsumption = ({ month, data }) => {
       ) : (
         <Card style={{ border: "none", }}>
          
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+         { data?.length>0?<ResponsiveContainer width="100%" height={250}>
+            <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }} 
+            >
               <CartesianGrid strokeDasharray="3 3" />
             
               <XAxis dataKey="name" type="category" />
-              <YAxis domain={[0, 100]} />
+              <YAxis  />
               <Tooltip />
               <Legend />
-              <Bar dataKey="target" fill="#5CDFFB" barSize={30} name="Target" />
+              <Bar dataKey="plan" fill="#5CDFFB" barSize={30} name="Plan" />
               <Bar dataKey="actual" fill="#4268FB" barSize={30} name="Actual" />
             </BarChart>
-          </ResponsiveContainer>
+          </ResponsiveContainer>:<DataNotFound/>}
         </Card>
       )}
     </Container>
