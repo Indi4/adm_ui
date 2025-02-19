@@ -7,16 +7,12 @@ import MenuItems from "./sidebardata";
 import logo from "../../assets/images/brand/Kizuna.svg";
 import logolight from "../../assets/images/brand/KizunaWhiteLogo.svg";
 import icon1 from "../../assets/images/brand/Kizuna-01.png";
-import ADM_logo from '../../assets/images/ADM/ADM_logo.png'
+import ADM_logo from "../../assets/images/ADM/ADM_logo.png";
 
 export default function Sidebar({ menuType }) {
   const location = useLocation();
-  const [menuItems, setMenuItems] = useState(
-    MenuItems 
-  );
+  const [menuItems, setMenuItems] = useState(MenuItems);
   const [openItems, setOpenItems] = useState({});
-
- 
 
   function setActiveMenuItem(pathname) {
     setMenuItems((prevItems) => {
@@ -57,7 +53,6 @@ export default function Sidebar({ menuType }) {
     setOpenItems(newOpenItems);
   }
 
-
   return (
     <Fragment>
       <div className="sticky">
@@ -93,7 +88,6 @@ export default function Sidebar({ menuType }) {
                 {/* <h2 className="header-brand" style={{color:"red", fontWeight:"bold", marginLeft: "0px",
                     marginTop: "43px",
                     marginBottom: "2px", fontSize:"1.8rem"}}>ADM</h2> */}
-
               </Link>
             </div>
             <div className="main-sidemenu">
@@ -110,15 +104,39 @@ export default function Sidebar({ menuType }) {
                       >
                         <Link
                           to={item.path}
-                          // className={`side-menu__item ${
-                          //   item.selected ? "active" : ""
-                          // }`}
-
-                          className={`side-menu__item ${item.selected ? "active" : ""} parent`}
-
+                          className={`side-menu__item ${
+                            item.selected ? "active" : ""
+                          } parent`}
                           onClick={() => {
                             setActiveMenuItem(item.path);
                             toggleItem(idx);
+                          }}
+                          style={{
+                            transition: "all 0.3s ease-in-out",
+                            position: "relative",
+                            background: item.selected
+                              ? "linear-gradient(145deg, #26B5DD, #135C75)"
+                              : "transparent",
+                            boxShadow: item.selected
+                              ? "4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.1)"
+                              : "none",
+                            transform: item.selected
+                              ? "translateY(-3px)"
+                              : "translateY(0)",
+                            borderRadius: item.selected ? "8px" : "0",
+                            color: item.selected ? "white" : "inherit",
+                          }}
+                          onMouseEnter={(e) =>{
+                            e.currentTarget.style.transform =
+                              "translateY(-2px)"
+                              e.currentTarget.style.color = item.selected ? "white" : "inherit";
+
+                          }}
+                          onMouseLeave={(e) =>{
+                            e.currentTarget.style.transform = item.selected
+                              ? "translateY(-3px)"
+                              : "translateY(0)",
+                              e.currentTarget.style.color = item.selected ? "white" : "inherit";
                           }}
                         >
                           <span style={{ marginRight: "12px" }}>
@@ -148,12 +166,12 @@ export default function Sidebar({ menuType }) {
                                   // }`}
                                   // onClick={() => setActiveMenuItem(child.path)}
 
-                                  className={`side-menu__item ${child.selected ? "active" : ""
+                                  className={`side-menu__item ${
+                                    child.selected ? "active" : ""
                                   } child`}
-                                onClick={() => setActiveMenuItem(child.path)}
-
+                                  onClick={() => setActiveMenuItem(child.path)}
                                 >
-                                  <span style={{height:"10px"}}>
+                                  <span style={{ height: "10px" }}>
                                     {child.icon}
                                   </span>
                                   <span className="side-menu__label">

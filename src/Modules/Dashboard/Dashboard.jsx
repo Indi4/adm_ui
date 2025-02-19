@@ -21,7 +21,7 @@ import { getDashboardMainData } from "../../store/dashboard/dashboardMainSlice";
 import PurchasePieChart from "./PurchasePiechart";
 import Loader from "../../commonComponents/Loader";
 import { qualityGraphs, safetyGraphs } from "../../store/quality/qualitySlice";
-import Sales from "../StoreAndPurchase/Sales";
+import Sales from "../StoreAndPurchase/DailyPurchase";
 import DashboardSales from "./DashboardSales";
 import DashboardPlanvsAcutal from "./DashboardPlanvsAcutal";
 import DashboardPurchase from "./DashboardPurchase";
