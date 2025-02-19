@@ -169,7 +169,7 @@ useEffect(() => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <TodoList type="maintance" />
+              <TodoList type="" />
             </Card.Body>
           </Card>
         </Col>

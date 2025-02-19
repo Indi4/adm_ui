@@ -13,7 +13,7 @@ import DataNotFound from "../PPC/DataNotFound";
 import { useLoading } from "./helperData";
 const ComplinityReport = ({ data }) => {
   const isLoading = useLoading(data);
-  const COLORS = ["#4268FB", "#FF7754"];
+  const COLORS = ["#135675", "#FF8632"];
   return (
     <Container>
       {isLoading ? (

@@ -66,7 +66,9 @@ export default function TodoList({ type }) {
   }, [successMessage, errorMessage, dispatch]);
 
   useEffect(() => {
-    dispatch(getTodo({ type }));
+    if(type){
+      dispatch(getTodo({ type }));
+    }
   }, [dispatch, type]);
 
   const handleOpen = () => setOpen(true);
