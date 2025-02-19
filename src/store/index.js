@@ -6,8 +6,7 @@ import dashboardDetailSlice from "./dashboard/dashboardMainSlice";
 import todoSlice from "./Todo/todoSlice";
 import safetySlice from "./safety/safetySlice";
 import maintenanceSlice from "./Maintenance/maintenanceSlice"
-import toolRoomSlice from "./toolRoom/toolRoomSlice";
-
+ import ppcSlice from "./ppc/PPCSectionSlice"
 const store = configureStore({
   reducer: {
     auth: authSlice,
@@ -17,7 +16,8 @@ const store = configureStore({
     todo: todoSlice,
     safety: safetySlice,
     maintenance:maintenanceSlice,
-    toolRoom: toolRoomSlice,
+    //  toolRoom: toolRoomSlice,
+     ppc: ppcSlice
   },
 });
 

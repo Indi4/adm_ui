@@ -9,11 +9,16 @@ import ExpPerformance from "./ExpPerformance";
 import OverallPerformance from "./OverallPerformance";
 import InviceReports from "./InviceReports";
 import NoTrips from "./NoTrips";
-import DomesticFreight from "./DomesticFreight";
+// import DomesticFreight from "./DomesticFreight";
 import DomesticSale from "./DomesticSale";
 import ExportSale from "./ExportSale";
 import TotaleSale from "./TotaleSale";
 import GrnReport from "./GrnReport";
+import { fetchPPCData } from "../../store/ppc/PPCSectionSlice";
+import { processChartData, processPieChartData } from "../Maintenance/helperData";
+import MTTR from "../Maintenance/MTTR";
+import BreakdownIncidentClosure from "../Maintenance/BreakdownIncidentClosure";
+import ComplinityReport from "../Maintenance/ComplinityReport";
 const dummyData = {
   // Example for when month is provided. This represents daily data.
   day_wise_data: [
@@ -69,17 +74,22 @@ const HomeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-  const { minor, major } = useSelector((state) => state.quality);
-
-  // useEffect(() => {
-  //   if (month) {
-  //     dispatch(safetyGraphs({ type: "major", year: year, month: month }));
-  //     dispatch(safetyGraphs({ type: "minor", year: year, month: month }));
-  //   } else {
-  //     dispatch(safetyGraphs({ type: "major", year: year }));
-  //     dispatch(safetyGraphs({ type: "minor", year: year }));
-  //   }
-  // }, [dispatch, month, year]);
+   const { DeliveryPerformanceDOM, InvoiceReport,NoOfTrips, DomesticFreight,DomesticSaleInLakh,ExportSaleInLakh,TotalSaleInLakh,GRNReport} = useSelector((state) => state?.ppc)
+  useEffect(() => {
+    const reportTypes = [
+      "DeliveryPerformanceDOM",
+      "InvoiceReport",
+      "NoOfTrips",
+      "DomesticFreight",
+      "DomesticSaleInLakh",
+      "ExportSaleInLakh",
+      "TotalSaleInLakh",
+      "GRNReport"
+    ];
+    reportTypes.forEach((type) => {
+      dispatch(fetchPPCData({ report_type: type, year: year, month: month }));
+    });
+  }, [dispatch, year, month])
 
   const getData = (selectedYear, selectedMonth) => {
     setYear(selectedYear);
@@ -113,7 +123,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <DeliveryPerformance data={dummyData} month={month} />
+              {/* <DeliveryPerformance data={dummyData} month={month} /> */}
+              <MTTR data={processChartData(DeliveryPerformanceDOM,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -130,7 +141,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <ExpPerformance data={dummyData} month={month} />
+              {/* <ExpPerformance data={dummyData} month={month} /> */}
+              <ComplinityReport data={processPieChartData(DomesticSaleInLakh)}/>
             </Card.Body>
           </Card>
         </Col>
@@ -146,7 +158,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <OverallPerformance  />
+              {/* <OverallPerformance  /> */}
+              <BreakdownIncidentClosure data={processChartData(ExportSaleInLakh,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -162,7 +175,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <InviceReports data={dummyData} month={month} />
+              {/* <InviceReports data={dummyData} month={month} /> */}
+              <BreakdownIncidentClosure data={processChartData(InvoiceReport,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -179,7 +193,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <NoTrips data={dummyData} month={month} />
+              {/* <NoTrips data={dummyData} month={month} /> */}
+              <MTTR data={processChartData(TotalSaleInLakh,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -195,7 +210,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <DomesticFreight data={dummyData} month={month} />
+              {/* <DomesticFreight data={dummyData} month={month} /> */}
+              <MTTR data={processChartData(DomesticFreight,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -211,7 +227,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <DomesticSale data={dummyData} month={month} />
+              {/* <DomesticSale data={dummyData} month={month} /> */}
+              <ComplinityReport data={processPieChartData(DomesticSaleInLakh)}/>
             </Card.Body>
           </Card>
         </Col>
@@ -227,7 +244,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <ExportSale  />
+              {/* <ExportSale  /> */}
+              <BreakdownIncidentClosure data={processChartData(ExportSaleInLakh,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -243,7 +261,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <TotaleSale data={dummyData} month={month} />
+              {/* <TotaleSale data={dummyData} month={month} /> */}
+              <MTTR data={processChartData(NoOfTrips,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -259,7 +278,8 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-1">
-              <GrnReport data={dummyData} month={month} />
+              {/* <GrnReport data={dummyData} month={month} /> */}
+              <BreakdownIncidentClosure data={processChartData(GRNReport,month)} />
             </Card.Body>
           </Card>
         </Col>
@@ -275,7 +295,7 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <TodoList type="PPC" />
+              <TodoList type="" />
             </Card.Body>
           </Card>
         </Col>
