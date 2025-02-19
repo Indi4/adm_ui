@@ -28,7 +28,11 @@ const MTRF = ({ data }) => {
         <Card style={{ border: "none", }}>
          
          { data?.length>0?<ResponsiveContainer width="100%" height={250}>
-            <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }} 
+            <BarChart data={data} 
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            barGap={5} // Space between bars in the same group
+            barCategoryGap={20} // Space between groups of bars
+
             >
               <CartesianGrid strokeDasharray="3 3" />
             
@@ -36,8 +40,8 @@ const MTRF = ({ data }) => {
               <YAxis  />
               <Tooltip />
               <Legend />
-              <Bar dataKey="plan" fill="#5CDFFB" barSize={30} name="Plan" />
-              <Bar dataKey="actual" fill="#4268FB" barSize={30} name="Actual" />
+              <Bar dataKey="plan" fill="#26B5DD" barSize={20} name="Plan" />
+              <Bar dataKey="actual" fill="#FF8632" barSize={20} name="Actual" />
             </BarChart>
           </ResponsiveContainer>:<DataNotFound/>}
         </Card>

@@ -31,17 +31,20 @@ const BreakdownIncidentClosure = ({ data }) => {
               <BarChart
                 data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                barGap={5} // Space between bars in the same group
+                barCategoryGap={20} // Space between groups of bars
+
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" type="category" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="plan" fill="#5CDFFB" barSize={30} name="Plan" />
+                <Bar dataKey="plan" fill="#26B5DD" barSize={20} name="Plan" />
                 <Bar
                   dataKey="actual"
-                  fill="#4268FB"
-                  barSize={30}
+                  fill="#FF8632"
+                  barSize={20}
                   name="Actual"
                 />
               </BarChart>

@@ -32,6 +32,9 @@ const MTTR = ({ data }) => {
               <ComposedChart
                 data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                barGap={5} // Space between bars in the same group
+                barCategoryGap={20} // Space between groups of bars
+
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
@@ -40,17 +43,17 @@ const MTTR = ({ data }) => {
                 <Legend />
                 <Line
                   dataKey="plan"
-                  stroke="#5CDFFB"
+                  stroke="#26B5DD"
                   strokeWidth={2}
                   name="Plan"
-                  dot={{ r: 3 }}
+                  dot={{ r: 2 }}
                 />
                 <Line
                   dataKey="actual"
-                  stroke="#4268FB"
+                  stroke="#135675"
                   strokeWidth={2}
                   name="Actual"
-                  dot={{ r: 3 }}
+                  dot={{ r: 2}}
                 />
               </ComposedChart>
             </ResponsiveContainer>
