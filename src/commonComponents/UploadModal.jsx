@@ -22,8 +22,6 @@ const UploadComponent = ({ label }) => {
   const handleFileUpload = (e) => {
     setFile(e.target.files[0]);
   };
-  console.log("label",label)
-  console.log(file)
   const handleSubmit = () => {
     if (file) {
       if (file.name.split(".")[0] !== label.slice(7)) {
@@ -60,7 +58,7 @@ const UploadComponent = ({ label }) => {
         case "Upload Toolroom":
           action = uploadToolExcel;
           break;
-          case "Upload store":
+          case "Upload Store and Purchase":
             action = uploadStoreExcel;
             break;
   

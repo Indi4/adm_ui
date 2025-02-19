@@ -80,7 +80,7 @@ export default function Upload() {
               <Tab label="Upload Sales" value="6" />
               <Tab label="Upload HR" value="7" />
               <Tab label="Upload Toolroom" value="8" />
-              <Tab label="Upload Store" value="9" />
+              <Tab label="Upload Store and Purchase" value="9" />
 
 
             </TabList>
