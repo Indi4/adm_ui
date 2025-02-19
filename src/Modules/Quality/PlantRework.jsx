@@ -271,17 +271,17 @@ const PlantRework = ({ month, data }) => {
                 <Line
                   type="monotone"
                   dataKey="target"
-                  stroke="#FFDA44"
+                  stroke="#FF8632"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Target"
                 />
                 <Line
                   type="monotone"
                   dataKey="actual"
-                  stroke="#8884d8"
+                  stroke="#135C75"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Actual"
                 />
               </ComposedChart>

@@ -68,7 +68,7 @@ const Minor = ({ data,month }) => {
                   dataKey="actual"
                   stroke="#FF8632"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Actual"
                 />
                 <Line
@@ -76,7 +76,7 @@ const Minor = ({ data,month }) => {
                   dataKey="target"
                   stroke="#135C75"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Target"
                 />
                 <Legend />

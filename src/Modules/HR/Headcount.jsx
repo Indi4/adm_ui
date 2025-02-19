@@ -122,8 +122,8 @@ const Headcount = ({ month, data }) => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="direct_actual" stroke="#FF8632" strokeWidth={2} dot={{ r: 5 }} name="Direct Actual" />
-                <Line type="monotone" dataKey="indirect_actual" stroke="#135C75" strokeWidth={2} dot={{ r: 5 }} name="In Direct Actual" />
+                <Line type="monotone" dataKey="direct_actual" stroke="#135C75" strokeWidth={2} dot={{ r: 2 }} name="Direct Actual" />
+                <Line type="monotone" dataKey="indirect_actual" stroke="#26B5DD" strokeWidth={2} dot={{ r: 2 }} name="In Direct Actual" />
                 <Legend/>
               </ComposedChart>
             </ResponsiveContainer>

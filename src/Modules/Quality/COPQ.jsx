@@ -61,8 +61,8 @@ useEffect(() => {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="target" fill="#5EDFF8" name="Target" />
-              <Bar dataKey="actual" fill="#254EDB" name="Actual" />
+              <Bar dataKey="target" fill="#135C75" name="Target" />
+              <Bar dataKey="actual" fill="#FF8632" name="Actual" />
             </BarChart>
           </ResponsiveContainer>
         </Card>

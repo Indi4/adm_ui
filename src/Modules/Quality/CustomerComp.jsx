@@ -104,8 +104,8 @@ const CustomerComp = ({ month, data }) => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="actual" stroke="#FF8632" strokeWidth={2} dot={{ r: 5 }} name="Actual" />
-                <Line type="monotone" dataKey="target" stroke="#135C75" strokeWidth={2} dot={{ r: 5 }} name="Target" />
+                <Line type="monotone" dataKey="actual" stroke="#FF8632" strokeWidth={2} dot={{ r: 2 }} name="Actual" />
+                <Line type="monotone" dataKey="target" stroke="#135C75" strokeWidth={2} dot={{ r: 2 }} name="Target" />
                 <Legend/>
               </ComposedChart>
             </ResponsiveContainer>

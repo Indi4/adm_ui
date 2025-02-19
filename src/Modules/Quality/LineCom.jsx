@@ -59,8 +59,8 @@ const LineCom = ({ data, month }) => {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="target" fill="#FB6A4A" name="Target"  />
-              <Bar dataKey="actual" fill="#254EDB" name="Actual" />
+              <Bar dataKey="target" fill="#26B5DD" name="Target"  />
+              <Bar dataKey="actual" fill="#135C75" name="Actual" />
             </BarChart>
           </ResponsiveContainer>
         </Card>
