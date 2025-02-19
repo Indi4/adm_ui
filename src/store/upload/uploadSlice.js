@@ -49,6 +49,17 @@ export const uploadQualityExcel = createAsyncThunk(
       }
     }
   );
+  export const uploadToolExcel = createAsyncThunk(
+    "upload/uploadToolExcel",
+    async (formData, { rejectWithValue }) => {
+      try {
+        const response = await apiService.post("metrics/upload_toolroom/", formData,);
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "An error occurred during upload.");
+      }
+    }
+  );
 
   export const uploadSalesExcel = createAsyncThunk(
     "upload/uploadSalesExcel",
@@ -85,6 +96,17 @@ export const uploadQualityExcel = createAsyncThunk(
       }
     }
   );
+  export const uploadStoreExcel = createAsyncThunk(
+    "upload/uploadStoreExcel",
+    async (formData, { rejectWithValue }) => {
+      try {
+        const response = await apiService.post("metrics/upload_store", formData,);
+        return response.data;
+      } catch (error) {
+        return rejectWithValue(error.response?.data || "An error occurred during upload.");
+      }
+    }
+  );
   
 
 const uploadSlice = createSlice({
@@ -113,6 +135,18 @@ const uploadSlice = createSlice({
         (state.success = "Excel Uploaded Successfully")
       })
       builder.addCase(uploadSafetyExcel.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+      builder.addCase(uploadStoreExcel.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      builder.addCase(uploadStoreExcel.fulfilled, (state, action) => {
+        state.loading = false;
+        (state.success = "Excel Uploaded Successfully")
+      })
+      builder.addCase(uploadStoreExcel.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
@@ -158,7 +192,18 @@ const uploadSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       });
-
+      builder.addCase(uploadToolExcel.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      builder.addCase(uploadToolExcel.fulfilled, (state, action) => {
+        state.loading = false;
+        (state.success = "Excel Uploaded Successfully")
+      })
+      builder.addCase(uploadToolExcel.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
       
       builder.addCase(uploadProductionExcel.pending, (state, action) => {
         state.loading = true;

@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { qualityGraphs } from "../../store/quality/qualitySlice";
+import {getpmToolRoom,getToollingConsumable} from "../../store/toolRoom/toolRoomSlice";
 import TodoList from "../../commonComponents/TodoList";
-import PlanVsAct from "./PlanVsAct";
-import Sales from "./Sales";
+import PM from "./PM";
+import ToolingConsumable from "./ToolingConsumable";
 import Filter from "../../commonComponents/Filter";
 
 const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-  const { sales, plan_vs_act } = useSelector((state) => state.quality);
+  const { pmData, toolingConsumableData } = useSelector((state) => state.toolRoom);
 
   useEffect(() => {
     if (month) {
-      dispatch(qualityGraphs({ type: "sales", year: year, month: month }));
+      dispatch(getpmToolRoom({ report_type: "pmtoolroom", year: year, month: month }));
       dispatch(
-        qualityGraphs({ type: "plan_vs_act", year: year, month: month })
+        getToollingConsumable({ report_type: "consumable", year: year, month: month })
       );
     } else {
-      dispatch(qualityGraphs({ type: "sales", year: year }));
-      dispatch(qualityGraphs({ type: "plan_vs_act", year: year }));
+      dispatch(getpmToolRoom({ report_type: "pmtoolroom", year: year }));
+      dispatch(getToollingConsumable({ report_type: "consumable", year: year }));
     }
   }, [dispatch, month, year]);
 
@@ -57,11 +56,11 @@ const homeComponent = () => {
                 className=" mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Plan Vs Act
+                PM
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <PlanVsAct data={plan_vs_act} month={month} />
+              <PM data={pmData} month={month} />
             </Card.Body>
           </Card>
         </Col>
@@ -78,11 +77,11 @@ const homeComponent = () => {
                 className=" mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Sales
+                Tooling Consumables{" "}
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <Sales data={sales} month={month} />
+              <ToolingConsumable data={toolingConsumableData} month={month} />
             </Card.Body>
           </Card>
         </Col>
@@ -98,7 +97,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <TodoList type="sales" />
+              <TodoList type="utility" />
             </Card.Body>
           </Card>
         </Col>

@@ -4,25 +4,25 @@ import { Autocomplete, Grid, MenuItem, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { qualityGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
-import PowerCosts from "./PowerCosts";
-import PowerUnits from "./PowerUnits";
+import PlanVsAct from "./PlanVsAct";
+import Sales from "./Sales";
 import Filter from "../../commonComponents/Filter";
 
 const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-  const { power_cost, power_units } = useSelector((state) => state.quality);
+  const { sales, plan_vs_act } = useSelector((state) => state.quality);
 
   useEffect(() => {
     if (month) {
-      dispatch(qualityGraphs({ type: "power_cost", year: year, month: month }));
+      dispatch(qualityGraphs({ type: "sales", year: year, month: month }));
       dispatch(
-        qualityGraphs({ type: "power_units", year: year, month: month })
+        qualityGraphs({ type: "plan_vs_act", year: year, month: month })
       );
     } else {
-      dispatch(qualityGraphs({ type: "power_cost", year: year }));
-      dispatch(qualityGraphs({ type: "power_units", year: year }));
+      dispatch(qualityGraphs({ type: "sales", year: year }));
+      dispatch(qualityGraphs({ type: "plan_vs_act", year: year }));
     }
   }, [dispatch, month, year]);
 
@@ -57,11 +57,11 @@ const homeComponent = () => {
                 className=" mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Power Units
+                Plan Vs Act
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <PowerUnits data={power_units} month={month} />
+              {/* <PlanVsAct data={plan_vs_act} month={month} /> */}
             </Card.Body>
           </Card>
         </Col>
@@ -78,11 +78,11 @@ const homeComponent = () => {
                 className=" mb-0"
                 style={{ fontWeight: "bold", fontSize: "1.3rem" }}
               >
-                Power Cost
+                Sales
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <PowerCosts data={power_cost} month={month} />
+              {/* <Sales data={sales} month={month} /> */}
             </Card.Body>
           </Card>
         </Col>
@@ -98,7 +98,7 @@ const homeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <TodoList type="utility" />
+              <TodoList type="sales" />
             </Card.Body>
           </Card>
         </Col>
