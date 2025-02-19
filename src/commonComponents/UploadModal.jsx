@@ -10,6 +10,8 @@ import {
   uploadSafetyExcel,
   uploadSalesExcel,
   uploadUtilityExcel,
+  uploadToolExcel,
+  uploadStoreExcel
 } from "../store/upload/uploadSlice";
 
 const UploadComponent = ({ label }) => {
@@ -20,6 +22,8 @@ const UploadComponent = ({ label }) => {
   const handleFileUpload = (e) => {
     setFile(e.target.files[0]);
   };
+  console.log("label",label)
+  console.log(file)
   const handleSubmit = () => {
     if (file) {
       if (file.name.split(".")[0] !== label.slice(7)) {
@@ -53,6 +57,13 @@ const UploadComponent = ({ label }) => {
         case "Upload HR":
           action = uploadHrExcel;
           break;
+        case "Upload Toolroom":
+          action = uploadToolExcel;
+          break;
+          case "Upload store":
+            action = uploadStoreExcel;
+            break;
+  
         default:
           toast.error("Invalid label. Cannot determine upload action.");
           return;

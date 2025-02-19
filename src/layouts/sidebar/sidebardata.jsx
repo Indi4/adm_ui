@@ -5,7 +5,7 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import PPCIcon from '@mui/icons-material/Event'
-
+import Maintenance from "../../assets/images/pngs/13.png"
 const MenuItems = [
   {
     Items: [
@@ -77,18 +77,26 @@ const MenuItems = [
         selected: false,
       },
       {
-        title: "Utility",
-        path: "/utility",
+        title: "Tool Room",
+        path: "/toolRoom",
         type: "link",
         icon: <i className="fe fe-home"></i>, 
         active: false,
         selected: false,
       },
       {
-        title: "Sales",
-        path: "/sales",
+        title: "Store & Purchase",
+        path: "/store-purchase",
         type: "link",
         icon: <TrendingUpIcon/>, 
+        active: false,
+        selected: false,
+      },
+      {
+        title: "Maintenance",
+        path: "/maintenance",
+        icon: <img src={Maintenance} alt="Maintenance" style={{ width: "24px", height: "24px" }} />, 
+        type: "link",
         active: false,
         selected: false,
       },
@@ -100,14 +108,14 @@ const MenuItems = [
         active: false,
         selected: false,
       },
-      {
-        title: "Finance",
-        path: "/finance",
-        type: "link",
-        icon: <AccountBalanceIcon/>, 
-        active: false,
-        selected: false,
-      },
+      // {
+      //   title: "Finance",
+      //   path: "/finance",
+      //   type: "link",
+      //   icon: <AccountBalanceIcon/>, 
+      //   active: false,
+      //   selected: false,
+      // },
      
     ],
   },

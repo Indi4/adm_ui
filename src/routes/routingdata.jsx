@@ -1,24 +1,21 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom/client";
 import Purchase from "../Modules/Purchase/Purchase";
-import Upload from "../Modules/Upload/upload"
+import Upload from "../Modules/Upload/upload";
 import Quality from "../Modules/Quality/homeComponent";
 import Safety from "../Modules/Safety/homeComponent";
 import Production from "../Modules/Production/homeComponent";
-import Sales from "../Modules/Sales/homeComponent";
+import StoreAndPurchase from "../Modules/StoreAndPurchase/homeComponent";
 import Finance from "../Modules/Finance/homeComponent";
 import HR from "../Modules/HR/homeComponent";
-import Utility from "../Modules/Utility/homeComponent";
+import ToolRoom from "../Modules/ToolRoom/homeComponent";
 import QuickAction from "../Modules/QuickAction/quickAction";
 import PPC from "../Modules/PPC/HomeComponent";
-
+import Maintenance from "../Modules/Maintenance/HomeComponent";
 
 /* MDM Routes */
 
-const Dashboard = React.lazy(() =>
-  import("../Modules/Dashboard/Dashboard")
-);
-
+const Dashboard = React.lazy(() => import("../Modules/Dashboard/Dashboard"));
 
 // const Cardsdesign = React.lazy(() =>
 //   import("../components/Apps/Cardsdesign/Cardsdesign")
@@ -328,21 +325,25 @@ export const Routingdata = [
     element: <Production />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/utility`,
-    element: <Utility />,
+    path: `${import.meta.env.BASE_URL}/toolRoom`,
+    element: <ToolRoom />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/sales`,
-    element: <Sales />,
+    path: `${import.meta.env.BASE_URL}/store-purchase`,
+    element: <StoreAndPurchase />,
   },
   {
     path: `${import.meta.env.BASE_URL}/hr`,
     element: <HR />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/finance`,
-    element: <Finance />,
+    path: `${import.meta.env.BASE_URL}/maintenance`,
+    element: <Maintenance />,
   },
+  // {
+  //   path: `${import.meta.env.BASE_URL}/finance`,
+  //   element: <Finance />,
+  // },
 
   /* Bootstrap page  */
 
