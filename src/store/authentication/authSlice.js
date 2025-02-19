@@ -61,6 +61,7 @@ const authSlice = createSlice({
     error: "",
     success:"",
     loading: false,
+    isDarkMode: localStorage.getItem("darkMode") === "true" || false,
     accessToken: "",
     division:""
   },
@@ -74,6 +75,16 @@ const authSlice = createSlice({
     },
     setAuthToken: (state,action) => {
       state.accessToken = action.payload;
+    },
+    toggleDarkMode: (state) => {
+      state.isDarkMode = !state.isDarkMode;
+      localStorage.setItem("darkMode", state.isDarkMode);
+      // Optionally update the body class (for UI styling)
+      if (state.isDarkMode) {
+        document.querySelector(".app").classList.add("dark-mode");
+      } else {
+        document.querySelector(".app").classList.remove("dark-mode");
+      }
     },
     removeRole: (state) => {
       state.role = "";
@@ -138,5 +149,5 @@ const authSlice = createSlice({
   }
 });
 
-export const { getRole, removeRole, setRole, setAuthToken, clearSuccessMessage, clearErrorMessage } = authSlice.actions;
+export const { getRole, removeRole, setRole, setAuthToken, clearSuccessMessage, clearErrorMessage, toggleDarkMode } = authSlice.actions;
 export default authSlice.reducer;

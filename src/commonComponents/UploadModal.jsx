@@ -10,6 +10,10 @@ import {
   uploadSafetyExcel,
   uploadSalesExcel,
   uploadUtilityExcel,
+  uploadToolExcel,
+  uploadStoreExcel,
+  UploadMaintenance,
+  UploadPPC
 } from "../store/upload/uploadSlice";
 
 const UploadComponent = ({ label }) => {
@@ -35,14 +39,14 @@ const UploadComponent = ({ label }) => {
         case "Upload Quality":
           action = uploadQualityExcel;
           break;
-        case "Upload Utility":
-          action = uploadUtilityExcel;
+        case "Upload PPC":
+          action = UploadPPC;
           break;
         case "Upload Safety":
           action = uploadSafetyExcel;
           break;
-        case "Upload Finance":
-          action = uploadFinanceExcel;
+        case "Upload Maintenance":
+          action = UploadMaintenance;
           break;
         case "Upload Production":
           action = uploadProductionExcel;
@@ -53,6 +57,13 @@ const UploadComponent = ({ label }) => {
         case "Upload HR":
           action = uploadHrExcel;
           break;
+        case "Upload Toolroom":
+          action = uploadToolExcel;
+          break;
+          case "Upload Store and Purchase":
+            action = uploadStoreExcel;
+            break;
+  
         default:
           toast.error("Invalid label. Cannot determine upload action.");
           return;

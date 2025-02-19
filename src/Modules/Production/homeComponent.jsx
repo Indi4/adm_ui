@@ -103,7 +103,15 @@ const HomeComponent = () => {
       <Row className="g-2">
         {/* AHF Production Card */}
         <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+              <Card className="overflow-hidden" style={{ height: "100%" }}>
+                      <Card.Header className="border-bottom">
+                        <Card.Title
+                          className="mb-0"
+                          style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                        >
+                      AHF Production
+                        </Card.Title>
+                      </Card.Header>
             <Card.Body className="p-1">
               <AHF data={dummyData} month={month} />
             </Card.Body>
@@ -112,8 +120,15 @@ const HomeComponent = () => {
 
         {/* Bending Production Card */}
         <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
-  
+            <Card className="overflow-hidden" style={{ height: "100%" }}>
+                    <Card.Header className="border-bottom">
+                      <Card.Title
+                        className="mb-0"
+                        style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                      >
+                        Bending Production
+                      </Card.Title>
+                    </Card.Header>
             <Card.Body className="p-1">
               <Bending data={dummyData} month={month} />
             </Card.Body>
@@ -121,7 +136,15 @@ const HomeComponent = () => {
         </Col>
         {/* Bending Production Card */}
         <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+            <Card className="overflow-hidden" style={{ height: "100%" }}>
+                    <Card.Header className="border-bottom">
+                      <Card.Title
+                        className="mb-0"
+                        style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                      >
+                       Assembly Production plan (quality clear)
+                      </Card.Title>
+                    </Card.Header>
             <Card.Body className="p-1">
               <AssemblyProduction data={dummyData} month={month} />
             </Card.Body>
@@ -129,7 +152,15 @@ const HomeComponent = () => {
         </Col>
            {/* AHFOEE Card */}
            <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+           <Card className="overflow-hidden" style={{ height: "100%" }}>
+                   <Card.Header className="border-bottom">
+                     <Card.Title
+                       className="mb-0"
+                       style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                     >
+                      AHF OEE
+                     </Card.Title>
+                   </Card.Header>
             <Card.Body className="p-1">
               <AHFOEE data={dummyData} month={month} />
             </Card.Body>
@@ -138,7 +169,15 @@ const HomeComponent = () => {
 
            {/* Bending OEE Production Card */}
            <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+          <Card className="overflow-hidden" style={{ height: "100%" }}>
+                  <Card.Header className="border-bottom">
+                    <Card.Title
+                      className="mb-0"
+                      style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                    >
+                    Bending OEE
+                    </Card.Title>
+                  </Card.Header>
             <Card.Body className="p-1">
               <BendingOEE data={dummyData} month={month} />
             </Card.Body>
@@ -146,7 +185,15 @@ const HomeComponent = () => {
         </Col>
            {/* Furnace OEE */}
            <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+            <Card className="overflow-hidden" style={{ height: "100%" }}>
+                    <Card.Header className="border-bottom">
+                      <Card.Title
+                        className="mb-0"
+                        style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                      >
+                       Furnace OEE
+                      </Card.Title>
+                    </Card.Header>
             <Card.Body className="p-1">
               <FurnaceOEE data={dummyData} month={month} />
             </Card.Body>
@@ -154,7 +201,15 @@ const HomeComponent = () => {
         </Col>
           {/* MTD productivity */}
           <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+             <Card className="overflow-hidden" style={{ height: "100%" }}>
+                     <Card.Header className="border-bottom">
+                       <Card.Title
+                         className="mb-0"
+                         style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                       >
+                        MTD Productivity
+                       </Card.Title>
+                     </Card.Header>
             <Card.Body className="p-1">
               <MTD data={dummyData} month={month} />
             </Card.Body>
@@ -162,7 +217,15 @@ const HomeComponent = () => {
         </Col>
          {/*  production consumable */}
          <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+             <Card className="overflow-hidden" style={{ height: "100%" }}>
+                     <Card.Header className="border-bottom">
+                       <Card.Title
+                         className="mb-0"
+                         style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                       >
+                       Production Consumables
+                       </Card.Title>
+                     </Card.Header>
             <Card.Body className="p-1">
               <ProductionConsumables data={dummyData} month={month} />
             </Card.Body>
@@ -170,7 +233,15 @@ const HomeComponent = () => {
         </Col>
          {/*  JOb WOrker */}
          <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+             <Card className="overflow-hidden" style={{ height: "100%" }}>
+                     <Card.Header className="border-bottom">
+                       <Card.Title
+                         className="mb-0"
+                         style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                       >
+                        Job Work
+                       </Card.Title>
+                     </Card.Header>
             <Card.Body className="p-1">
               <JobWork data={dummyData} month={month} />
             </Card.Body>
@@ -178,7 +249,15 @@ const HomeComponent = () => {
         </Col>
            {/*  Packaging consumbles */}
            <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+             <Card className="overflow-hidden" style={{ height: "100%" }}>
+                     <Card.Header className="border-bottom">
+                       <Card.Title
+                         className="mb-0"
+                         style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                       >
+                      Packaging Consumbles
+                       </Card.Title>
+                     </Card.Header>
             <Card.Body className="p-1">
               <PackagingConsumbles data={dummyData} month={month} />
             </Card.Body>
@@ -186,7 +265,15 @@ const HomeComponent = () => {
         </Col>
           {/*  furnace consumbles */}
           <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+            <Card className="overflow-hidden" style={{ height: "100%" }}>
+                    <Card.Header className="border-bottom">
+                      <Card.Title
+                        className="mb-0"
+                        style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                      >
+                       Furnace Consumbles
+                      </Card.Title>
+                    </Card.Header>
             <Card.Body className="p-1">
               <FurnaceConsumbles data={dummyData} month={month} />
             </Card.Body>
@@ -194,7 +281,15 @@ const HomeComponent = () => {
         </Col>
          {/*  4KWIP +OS */}
          <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
-          <Card className="h-100">
+           <Card className="overflow-hidden" style={{ height: "100%" }}>
+                   <Card.Header className="border-bottom">
+                     <Card.Title
+                       className="mb-0"
+                       style={{ fontWeight: "bold", fontSize: "1.3rem" }}
+                     >
+                      4K WIP+OS
+                     </Card.Title>
+                   </Card.Header>
             <Card.Body className="p-1">
               <KWIP data={dummyData} month={month} />
             </Card.Body>

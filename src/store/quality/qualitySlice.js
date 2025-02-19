@@ -2,14 +2,31 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import apiService from "../../services/apiService";
 
+
+export const HRGraphs = createAsyncThunk(
+  "quality/HRGraphs",
+  async ({ type, year, month }) => {
+    try {
+      const query = month
+        ? `report_type=${type}&month=${month}&year=${year}`
+        : `report_type=${type}&year=${year}`;
+      const response = await apiService.get(`metrics/graph_hr/?${query}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching Graph data:", error);
+      throw error;
+    }
+  }
+);
+
 export const qualityGraphs = createAsyncThunk(
   "quality/qualityGraphs",
   async ({ type, year, month }) => {
     try {
       const query = month
-        ? `type=${type}&month=${month}&year=${year}`
-        : `type=${type}&year=${year}`;
-      const response = await apiService.get(`dashboard/filter_power/?${query}`);
+        ? `report_type=${type}&month=${month}&year=${year}`
+        : `report_type=${type}&year=${year}`;
+      const response = await apiService.get(`metrics/graph_quality/?${query}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching Graph data:", error);
@@ -34,27 +51,50 @@ export const safetyGraphs = createAsyncThunk(
   }
 );
 
+
+export const storeGraphs = createAsyncThunk(
+  "quality/storeGraphs",
+  async ({ type, year, month }) => {
+    try {
+      const query = month
+        ? `report_type=${type}&month=${month}&year=${year}`
+        : `report_type=${type}&year=${year}`;
+      const response = await apiService.get(`metrics/graph_store/?${query}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching Graph data:", error);
+      throw error;
+    }
+  }
+);
+
 const qualitySlice = createSlice({
   name: "quality",
   initialState: {
-    ppm: [],
-    copq: [],
-    sales: [],
-    purchase: [],
-    manpower: [],
-    direct_manpower: [],
-    indirect_manpower: [],
-    process_scrap: [],
-    design_scrap: [],
-    power_cost: [],
-    power_units: [],
-    consumable_costs: [],
-    plan_vs_act: [],
+    qualityData:{
+      CustomerPPM: null,
+      CustomerComplaints: null,
+      Kaizen: null,
+      COPQ: null,
+      SupplierPPM: null,
+      LineGenerationComplaints: null,
+      PlannedRework: null
+    },
     minor: [],
     major: [],
+    HRGraphsData:{
+      headcount: null,
+      mpcost: null,
+    },
+    storeData:{
+      grnreport: null,
+      storeinventory: null,
+      dailypurchasereport: null
+    },
     error: "",
     success: "",
     loading: false,
+
   },
   reducers: {
     clearSuccessMessage: (state) => {
@@ -72,51 +112,25 @@ const qualitySlice = createSlice({
       })
       .addCase(qualityGraphs.fulfilled, (state, action) => {
         state.loading = false;
-        switch (action.payload.type) {
-          case "ppm":
-            state.ppm = action.payload;
-            break;
-          case "copq":
-            state.copq = action.payload;
-            break;
-          case "sales":
-            state.sales = action.payload;
-            break;
-          case "purchase":
-            state.purchase = action.payload;
-            break;
-          case "manpower":
-            state.manpower = action.payload;
-            break;
-          case "direct_manpower":
-            state.direct_manpower = action.payload;
-            break;
-          case "indirect_manpower":
-            state.indirect_manpower = action.payload;
-            break;
-          case "process_scrap":
-            state.process_scrap = action.payload;
-            break;
-          case "design_scrap":
-            state.design_scrap = action.payload;
-            break;
-          case "power_cost":
-            state.power_cost = action.payload;
-            break;
-          case "power_units":
-            state.power_units = action.payload;
-            break;
-          case "consumable_costs":
-            state.consumable_costs = action.payload;
-            break;
-          case "plan_vs_act":
-            state.plan_vs_act = action.payload;
-            break;
-          default:
-            state.error = action.error("Getting data of invalid type")
-        }
+        const {type} = action.meta.arg
+        state.qualityData[type] = action.payload
       })
       .addCase(qualityGraphs.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+
+    builder
+      .addCase(storeGraphs.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(storeGraphs.fulfilled, (state, action) => {
+        state.loading = false;
+        const {type} = action.meta.arg
+        state.storeData[type] = action.payload
+      })
+      .addCase(storeGraphs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
@@ -140,6 +154,21 @@ const qualitySlice = createSlice({
         }
       })
       .addCase(safetyGraphs.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+
+      builder
+      .addCase(HRGraphs.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(HRGraphs.fulfilled, (state, action) => {
+        state.loading = false;
+        const {type} = action.meta.arg;
+        state.HRGraphsData[type] = action.payload
+      })
+      .addCase(HRGraphs.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

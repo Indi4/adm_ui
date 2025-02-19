@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/ADM/ADM_logo.png";
 import logolight from "../../assets/images/ADM/ADM_logo.png";
@@ -17,8 +17,8 @@ import {
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { imagesData } from "../../common/commomimages/imagedata";
 import MenuItems from "../sidebar/sidebardata";
-import { removeRole } from "../../store/authentication/authSlice";
-import { useDispatch } from "react-redux";
+import { removeRole, toggleDarkMode } from "../../store/authentication/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Header() {
   //Search functionality
@@ -99,26 +99,36 @@ function Header() {
     // }, 100); 
   };
   
+  const isDarkMode = useSelector((state) => state.auth.isDarkMode);
+  // const Darkmode = () => {
+  //   if (document.querySelector(".app").classList.contains("dark-mode")) {
+  //     localStorage.setItem("darkMode",false)
+  //     document.querySelector(".app").classList.remove("dark-mode");
+  //     let DarkMenu1 = document.querySelector("#myonoffswitch1"); //light theme
+  //     DarkMenu1.checked = true;
+  //     let DarkMenu2 = document.querySelector("#myonoffswitch6"); // light header
+  //     DarkMenu2.checked = true;
+  //     let DarkMenu3 = document.querySelector("#myonoffswitch3"); //light menu
+  //     DarkMenu3.checked = true;
+  //   } else {
+  //     localStorage.setItem("darkMode",true)
+  //     document.querySelector(".app").classList.add("dark-mode");
+  //     let DarkMenu1 = document.querySelector("#myonoffswitch2"); //dark theme
+  //     DarkMenu1.checked = true;
+  //     let DarkMenu2 = document.querySelector("#myonoffswitch8"); //dark header
+  //     DarkMenu2.checked = true;
+  //     let DarkMenu3 = document.querySelector("#myonoffswitch5"); //dark menu
+  //     DarkMenu3.checked = true;
+  //   }
+  // };
 
-  const Darkmode = () => {
-    if (document.querySelector(".app").classList.contains("dark-mode")) {
-      document.querySelector(".app").classList.remove("dark-mode");
-      let DarkMenu1 = document.querySelector("#myonoffswitch1"); //light theme
-      DarkMenu1.checked = true;
-      let DarkMenu2 = document.querySelector("#myonoffswitch6"); // light header
-      DarkMenu2.checked = true;
-      let DarkMenu3 = document.querySelector("#myonoffswitch3"); //light menu
-      DarkMenu3.checked = true;
-    } else {
+  useEffect(() => {
+    if (isDarkMode) {
       document.querySelector(".app").classList.add("dark-mode");
-      let DarkMenu1 = document.querySelector("#myonoffswitch2"); //dark theme
-      DarkMenu1.checked = true;
-      let DarkMenu2 = document.querySelector("#myonoffswitch8"); //dark header
-      DarkMenu2.checked = true;
-      let DarkMenu3 = document.querySelector("#myonoffswitch5"); //dark menu
-      DarkMenu3.checked = true;
+    } else {
+      document.querySelector(".app").classList.remove("dark-mode");
     }
-  };
+  }, [isDarkMode]);
 
   // FuScreen-start
   function Fullscreen() {
@@ -297,18 +307,16 @@ function Header() {
                                             </Dropdown.Menu>
                                         </Dropdown> */}
 
-                    <div className="d-flex country" onClick={() => Darkmode()}>
-                      <Link
-                        to="#"
-                        className="nav-link icon theme-layout nav-link-bg layout-setting"
-                      >
-                        <span className="dark-layout mt-1">
-                          <i className="ri-moon-clear-line"></i>
-                        </span>
-                        <span className="light-layout mt-1">
-                          <i className="ri-sun-line"></i>
-                        </span>
-                      </Link>
+                    <div className="d-flex country" onClick={() => dispatch(toggleDarkMode())}>
+                    <Link to="#" className="nav-link icon theme-layout nav-link-bg layout-setting">
+        <span className={`dark-layout mt-1 ${isDarkMode ? "d-block" : "d-none"}`}>
+          <i className="ri-moon-clear-line"></i>
+        </span>
+
+        <span className={`light-layout mt-1 ${!isDarkMode ? "d-block" : "d-none"}`}>
+          <i className="ri-sun-line"></i>
+        </span>
+      </Link>
                     </div>
 
                     {/* <Dropdown className=" d-flex shopping-cart">

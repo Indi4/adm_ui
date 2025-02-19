@@ -12,9 +12,7 @@ import {
 } from "recharts";
 import Loader from "../../commonComponents/Loader";
 
-const CustomerComplaints = ({ month, data }) => {
-  const { datasets, day_wise_data } = data;
-  console.log(data)
+const CustomerComp = ({ month, data }) => {
 
   const [isLoading, setIsLoading] = useState(true);
   // const [showFirstHalf, setShowFirstHalf] = useState(true);
@@ -47,26 +45,21 @@ const CustomerComplaints = ({ month, data }) => {
   //   }));
 
   let chartData = [];
-    let totals = { actual: 0, target: 0 };
   
     if (month) {
       // Filter data for the selected month from day_wise_data
-      chartData = day_wise_data?.map((day) => ({
-        name: `${day.day}`,
-        target: day.target,
-        actual: day.actual,
+      chartData = data?.map((D) => ({
+        name: D.Date.slice(-2),
+        target: D.Target,
+        actual: D.Actual,
       }));
     } else {
-      // Use datasets for monthly data
-      const monthlyTarget = datasets?.find((dataset) => dataset.label === "Avg of monthly target")?.data || [];
-      const monthlyActual = datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")?.data || [];
-      chartData = monthlyTarget.map((item, index) => ({
-        name: item.month,
-        target: item.target,
-        actual: monthlyActual[index]?.actual || 0,
+      chartData = data?.map((D, index) => ({
+        name: D.month,
+        target: D.Target,
+        actual: D.Actual,
       }));
     }
-    console.log(chartData)
 
 
   return (
@@ -111,8 +104,8 @@ const CustomerComplaints = ({ month, data }) => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="actual" stroke="#FF8632" strokeWidth={2} dot={{ r: 5 }} name="Actual" />
-                <Line type="monotone" dataKey="target" stroke="#135C75" strokeWidth={2} dot={{ r: 5 }} name="Target" />
+                <Line type="monotone" dataKey="actual" stroke="#FF8632" strokeWidth={2} dot={{ r: 2 }} name="Actual" />
+                <Line type="monotone" dataKey="target" stroke="#135C75" strokeWidth={2} dot={{ r: 2 }} name="Target" />
                 <Legend/>
               </ComposedChart>
             </ResponsiveContainer>
@@ -123,4 +116,4 @@ const CustomerComplaints = ({ month, data }) => {
   );
 };
 
-export default CustomerComplaints;
+export default CustomerComp;

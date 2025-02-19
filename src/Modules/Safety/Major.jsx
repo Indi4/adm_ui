@@ -66,7 +66,7 @@ const Major = ({ month, data }) => {
                   dataKey="target"
                   stroke="#135C75"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Target"
                 />
                 <Line
@@ -74,7 +74,7 @@ const Major = ({ month, data }) => {
                   dataKey="actual"
                   stroke="#26B5DD"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Actual"
                 />
                 <Legend />

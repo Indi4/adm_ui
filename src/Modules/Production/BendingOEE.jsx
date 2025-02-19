@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card, CardTitle } from "react-bootstrap";
 import {
-  ComposedChart,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
   Legend,
-  Bar,
-  Line,
 } from "recharts";
 import Loader from "../../commonComponents/Loader";
 
@@ -33,25 +32,23 @@ const BendingOEE = ({ month, data }) => {
   if (month) {
     // When 'month' is provided, assume 'day' is numeric
     chartData = day_wise_data?.map((day) => ({
-      name: Number(day.day), // Ensure numeric value for the X-axis
+      name: `${day.day}`, // Convert to string if necessary to treat as a category
       target: day.target,
       actual: day.actual,
     }));
   } else {
-    // If no month is provided, you might need to adjust the data structure.
-    // Here, we assume that 'item.month' can be converted to a number (e.g., month index)
     const monthlyTarget =
       datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
     const monthlyActual =
       datasets?.find((dataset) => dataset.label === "Minor Accident Actual")?.data || [];
 
     chartData = monthlyTarget.map((item, index) => ({
-      name: Number(item.month), // Convert month to a number if possible
+      name: `${item.month}`, // Convert to string to be treated as category
       target: item.target,
       actual: monthlyActual[index]?.actual || 0,
     }));
   }
-  const xTicks = Array.from({ length: 11 }, (_, i) => i);
+
   return (
     <Container>
       {isLoading ? (
@@ -62,21 +59,19 @@ const BendingOEE = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none", padding: "5px", borderRadius: "10px" }}>
-          <CardTitle style={{ fontSize: "14px", fontWeight: "bold" ,color:"black"}}>Bending OEE</CardTitle>
+        <Card style={{ border: "none", }}>
+         
           <ResponsiveContainer width="100%" height={250}>
-            <ComposedChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+            <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
-              {/* Setting type="number" and domain for XAxis */}
-              <XAxis dataKey="name" type="number" domain={[0, 10]} ticks={xTicks} />
+            
+              <XAxis dataKey="name" type="category" />
               <YAxis domain={[0, 100]} />
               <Tooltip />
               <Legend />
-              {/* <Line dataKey="target" fill="#008CFF" barSize={30} name="Target" />
-              <Line dataKey="actual" fill="#FF5733" barSize={30} name="Actual" /> */}
-              <Line dataKey="target" stroke="#FF7754" strokeWidth={2} name="Target" dot={{ r: 3 }} />
-                                        <Line dataKey="actual" stroke="#4268FB" strokeWidth={2} name="Actual" dot={{ r: 3 }} />
-            </ComposedChart>
+              <Bar dataKey="target" fill="#5CDFFB" barSize={30} name="Target" />
+              <Bar dataKey="actual" fill="#4268FB" barSize={30} name="Actual" />
+            </BarChart>
           </ResponsiveContainer>
         </Card>
       )}

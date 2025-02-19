@@ -59,11 +59,10 @@ const PackagingConsumbles = ({ month, data }) => {
   ];
 
   // Colors for each segment
-  const COLORS = ["#008CFF", "#FF5733"];
+  const COLORS = ["#4268FB", "#FF7754"];
   const formatNumber = (num) => {
     if (num < 1000) return num;
     const formatted = num / 1000;
-    // If the value is a whole number, don't show decimal places.
     return Number.isInteger(formatted) ? `${formatted}K` : `${formatted.toFixed(1)}K`;
   };
   return (
@@ -76,8 +75,7 @@ const PackagingConsumbles = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none", padding: "5px", borderRadius: "10px" }}>
-          <CardTitle style={{ fontSize: "14px", fontWeight: "bold" ,color:"black"}}>Packaging Consumbles</CardTitle>
+        <Card style={{ border: "none",  }}>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
@@ -86,9 +84,9 @@ const PackagingConsumbles = ({ month, data }) => {
                 nameKey="name"
                 cx="50%"
                 cy="50%"
-                innerRadius={30}  // smaller inner radius for a more compact donut
-                outerRadius={50}  // smaller overall size
-                paddingAngle={2}
+                innerRadius={50}  // smaller inner radius for a more compact donut
+                outerRadius={100}  // smaller overall size
+                paddingAngle={4}
               
               >
                 {donutData.map((entry, index) => (

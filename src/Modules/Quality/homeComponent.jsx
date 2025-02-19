@@ -188,41 +188,42 @@ import MonthlyPurchase from "../Purchase/MonthlyPurchase";
 import DailyPurchase from "../Purchase/DailyPurchase";
 import { Card, Row, Col } from "react-bootstrap";
 import { Autocomplete, Grid, TextField } from "@mui/material";
-import PPM from "./PPM";
-import COPQ from "./COPQ";
 import { useDispatch, useSelector } from "react-redux";
 import { qualityGraphs } from "../../store/quality/qualitySlice";
 import TodoList from "../../commonComponents/TodoList";
 import Filter from "../../commonComponents/Filter";
-import CustomerComplaints from "./CustomerComplaints";
-import SupplierPPMChart from "./SupplierPPM";
-import LineGenerationComplaints from "./LineComplaints";
+import CustomerComp from "./CustomerComp";
+import LineCom from "./LineCom";
 import PlantRework from "./PlantRework";
-import Kaizen from "./Kaizen";
+import KaizenComp from "./KaizenComp";
+import SPPM from "./SPPM";
+import Copq from "./COPQ";
+import PPM from "./PPM";
 
 const HomeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-  const { ppm, copq, design_scrap, process_scrap } = useSelector(
-    (state) => state.quality
-  );
+  const { CustomerPPM,CustomerComplaints,Kaizen,COPQ,SupplierPPM,LineGenerationComplaints,PlannedRework} = useSelector((state) => state.quality.qualityData);
+  console.log(LineGenerationComplaints)
 
   useEffect(() => {
     if (month) {
-      dispatch(qualityGraphs({ type: "ppm", year: year, month: month }));
-      dispatch(qualityGraphs({ type: "copq", year: year, month: month }));
-      dispatch(
-        qualityGraphs({ type: "process_scrap", year: year, month: month })
-      );
-      dispatch(
-        qualityGraphs({ type: "design_scrap", year: year, month: month })
-      );
+      dispatch(qualityGraphs({ type: "CustomerPPM", year: year, month: month }));
+      dispatch(qualityGraphs({ type: "CustomerComplaints", year: year, month: month }));
+      dispatch(qualityGraphs({ type: "SupplierPPM", year: year, month: month }));
+      dispatch(qualityGraphs({ type: "LineGenerationComplaints", year: year, month: month }));
+      dispatch(qualityGraphs({ type: "PlannedRework", year: year, month: month }));
+      dispatch(qualityGraphs({ type: "Kaizen", year: year, month: month }));
+      dispatch(qualityGraphs({ type: "COPQ", year: year, month: month }));
     } else {
-      dispatch(qualityGraphs({ type: "ppm", year: year }));
-      dispatch(qualityGraphs({ type: "copq", year: year }));
-      dispatch(qualityGraphs({ type: "process_scrap", year: year }));
-      dispatch(qualityGraphs({ type: "design_scrap", year: year }));
+      dispatch(qualityGraphs({ type: "CustomerPPM", year: year}));
+      dispatch(qualityGraphs({ type: "CustomerComplaints", year: year}));
+      dispatch(qualityGraphs({ type: "SupplierPPM", year: year}));
+      dispatch(qualityGraphs({ type: "LineGenerationComplaints", year: year}));
+      dispatch(qualityGraphs({ type: "PlannedRework", year: year}));
+      dispatch(qualityGraphs({ type: "Kaizen", year: year}));
+      dispatch(qualityGraphs({ type: "COPQ", year: year}));
     }
   }, [dispatch, month, year]);
 
@@ -243,7 +244,7 @@ const HomeComponent = () => {
         <Filter getData={getData} />
       </Card>
       <Row className="g-3">
-        <Col lg={6} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -254,12 +255,12 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <PPM data={ppm} month={month} />
+              <PPM data={CustomerPPM} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -270,12 +271,12 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <CustomerComplaints data={copq} month={month} />
+              <CustomerComp data={CustomerComplaints} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -286,12 +287,12 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <SupplierPPMChart data={copq} month={month} />
+              <SPPM data={SupplierPPM} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={3}>
+        <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -302,12 +303,12 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <LineGenerationComplaints data={copq} month={month} />
+              <LineCom data={LineGenerationComplaints} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={3}>
+        <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -318,12 +319,12 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <COPQ data={copq} month={month} />
+              <Copq data={COPQ} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={3}>
+        <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -334,13 +335,13 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <PlantRework data={ppm} month={month} />
+              <PlantRework data={PlannedRework} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
 
-        <Col lg={6} md={6} sm={12} xl={3}>
+        <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
@@ -351,7 +352,7 @@ const HomeComponent = () => {
               </Card.Title>
             </Card.Header>
             <Card.Body className="p-3">
-              <Kaizen data={design_scrap} month={month} />
+              <KaizenComp data={Kaizen} month={month} />
             </Card.Body>
           </Card>
         </Col>

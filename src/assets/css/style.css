@@ -13946,12 +13946,12 @@ label.control-label {
 .side-menu__item.parent:focus {
     text-decoration: none;
     color: white !important;
-    background-color: #8884d8 !important;
+    background-color: #135C75 !important;
 }
 
 .side-menu__item.child {
-    font-size: 13px;
-    margin: 10px;
+    font-size: 15px;
+    margin: 100px;
 }
 
 .side-menu__item.child.active,
@@ -13960,8 +13960,6 @@ label.control-label {
     color: white !important;
     background-color: #0093d0 !important;
     margin: 10px !important;
-
-
 }
 
 
@@ -25411,6 +25409,7 @@ dd {
     padding: 5px;
     color: black;
 }
+
 
 .slide.is-expanded .slide-menu {
     display: block;

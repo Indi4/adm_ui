@@ -37,7 +37,6 @@ const FurnaceConsumbles = ({ month, data }) => {
       actual: day.actual,
     }));
   } else {
-    // If no month is provided, adjust the data structure accordingly.
     const monthlyTarget =
       datasets?.find((dataset) => dataset.label === "Minor Accident Target")?.data || [];
     const monthlyActual =
@@ -63,8 +62,7 @@ const FurnaceConsumbles = ({ month, data }) => {
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none", padding: "5px", borderRadius: "10px" }}>
-          <CardTitle style={{ fontSize: "14px", fontWeight: "bold" ,color:"black"}}>Furnace Consumbles</CardTitle>
+        <Card style={{ border: "none",  }}>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -72,8 +70,8 @@ const FurnaceConsumbles = ({ month, data }) => {
               <YAxis domain={[0, 100]} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="target" fill="#008CFF" barSize={30} name="Target" />
-              <Bar dataKey="actual" fill="#FF5733" barSize={30} name="Actual" />
+                <Bar dataKey="target" fill="#5CDFFB" barSize={30} name="Target" />
+               <Bar dataKey="actual" fill="#4268FB" barSize={30} name="Actual" />
             </BarChart>
           </ResponsiveContainer>
         </Card>

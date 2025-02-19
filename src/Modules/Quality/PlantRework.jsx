@@ -189,7 +189,7 @@
 
 // export default PPM;
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Card, Typography, Box, Button } from "@mui/material";
+import { Container, Row, Col, Card, Button, Spinner } from "react-bootstrap";
 import {
   ComposedChart,
   Line,
@@ -203,10 +203,8 @@ import {
 import Loader from "../../commonComponents/Loader";
 
 const PlantRework = ({ month, data }) => {
-  const { datasets, final_totals } = data;
 
   const [isLoading, setIsLoading] = useState(true); // State to track loading
-  const [showFirstHalf, setShowFirstHalf] = useState(true); // Toggle state for 6-month views
 
   useEffect(() => {
     if (data) {
@@ -219,28 +217,27 @@ const PlantRework = ({ month, data }) => {
     }
   }, [data]);
 
-  const monthlyTarget =
-    datasets?.find((dataset) => dataset.label === "Avg of monthly target")
-      ?.data || [];
-  const monthlyActual =
-    datasets?.find((dataset) => dataset.label === "Avg of monthly Actual")
-      ?.data || [];
-
-  // Toggle data between the first 6 months and the next 6 months
-  const chartData = monthlyTarget
-    .slice(showFirstHalf ? 0 : 6, showFirstHalf ? 6 : 12)
-    .map((item, index) => ({
-      name: item.month,
-      target: item.target,
-      actual: monthlyActual[showFirstHalf ? index : index + 6]?.actual || 0,
+  let chartData = [];
+  
+  if (month) {
+    // Filter data for the selected month from day_wise_data
+    chartData = data?.map((D) => ({
+      name: D.Date.slice(-2),
+      target: D.Target,
+      actual: D.Actual,
     }));
-
-  const totals = final_totals || { actual: 0, target: 0 };
+  } else {
+    chartData = data?.map((D, index) => ({
+      name: D.month,
+      target: D.Target,
+      actual: D.Actual,
+    }));
+  }
 
   return (
     <Container>
       {isLoading ? (
-        <Box
+        <div
           mt={4}
           style={{
             padding: "20px",
@@ -252,75 +249,13 @@ const PlantRework = ({ month, data }) => {
           }}
         >
           <Loader />
-        </Box>
+        </div>
       ) : (
         <>
-          {/* Chart Header */}
-          {/* <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            my={1}
-          > */}
-          {/* <Typography style={{ fontWeight: "bold",fontSize:"0.8rem" }}> */}
-          {/* Monthly Target vs Monthly Actual */}
-          {/* </Typography>
-            <Button */}
-          {/* variant="contained"
-         color="primary"
-              onClick={() => setShowFirstHalf((prev) => !prev)}
-            > */}
-          {/* <i class="bi bi-caret-left"></i> {showFirstHalf}<i class="bi bi-caret-right"></i>
-            </Button>
-          </Box> */}
-          {/* Totals */}
-          {/* <Grid container spacing={1} justifyContent="space-between">
-            <Grid item xs={12} md={6}>
-              <Card
-                style={{
-                  textAlign: "center",
-                  padding: "10px",
-                  backgroundColor: "#8884d8",
-                }}
-              >
-                <Typography variant="subtitle1">
-                  Total {showFirstHalf }{" "}
-                  Actual
-                </Typography>
-                <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                  {totals.actual?.toFixed(2)}
-                </Typography>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Card
-                style={{
-                  textAlign: "center",
-                  padding: "10px",
-                  backgroundColor: "#FFDA44",
-                }}
-              >
-                <Typography variant="subtitle1">
-                  Total {showFirstHalf}{" "}
-                  Target
-                </Typography>
-                <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                  {totals.target?.toFixed(2)}
-                </Typography>
-              </Card>
-            </Grid>
-          </Grid> */}
-      
-
           {/* Chart */}
           <Card
             style={{
-              width: "100%",
-              height: 300,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              // marginTop: "20px",
+              border:"none"
             }}
           >
             <ResponsiveContainer width="100%" height={300}>
@@ -332,21 +267,21 @@ const PlantRework = ({ month, data }) => {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                {/* <Legend /> */}
+                <Legend />
                 <Line
                   type="monotone"
                   dataKey="target"
-                  stroke="#FFDA44"
+                  stroke="#FF8632"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Target"
                 />
                 <Line
                   type="monotone"
                   dataKey="actual"
-                  stroke="#8884d8"
+                  stroke="#135C75"
                   strokeWidth={2}
-                  dot={{ r: 5 }}
+                  dot={{ r: 2 }}
                   name="Actual"
                 />
               </ComposedChart>

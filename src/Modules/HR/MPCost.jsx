@@ -13,7 +13,6 @@ import {
 import Loader from "../../commonComponents/Loader";
 
 const MPCost = ({ month, data }) => {
-  const { datasets, day_wise_data } = data || {};
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,36 +23,18 @@ const MPCost = ({ month, data }) => {
   }, [data]);
 
   let chartData = [];
-  let totals = { actual: 0, target: 0 };
-
-  if (month && day_wise_data) {
-    chartData = day_wise_data.map((day) => ({
-      name: `${day.day}`,
-      target: day.target,
-      actual: day.actual,
-    }));
-  } else if (datasets) {
-    const monthlyTarget =
-      datasets.find((dataset) => dataset.label === "Avg of monthly target")
-        ?.data || [];
-    const monthlyActual =
-      datasets.find((dataset) => dataset.label === "Avg of monthly Actual")
-        ?.data || [];
-
-    chartData = monthlyTarget.map((item, index) => ({
-      name: item.month,
-      target: item.target,
-      actual: monthlyActual[index]?.actual || 0,
-    }));
-
-    totals = chartData.reduce(
-      (acc, item) => {
-        acc.target += item.target;
-        acc.actual += item.actual;
-        return acc;
-      },
-      { actual: 0, target: 0 }
-    );
+  if(month){
+    chartData = data.map((D,index)=>({
+      name: D?.date?.slice(-2),
+      direct_actual : D.direct_actual_sum,
+      indirect_actual : D.indirect_actual_sum,
+    }))
+  }else{
+    chartData = data?.map((D,index)=>({
+      name: D.month,
+      direct_actual : D.direct_actual_sum,
+      indirect_actual : D.indirect_actual_sum,
+    }))
   }
 
   return (
@@ -73,8 +54,8 @@ const MPCost = ({ month, data }) => {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="actual" stroke="#f8cd0e" fill="#f8cd0e" name="Actual" />
-              <Bar dataKey="target" stroke="#26B5DD" fill="#26B5DD" name="Target" />
+              <Bar dataKey="direct_actual" stroke="#26B5DD" fill="#26B5DD" name="Direct Actual" />
+              <Bar dataKey="indirect_actual" stroke="#FF8632" fill="#FF8632" name="In Direct Actual" />
               <Legend />
             </ComposedChart>
           </ResponsiveContainer>
