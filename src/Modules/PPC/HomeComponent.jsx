@@ -19,6 +19,7 @@ import { processChartData, processPieChartData } from "../Maintenance/helperData
 import MTTR from "../Maintenance/MTTR";
 import BreakdownIncidentClosure from "../Maintenance/BreakdownIncidentClosure";
 import ComplinityReport from "../Maintenance/ComplinityReport";
+import HorizontalBar from "../shareGraph/HorizontalBar";
 const dummyData = {
   // Example for when month is provided. This represents daily data.
   day_wise_data: [
@@ -159,7 +160,8 @@ const HomeComponent = () => {
             </Card.Header>
             <Card.Body className="p-1">
               {/* <OverallPerformance  /> */}
-              <BreakdownIncidentClosure data={processChartData(ExportSaleInLakh,month)} />
+              <HorizontalBar data={processPieChartData(DomesticSaleInLakh)} />
+              {/* <BreakdownIncidentClosure data={processChartData(ExportSaleInLakh,month)} /> */}
             </Card.Body>
           </Card>
         </Col>

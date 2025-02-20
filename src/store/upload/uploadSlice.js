@@ -77,7 +77,7 @@ export const uploadQualityExcel = createAsyncThunk(
     "upload/uploadProductionExcel",
     async (formData, { rejectWithValue }) => {
       try {
-        const response = await apiService.post("dashboard/dept_production/", formData,);
+        const response = await apiService.post("metrics/upload_production/", formData,);
         return response.data;
       } catch (error) {
         return rejectWithValue(error.response?.data || "An error occurred during upload.");

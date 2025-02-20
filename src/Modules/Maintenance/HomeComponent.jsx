@@ -11,6 +11,7 @@ import ComplinityReportComonent from "./ComplinityReport";
 import ElectricityConsumptionComp from "./ElectricityConsumption";
 import { fetchMaintenanceData } from "../../store/Maintenance/maintenanceSlice";
 import { processChartData, processPieChartData } from "./helperData";
+import LineGraph from "../shareGraph/LineGraph";
 
 
 const HomeComponent = () => {
@@ -134,6 +135,7 @@ useEffect(() => {
             </Card.Header>
             <Card.Body className="p-1">
               <ComplinityReportComonent data={processPieChartData(ComplinityReport)} />
+              {/* <LineGraph data={processChartData(ComplinityReport,month)} /> */}
             </Card.Body>
           </Card>
         </Col>

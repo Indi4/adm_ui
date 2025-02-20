@@ -1,13 +1,17 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-export const processChartData = (
-  data,
+export const processChartData = ( 
+ data,
   month,
-  nameKey = "name",
   planKey = "plan",
-  actualKey = "actual"
+  actualKey = "actual",
+  nameKey = "name",
 ) => {
-  return data?.map((item) => {
+    if (!Array.isArray(data)) {
+        return data=[]
+  }
+ 
+  return  data?.map((item) => {
     const formattedDate = (item.date ?? item.Date) 
     ? dayjs(item.date ?? item.Date).format("DD")
     : "Invalid Date";
