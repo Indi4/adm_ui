@@ -13,10 +13,19 @@ export default function Upload() {
   const [label, setLabel] = React.useState("Upload Quality");
   const { loading } = useSelector((state) => state.upload);
 
+  // Function to handle tab change
   const handleChange = (event, newValue) => {
     const selectedTab = event.currentTarget.textContent;
     setValue(newValue);
     setLabel(selectedTab);
+  };
+
+  // Style for selected tab
+  const getTabStyles = (tabValue) => {
+    return {
+      backgroundColor: value === tabValue ? "white" : "transparent", // Selected tab color
+      color: value === tabValue ? "red" : "black",
+    };
   };
 
   return (
@@ -60,11 +69,11 @@ export default function Upload() {
       <Box
         sx={{
           filter: loading ? "blur(5px)" : "none", // Blur effect when loading
-          pointerEvents: loading ? "none" : "auto", // Prevent interaction when loading
+          pointerEvents: loading ? "none" : "auto",
         }}
       >
         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider", backgroundColor: "#e1e3ed" }}>
             <TabList
               onChange={handleChange}
               variant="scrollable"
@@ -72,43 +81,37 @@ export default function Upload() {
               allowScrollButtonsMobile
               aria-label="scrollable auto tabs example"
             >
-              <Tab label="Upload Quality" value="1" />
-              <Tab label="Upload Safety" value="2" />
-              <Tab label="Upload PPC" value="3" />
-              <Tab label="Upload Maintenance" value="4" />
-              <Tab label="Upload Production" value="5" />
-              <Tab label="Upload Sales" value="6" />
-              <Tab label="Upload HR" value="7" />
-              <Tab label="Upload Toolroom" value="8" />
-              <Tab label="Upload Store and Purchase" value="9" />
-
-
+              <Tab label="Upload Quality" value="1" sx={getTabStyles("1")} />
+              <Tab label="Upload Safety" value="2" sx={getTabStyles("2")} />
+              <Tab label="Upload Utility" value="3" sx={getTabStyles("3")} />
+              <Tab label="Upload Finance" value="4" sx={getTabStyles("4")} />
+              <Tab label="Upload Production" value="5" sx={getTabStyles("5")} />
+              <Tab label="Upload Sales" value="6" sx={getTabStyles("6")} />
+              <Tab label="Upload HR" value="7" sx={getTabStyles("7")} />
+              <Tab label="Upload Toolroom" value="8" sx={getTabStyles("8")} />
+              <Tab label="Upload Store and Purchase" value="9" sx={getTabStyles("9")} />
             </TabList>
           </Box>
+
+          {/* Tab Panels */}
           <TabPanel value="1">
             <UploadModal label={label} />
           </TabPanel>
-
           <TabPanel value="2">
             <UploadModal label={label} />
           </TabPanel>
-
           <TabPanel value="3">
             <UploadModal label={label} />
           </TabPanel>
-
           <TabPanel value="4">
             <UploadModal label={label} />
           </TabPanel>
-
           <TabPanel value="5">
             <UploadModal label={label} />
           </TabPanel>
-
           <TabPanel value="6">
             <UploadModal label={label} />
           </TabPanel>
-
           <TabPanel value="7">
             <UploadModal label={label} />
           </TabPanel>

@@ -93,7 +93,7 @@ const UploadComponent = ({ label }) => {
           width: "80%",
           margin: "auto",
           boxShadow: "2px 2px 2px black",
-          backgroundColor: "#2b7fe230",
+          backgroundColor: "#e1e3ed",
           borderRadius: "10px",
           justifyContent: "center",
           marginTop: "8rem",

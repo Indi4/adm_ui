@@ -92,12 +92,12 @@ const HomeComponent = () => {
   return (
     <div
       className="container-fluid p-2"
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+      style={{ backgroundColor: "#2F598C" }}
     >
       {/* Filter Card with reduced padding/margin */}
-      <Card className="mb-2" style={{ backgroundColor: "white", height: 75, padding: "5px" }}>
+      {/* <Card className="mb-2" style={{ backgroundColor: "white", height: 75, padding: "5px" }}> */}
         <Filter getData={getData} />
-      </Card>
+      {/* </Card> */}
 
       {/* Row with three columns/cards */}
       <Row className="g-2">

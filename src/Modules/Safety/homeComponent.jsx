@@ -44,15 +44,15 @@ const homeComponent = () => {
   return (
     <div
       className="container-fluid"
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+      style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
-      <Card
+      {/* <Card
         className="mb-3 p-3"
         style={{ backgroundColor: "white", height: 75 }}
-      >
+      > */}
         <Filter getData={getData} />
-      </Card>
+      {/* </Card> */}
       <Row className="row-sm">
         <Col
           lg={6}
