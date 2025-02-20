@@ -235,14 +235,14 @@ const HomeComponent = () => {
   return (
     <div
       className="container-fluid"
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+      style={{ backgroundColor: "#2F598C" }}
     >
-      <Card
+      {/* <Card
         className="mb-3 p-3"
         style={{ backgroundColor: "white", height: 75 }}
-      >
+      > */}
         <Filter getData={getData} />
-      </Card>
+      {/* </Card> */}
       <Row className="g-3">
         <Col lg={6} md={6} sm={12} xl={6}>
           <Card className="overflow-hidden" style={{ height: "100%" }}>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {getpmToolRoom,getToollingConsumable} from "../../store/toolRoom/toolRoomSlice";
+// import {getpmToolRoom,getToollingConsumable} from "../../store/toolRoom/toolRoomSlice";
+import {getpmToolRoom,getToollingConsumable} from "../../store/toolRoom/toolRoomSlice.js";
 import TodoList from "../../commonComponents/TodoList";
 import PM from "./PM";
 import ToolingConsumable from "./ToolingConsumable";
@@ -35,15 +36,15 @@ const homeComponent = () => {
   return (
     <div
       className="container-fluid"
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+      style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
-      <Card
+      {/* <Card
         className="mb-3 p-3"
         style={{ backgroundColor: "white", height: 75 }}
-      >
+      > */}
         <Filter getData={getData} />
-      </Card>
+      {/* </Card> */}
       <Row className="row-sm">
         <Col
           lg={month ? 6 : 6}
