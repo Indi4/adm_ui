@@ -243,9 +243,9 @@ const HomeComponent = () => {
       > */}
         <Filter getData={getData} />
       {/* </Card> */}
-      <Row className="g-3">
-        <Col lg={6} md={6} sm={12} xl={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+      <Row className="g-2">
+        <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -254,14 +254,14 @@ const HomeComponent = () => {
                 PPM
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <PPM data={CustomerPPM} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+        <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -270,14 +270,14 @@ const HomeComponent = () => {
                 Customer Complaints
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <CustomerComp data={CustomerComplaints} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+        <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -286,14 +286,14 @@ const HomeComponent = () => {
                 Supplier PPM
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <SPPM data={SupplierPPM} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+        <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -302,14 +302,14 @@ const HomeComponent = () => {
                 Line/Generation Complaints
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <LineCom data={LineGenerationComplaints} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+        <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -318,14 +318,14 @@ const HomeComponent = () => {
                 COPQ
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <Copq data={COPQ} month={month} />
             </Card.Body>
           </Card>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+        <Col lg={6} md={6} sm={12} xl={4}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -334,7 +334,7 @@ const HomeComponent = () => {
                 Plant Rework
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <PlantRework data={PlannedRework} month={month} />
             </Card.Body>
           </Card>
@@ -342,7 +342,7 @@ const HomeComponent = () => {
 
 
         <Col lg={6} md={6} sm={12} xl={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -351,14 +351,14 @@ const HomeComponent = () => {
                 Kaizen
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <KaizenComp data={Kaizen} month={month} />
             </Card.Body>
           </Card>
         </Col>
     
         <Col lg={6}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
+          <Card className="overflow-hidden" style={{ height: "90%" }}>
             <Card.Header className="border-bottom">
               <Card.Title
                 className="mb-0"
@@ -367,7 +367,7 @@ const HomeComponent = () => {
                 To-do List
               </Card.Title>
             </Card.Header>
-            <Card.Body className="p-3">
+            <Card.Body className="p-1">
               <TodoList type="quality" />
             </Card.Body>
           </Card>
