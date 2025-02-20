@@ -29,12 +29,12 @@ function App() {
       <div className="horizontalMenucontainer" >
         <Switcher />
         <div className="page">
-          <div className="page-main">
+          <div className="page-main" style={{backgroundColor:"#2F598C"}}>
             <Header />
             {/* <Newsticker /> */}
             <Sidebar />
             <div className="main-content app-content" onClick={() => Togglefuction()}>
-              <div className="side-app">
+              <div className="side-app" >
                 <div className="main-container container-fluid">
                   <Outlet />
                 </div>

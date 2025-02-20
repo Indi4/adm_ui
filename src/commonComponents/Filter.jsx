@@ -45,16 +45,17 @@ const Filter = ({ getData }) => {
 
   return (
     <>
-      <div className="d-flex justify-content-end mb-3 me-3">
+      <div className="d-flex justify-content-end mb-1 mt-2">
         <Button
           variant=""
           style={{
             border: "1px solid #ccc",
-            backgroundColor: isDarkMode ? "black" : "white",
+            backgroundColor: isDarkMode ? "#2F598C" : "#2F598C",
+            marginTop: "5px"
           }}
           onClick={() => setShow(true)}
         >
-          <FaFilter style={{ fontSize: "1.5rem", color: isDarkMode ? "black" : "black", }} />
+          <FaFilter style={{ fontSize: "1.5rem", color: isDarkMode ? "white" : "white", }} />
         </Button>
       </div>
 

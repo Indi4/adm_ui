@@ -40,14 +40,14 @@ const homeComponent = () => {
   return (
     <div
       className="container-fluid"
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}
+      style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
-      <Card
+      {/* <Card
         className="mb-3 p-3"
         style={{ backgroundColor: "white", height: 75 }}
-      >
-        <Filter getData={getData} />
+      > */}
+        <Filter  getData={getData} />
         {/* <div className="row mb-4" style={{display:"flex", justifyContent:"end"}}>
           <div className="col-md-3">
             <Grid item xs={6}>
@@ -84,7 +84,7 @@ const homeComponent = () => {
         
 
         </div> */}
-      </Card>
+      {/* </Card> */}
       <Row className="row-sm">
         <Col lg={6} md={12} sm={12} xl={6} data-aos="fade-up">
           <Card className=" overflow-hidden">
