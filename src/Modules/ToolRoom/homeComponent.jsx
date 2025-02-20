@@ -11,7 +11,9 @@ const homeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
+  // const {pmData,toolingConsumableData } = useSelector((state) => state.toolRoom);
   const { pmData, toolingConsumableData } = useSelector((state) => state.toolRoom);
+
 
   useEffect(() => {
     if (month) {
