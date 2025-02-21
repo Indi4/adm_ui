@@ -1,30 +1,35 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-export const processChartData = ( 
- data,
+export const processChartData = (
+  data,
   month,
   planKey = "plan",
   actualKey = "actual",
-  nameKey = "name",
+  nameKey = "name"
 ) => {
-    if (!Array.isArray(data)) {
-        return data=[]
+  if (!Array.isArray(data)) {
+    return []; // Ensure we return an empty array instead of modifying data
   }
- 
-  return  data?.map((item) => {
-    const formattedDate = (item.date ?? item.Date) 
-    ? dayjs(item.date ?? item.Date).format("DD")
-    : "Invalid Date";
-    const targetValue = item.target ?? item.Target ?? 0;
-    const actualValue = item.actual ?? item.Actual ?? 0;
+
+  return data.map((item) => {
+    const formattedDate =
+      item.date || item.Date
+        ? dayjs(item.date || item.Date).format("DD")
+        : null;
+
+    const targetValue = item.target ?? 0; // No need for "Target"
+    const actualValue = item.actual ?? 0; // No need for "Actual"
 
     return {
-      [nameKey]: month ? formattedDate :(item.month ?? item.Month) ?? "Please pass Month",
-      [planKey]:targetValue,
-      [actualKey]: actualValue
+      [nameKey]: month
+        ? formattedDate || "Invalid Date"
+        : item.month ?? item.Month ?? "Unknown Month", // ✅ Supports both cases
+      [planKey]: targetValue,
+      [actualKey]: actualValue,
     };
   });
 };
+
 
 
 function formatNumber(num) {
