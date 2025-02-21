@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Card, Row, Col, Tooltip, OverlayTrigger } from "react-bootstrap";
+import {  Row, Col, } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import TodoList from "../../commonComponents/TodoList";
 import Filter from "../../commonComponents/Filter";
-import PM from "./PM";
-import MTTR from "./MTTR";
-import MTRF from "./MTRF";
-import BreakdownIncidentClosure from "./BreakdownIncidentClosure";
-import ComplinityReportComonent from "./ComplinityReport";
-import ElectricityConsumptionComp from "./ElectricityConsumption";
 import { fetchMaintenanceData } from "../../store/Maintenance/maintenanceSlice";
 import LineGraph from "../shareGraph/LineGraph";
-import { InfoCircle } from "react-bootstrap-icons";
 import CustomCard from "../shareGraph/CustomCard";
 import BarGraph from "../shareGraph/BarGraph";
 import { processChartData } from "../shareGraph/dataModifierHelper";
@@ -51,8 +43,6 @@ const HomeComponent = () => {
   return (
     <div className="container-fluid" style={{ backgroundColor: "#2F598C" }}>
       <Filter getData={getData} />
-      {/* </Card> */}
-
       {/* Row with three columns/cards */}
       <Row className="g-2">
         {/*  PM */}
@@ -79,6 +69,7 @@ const HomeComponent = () => {
               data={processChartData(MTTRInHrs, month, "target", "actual")}
               xAxisKey="target"
               yAxisKey="actual"
+              yAxisColor="#FF8632"
             />
           </CustomCard>
         </Col>
@@ -106,6 +97,7 @@ const HomeComponent = () => {
               data={processChartData(BreakdownIncidentVsCloser, month, "target", "actual")}
               xAxisKey="target"
               yAxisKey="actual"
+              yAxisColor="#FF8632"
             />
           </CustomCard>
         </Col>
@@ -133,26 +125,10 @@ const HomeComponent = () => {
               data={processChartData(BreakdownIncidentVsCloser, month, "target", "actual")}
               xAxisKey="target"
               yAxisKey="actual"
+              yAxisColor="#FF8632"
             />
           </CustomCard>
         </Col>
-
-        {/* To-do List Card */}
-        {/* <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
-          <Card className=" overflow-hidden">
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className=" mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                To-do List
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <TodoList type="" />
-            </Card.Body>
-          </Card>
-        </Col> */}
       </Row>
     </div>
   );
