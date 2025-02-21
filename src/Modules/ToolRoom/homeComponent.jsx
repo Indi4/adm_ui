@@ -89,7 +89,7 @@ const homeComponent = () => {
         >
            <CustomCard
             title="Tooling Consumables"
-            tooltipMessage="Detailed PM"
+            tooltipMessage="Detailed Tooling Consumables "
           >
             <LineGraph
               data={processChartData(toolingConsumableData, month, "target", "actual")}
