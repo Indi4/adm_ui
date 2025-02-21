@@ -18,7 +18,7 @@ export const processChartData = (
         : null;
 
     const targetValue = item?.target ??item?.Target?? 0; 
-    const actualValue = item?.actual ??item?.actual ?? 0; 
+    const actualValue = item[actualKey] ?? 0; 
 
     return {
       [nameKey]: month
