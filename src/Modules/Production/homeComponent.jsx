@@ -52,9 +52,9 @@ const HomeComponent = () => {
             tooltipMessage="Detailed AHF Production"
           >
             <LineGraph
-              data={processChartData(allSections?.AHFProduction, month, "target", "actual")}
+              data={processChartData(allSections?.AHFProduction, month, "target","Ahf Punching",)}
               xAxisKey="target"
-              yAxisKey="actual"
+              yAxisKey="Ahf Punching"
             />
           </CustomCard>
         
@@ -67,9 +67,9 @@ const HomeComponent = () => {
             tooltipMessage="Detailed  Bending Production"
           >
             <LineGraph
-              data={processChartData(allSections?.BendingProduction, month, "target", "actual")}
+              data={processChartData(allSections?.BendingProduction, month,  "target","Bending Punching",)}
               xAxisKey="target"
-              yAxisKey="actual"
+              yAxisKey="Bending Punching"
               yAxisColor="#FF8632"
             />
           </CustomCard>
@@ -78,13 +78,13 @@ const HomeComponent = () => {
         {/* AssemblyProduction  Card */}
         <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
         <CustomCard
-            title="Assembly Production plan (quality clear)"
+            title="Assembly Production plan"
             tooltipMessage="Detailed Assembly Production plan (quality clear)"
           >
             <LineGraph
-              data={processChartData(allSections?.AssemblyProduction, month, "target", "actual")}
+              data={processChartData(allSections?.AssemblyProduction, month, "target", "Assembly Punching")}
               xAxisKey="target"
-              yAxisKey="actual"
+              yAxisKey="Assembly Punching"
             />
           </CustomCard>
         
