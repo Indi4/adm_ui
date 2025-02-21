@@ -1,81 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { safetyGraphs } from "../../store/quality/qualitySlice";
-import TodoList from "../../commonComponents/TodoList";
 import Filter from "../../commonComponents/Filter";
-import DeliveryPerformance from "./DeliveryPerformance";
-import ExpPerformance from "./ExpPerformance";
-import OverallPerformance from "./OverallPerformance";
-import InviceReports from "./InviceReports";
-import NoTrips from "./NoTrips";
-// import DomesticFreight from "./DomesticFreight";
-import DomesticSale from "./DomesticSale";
-import ExportSale from "./ExportSale";
-import TotaleSale from "./TotaleSale";
-import GrnReport from "./GrnReport";
 import { fetchPPCData } from "../../store/ppc/PPCSectionSlice";
-import { processChartData, processPieChartData } from "../Maintenance/helperData";
-import MTTR from "../Maintenance/MTTR";
-import BreakdownIncidentClosure from "../Maintenance/BreakdownIncidentClosure";
-import ComplinityReport from "../Maintenance/ComplinityReport";
-import HorizontalBar from "../shareGraph/HorizontalBar";
-const dummyData = {
-  // Example for when month is provided. This represents daily data.
-  day_wise_data: [
-    { day: 0, target: 20, actual: 15 },
-    { day: 1, target: 25, actual: 22 },
-    { day: 2, target: 30, actual: 28 },
-    { day: 3, target: 35, actual: 30 },
-    { day: 4, target: 40, actual: 38 },
-    { day: 5, target: 45, actual: 42 },
-    { day: 6, target: 50, actual: 48 },
-    { day: 7, target: 55, actual: 53 },
-    { day: 8, target: 60, actual: 58 },
-    { day: 9, target: 65, actual: 60 },
-    { day: 10, target: 70, actual: 68 },
-  ],
-  // Dummy datasets for monthly data (if no month is provided)
-  datasets: [
-    {
-      label: "Minor Accident Target",
-      data: [
-        { month: 0, target: 20 },
-        { month: 1, target: 0 },
-        { month: 2, target: 30 },
-        { month: 3, target: 23 },
-        { month: 4, target: 7 },
-        { month: 5, target: 9 },
-        { month: 6, target: 77 },
-        { month: 7, target: 55 },
-        { month: 8, target: 0 },
-        { month: 9, target: 65 },
-        { month: 10, target: 5 },
-      ],
-    },
-    {
-      label: "Minor Accident Actual",
-      data: [
-        { month: 0, actual: 88 },
-        { month: 1, actual: 23 },
-        { month: 2, actual: 28 },
-        { month: 3, actual: 8 },
-        { month: 4, actual: 38 },
-        { month: 5, actual: 9 },
-        { month: 6, actual: 48 },
-        { month: 7, actual: 52 },
-        { month: 8, actual: 99 },
-        { month: 9, actual: 62 },
-        { month: 10, actual: 50 },
-      ],
-    },
-  ],
-};
+import CustomCard from "../shareGraph/CustomCard";
+import LineGraph from "../shareGraph/LineGraph";
+import { processChartData } from "../shareGraph/dataModifierHelper";
 const HomeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
-   const { DeliveryPerformanceDOM, InvoiceReport,NoOfTrips, DomesticFreight,DomesticSaleInLakh,ExportSaleInLakh,TotalSaleInLakh,GRNReport} = useSelector((state) => state?.ppc)
+  const {
+    DeliveryPerformanceDOM,
+    InvoiceReport,
+    NoOfTrips,
+    DomesticFreight,
+    DomesticSaleInLakh,
+    ExportSaleInLakh,
+    TotalSaleInLakh,
+    GRNReport,
+  } = useSelector((state) => state?.ppc);
   useEffect(() => {
     const reportTypes = [
       "DeliveryPerformanceDOM",
@@ -85,12 +29,12 @@ const HomeComponent = () => {
       "DomesticSaleInLakh",
       "ExportSaleInLakh",
       "TotalSaleInLakh",
-      "GRNReport"
+      "GRNReport",
     ];
     reportTypes.forEach((type) => {
       dispatch(fetchPPCData({ report_type: type, year: year, month: month }));
     });
-  }, [dispatch, year, month])
+  }, [dispatch, year, month]);
 
   const getData = (selectedYear, selectedMonth) => {
     setYear(selectedYear);
@@ -98,208 +42,174 @@ const HomeComponent = () => {
   };
 
   return (
-    <div
-      className="container-fluid"
-      style={{ backgroundColor: "#2F598C" }}
-    >
-      {/* Filter Card with reduced padding/margin */}
-      {/* <Card
-        className="mb-2"
-        style={{ backgroundColor: "white", height: 75, padding: "5px" }}
-      > */}
-        <Filter getData={getData} />
-      {/* </Card> */}
-
-      {/* Row with three columns/cards */}
+    <div className="container-fluid" style={{ backgroundColor: "#2F598C" }}>
+      <Filter getData={getData} />
       <Row className="g-2">
         {/* delivery performance */}
         <Col xl={4} lg={4} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                Delivery Performance DOM (Sale Qyt)
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <DeliveryPerformance data={dummyData} month={month} /> */}
-              <MTTR data={processChartData(DeliveryPerformanceDOM,month)} />
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title="Delivery Performance DOM (Sale Qyt)"
+            tooltipMessage="Delivery Performance DOM (Sale Qyt)"
+          >
+            <LineGraph
+              data={processChartData(
+                DeliveryPerformanceDOM,
+                month,
+                "target",
+                "actual"
+              )}
+              xAxisKey="target"
+              yAxisKey="actual"
+            />
+          </CustomCard>
         </Col>
 
         {/* EXp Performance */}
         <Col xl={4} lg={4} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                Exp Performance DOM (Sale Qyt)
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <ExpPerformance data={dummyData} month={month} /> */}
-              <ComplinityReport data={processPieChartData(DomesticSaleInLakh)}/>
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title="Exp Performance DOM (Sale Qyt)"
+            tooltipMessage="Exp Performance DOM (Sale Qyt)"
+          >
+            <LineGraph
+              data={processChartData(
+                DomesticSaleInLakh,
+                month,
+                "target",
+                "actual"
+              )}
+              xAxisKey="target"
+              yAxisKey="actual"
+              yAxisColor="#FF8632"
+            />
+          </CustomCard>
         </Col>
         {/* overall performance */}
         <Col xl={4} lg={4} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                OverAll Performance
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <OverallPerformance  /> */}
-              <HorizontalBar data={processPieChartData(DomesticSaleInLakh)} />
-              {/* <BreakdownIncidentClosure data={processChartData(ExportSaleInLakh,month)} /> */}
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title="OverAll Performance"
+            tooltipMessage="OverAll Performance"
+          >
+            <LineGraph
+              data={processChartData(
+                DomesticSaleInLakh,
+                month,
+                "target",
+                "actual"
+              )}
+              xAxisKey="target"
+              yAxisKey="actual"
+            />
+          </CustomCard>
         </Col>
         {/* InviceReports */}
         <Col xl={6} lg={6} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                Invoice Reports
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <InviceReports data={dummyData} month={month} /> */}
-              <BreakdownIncidentClosure data={processChartData(InvoiceReport,month)} />
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title="Invoice Reports"
+            tooltipMessage="Detailed information about this  Bending OEE"
+          >
+            <LineGraph
+              data={processChartData(InvoiceReport, month, "target", "actual")}
+              xAxisKey="target"
+              yAxisKey="actual"
+              yAxisColor="#FF8632"
+            />
+          </CustomCard>
         </Col>
 
         {/* No Of Trips */}
         <Col xl={6} lg={6} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                No of Trips
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <NoTrips data={dummyData} month={month} /> */}
-              <MTTR data={processChartData(TotalSaleInLakh,month)} />
-            </Card.Body>
-          </Card>
+          <CustomCard title=" No of Trips" tooltipMessage=" No of Trips">
+            <LineGraph
+              data={processChartData(
+                TotalSaleInLakh,
+                month,
+                "target",
+                "actual"
+              )}
+              xAxisKey="target"
+              yAxisKey="actual"
+              yAxisColor="#FF8632"
+            />
+          </CustomCard>
         </Col>
         {/* Domestic Freight */}
         <Col xl={4} lg={4} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                Domestic Freight
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <DomesticFreight data={dummyData} month={month} /> */}
-              <MTTR data={processChartData(DomesticFreight,month)} />
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title=" Domestic Freight"
+            tooltipMessage="Domestic Freight"
+          >
+            <LineGraph
+              data={processChartData(
+                DomesticFreight,
+                month,
+                "target",
+                "actual"
+              )}
+              xAxisKey="target"
+              yAxisKey="actual"
+            />
+          </CustomCard>
         </Col>
         {/* Domestic Sale */}
         <Col xl={4} lg={4} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                Domestic Sale (in lakh)
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <DomesticSale data={dummyData} month={month} /> */}
-              <ComplinityReport data={processPieChartData(DomesticSaleInLakh)}/>
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title=" Domestic Sale (in lakh)"
+            tooltipMessage="Detailed iDomesticSaleInLakh"
+          >
+            <LineGraph
+              data={processChartData(
+                DomesticSaleInLakh,
+                month,
+                "target",
+                "actual"
+              )}
+              xAxisKey="target"
+              yAxisKey="actual"
+              yAxisColor="#FF8632"
+            />
+          </CustomCard>
         </Col>
         {/* Export Sale */}
         <Col xl={4} lg={4} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                Export Sale
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <ExportSale  /> */}
-              <BreakdownIncidentClosure data={processChartData(ExportSaleInLakh,month)} />
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title="Export Sale"
+            tooltipMessage="Detailed  Export Sale"
+          >
+            <LineGraph
+              data={processChartData(
+                ExportSaleInLakh,
+                month,
+                "target",
+                "actual"
+              )}
+              xAxisKey="target"
+              yAxisKey="actual"
+            />
+          </CustomCard>
         </Col>
         {/*  Total Sale */}
         <Col xl={6} lg={6} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                Total Sale (in lakh)
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <TotaleSale data={dummyData} month={month} /> */}
-              <MTTR data={processChartData(NoOfTrips,month)} />
-            </Card.Body>
-          </Card>
+          <CustomCard
+            title=" Total Sale (in lakh)"
+            tooltipMessage="D Total Sale (in lakh)"
+          >
+            <LineGraph
+              data={processChartData(NoOfTrips, month, "target", "actual")}
+              xAxisKey="target"
+              yAxisKey="actual"
+              yAxisColor="#FF8632"
+            />
+          </CustomCard>
         </Col>
         {/* Grn Report */}
         <Col xl={6} lg={6} md={6} sm={12}>
-          <Card className="overflow-hidden" style={{ height: "100%" }}>
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className="mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                GRN Reports
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-1">
-              {/* <GrnReport data={dummyData} month={month} /> */}
-              <BreakdownIncidentClosure data={processChartData(GRNReport,month)} />
-            </Card.Body>
-          </Card>
-        </Col>
-        {/* To-do List Card */}
-        <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
-          <Card className=" overflow-hidden">
-            <Card.Header className="border-bottom">
-              <Card.Title
-                className=" mb-0"
-                style={{ fontWeight: "bold", fontSize: "1.3rem" }}
-              >
-                To-do List
-              </Card.Title>
-            </Card.Header>
-            <Card.Body className="p-3">
-              <TodoList type="" />
-            </Card.Body>
-          </Card>
+          <CustomCard title=" GRN Reports" tooltipMessage="Detailed GRNReport">
+            <LineGraph
+              data={processChartData(GRNReport, month, "target", "actual")}
+              xAxisKey="target"
+              yAxisKey="actual"
+            />
+          </CustomCard>
         </Col>
       </Row>
     </div>

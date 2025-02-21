@@ -24,7 +24,6 @@ const LineGraph = ({
   xAxisColorStock = "#000"
 }) => {
   const isLoading = useLoading(data);
-  console.log(data,"data line grapgh")
   return (
     <Container>
       {isLoading ? (
@@ -40,13 +39,13 @@ const LineGraph = ({
             <ResponsiveContainer width="100%" height={250}>
               <ComposedChart
                 data={data}
-                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                margin={{ top: 10, right: 30, left: 15, bottom: 0 }}
                 barGap={5} 
                 barCategoryGap={20}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey={xAxisDataKey} stroke={xAxisColorStock} />
-                <YAxis  tick={{ position: "insideLeft", angle: -45 }} />
+                <YAxis   />
                 <Tooltip />
                 <Legend />
                 <Line

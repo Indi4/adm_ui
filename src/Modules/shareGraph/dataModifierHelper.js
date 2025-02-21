@@ -8,7 +8,7 @@ export const processChartData = (
   nameKey = "name"
 ) => {
   if (!Array.isArray(data)) {
-    return []; // Ensure we return an empty array instead of modifying data
+    return []; 
   }
 
   return data.map((item) => {
@@ -17,13 +17,13 @@ export const processChartData = (
         ? dayjs(item.date || item.Date).format("DD")
         : null;
 
-    const targetValue = item.target ?? 0; // No need for "Target"
-    const actualValue = item.actual ?? 0; // No need for "Actual"
+    const targetValue = item?.target ??item?.Target?? 0; 
+    const actualValue = item?.actual ??item?.actual ?? 0; 
 
     return {
       [nameKey]: month
         ? formattedDate || "Invalid Date"
-        : item.month ?? item.Month ?? "Unknown Month", // ✅ Supports both cases
+        : item.month ?? item.Month ?? "Unknown Month",
       [planKey]: targetValue,
       [actualKey]: actualValue,
     };
