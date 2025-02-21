@@ -11,7 +11,7 @@ const CustomCard = ({
 }) => {
   return (
     <Card className={className} style={style}>
-      <Card.Header className="border-bottom d-flex align-items-center justify-content-between">
+      <Card.Header className="border-bottom d-flex align-items-center justify-content-between ">
         {title&&<Card.Title className="mb-0" style={{ fontWeight: "bold", fontSize: "1.3rem", marginRight: "12px" }}>
           {title}
         </Card.Title>}
