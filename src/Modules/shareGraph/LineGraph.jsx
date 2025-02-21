@@ -24,6 +24,7 @@ const LineGraph = ({
   xAxisColorStock = "#000"
 }) => {
   const isLoading = useLoading(data);
+  console.log(data,"data line grapgh")
   return (
     <Container>
       {isLoading ? (
@@ -45,7 +46,7 @@ const LineGraph = ({
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey={xAxisDataKey} stroke={xAxisColorStock} />
-                <YAxis />
+                <YAxis  tick={{ position: "insideLeft", angle: -45 }} />
                 <Tooltip />
                 <Legend />
                 <Line
