@@ -98,9 +98,9 @@ export default function Sidebar({ menuType }) {
               <ul className="side-menu">
                 {menuItems.map((mainLevel, index) => (
                   <React.Fragment key={index}>
-                    <li className="sub-category" >
+                    {/* <li className="sub-category" >
                       <h3>{mainLevel.menutitle}</h3>
-                    </li>
+                    </li> */}
                     {mainLevel.Items.map((item, idx) => (
                       <li
                         className={`slide ${item.active ? "is-expanded" : ""}`}
@@ -130,7 +130,7 @@ export default function Sidebar({ menuType }) {
                             borderRadius: item.selected ? "8px" : "8px",
                             color: item.selected ? "white" : "black",
                             border:"2px solid #2F598C",
-                            marginTop:"8px"
+                            marginTop:"18px"
                           }}
                           onMouseEnter={(e) =>{
                             e.currentTarget.style.transform =
@@ -145,10 +145,10 @@ export default function Sidebar({ menuType }) {
                               e.currentTarget.style.color = item.selected ? "white" : "inherit";
                           }}
                         >
-                          <span style={{ marginRight: "12px", color:"black" }}>
+                          <span style={{ marginRight: "12px", color:"black", scale:"1.2" }}>
                             {item.icon}
                           </span>
-                          <span className="side-menu__label" style={{color: isDarkMode || item.selected?"black":"black"}}>{item.title}</span>
+                          <span className="side-menu__label" style={{color: isDarkMode || item.selected?"white":"black", fontSize:"1.2rem", fontWeight:"bold"}}>{item.title}</span>
                           {item.children && (
                             <span style={{ marginLeft: "auto" }}>
                               <small>{openItems[idx] ? "v" : ">"}</small>
