@@ -43,7 +43,7 @@ const BarGraph = ({ data,
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey={xAxisDataKey} type="category" />
-                <YAxis />
+                <YAxis tick={{ angle: -45 }}  />
                 <Tooltip />
                 <Legend />
                 <Bar dataKey={xAxisKey} fill={xAxisColor} barSize={20}  name={capitalizeFirstLetter(xAxisKey)} />
