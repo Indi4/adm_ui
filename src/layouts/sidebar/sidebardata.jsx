@@ -45,6 +45,22 @@ const MenuItems = [
         selected: false,
       },
       {
+        title: "Safety",
+        path: "/safety",
+        type: "link",
+        icon: <HealthAndSafetyIcon/>,
+        active: false,
+        selected: false,
+      },
+      {
+        title: "Production",
+        path: "/production",
+        type: "link",
+        icon: <i class="fa fa-product-hunt" aria-hidden="true"></i>, 
+        active: false,
+        selected: false,
+      },
+      {
         title: "Quality",
         path: "/quality",
         type: "link",
@@ -60,31 +76,7 @@ const MenuItems = [
         active: false,
         selected: false,
       },
-      {
-        title: "Safety",
-        path: "/safety",
-        type: "link",
-        icon: <HealthAndSafetyIcon/>
-        , 
-        active: false,
-        selected: false,
-      },
-      {
-        title: "Production",
-        path: "/production",
-        type: "link",
-        icon: <i class="fa fa-product-hunt" aria-hidden="true"></i>, 
-        active: false,
-        selected: false,
-      },
-      {
-        title: "Tool Room",
-        path: "/toolRoom",
-        type: "link",
-        icon: <i className="fe fe-home"></i>, 
-        active: false,
-        selected: false,
-      },
+      
       {
         title: "Store & Purchase",
         path: "/store-purchase",
@@ -110,6 +102,23 @@ const MenuItems = [
         selected: false,
       },
       {
+
+        title: "Tool Room",
+        path: "/toolRoom",
+        type: "link",
+        icon: <i className="fe fe-home"></i>, 
+        active: false,
+        selected: false,
+      },
+      // {
+      //   title: "Finance",
+      //   path: "/finance",
+      //   type: "link",
+      //   icon: <AccountBalanceIcon/>, 
+      //   active: false,
+      //   selected: false,
+      // },
+      {
         title: "Todo",
         path: "/todo",
         type: "link",
@@ -117,6 +126,7 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+
      
     ],
   },
