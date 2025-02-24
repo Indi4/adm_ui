@@ -15,9 +15,6 @@ export default function Sidebar({ menuType }) {
   const [menuItems, setMenuItems] = useState(MenuItems);
   const [openItems, setOpenItems] = useState({});
   const {isDarkMode} = useSelector((state)=> state.auth)
-  console.log(isDarkMode)
-
-
   function setActiveMenuItem(pathname) {
     setMenuItems((prevItems) => {
       return prevItems.map((mainLevel) => {

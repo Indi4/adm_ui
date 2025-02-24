@@ -257,7 +257,6 @@ const homeComponent = () => {
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
   const { grnreport, storeinventory, dailypurchasereport } = useSelector((state) => state.quality.storeData);
-  console.log(grnreport)
 
   useEffect(() => {
     if (month) {
