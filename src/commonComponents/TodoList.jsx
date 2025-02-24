@@ -17,8 +17,11 @@ import {
   TableHead,
   TableRow,
   Fab,
+  Autocomplete,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+import { Container, Row, Col } from "react-bootstrap";
+
 import {
   clearErrorMessage,
   clearSuccessMessage,
@@ -44,6 +47,7 @@ export default function TodoList({ type }) {
     activity_date: "",
     completion_date: "",
     status: "",
+    department: "",
   });
 
   const [formErrors, setFormErrors] = useState({
@@ -52,8 +56,30 @@ export default function TodoList({ type }) {
     activity_date: "",
     completion_date: "",
     status: "",
+    department: "",
   });
-
+  const departments = [
+    "Safety",
+    "Production",
+    "Quality",
+    "PPC",
+    "Store & Purchase",
+    "Maintenance",
+    "HR",
+    "Tool Room",
+  ];
+  
+  const statuses = [
+    "Pending",
+    "In Progress",
+    "Completed",
+    "On Hold",
+    "Delayed",
+    "Waiting For Input",
+    "Reopened",
+    "Under Review",
+    "Cancelled",
+  ];
   useEffect(() => {
     if (successMessage) {
       toast.success(successMessage, { autoClose: 2000 });
@@ -66,7 +92,7 @@ export default function TodoList({ type }) {
   }, [successMessage, errorMessage, dispatch]);
 
   useEffect(() => {
-    if(type){
+    if (type) {
       dispatch(getTodo({ type }));
     }
   }, [dispatch, type]);
@@ -90,6 +116,8 @@ export default function TodoList({ type }) {
     if (!formData.completion_date)
       errors.completion_date = "Completion date is required.";
     if (!formData.status) errors.status = "Status is required.";
+    if (!formData.department) errors.status = "Department is required.";
+
     setFormErrors(errors);
     return Object.keys(errors).length === 0; // Returns true if no errors
   };
@@ -110,6 +138,7 @@ export default function TodoList({ type }) {
       activity_date: "",
       completion_date: "",
       status: "",
+      department: "",
     });
     setFormErrors({});
     handleClose();
@@ -178,19 +207,6 @@ export default function TodoList({ type }) {
     return { ...baseStyle, ...colors[status] };
   };
 
-  const buttonStyle = {
-    border: "2px solid #04c0f2",
-    backgroundColor: "rgb(4 192 242 / 12%)",
-    color: "#1b51a9",
-    fontSize: "12px",
-    padding: "10px 20px",
-    cursor: "pointer",
-    borderRadius: "10px",
-    fontWeight: "bold",
-    animation: "blink 3s infinite alternate",
-    transition: "all 0.3s ease",
-  };
-
   const blink = `
     @keyframes blink {
       0% { opacity: 0; }
@@ -231,7 +247,7 @@ export default function TodoList({ type }) {
   return (
     <Box sx={{ padding: "20px", marginTop: "5px" }}>
       <ToastContainer />
-      
+
       <Paper
         sx={{
           // padding: "20px",
@@ -266,6 +282,7 @@ export default function TodoList({ type }) {
                 <TableCell>Person Responsible</TableCell>
                 <TableCell>Activity Date</TableCell>
                 <TableCell>Completion Date</TableCell>
+                <TableCell>Department</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
             </TableHead>
@@ -278,7 +295,8 @@ export default function TodoList({ type }) {
                     <TableCell>{row.person_responsible}</TableCell>
                     <TableCell>{row.activity_date}</TableCell>
                     <TableCell>{row.completion_date}</TableCell>
-                    <TableCell style={{ textAlign: "center", display:"flex" }}>
+                    <TableCell>{row.department}</TableCell>
+                    <TableCell style={{ textAlign: "center", display: "flex" }}>
                       <button
                         style={getStatusButtonStyle(row.status)}
                         onClick={() => handleStatusDialogOpen(row)}
@@ -317,6 +335,7 @@ export default function TodoList({ type }) {
             <MenuItem value="CANCELLED">Cancelled</MenuItem>
           </Select>
         </DialogContent>
+        
         <DialogActions>
           <Button onClick={handleStatusDialogClose}>Cancel</Button>
           <Button
@@ -329,83 +348,106 @@ export default function TodoList({ type }) {
         </DialogActions>
       </Dialog>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogTitle>Add New Task</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            name="activity"
-            label="Activity"
-            type="text"
-            fullWidth
-            value={formData.activity}
-            onChange={handleChange}
-            error={!!formErrors.activity}
-            helperText={formErrors.activity}
-          />
-          <TextField
-            margin="dense"
-            name="person_responsible"
-            label="Person Responsible"
-            type="text"
-            fullWidth
-            value={formData.person_responsible}
-            onChange={handleChange}
-            error={!!formErrors.person_responsible}
-            helperText={formErrors.person_responsible}
-          />
-          <TextField
-            margin="dense"
-            name="activity_date"
-            label="Activity Date"
-            type="date"
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            value={formData.activity_date}
-            onChange={handleChange}
-            error={!!formErrors.activity_date}
-            helperText={formErrors.activity_date}
-          />
-          <TextField
-            margin="dense"
-            name="completion_date"
-            label="Completion Date"
-            type="date"
-            fullWidth
-            InputLabelProps={{ shrink: true }}
-            value={formData.completion_date}
-            onChange={handleChange}
-            error={!!formErrors.completion_date}
-            helperText={formErrors.completion_date}
-          />
-          <Select
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            displayEmpty
-            fullWidth
-            margin="dense"
-            error={!!formErrors.status}
-          >
-            <MenuItem value="" disabled>
-              Select Status
-            </MenuItem>
-            <MenuItem value="PENDING">Pending</MenuItem>
-            <MenuItem value="IN_PROGRESS">In Progress</MenuItem>
-            <MenuItem value="COMPLETED">Completed</MenuItem>
-            <MenuItem value="ON_HOLD">On Hold</MenuItem>
-            <MenuItem value="DELAYED">Delayed</MenuItem>
-            <MenuItem value="WAITING FOR INPUT">Waiting For Input</MenuItem>
-            <MenuItem value="REOPENED">Reopened</MenuItem>
-            <MenuItem value="UNDER_REVIEW">Under Review</MenuItem>
-            <MenuItem value="CANCELLED">Cancelled</MenuItem>
-          </Select>
-          {formErrors.status && (
-            <p style={{ color: "red", fontSize: "0.8rem" }}>
-              {formErrors.status}
-            </p>
-          )}
+          <Container>
+            <Row className="mb-4">
+              <Col>
+                <TextField
+                  autoFocus
+                  name="activity"
+                  label="Activity"
+                  type="text"
+                  fullWidth
+                  value={formData.activity}
+                  onChange={handleChange}
+                  error={!!formErrors.activity}
+                  helperText={formErrors.activity}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Col>
+                <TextField
+                  name="person_responsible"
+                  label="Person Responsible"
+                  type="text"
+                  fullWidth
+                  value={formData.person_responsible}
+                  onChange={handleChange}
+                  error={!!formErrors.person_responsible}
+                  helperText={formErrors.person_responsible}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Col>
+                <TextField
+                  name="activity_date"
+                  label="Activity Date"
+                  type="date"
+                  fullWidth
+                  InputLabelProps={{ shrink: true }}
+                  value={formData.activity_date}
+                  onChange={handleChange}
+                  error={!!formErrors.activity_date}
+                  helperText={formErrors.activity_date}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-4">
+              <Col>
+                <TextField
+                  name="completion_date"
+                  label="Completion Date"
+                  type="date"
+                  fullWidth
+                  InputLabelProps={{ shrink: true }}
+                  value={formData.completion_date}
+                  onChange={handleChange}
+                  error={!!formErrors.completion_date}
+                  helperText={formErrors.completion_date}
+                />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+            <Col>
+              <Autocomplete
+                options={departments}
+                value={formData.department}
+                onChange={(event, newValue) => handleChange({ target: { name: "department", value: newValue } })}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Department"
+                    fullWidth
+                    error={!!formErrors.department}
+                    helperText={formErrors.department}
+                  />
+                )}
+              />
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col>
+              <Autocomplete
+                options={statuses}
+                value={formData.status}
+                onChange={(event, newValue) => handleChange({ target: { name: "status", value: newValue } })}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Status"
+                    fullWidth
+                    error={!!formErrors.status}
+                    helperText={formErrors.status}
+                  />
+                )}
+              />
+            </Col>
+          </Row>
+          </Container>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
