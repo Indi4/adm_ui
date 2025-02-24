@@ -6,6 +6,8 @@ import { fetchPPCData } from "../../store/ppc/PPCSectionSlice";
 import CustomCard from "../shareGraph/CustomCard";
 import LineGraph from "../shareGraph/LineGraph";
 import { processChartData } from "../shareGraph/dataModifierHelper";
+import NoInternetPage from "../shareGraph/NoInternetPage";
+import useOnlineStatus from "../shareGraph/useOnlineStatus";
 const HomeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
@@ -41,6 +43,11 @@ const HomeComponent = () => {
     setMonth(selectedMonth);
   };
 
+  const isOnline = useOnlineStatus();
+  useEffect(() => {
+    console.log("Component re-rendered, Status:", isOnline);
+  }, [isOnline]);
+  if(!isOnline)return <NoInternetPage/>
   return (
     <div className="container-fluid" style={{ backgroundColor: "#2F598C" }}>
       <Filter getData={getData} />

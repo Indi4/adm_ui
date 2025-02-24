@@ -21,9 +21,6 @@ const HorizontalBar = ({data,
     yAxisColor = "#135675", 
 }) => {
      const isLoading = useLoading(data);
-     console.log(data,
-        "data new testing"
-     )
   return (
     <Container >
           {isLoading ? (
