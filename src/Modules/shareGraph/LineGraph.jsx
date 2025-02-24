@@ -39,13 +39,15 @@ const LineGraph = ({
             <ResponsiveContainer width="100%" height={250}>
               <ComposedChart
                 data={data}
-                margin={{ top: 10, right: 30, left: 15, bottom: 0 }}
+                margin={{ top: 20, right: 30, left: 15, bottom: 0 }}
                 barGap={5} 
                 barCategoryGap={20}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey={xAxisDataKey} stroke={xAxisColorStock} />
-                <YAxis   />
+                <YAxis 
+                style={{ fontWeight: "bold", fill: "#000" }} 
+                />
                 <Tooltip />
                 <Legend />
                 <Line

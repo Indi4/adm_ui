@@ -6,6 +6,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import PPCIcon from '@mui/icons-material/Event'
 import Maintenance from "../../assets/images/pngs/13.png"
+import { LuListTodo } from "react-icons/lu";
 const MenuItems = [
   {
     Items: [
@@ -101,6 +102,7 @@ const MenuItems = [
         selected: false,
       },
       {
+
         title: "Tool Room",
         path: "/toolRoom",
         type: "link",
@@ -116,6 +118,15 @@ const MenuItems = [
       //   active: false,
       //   selected: false,
       // },
+      {
+        title: "Todo",
+        path: "/todo",
+        type: "link",
+        icon: <LuListTodo />, 
+        active: false,
+        selected: false,
+      },
+
      
     ],
   },
