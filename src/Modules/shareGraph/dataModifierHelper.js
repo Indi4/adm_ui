@@ -11,9 +11,9 @@ export const processChartData = (
     return []; 
   }
 
-  return data.map((item) => {
+  return data?.map((item) => {
     const formattedDate =
-      item.date || item.Date
+      item?.date || item?.Date
         ? dayjs(item.date || item.Date).format("DD")
         : null;
 

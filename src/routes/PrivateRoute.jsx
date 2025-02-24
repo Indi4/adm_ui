@@ -5,8 +5,6 @@ import { toast } from "react-toastify";
 const PrivateRoute = ({ children, isPublic = false }) => {
   const location = useLocation();
   const currentUser = localStorage.getItem("token");
-  console.log("ffff",currentUser)
-  console.log(isPublic)
 
   useEffect(() => {
     if (!currentUser && !isPublic && location.pathname) {

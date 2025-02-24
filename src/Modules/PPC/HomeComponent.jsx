@@ -6,6 +6,8 @@ import { fetchPPCData } from "../../store/ppc/PPCSectionSlice";
 import CustomCard from "../shareGraph/CustomCard";
 import LineGraph from "../shareGraph/LineGraph";
 import { processChartData } from "../shareGraph/dataModifierHelper";
+import NoInternetPage from "../shareGraph/NoInternetPage";
+import useOnlineStatus from "../shareGraph/useOnlineStatus";
 const HomeComponent = () => {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
@@ -40,7 +42,6 @@ const HomeComponent = () => {
     setYear(selectedYear);
     setMonth(selectedMonth);
   };
-
   return (
     <div className="container-fluid" style={{ backgroundColor: "#2F598C" }}>
       <Filter getData={getData} />

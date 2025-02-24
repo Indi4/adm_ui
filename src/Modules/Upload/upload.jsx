@@ -82,9 +82,10 @@ export default function Upload() {
               aria-label="scrollable auto tabs example"
             >
               <Tab label="Upload Quality" value="1" sx={getTabStyles("1")} />
-              <Tab label="Upload Safety" value="2" sx={getTabStyles("2")} />
-              <Tab label="Upload Utility" value="3" sx={getTabStyles("3")} />
-              <Tab label="Upload Finance" value="4" sx={getTabStyles("4")} />
+              <Tab label="Upload PPC" value="2" sx={getTabStyles("2")} />
+              <Tab label="Upload Safety" value="3" sx={getTabStyles("3")} />
+              
+              <Tab label="Upload Maintenance" value="4" sx={getTabStyles("4")} />
               <Tab label="Upload Production" value="5" sx={getTabStyles("5")} />
               <Tab label="Upload Sales" value="6" sx={getTabStyles("6")} />
               <Tab label="Upload HR" value="7" sx={getTabStyles("7")} />
