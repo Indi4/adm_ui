@@ -8,13 +8,12 @@ import logo from "../../assets/images/brand/Kizuna.svg";
 import logolight from "../../assets/images/brand/KizunaWhiteLogo.svg";
 import icon1 from "../../assets/images/brand/Kizuna-01.png";
 import ADM_logo from "../../assets/images/ADM/ADM_logo.png";
-import { useSelector } from "react-redux";
 
 export default function Sidebar({ menuType }) {
   const location = useLocation();
   const [menuItems, setMenuItems] = useState(MenuItems);
   const [openItems, setOpenItems] = useState({});
-  const {isDarkMode} = useSelector((state)=> state.auth)
+
   function setActiveMenuItem(pathname) {
     setMenuItems((prevItems) => {
       return prevItems.map((mainLevel) => {
@@ -95,9 +94,9 @@ export default function Sidebar({ menuType }) {
               <ul className="side-menu">
                 {menuItems.map((mainLevel, index) => (
                   <React.Fragment key={index}>
-                    {/* <li className="sub-category" >
+                    <li className="sub-category">
                       <h3>{mainLevel.menutitle}</h3>
-                    </li> */}
+                    </li>
                     {mainLevel.Items.map((item, idx) => (
                       <li
                         className={`slide ${item.active ? "is-expanded" : ""}`}
@@ -116,18 +115,16 @@ export default function Sidebar({ menuType }) {
                             transition: "all 0.3s ease-in-out",
                             position: "relative",
                             background: item.selected
-                              ? "linear-gradient(145deg, #2F598C, #2F598C)"
-                              : "#DEE4EC",
+                              ? "linear-gradient(145deg, #26B5DD, #135C75)"
+                              : "transparent",
                             boxShadow: item.selected
                               ? "4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.1)"
                               : "none",
                             transform: item.selected
                               ? "translateY(-3px)"
                               : "translateY(0)",
-                            borderRadius: item.selected ? "8px" : "8px",
-                            color: item.selected ? "white" : "black",
-                            border:"2px solid #2F598C",
-                            marginTop:"18px"
+                            borderRadius: item.selected ? "8px" : "0",
+                            color: item.selected ? "white" : "inherit",
                           }}
                           onMouseEnter={(e) =>{
                             e.currentTarget.style.transform =
@@ -142,10 +139,10 @@ export default function Sidebar({ menuType }) {
                               e.currentTarget.style.color = item.selected ? "white" : "inherit";
                           }}
                         >
-                          <span style={{ marginRight: "12px", color:"black", scale:"1.2" }}>
+                          <span style={{ marginRight: "12px" }}>
                             {item.icon}
                           </span>
-                          <span className="side-menu__label" style={{color: isDarkMode || item.selected?"white":"black", fontSize:"1.2rem", fontWeight:"bold"}}>{item.title}</span>
+                          <span className="side-menu__label">{item.title}</span>
                           {item.children && (
                             <span style={{ marginLeft: "auto" }}>
                               <small>{openItems[idx] ? "v" : ">"}</small>

@@ -12,7 +12,6 @@ import ToolRoom from "../Modules/ToolRoom/homeComponent";
 import QuickAction from "../Modules/QuickAction/quickAction";
 import PPC from "../Modules/PPC/HomeComponent";
 import Maintenance from "../Modules/Maintenance/HomeComponent";
-import TodoAddList from "../Modules/TodoAddList/TodoAddList";
 
 /* MDM Routes */
 
@@ -328,10 +327,6 @@ export const Routingdata = [
   {
     path: `${import.meta.env.BASE_URL}/toolRoom`,
     element: <ToolRoom />,
-  },
-  {
-    path: `${import.meta.env.BASE_URL}/todo`,
-    element: <TodoAddList />,
   },
   {
     path: `${import.meta.env.BASE_URL}/store-purchase`,

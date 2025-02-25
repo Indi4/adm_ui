@@ -497,9 +497,7 @@ export const LocalBackup = () => {
 
 // resetall
 export const Resetall = () => {
-  localStorage.removeItem("sparicbgcolor");
-  localStorage.removeItem("sparicthemecolor");
-  localStorage.removeItem("sparicdarkMode");
+  localStorage.clear();
   localStorage.getItem('sparicltr', true);
   document.querySelector('body').classList.add('light-mode');
   document.querySelector('body').classList.remove('rtl');
