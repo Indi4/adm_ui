@@ -122,13 +122,27 @@ function Header() {
   //   }
   // };
 
-  useEffect(() => {
+  const Darkmode = () => {
+    dispatch(toggleDarkMode())
     if (isDarkMode) {
-      document.querySelector(".app").classList.add("dark-mode");
+            let DarkMenu1 = document.querySelector("#myonoffswitch2"); //dark theme
+      DarkMenu1.checked = true;
+      let DarkMenu2 = document.querySelector("#myonoffswitch8"); //dark header
+      DarkMenu2.checked = true;
+      let DarkMenu3 = document.querySelector("#myonoffswitch5"); //dark menu
+      DarkMenu3.checked = true;
+
     } else {
-      document.querySelector(".app").classList.remove("dark-mode");
+            let DarkMenu1 = document.querySelector("#myonoffswitch1"); //light theme
+      DarkMenu1.checked = true;
+      let DarkMenu2 = document.querySelector("#myonoffswitch6"); // light header
+      DarkMenu2.checked = true;
+      let DarkMenu3 = document.querySelector("#myonoffswitch3"); //light menu
+      DarkMenu3.checked = true;
+
+
     }
-  }, [isDarkMode]);
+  }
 
   // FuScreen-start
   function Fullscreen() {
@@ -306,8 +320,21 @@ function Header() {
                                                     <img src={imagesData('flagimage2')} alt="img" className=" me-2 country language-img" /> <span className="fs-13 text-wrap text-dark fw-semibold"> Canada</span> </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown> */}
+                                        <div className="d-flex country" onClick={() => Darkmode()}>
+                      <Link
+                        to="#"
+                        className="nav-link icon theme-layout nav-link-bg layout-setting"
+                      >
+                        <span className="dark-layout mt-1">
+                          <i className="ri-moon-clear-line"></i>
+                        </span>
+                        <span className="light-layout mt-1">
+                          <i className="ri-sun-line"></i>
+                        </span>
+                      </Link>
+                    </div>
 
-                    <div className="d-flex country" onClick={() => dispatch(toggleDarkMode())}>
+                    {/* <div className="d-flex country" onClick={() => dispatch(toggleDarkMode())}>
                     <Link to="#" className="nav-link icon theme-layout nav-link-bg layout-setting">
         <span className={`dark-layout mt-1 ${isDarkMode ? "d-block" : "d-none"}`}>
           <i className="ri-moon-clear-line"></i>
@@ -317,7 +344,7 @@ function Header() {
           <i className="ri-sun-line"></i>
         </span>
       </Link>
-                    </div>
+                    </div> */}
 
                     {/* <Dropdown className=" d-flex shopping-cart">
                                             <Dropdown.Toggle as='a'  className="no-caret nav-link icon text-center">
@@ -687,6 +714,9 @@ function Header() {
                 onClick={() => SwitcherIcon()}
               >
                 <i className="fe fe-settings fa-spin text_primary"></i>
+              </div>
+              <div>
+                
               </div>
             </Navbar>
           </div>

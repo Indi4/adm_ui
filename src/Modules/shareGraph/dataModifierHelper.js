@@ -3,24 +3,33 @@ import { useEffect, useState } from "react";
 export const processChartData = (
   data,
   month,
-  nameKey = "name",
   planKey = "plan",
-  actualKey = "actual"
+  actualKey = "actual",
+  nameKey = "name"
 ) => {
+  if (!Array.isArray(data)) {
+    return []; 
+  }
+
   return data?.map((item) => {
-    const formattedDate = (item.date ?? item.Date) 
-    ? dayjs(item.date ?? item.Date).format("DD")
-    : "Invalid Date";
-    const targetValue = item.target ?? item.Target ?? 0;
-    const actualValue = item.actual ?? item.Actual ?? 0;
+    const formattedDate =
+      item?.date || item?.Date
+        ? dayjs(item.date || item.Date).format("DD")
+        : null;
+
+    const targetValue = item?.target ??item?.Target?? 0; 
+    const actualValue = item[actualKey] ?? 0; 
 
     return {
-      [nameKey]: month ? formattedDate :(item.month ?? item.Month) ?? "Please pass Month",
-      [planKey]:targetValue,
-      [actualKey]: actualValue
+      [nameKey]: month
+        ? formattedDate || "Invalid Date"
+        : item.month ?? item.Month ?? "Unknown Month",
+      [planKey]: targetValue,
+      [actualKey]: actualValue,
     };
   });
 };
+
 
 
 function formatNumber(num) {

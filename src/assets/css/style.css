@@ -38088,6 +38088,7 @@ a.text-dark:focus {
 body.dark-mode {
     color: var(--dark-color);
     background: var(--dark-body);
+    /* --text-color-light: #333333; */
 }
 
 .dark-mode #global-loader {
@@ -38592,7 +38593,7 @@ body.dark-mode .switcher-wrapper *::-webkit-scrollbar-track {
 }
 
 .dark-mode .app-sidebar__user .text-muted {
-    color: var(--dark-color2) !important;
+    color: var(--dark-color) !important;
 }
 
 .dark-mode .app-sidebar-help {
@@ -38612,7 +38613,7 @@ body.dark-mode .switcher-wrapper *::-webkit-scrollbar-track {
 }
 
 .dark-mode .buynow .dropdown-item {
-    color: var(--dark-color2);
+    color: var(--dark-color);
 }
 
 .dark-mode .buynow .dropdown-item:hover {

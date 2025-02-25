@@ -13,6 +13,8 @@ import Newsticker from './ticker/newsticker'
 import BacktoTop from './backtotop/backtotop'
 import store from '../store/index';
 import { Provider } from 'react-redux';
+import useOnlineStatus from '../Modules/shareGraph/useOnlineStatus'
+import NoInternetPage from '../Modules/shareGraph/NoInternetPage'
 
 const Togglefuction = () => {
   document.querySelector(".app")?.classList.remove("sidenav-toggled");
@@ -23,20 +25,21 @@ const Togglefuction = () => {
 }
 function App() {
   document.body.classList.remove('bg-account')
+  const {isOnline} = useOnlineStatus();
   return (
     <Fragment>
       {/* <Provider store={store}> */}
       <div className="horizontalMenucontainer" >
         <Switcher />
         <div className="page">
-          <div className="page-main">
+          <div className="page-main" style={{backgroundColor:"#2F598C"}}>
             <Header />
             {/* <Newsticker /> */}
             <Sidebar />
             <div className="main-content app-content" onClick={() => Togglefuction()}>
-              <div className="side-app">
+              <div className="side-app" >
                 <div className="main-container container-fluid">
-                  <Outlet />
+                {!isOnline ? <NoInternetPage /> : <Outlet />}
                 </div>
               </div>
             </div>
