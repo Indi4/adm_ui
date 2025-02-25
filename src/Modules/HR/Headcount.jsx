@@ -77,7 +77,7 @@ const Headcount = ({ month, data }) => {
     //     actual: monthlyActual[index]?.actual || 0,
     //   }));
     // }
-    // console.log(chartData)
+    console.log(chartData)
 
 
   return (

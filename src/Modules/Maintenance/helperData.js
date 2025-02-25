@@ -7,7 +7,8 @@ export const processChartData = (
   planKey = "plan",
   actualKey = "actual"
 ) => {
-  return data?.map((item) => {
+  return data.map((item) => {
+    console.log(item.date,item.Date,"item.date")
     const formattedDate = (item.date ?? item.Date) 
     ? dayjs(item.date ?? item.Date).format("DD")
     : "Invalid Date";
@@ -15,7 +16,7 @@ export const processChartData = (
     const actualValue = item.actual ?? item.Actual ?? 0;
 
     return {
-      [nameKey]: month ? formattedDate :(item.month ?? item.Month) ?? "Please pass Month",
+      [nameKey]: month ? formattedDate :(item.month ?? item.Month) ?? "Unknown Month",
       [planKey]:targetValue,
       [actualKey]: actualValue
     };
@@ -38,44 +39,41 @@ if (isNaN(num)) return 0;
     actualLabel = actualLabel || "Actual";
     
     // Normalize the keys to handle different capitalizations for 'target', 'Target', 'actual', 'Actual', etc.
-    const normalizedTargetKey = targetKey?.toLowerCase();
-    const normalizedActualKey = actualKey?.toLowerCase();
-     
+    const normalizedTargetKey = targetKey.toLowerCase();
+    const normalizedActualKey = actualKey.toLowerCase();
+    const normalizedMonthKey = "month";  // month is consistently the same for both formats
+  
     if (!Array.isArray(chartData)) {
       console.error("Invalid chartData provided:", chartData);
       return { donutData: [], overallTotal: 0, formattedOverallTotal: 0 };
     }
   
-    const totalTarget = chartData?.reduce(function (sum, curr) {
+    var totalTarget = chartData.reduce(function (sum, curr) {
       // Check both lowercase and Pascal case for target
-      return sum + (curr[normalizedTargetKey] != null ? curr[normalizedTargetKey] : curr[normalizedTargetKey.charAt(0)?.toUpperCase() + normalizedTargetKey?.slice(1)] != null ? curr[normalizedTargetKey?.charAt(0).toUpperCase() + normalizedTargetKey?.slice(1)] : 0);
+      return sum + (curr[normalizedTargetKey] != null ? curr[normalizedTargetKey] : curr[normalizedTargetKey.charAt(0).toUpperCase() + normalizedTargetKey.slice(1)] != null ? curr[normalizedTargetKey.charAt(0).toUpperCase() + normalizedTargetKey.slice(1)] : 0);
     }, 0);
   
-    const totalActual = chartData?.reduce(function (sum, curr) {
+    var totalActual = chartData.reduce(function (sum, curr) {
       // Check both lowercase and Pascal case for actual
-      return sum + (curr[normalizedActualKey] != null ? curr[normalizedActualKey] : curr[normalizedActualKey.charAt(0)?.toUpperCase() + normalizedActualKey?.slice(1)] != null ? curr[normalizedActualKey?.charAt(0).toUpperCase() + normalizedActualKey?.slice(1)] : 0);
+      return sum + (curr[normalizedActualKey] != null ? curr[normalizedActualKey] : curr[normalizedActualKey.charAt(0).toUpperCase() + normalizedActualKey.slice(1)] != null ? curr[normalizedActualKey.charAt(0).toUpperCase() + normalizedActualKey.slice(1)] : 0);
     }, 0);
   
-    const overallTotal = totalTarget + totalActual;
-    const formattedOverallTotal = formatNumber(overallTotal);
+    var overallTotal = totalTarget + totalActual;
+    var formattedOverallTotal = formatNumber(overallTotal);
   
-    const donutData = [
+    var donutData = [
       { name: planLabel, value: totalTarget },
       { name: actualLabel, value: totalActual },
     ];
-  const HorizontalData=[{
-    "name":`${formattedOverallTotal}`,
-    [planLabel]:totalTarget,
-    [actualLabel]:totalActual
-  }]
+  
     return {
       chartData: donutData,
-      OverallTotal: formattedOverallTotal,
-      HorizontalData:HorizontalData
+      OverallTotal: formattedOverallTotal
     };
   };
   
-export const useLoading=(data, delay = 2000)=> {
+
+  export const useLoading=(data, delay = 2000)=> {
     const [isLoading, setIsLoading] = useState(true);
         useEffect(() => {
       if (data) {
@@ -89,9 +87,4 @@ export const useLoading=(data, delay = 2000)=> {
     }, [data, delay]);
   
     return isLoading;
-  }
-
-  export const capitalizeFirstLetter=(str)=> {
-    if (str.length === 0) return str;  
-    return str.charAt(0)?.toUpperCase() + str?.slice(1);
   }
