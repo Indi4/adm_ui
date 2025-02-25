@@ -64,6 +64,7 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+    
       {
         title: "PPC",
         path: "/ppc",
@@ -72,6 +73,7 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+      
       {
         title: "Store & Purchase",
         path: "/store-purchase",
@@ -116,6 +118,23 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+//       {
+
+//         title: "Tool Room",
+//         path: "/toolRoom",
+//         type: "link",
+//         icon: <i className="fe fe-home"></i>, 
+//         active: false,
+//         selected: false,
+//       },
+      // {
+      //   title: "Finance",
+      //   path: "/finance",
+      //   type: "link",
+      //   icon: <AccountBalanceIcon/>, 
+      //   active: false,
+      //   selected: false,
+      // },
       {
         title: "Todo",
         path: "/todo",
@@ -124,6 +143,7 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+
      
     ],
   },
