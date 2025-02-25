@@ -10,23 +10,23 @@ import { LuListTodo } from "react-icons/lu";
 const MenuItems = [
   {
     Items: [
-      {
-        title: "Dashboard",
-        path: "/dashboard",
-        icon: <i class="bi bi-bar-chart-line-fill"></i>, 
-        type: "link",
-        active: false,
-        selected: false,
-      },
+      // {
+      //   title: "Dashboard",
+      //   path: "/dashboard",
+      //   icon: <i class="bi bi-bar-chart-line-fill"></i>, 
+      //   type: "link",
+      //   active: false,
+      //   selected: false,
+      // },
 
-      {
-        title: "Quick Action",
-        path: "/quickAction",
-        icon: <i class="bi bi-arrow-repeat"></i>, 
-        type: "link",
-        active: false,
-        selected: false,
-      },
+      // {
+      //   title: "Quick Action",
+      //   path: "/quickAction",
+      //   icon: <i class="bi bi-arrow-repeat"></i>, 
+      //   type: "link",
+      //   active: false,
+      //   selected: false,
+      // },
 
       // {
       //   title: "Purchase",
@@ -37,29 +37,15 @@ const MenuItems = [
       //   selected: false,
       // },
       {
-        title: "Upload",
-        path: "/upload",
-        icon: <i class="fa fa-upload" aria-hidden="true"></i>, 
-        type: "link",
-        active: false,
-        selected: false,
-      },
-      {
         title: "Safety",
         path: "/safety",
         type: "link",
-        icon: <HealthAndSafetyIcon/>,
+        icon: <HealthAndSafetyIcon/>
+        , 
         active: false,
         selected: false,
       },
-      {
-        title: "Production",
-        path: "/production",
-        type: "link",
-        icon: <i class="fa fa-product-hunt" aria-hidden="true"></i>, 
-        active: false,
-        selected: false,
-      },
+ 
       {
         title: "Quality",
         path: "/quality",
@@ -68,6 +54,17 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+ 
+
+      {
+        title: "Production",
+        path: "/production",
+        type: "link",
+        icon: <i class="fa fa-product-hunt" aria-hidden="true"></i>, 
+        active: false,
+        selected: false,
+      },
+    
       {
         title: "PPC",
         path: "/ppc",
@@ -93,7 +90,7 @@ const MenuItems = [
         active: false,
         selected: false,
       },
-      {
+       {
         title: "HR",
         path: "/hr",
         type: "link",
@@ -101,8 +98,8 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+     
       {
-
         title: "Tool Room",
         path: "/toolRoom",
         type: "link",
@@ -110,6 +107,26 @@ const MenuItems = [
         active: false,
         selected: false,
       },
+     
+  
+     
+      {
+        title: "Upload",
+        path: "/upload",
+        icon: <i class="fa fa-upload" aria-hidden="true"></i>, 
+        type: "link",
+        active: false,
+        selected: false,
+      },
+//       {
+
+//         title: "Tool Room",
+//         path: "/toolRoom",
+//         type: "link",
+//         icon: <i className="fe fe-home"></i>, 
+//         active: false,
+//         selected: false,
+//       },
       // {
       //   title: "Finance",
       //   path: "/finance",
