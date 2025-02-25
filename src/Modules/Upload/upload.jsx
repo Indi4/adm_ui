@@ -87,13 +87,13 @@ export default function Upload() {
               
               <Tab label="Upload Maintenance" value="4" sx={getTabStyles("4")} />
               <Tab label="Upload Production" value="5" sx={getTabStyles("5")} />
-              <Tab label="Upload Sales" value="6" sx={getTabStyles("6")} />
+              {/* <Tab label="Upload Sales" value="6" sx={getTabStyles("6")} /> */}
               <Tab label="Upload HR" value="7" sx={getTabStyles("7")} />
               <Tab label="Upload Toolroom" value="8" sx={getTabStyles("8")} />
               <Tab label="Upload Store and Purchase" value="9" sx={getTabStyles("9")} />
             </TabList>
           </Box>
-
+{/* done */}
           {/* Tab Panels */}
           <TabPanel value="1">
             <UploadModal label={label} />
