@@ -13,7 +13,7 @@ import QuickAction from "../Modules/QuickAction/quickAction";
 import PPC from "../Modules/PPC/HomeComponent";
 import Maintenance from "../Modules/Maintenance/HomeComponent";
 import TodoAddList from "../Modules/TodoAddList/TodoAddList";
-
+import Cost from "../Modules/cost/HomeComponent";
 /* MDM Routes */
 
 const Dashboard = React.lazy(() => import("../Modules/Dashboard/Dashboard"));
@@ -328,6 +328,10 @@ export const Routingdata = [
   {
     path: `${import.meta.env.BASE_URL}/toolRoom`,
     element: <ToolRoom />,
+  },
+  {
+    path: `${import.meta.env.BASE_URL}/cost`,
+    element: <Cost />,
   },
   {
     path: `${import.meta.env.BASE_URL}/todo`,

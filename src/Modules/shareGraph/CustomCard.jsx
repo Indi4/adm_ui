@@ -10,7 +10,9 @@ const CustomCard = ({
   style = { height: "100%" } 
 }) => {
   return (
-    <Card className={className} style={style}>
+    <Card 
+    className={className} style={style}
+    >
       <Card.Header className="border-bottom d-flex align-items-center justify-content-between ">
         {title&&<Card.Title className="mb-0" style={{ fontWeight: "bold", fontSize: "1.3rem", marginRight: "12px" }}>
           {title}
@@ -27,8 +29,8 @@ const CustomCard = ({
         )}
       </Card.Header>
 
-     {children&& <Card.Body className="p-1">
-        {children} {/* This allows dynamic content inside the card */}
+     {children&& <Card.Body className="p-0">
+        {children} 
       </Card.Body>}
     </Card>
   );

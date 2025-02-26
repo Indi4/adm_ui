@@ -38,7 +38,7 @@ const homeComponent = () => {
 
   return (
     <div
-      className="container-fluid p-4"
+      className="container-fluid p-2"
       style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}

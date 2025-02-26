@@ -250,7 +250,7 @@ const HomeComponent = () => {
 
   return (
     <div
-      className="container-fluid p-2"
+      className="container-fluid p-1"
       style={{ backgroundColor: "#2F598C" }}
     >
       {/* <Card
@@ -259,8 +259,8 @@ const HomeComponent = () => {
       > */}
         <Filter getData={getData} />
       {/* </Card> */}
-      <Row className="g-2">
-        <Col lg={6} md={6} sm={12} xl={6}>
+      <Row className="g-0">
+        <Col lg={6} md={6} sm={12} xl={6} className="p-1">
           <CustomCard
             title="PPM"
             tooltipMessage="Detailed information about this PPM"
@@ -274,7 +274,7 @@ const HomeComponent = () => {
 
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={6}>
+        <Col lg={6} md={6} sm={12} xl={6} className="p-1">
           <CustomCard
             title="Customer Complaints"
             tooltipMessage="Detailed information about this Customer Complaints"
@@ -288,7 +288,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={6} className="p-1">
           <CustomCard
             title="Supplier PPM"
             tooltipMessage="Detailed information about this Supplier PPM"
@@ -301,7 +301,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={6} className="p-1">
         <CustomCard
             title="Line Generation Complaints"
             tooltipMessage="Detailed information about this Line Generation Complaints"
@@ -315,7 +315,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={4}>
+        <Col lg={6} md={6} sm={12} xl={6} className="p-1">
             <CustomCard
             title="COPQ"
             tooltipMessage="Detailed information about this COPQ"
@@ -328,7 +328,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
 
-        <Col lg={6} md={6} sm={12} xl={6}>
+        <Col lg={6} md={6} sm={12} xl={6} className="p-1">
         <CustomCard
             title="Planned Rework"
             tooltipMessage="Detailed information about this Planned Rework"
@@ -343,7 +343,7 @@ const HomeComponent = () => {
         </Col>
 
 
-        <Col lg={6} md={6} sm={12} xl={6}>
+        <Col lg={12} md={12} sm={12} xl={12} className="p-1">
         <CustomCard
             title="Kaizen"
             tooltipMessage="Detailed information about this PM"
