@@ -327,10 +327,10 @@ const homeComponent = () => {
         </Col>
 
         <Col
-          lg={month ? 6 : 6}
+          lg={month ? 12 : 12}
           md={12}
           sm={12}
-          xl={month ? 6 : 6}
+          xl={month ? 12 : 12}
           data-aos="fade-up"
         >
             <CustomCard

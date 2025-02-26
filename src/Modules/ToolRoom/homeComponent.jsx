@@ -38,7 +38,7 @@ const homeComponent = () => {
 
   return (
     <div
-      className="container-fluid"
+      className="container-fluid p-4"
       style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
@@ -48,12 +48,13 @@ const homeComponent = () => {
       > */}
         <Filter getData={getData} />
       {/* </Card> */}
-      <Row className="row-sm">
+      {/* <Row className="row-sm"> */}
+      <Row className=" flex-row gap-2">
         <Col
-          lg={month ? 6 : 6}
+          lg={month ? 12 : 12}
           md={12}
           sm={12}
-          xl={month ? 6 : 6}
+          xl={month ? 12 : 12}
           data-aos="fade-up"
         >
            <CustomCard
@@ -81,10 +82,10 @@ const homeComponent = () => {
           </Card> */}
         </Col>
         <Col
-          lg={month ? 6 : 6}
+          lg={month ? 12: 12}
           md={12}
           sm={12}
-          xl={month ? 6 : 6}
+          xl={month ? 12: 12}
           data-aos="fade-up"
         >
            <CustomCard

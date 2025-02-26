@@ -47,7 +47,7 @@ function Authlogin({ setIsAuthenticate }) {
   useEffect(() => {
     if (currentUser) {
       toast.success("Login successful! Redirecting...", { autoClose: 2000 });
-      setTimeout(() => navigate("/dashboard"), 2000);
+      setTimeout(() => navigate("/safety"), 2000);
       // navigate('/dashboard')
     }
 

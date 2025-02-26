@@ -202,7 +202,7 @@ const homeComponent = () => {
 
   return (
     <div
-      className="container-fluid"
+      className="container-fluid p-2"
       style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
@@ -248,8 +248,8 @@ const homeComponent = () => {
 
         </div> */}
       {/* </Card> */}
-      <Row className="row-sm">
-        <Col lg={6} md={12} sm={12} xl={6} data-aos="fade-up">
+      <Row className="row-sm gap-4">
+        <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
         <CustomCard
             title="Headcount"
             tooltipMessage="Detailed information about this Headcount"
@@ -262,7 +262,7 @@ const homeComponent = () => {
           </CustomCard>
         </Col>
 
-        <Col lg={6} md={12} sm={12} xl={6} data-aos="fade-up">
+        <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
         <CustomCard
             title="MP Cost"
             tooltipMessage="Detailed information about this MP Cost"
