@@ -17,7 +17,7 @@ const PrivateRoute = ({ children, isPublic = false }) => {
   }
 
   if (isPublic && currentUser) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/safety" replace />;
   }
 
   return children;

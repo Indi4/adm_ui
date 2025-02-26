@@ -277,7 +277,7 @@ const homeComponent = () => {
 
   return (
     <div
-      className="container-fluid p-2"
+      className="container-fluid p-1"
       style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
@@ -287,13 +287,13 @@ const homeComponent = () => {
       > */}
         <Filter getData={getData} />
       {/* </Card> */}
-      <Row className="row-sm g-2">
+      <Row className="g-0">
         <Col
-          lg={month ? 6 : 6}
+          lg={6}
           md={12}
           sm={12}
-          xl={month ? 6 : 6}
-          data-aos="fade-up"
+          xl={6}
+       className="p-1"
         >
             <CustomCard
             title="GRN Report"
@@ -307,11 +307,11 @@ const homeComponent = () => {
           </CustomCard>
         </Col>
         <Col
-          lg={month ? 6 : 6}
+          lg={6}
           md={12}
           sm={12}
-          xl={month ? 6 : 6}
-          data-aos="fade-up"
+          xl={6}
+        className="p-1"
         >
             <CustomCard
             title="Store Inventory"
@@ -327,11 +327,11 @@ const homeComponent = () => {
         </Col>
 
         <Col
-          lg={month ? 12 : 12}
+          lg={ 12}
           md={12}
           sm={12}
-          xl={month ? 12 : 12}
-          data-aos="fade-up"
+          xl={12}
+        className="p-1"
         >
             <CustomCard
             title="Daily Purchase"
