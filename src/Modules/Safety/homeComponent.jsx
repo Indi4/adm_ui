@@ -172,7 +172,7 @@ const homeComponent = () => {
 
   return (
     <div
-      className="container-fluid"
+      className="container-fluid p-2"
       style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
@@ -182,13 +182,13 @@ const homeComponent = () => {
       > */}
         <Filter getData={getData} />
       {/* </Card> */}
-      <Row className="row-sm">
+      <Row className="row-sm gap-2">
         <Col
-          lg={6}
+          lg={12}
           // lg={month ? 6 : 6}
           md={12}
           sm={12}
-          xl={6}
+          xl={12}
           data-aos="fade-up"
           style={{ width: "100%" }}
         >
@@ -203,7 +203,7 @@ const homeComponent = () => {
             />
           </CustomCard>
         </Col>
-        <Col lg={6} md={12} sm={12} xl={6} data-aos="fade-up">
+        <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
         <CustomCard
             title="Minor"
             tooltipMessage="Detailed information about this Minor"

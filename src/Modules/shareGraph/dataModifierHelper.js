@@ -24,8 +24,8 @@ export const processChartData = (
       [nameKey]: month
         ? formattedDate || "Invalid Date"
         : item.month ?? item.Month ?? "Unknown Month",
-      [planKey]: targetValue,
-      [actualKey]: actualValue,
+      [planKey]: parseFloat(targetValue),
+      [actualKey]: parseFloat(actualValue),
     };
   });
 };
