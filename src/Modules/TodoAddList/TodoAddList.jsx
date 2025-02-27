@@ -5,8 +5,8 @@ import TodoList from '../../commonComponents/TodoList';
 const TodoAddList = () => {
     return (
         <div
-        className="container-fluid "
-        style={{ backgroundColor: "#2F598C"}}
+        className="container-fluid p-2"
+        // style={{ backgroundColor: "#2F598C"}}
       >
          <Row className="row-sm" style={{marginTop:"50px"}}> 
           <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
