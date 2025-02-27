@@ -196,10 +196,11 @@ const Filter = ({ getData }) => {
       id="yearSelect"
       value={year}
       onChange={(e) =>
-        handleYearInputChange(e, e.target.value, "", "year")
+        setYear(e.target.value)
+        // handleYearInputChange(e, e.target.value, "", "year")
       }
     >
-      <option value="">Select Year</option>
+      <option value={new Date().getFullYear()}>Select Year</option>
       {yearList?.map((item, index) => (
         <option key={index} value={item}>
           {item}
@@ -215,7 +216,8 @@ const Filter = ({ getData }) => {
       id="monthSelect"
       value={month}
       onChange={(e) =>
-        handleMonthInputChange(e, e.target.value, "", "month")
+        setMonth(e.target.value)
+        // handleMonthInputChange(e, e.target.value, "", "month")
       }
     >
       <option value="">Select Month</option>

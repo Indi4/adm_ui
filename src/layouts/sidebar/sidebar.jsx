@@ -63,22 +63,22 @@ export default function Sidebar({ menuType }) {
         <div className="app-sidebar">
           <PerfectScrollbar options={{ suppressScrollX: true }}>
             <div className="side-header">
-              <Link
+              {/* <Link
                 className="header-brand1"
                 to={`${import.meta.env.BASE_URL}`}
-              >
-                <img
+              > */}
+                {/* <img
                   src={ADM_logo}
                   className="header-brand-img main-logo"
                   alt="Kizuna logo"
-                />
+                /> */}
                 {/* <img
                   src={logolight}
                   className="header-brand-img darklogo"
                   alt="Kizuna logo"
                 /> */}
 
-                <img
+                {/* <img
                   src={ADM_logo}
                   className="header-brand-img icon-logo"
                   alt="Icon 2"
@@ -87,12 +87,12 @@ export default function Sidebar({ menuType }) {
                     marginTop: "43px",
                     marginBottom: "2px",
                   }}
-                />
+                /> */}
 
                 {/* <h2 className="header-brand" style={{color:"red", fontWeight:"bold", marginLeft: "0px",
                     marginTop: "43px",
                     marginBottom: "2px", fontSize:"1.8rem"}}>ADM</h2> */}
-              </Link>
+              {/* </Link> */}
             </div>
             <div className="main-sidemenu">
               <ul className="side-menu">
@@ -116,6 +116,7 @@ export default function Sidebar({ menuType }) {
                             toggleItem(idx);
                           }}
                           style={{
+                            // flexDirection:"column",
                             transition: "all 0.3s ease-in-out",
                             position: "relative",
                             background: item.selected ?"linear-gradient(166deg, #26B5DD 0%, #215E8A 40%, #215E8A 60%, #25A8D0 100%)"
