@@ -14,7 +14,7 @@ export default function Sidebar({ menuType }) {
   const location = useLocation();
   const [menuItems, setMenuItems] = useState(MenuItems);
   const [openItems, setOpenItems] = useState({});
-  const {isDarkMode} = useSelector((state)=> state.auth)
+  const { isDarkMode } = useSelector((state) => state.auth);
   function setActiveMenuItem(pathname) {
     setMenuItems((prevItems) => {
       return prevItems.map((mainLevel) => {
@@ -53,6 +53,9 @@ export default function Sidebar({ menuType }) {
 
     setOpenItems(newOpenItems);
   }
+  useEffect(() => {
+    setActiveMenuItem(location.pathname);
+  }, [location.pathname]);
 
   return (
     <Fragment>
@@ -124,6 +127,100 @@ export default function Sidebar({ menuType }) {
                             transform: item.selected
                               ? "translateY(-3px)"
                               : "translateY(0)",
+                            borderRadius: "8px",
+                            color: item.selected ? "white" : "black",
+                            border: "2px solid #2F598C",
+                            marginTop: "18px",
+                            paddingInlineEnd: item.selected ? "0px" : "10px",
+                            
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.transform =
+                              "translateY(-2px)";
+                            e.currentTarget.style.color = item.selected
+                              ? "white"
+                              : "inherit";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.transform = item.selected
+                              ? "translateY(-3px)"
+                              : "translateY(0)";
+                            e.currentTarget.style.color = item.selected
+                              ? "white"
+                              : "inherit";
+                          }}
+                        >
+                          <span
+                            style={{
+                              marginRight: "12px",
+                              color: "black",
+                              scale: "1.2",
+                            }}
+                          >
+                            {item.icon}
+                          </span>
+                          <span
+                            className="side-menu__label"
+                            style={{
+                              color:
+                                isDarkMode || item.selected ? "white" : "black",
+                              fontSize: "1.2rem",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {item.title}
+                          </span>
+
+                          {/* Larger Right Arrow for Active Item */}
+                          {item.selected && (
+                            <span
+                              style={{
+                                position: "absolute",
+                                right: "-15px", // Adjusted for better alignment
+                                top: "50%",
+                                transform: "translateY(-50%)",
+                                width: "0",
+                                height: "0",
+                                borderTop: "15px solid transparent",
+                                borderBottom: "15px solid transparent",
+                                borderLeft: "15px solid #2F598C", // Increased arrow size
+                              }}
+                            />
+                          )}
+
+                          {item.children && (
+                            <span style={{ marginLeft: "auto" }}>
+                              <small>{openItems[idx] ? "v" : ">"}</small>
+                            </span>
+                          )}
+                          {item.badgetxt && (
+                            <Badge bg={item.color} className={item.class}>
+                              {item.badgetxt}
+                            </Badge>
+                          )}
+                        </Link>
+
+                        {/* <Link
+                          to={item.path}
+                          className={`side-menu__item ${
+                            item.selected ? "active" : ""
+                          } parent`}
+                          onClick={() => {
+                            setActiveMenuItem(item.path);
+                            toggleItem(idx);
+                          }}
+                          style={{
+                            transition: "all 0.3s ease-in-out",
+                            position: "relative",
+                            background: item.selected
+                              ? "linear-gradient(145deg, #2F598C, #2F598C)"
+                              : "#DEE4EC",
+                            boxShadow: item.selected
+                              ? "4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.1)"
+                              : "none",
+                            transform: item.selected
+                              ? "translateY(-3px)"
+                              : "translateY(0)",
                             borderRadius: item.selected ? "8px" : "8px",
                             color: item.selected ? "white" : "black",
                             border:"2px solid #2F598C",
@@ -156,7 +253,7 @@ export default function Sidebar({ menuType }) {
                               {item.badgetxt}
                             </Badge>
                           )}
-                        </Link>
+                        </Link> */}
 
                         {item.children && openItems[idx] && (
                           <ul className="sub-menu">

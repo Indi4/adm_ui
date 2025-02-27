@@ -41,7 +41,7 @@ const LineGraph = ({
             <ResponsiveContainer width="100%" height={250}>
               <ComposedChart
                 data={data}
-                margin={{ top: 2, right: 2, left: 2, bottom: 0 }}
+                margin={{ top: 2, right: 2, left: 10, bottom: 0 }}
                 barGap={5} 
                 barCategoryGap={20}
               >
@@ -52,6 +52,16 @@ const LineGraph = ({
                 <YAxis 
                 style={{ fontWeight: "bold", fill: "#000" }} 
                 tickFormatter={(value) => convertValue(value)}
+                label={{
+                  value: "Cost in INR",
+                  angle: -90,
+                  position: "insideLeft",
+                  dy: 50, // Adjust vertical positioning
+                  dx: -10, // Adjust horizontal positioning
+                  fontSize: 14,
+                  fontWeight: "bold",
+                  fill: "#495057",
+                }}
                 />
                 <Tooltip />
                 <Legend />
