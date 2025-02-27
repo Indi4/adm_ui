@@ -43,7 +43,7 @@ const HomeComponent = () => {
     setMonth(selectedMonth);
   };
   return (
-    <div className="container-fluid p-1" style={{ backgroundColor: "#2F598C" }}>
+    <div className="container-fluid">
       <Filter getData={getData} />
       <Row className="g-0">
         {/* delivery performance */}

@@ -32,7 +32,7 @@ function App() {
       <div className="horizontalMenucontainer" >
         <Switcher />
         <div className="page">
-          <div className="page-main" style={{backgroundColor:"#2F598C"}}>
+          <div className="page-main" style={{background: "linear-gradient(145deg, #26B5DD, #215E8A)" }}>
             <Header />
             {/* <Newsticker /> */}
             <Sidebar />

@@ -250,8 +250,8 @@ const HomeComponent = () => {
 
   return (
     <div
-      className="container-fluid p-1"
-      style={{ backgroundColor: "#2F598C" }}
+      className="container-fluid p-2"
+      // style={{ backgroundColor: "#2F598C" }}
     >
       {/* <Card
         className="mb-3 p-3"

@@ -56,7 +56,7 @@ const HomeComponent = () => {
   };
 
   return (
-    <div className="container-fluid p-1" style={{ backgroundColor: "#2F598C" }}>
+    <div className="container-fluid">
       <Filter getData={getData} />
       {/* Row with three columns/cards */}
       <Row className="g-0">
