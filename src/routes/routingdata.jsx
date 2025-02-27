@@ -334,7 +334,7 @@ export const Routingdata = [
     element: <Cost />,
   },
   {
-    path: `${import.meta.env.BASE_URL}/todo`,
+    path: `${import.meta.env.BASE_URL}/mom`,
     element: <TodoAddList />,
   },
   {
