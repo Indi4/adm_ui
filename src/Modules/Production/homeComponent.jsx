@@ -40,7 +40,7 @@ const HomeComponent = () => {
   return (
     <div
       className="container-fluid p-2"
-      style={{ backgroundColor: "#2F598C" }}
+      // style={{ backgroundColor: "#2F598C" }}
     >
         <Filter getData={getData} />
       {/* Row with three columns/cards */}

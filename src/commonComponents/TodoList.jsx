@@ -46,7 +46,7 @@ export default function TodoList({ type }) {
     person_responsible: "",
     activity_date: "",
     completion_date: "",
-    status: "",
+    status: "pending",
     department: "",
   });
 
@@ -431,20 +431,21 @@ export default function TodoList({ type }) {
           </Row>
           <Row className="mb-3">
             <Col>
-              <Autocomplete
+              {/* <Autocomplete
                 options={statuses}
-                value={formData.status}
-                onChange={(event, newValue) => handleChange({ target: { name: "status", value: newValue } })}
-                renderInput={(params) => (
+                // onChange={(event, newValue) => handleChange({ target: { name: "status", value: newValue } })}
+                renderInput={(params) => ( */}
                   <TextField
-                    {...params}
-                    label="Status"
+                  // {...params}
+                  label="Status"
+                  value={formData.status}
                     fullWidth
+                    disabled
                     error={!!formErrors.status}
                     helperText={formErrors.status}
                   />
-                )}
-              />
+                {/* )}
+              /> */}
             </Col>
           </Row>
           </Container>

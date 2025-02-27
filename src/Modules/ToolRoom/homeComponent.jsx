@@ -39,7 +39,7 @@ const homeComponent = () => {
   return (
     <div
       className="container-fluid p-4"
-      style={{ backgroundColor: "#2F598C" }}
+      // style={{ backgroundColor: "#2F598C" }}
     >
       {/* <ToastContainer /> */}
       {/* <Card

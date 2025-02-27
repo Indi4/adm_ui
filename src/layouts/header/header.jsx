@@ -203,6 +203,11 @@ function Header() {
               onClick={() => SideMenuIcon()}
               to="#"
             ></Link>
+<div className="d-none d-lg-flex country " style={{alignItems:"center", justifyContent:"center", }}>
+            <h2 className="header-brand-img main-logo" style={{marginLeft:"60px", fontWeight:"bold", color:"black", display:"flex", justifyContent:"center", alignItems:"center", paddingTop:"20px"}}>
+            DWM- Daily Workforce Management
+            </h2>
+</div>
 
             <Link
               className="logo-horizontal"
