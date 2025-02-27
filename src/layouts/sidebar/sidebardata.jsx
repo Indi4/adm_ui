@@ -6,6 +6,8 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import PPCIcon from '@mui/icons-material/Event'
 import Maintenance from "../../assets/images/pngs/13.png"
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { LuListTodo } from "react-icons/lu";
 const MenuItems = [
   {
@@ -103,7 +105,9 @@ const MenuItems = [
         title: "Cost",
         path: "/cost",
         type: "link",
-        icon: <i className="fe fe-home"></i>, 
+        icon: <CurrencyRupeeIcon/>,
+        //  <AttachMoneyIcon />,
+        // icon: <i className="fe fe-home"></i>, 
         active: false,
         selected: false,
       },
