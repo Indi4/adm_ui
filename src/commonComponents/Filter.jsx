@@ -132,7 +132,6 @@ const Filter = ({ getData }) => {
   const [month, setMonth] = useState("");
   const [show, setShow] = useState(false);
   const { isDarkMode } = useSelector((state) => state.auth);
-  console.log(isDarkMode);
 
   // useEffect(() => {
   //   const darkMode = localStorage.getItem("darkMode"); // Ensuring it's a boolean

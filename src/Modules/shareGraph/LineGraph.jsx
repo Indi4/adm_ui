@@ -24,7 +24,6 @@ const LineGraph = ({
   xAxisColorStock = "#000"
 }) => {
   const isLoading = useLoading(data);
-  console.log(data,">>>test");
   return (
     <Container>
       {isLoading ? (

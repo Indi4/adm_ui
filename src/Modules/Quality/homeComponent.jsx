@@ -221,7 +221,6 @@ const HomeComponent = () => {
   const [month, setMonth] = useState("");
   const dispatch = useDispatch();
   const { CustomerPPM,CustomerComplaints,Kaizen,COPQ,SupplierPPM,LineGenerationComplaints,PlannedRework} = useSelector((state) => state.quality.qualityData);
-  console.log(LineGenerationComplaints)
 
   useEffect(() => {
     if (month) {

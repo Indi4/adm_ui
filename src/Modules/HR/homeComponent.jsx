@@ -181,7 +181,6 @@ const homeComponent = () => {
     (state) => state.quality.HRGraphsData.mpcost
   );
 
-  console.log(headcount,mpcost)
 
   useEffect(() => {
     if (month) {
@@ -256,9 +255,9 @@ const homeComponent = () => {
             tooltipMessage="Detailed information about this Headcount"
           >
             <LineGraph
-              data={processChartData(headcount, month, "target", "actual")}
-              xAxisKey="target"
-              yAxisKey="actual"
+              data={processChartData(headcount, month, "direct_target_sum", "direct_actual_sum")}
+              xAxisKey="direct_target_sum"
+              yAxisKey="direct_actual_sum"
             />
           </CustomCard>
         </Col>
@@ -269,9 +268,9 @@ const homeComponent = () => {
             tooltipMessage="Detailed information about this MP Cost"
           >
             <LineGraph
-              data={processChartData(mpcost, month, "target", "actual")}
-              xAxisKey="target"
-              yAxisKey="actual"
+              data={processChartData(mpcost, month, "direct_target_sum", "direct_actual_sum")}
+              xAxisKey="direct_target_sum"
+              yAxisKey="direct_actual_sum"
               yAxisColor="#FF8632"
             />
           </CustomCard>
