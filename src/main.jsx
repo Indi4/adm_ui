@@ -56,7 +56,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               </PrivateRoute>
               } 
               >
-              {Routingdata.map((route) => (
+              {Routingdata?.map((route) => (
                 <Route path={route.path} element={route.element} key={route.path} />
               ))}
             </Route>
