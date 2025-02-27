@@ -45,9 +45,9 @@ const HomeComponent = () => {
   return (
     <div className="container-fluid">
       <Filter getData={getData} />
-      <Row className="g-2">
+      <Row className="g-0">
         {/* delivery performance */}
-        <Col xl={4} lg={4} md={6} sm={12}>
+          <Col xl={6} lg={6} md={6} sm={12} className="p-1">
           <CustomCard
             title="Delivery Performance DOM (Sale Qyt)"
             tooltipMessage="Delivery Performance DOM (Sale Qyt)"
@@ -66,7 +66,8 @@ const HomeComponent = () => {
         </Col>
 
         {/* EXp Performance */}
-        <Col xl={4} lg={4} md={6} sm={12}>
+           <Col xl={6} lg={6} md={6} sm={12} className="p-1">
+           
           <CustomCard
             title="Exp Performance DOM (Sale Qyt)"
             tooltipMessage="Exp Performance DOM (Sale Qyt)"
@@ -85,7 +86,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
         {/* overall performance */}
-        <Col xl={4} lg={4} md={6} sm={12}>
+        <Col xl={6} lg={6} md={6} sm={12} className="p-1">
           <CustomCard
             title="OverAll Performance"
             tooltipMessage="OverAll Performance"
@@ -103,7 +104,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
         {/* InviceReports */}
-        <Col xl={6} lg={6} md={6} sm={12}>
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
           <CustomCard
             title="Invoice Reports"
             tooltipMessage="Detailed information about this  Bending OEE"
@@ -118,7 +119,7 @@ const HomeComponent = () => {
         </Col>
 
         {/* No Of Trips */}
-        <Col xl={6} lg={6} md={6} sm={12}>
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
           <CustomCard title=" No of Trips" tooltipMessage=" No of Trips">
             <LineGraph
               data={processChartData(
@@ -134,7 +135,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
         {/* Domestic Freight */}
-        <Col xl={4} lg={4} md={6} sm={12}>
+      {/* <Col lg={6} md={6} sm={12} xl={6}>
           <CustomCard
             title=" Domestic Freight"
             tooltipMessage="Domestic Freight"
@@ -150,9 +151,9 @@ const HomeComponent = () => {
               yAxisKey="actual"
             />
           </CustomCard>
-        </Col>
+        </Col> */}
         {/* Domestic Sale */}
-        <Col xl={4} lg={4} md={6} sm={12}>
+          <Col xl={6} lg={6} md={6} sm={12} className="p-1">
           <CustomCard
             title=" Domestic Sale (in lakh)"
             tooltipMessage="Detailed iDomesticSaleInLakh"
@@ -171,7 +172,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
         {/* Export Sale */}
-        <Col xl={4} lg={4} md={6} sm={12}>
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
           <CustomCard
             title="Export Sale"
             tooltipMessage="Detailed  Export Sale"
@@ -189,7 +190,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
         {/*  Total Sale */}
-        <Col xl={6} lg={6} md={6} sm={12}>
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
           <CustomCard
             title=" Total Sale (in lakh)"
             tooltipMessage="D Total Sale (in lakh)"
@@ -203,7 +204,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
         {/* Grn Report */}
-        <Col xl={6} lg={6} md={6} sm={12}>
+          <Col xl={12} lg={12} md={12} sm={12} className="p-1">
           <CustomCard title=" GRN Reports" tooltipMessage="Detailed GRNReport">
             <LineGraph
               data={processChartData(GRNReport, month, "target", "actual")}

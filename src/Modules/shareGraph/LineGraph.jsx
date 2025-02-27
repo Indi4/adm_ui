@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import Loader from "../../commonComponents/Loader";
 import DataNotFound from "../PPC/DataNotFound";
-import { capitalizeFirstLetter, useLoading } from "./dataModifierHelper";
+import { capitalizeFirstLetter, convertValue, useLoading } from "./dataModifierHelper";
 
 const LineGraph = ({ 
   data, 
@@ -35,19 +35,23 @@ const LineGraph = ({
           <Loader />
         </div>
       ) : (
-        <Card style={{ border: "none" }}>
+        // <Card style={{ border: "none" ,width: "100%"}}>
+        <>
           {data?.length > 0 ? (
             <ResponsiveContainer width="100%" height={250}>
               <ComposedChart
                 data={data}
-                margin={{ top: 20, right: 30, left: 15, bottom: 0 }}
+                margin={{ top: 2, right: 2, left: 2, bottom: 0 }}
                 barGap={5} 
                 barCategoryGap={20}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={xAxisDataKey} stroke={xAxisColorStock} />
+                <XAxis dataKey={xAxisDataKey} stroke={xAxisColorStock} 
+                
+                />
                 <YAxis 
                 style={{ fontWeight: "bold", fill: "#000" }} 
+                tickFormatter={(value) => convertValue(value)}
                 />
                 <Tooltip />
                 <Legend />
@@ -70,7 +74,8 @@ const LineGraph = ({
           ) : (
             <DataNotFound />
           )}
-        </Card>
+          </>
+        // </Card>
       )}
     </Container>
   );

@@ -100,8 +100,8 @@ const MenuItems = [
       },
      
       {
-        title: "Tool Room",
-        path: "/toolRoom",
+        title: "Cost",
+        path: "/cost",
         type: "link",
         icon: <i className="fe fe-home"></i>, 
         active: false,

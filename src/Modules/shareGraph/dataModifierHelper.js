@@ -104,3 +104,24 @@ export const useLoading=(data, delay = 2000)=> {
     if (str.length === 0) return str;  
     return str.charAt(0)?.toUpperCase() + str?.slice(1);
   }
+
+  export const convertValue = (value) => {
+    if (typeof value !== "number" || isNaN(value)) {
+      return "Invalid Input"; // Handle non-numeric values
+    }
+  
+    if (value < 0) {
+      return "-" + convertValue(Math.abs(value)); // Handle negative values
+    }
+  
+    if (value >= 10000000) {
+      return (value / 10000000).toFixed(1).replace(/\.0$/, "") + " Cr"; // Convert to Crores (Cr)
+    } else if (value >= 100000) {
+      return (value / 100000).toFixed(1).replace(/\.0$/, "") + " L"; // Convert to Lakhs (L)
+    } else if (value >= 1000) {
+      return (value / 1000).toFixed(1).replace(/\.0$/, "") + " K"; // Convert to Thousands (K)
+    }
+  
+    return value.toString(); // Return the number as a string for consistency
+  };
+  

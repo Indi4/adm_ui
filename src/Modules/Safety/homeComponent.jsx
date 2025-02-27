@@ -182,15 +182,14 @@ const homeComponent = () => {
       > */}
         <Filter getData={getData} />
       {/* </Card> */}
-      <Row className="row-sm gap-2">
+      <Row className="gap-0">
         <Col
           lg={12}
           // lg={month ? 6 : 6}
           md={12}
           sm={12}
           xl={12}
-          data-aos="fade-up"
-          style={{ width: "100%" }}
+          className="p-1"
         >
             <CustomCard
             title="Major"
@@ -203,7 +202,7 @@ const homeComponent = () => {
             />
           </CustomCard>
         </Col>
-        <Col lg={12} md={12} sm={12} xl={12} data-aos="fade-up">
+        <Col lg={12} md={12} sm={12} xl={12} className="p-1">
         <CustomCard
             title="Minor"
             tooltipMessage="Detailed information about this Minor"

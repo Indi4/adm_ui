@@ -44,9 +44,9 @@ const HomeComponent = () => {
     >
         <Filter getData={getData} />
       {/* Row with three columns/cards */}
-      <Row className="g-2">
+      <Row className="g-0">
         {/* AHF Production Card */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title="AHF Production"
             tooltipMessage="Detailed AHF Production"
@@ -61,7 +61,7 @@ const HomeComponent = () => {
         </Col>
 
         {/* Bending Production Card */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title="Bending Production"
             tooltipMessage="Detailed  Bending Production"
@@ -76,7 +76,7 @@ const HomeComponent = () => {
          
         </Col>
         {/* AssemblyProduction  Card */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title="Assembly Production plan"
             tooltipMessage="Detailed Assembly Production plan (quality clear)"
@@ -90,7 +90,7 @@ const HomeComponent = () => {
         
         </Col>
         {/* AHFOEE Card */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title="AHF OEE"
             tooltipMessage="Detailed information about this AHF OEE"
@@ -105,7 +105,7 @@ const HomeComponent = () => {
         </Col>
 
         {/* Bending OEE Production Card */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title=" Bending OEE"
             tooltipMessage="Detailed information about this  Bending OEE"
@@ -120,7 +120,7 @@ const HomeComponent = () => {
          
         </Col>
         {/* Furnace OEE */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title="Furnace OEE"
             tooltipMessage="Detailed information about this Furnace OEE"
@@ -134,7 +134,7 @@ const HomeComponent = () => {
          
         </Col>
         {/* MTD productivity */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title="MTD Productivity"
             tooltipMessage="Detailed information about this MTD Productivity"
@@ -148,7 +148,7 @@ const HomeComponent = () => {
           </CustomCard>
         </Col>
         {/*  production consumable */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         {/* <Col xl={6} lg={6} md={6} sm={12}>
         <CustomCard
             title="Production Consumables"
             tooltipMessage="Detailed information about this Production Consumables"
@@ -160,9 +160,9 @@ const HomeComponent = () => {
             />
           </CustomCard>
         
-        </Col>
+        </Col> */}
         {/*  JOb WOrker */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         {/* <Col xl={6} lg={6} md={6} sm={12}>
         <CustomCard
             title="Job Work"
             tooltipMessage="Detailed information about this Job Work"
@@ -175,9 +175,9 @@ const HomeComponent = () => {
             />
           </CustomCard>
          
-        </Col>
+        </Col> */}
         {/*  Packaging consumbles */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         {/* <Col xl={6} lg={6} md={6} sm={12}>
         <CustomCard
             title=" Packaging Consumbles"
             tooltipMessage="Detailed information about this  Packaging Consumbles"
@@ -188,9 +188,9 @@ const HomeComponent = () => {
               yAxisKey="actual"
             />
           </CustomCard>
-        </Col>
+        </Col> */}
         {/*  furnace consumbles */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         {/* <Col xl={6} lg={6} md={6} sm={12}>
         <CustomCard
             title=" Furnace Consumbles"
             tooltipMessage="Detailed information about this  Furnace Consumbles"
@@ -203,9 +203,9 @@ const HomeComponent = () => {
             />
           </CustomCard>
         
-        </Col>
+        </Col> */}
         {/*  4KWIP +OS */}
-        <Col xl={4} lg={4} md={6} sm={12} data-aos="fade-up">
+         <Col xl={6} lg={6} md={6} sm={12} className="p-1">
         <CustomCard
             title="4K WIP+OS"
             tooltipMessage="Detailed information about this 4K WIP+OS"
