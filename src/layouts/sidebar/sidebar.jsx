@@ -118,9 +118,8 @@ export default function Sidebar({ menuType }) {
                           style={{
                             transition: "all 0.3s ease-in-out",
                             position: "relative",
-                            background: item.selected
-                              ? "linear-gradient(145deg, #2F598C, #2F598C)"
-                              : "#DEE4EC",
+                            background: item.selected ?"linear-gradient(166deg, #26B5DD 0%, #215E8A 40%, #215E8A 60%, #25A8D0 100%)"
+                              : "#E4EDF8BF",
                             boxShadow: item.selected
                               ? "4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.1)"
                               : "none",

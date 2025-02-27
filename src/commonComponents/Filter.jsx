@@ -167,30 +167,30 @@ const Filter = ({ getData }) => {
     <>
       <div className="row mb-4 d-flex justify-content-end">
   {/* ALL Years Button */}
-  <div className="col-md-1 p-1">
-  <button
-  className="btn btn-light w-100"
-  style={{
-    background: "white",
-    color: "black", // Default text color
-    transition: "all 0.3s ease-in-out",
-  }}
-  onMouseEnter={(e) => {
-    e.target.style.background = "linear-gradient(to bottom right, #26B5DD, #215E8A)";
-    e.target.style.color = "white"; // Text color on hover
-  }}
-  onMouseLeave={(e) => {
-    e.target.style.background = "white";
-    e.target.style.color = "black"; // Reset text color
-  }}
->
-  ALL Years
-</button>
-
+  <div className="col-lg-2 col-xl-1 col-md-2 col-4 p-1">
+    <button
+      className="btn btn-light w-100"
+      style={{
+        background: "white",
+        color: "black",
+        transition: "all 0.3s ease-in-out",
+      }}
+      onMouseEnter={(e) => {
+        e.target.style.background =
+          "linear-gradient(to bottom right, #26B5DD, #215E8A)";
+        e.target.style.color = "white";
+      }}
+      onMouseLeave={(e) => {
+        e.target.style.background = "white";
+        e.target.style.color = "black";
+      }}
+    >
+      ALL Years
+    </button>
   </div>
 
   {/* Year Dropdown */}
-  <div className="col-md-1 p-0 ms-2">
+  <div className="col-lg-2 col-xl-1 col-md-2 col-4 p-1">
     <select
       className="form-select"
       id="yearSelect"
@@ -209,7 +209,7 @@ const Filter = ({ getData }) => {
   </div>
 
   {/* Month Dropdown */}
-  <div className="col-md-1 p-0 ms-2">
+  <div className="col-lg-2 col-xl-1 col-md-2 col-4 p-1">
     <select
       className="form-select"
       id="monthSelect"
